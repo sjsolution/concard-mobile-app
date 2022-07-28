@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.75" height="16.5" viewBox="0 0 24.75 16.5">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#9b5feb"/>
+      <stop offset="0.324" stop-color="#6941bf"/>
+      <stop offset="0.499" stop-color="#5435ad"/>
+      <stop offset="0.626" stop-color="#462ca1"/>
+      <stop offset="0.845" stop-color="#332191"/>
+      <stop offset="1" stop-color="#2d1e8c"/>
+    </linearGradient>
+  </defs>
+  <path id="Icon_material-sort" data-name="Icon material-sort" d="M4.5,25.5h8.25V22.75H4.5ZM4.5,9v2.75H29.25V9Zm0,9.625H21v-2.75H4.5Z" transform="translate(-4.5 -9)" fill="url(#linear-gradient)"/>
+</svg>

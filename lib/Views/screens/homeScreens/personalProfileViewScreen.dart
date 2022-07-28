@@ -1,0 +1,2247 @@
+import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
+import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
+import 'package:concard/Views/screens/homeScreens/individualPremium/individualPremiumScreen.dart';
+import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
+import 'package:concard/Views/screens/homeScreens/socialLinksScreen.dart';
+import 'package:concard/Views/screens/homeScreens/upgradePremiumIndividual/updgratToPremiumIndividual.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+
+import '../../../Constants/colors.dart';
+import '../../../Constants/images.dart';
+import 'calenderScreen.dart';
+
+class PersonalProfileViewScreen extends StatefulWidget {
+  const PersonalProfileViewScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PersonalProfileViewScreen> createState() =>
+      _PersonalProfileViewScreenState();
+}
+
+bool? isShareProfile = false;
+
+class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: size.height * 0.25,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topCenter,
+                    colors: [signupclor_light, signupclor_dark]),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: size.width * 0.04,
+                        right: size.width * 0.04,
+                        top: size.height * 0.06),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(
+                          more_icon,
+                          height: 15,
+                        ),
+                        Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(drwrmyacunt_icon),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          notify_icon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.005,
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => IndividualPremiumScreen()));
+                        },
+                        child: Container(
+                          height: size.height * 0.04,
+                          width: size.width * 0.3,
+                          decoration: BoxDecoration(
+                              color: bckgrnd.withOpacity(0.1),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10))),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: size.width * 0.04,
+                              right: size.width * 0.01,
+                            ),
+                            child: Row(children: [
+                              Image.asset(
+                                premium_icon,
+                                height: size.height * 0.04,
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              Text(
+                                'Premium',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    fontFamily: "MBold",
+                                    color: bckgrnd),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.1,
+                      ),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'John Smith',
+                                style: TextStyle(
+                                    fontFamily: 'MBold',
+                                    fontSize: size.height * 0.02,
+                                    color: bckgrnd),
+                              ),
+                              Text(
+                                'Lorem ipsum',
+                                style: TextStyle(
+                                    fontFamily: 'Stf',
+                                    fontSize: size.height * 0.017,
+                                    color: bckgrnd),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                bottom: size.height * 0.1),
+                                            child: Dialog(
+                                              alignment: AlignmentDirectional
+                                                  .bottomCenter,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0)),
+                                              //this right here
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: btnclr,
+                                                ),
+                                                height: size.height * 0.25,
+                                                width: size.width * 0.9,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: size.width * 0.04,
+                                                      right: size.width * 0.04,
+                                                      top: size.height * 0.02),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Container(
+                                                                width:
+                                                                    size.width *
+                                                                        0.1),
+                                                            SvgPicture.asset(
+                                                              con_icon,
+                                                              height:
+                                                                  size.height *
+                                                                      0.04,
+                                                            ),
+                                                            // Spacer(),
+                                                            GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.close,
+                                                                  size: 20,
+                                                                ))
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.02,
+                                                      ),
+                                                      Text(
+                                                        'Promote your Concard',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.015,
+                                                          fontFamily: "MBold",
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.02,
+                                                      ),
+                                                      Text(
+                                                        'Make your card visible when people search on',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.015,
+                                                          fontFamily: "Stf",
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Concard or Google',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.015,
+                                                          fontFamily: "Stf",
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            size.height * 0.02,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                          height: size.height *
+                                                              0.05,
+                                                          width:
+                                                              size.width * 0.5,
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color:
+                                                                      signupclor_dark),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                              color: btnclr),
+                                                          child: Center(
+                                                              child: Text(
+                                                            'Go to Settings',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.018,
+                                                                fontFamily:
+                                                                    "MBOld",
+                                                                color:
+                                                                    signupclor_dark),
+                                                          )),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ));
+                                },
+                                child: Container(
+                                  height: size.height * 0.025,
+                                  width: size.width * 0.18,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: bckgrnd),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Promote',
+                                      style: TextStyle(
+                                          fontFamily: "Stf",
+                                          fontSize: size.height * 0.015,
+                                          color: bckgrnd),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: size.width * 0.01,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: size.height * 0.1),
+                                        child: Dialog(
+                                          alignment:
+                                              AlignmentDirectional.bottomCenter,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: btnclr,
+                                            ),
+                                            height: size.height * 0.25,
+                                            width: size.width * 0.9,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * 0.04,
+                                                  right: size.width * 0.04,
+                                                  top: size.height * 0.02),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                            width: size.width *
+                                                                0.1),
+                                                        Image.asset(
+                                                          secureguard,
+                                                          color: infocolor,
+                                                        ),
+                                                        // Spacer(),
+                                                        GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              size: 20,
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.02,
+                                                  ),
+                                                  Text(
+                                                    'Not Verified',
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.015,
+                                                      fontFamily: "MBold",
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.02,
+                                                  ),
+                                                  Text(
+                                                    'This might discourage clients from contacting you.',
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.014,
+                                                      fontFamily: "Stf",
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.02,
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                     _requirementsModalBottomSheet(context);
+                                                    },
+                                                    child: Container(
+                                                      height:
+                                                          size.height * 0.04,
+                                                      width: size.width * 0.5,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  signupclor_dark),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          color: btnclr),
+                                                      child: Center(
+                                                          child: Text(
+                                                        'Check Requirements',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                size.height *
+                                                                    0.018,
+                                                            fontFamily: "MBOld",
+                                                            color:
+                                                                signupclor_dark),
+                                                      )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ));
+                            },
+                            child: Image.asset(
+                              safesheld_icon,
+                              color: infocolor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: size.height * 0.23),
+              // height: size.height*0.8,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  )),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: size.height * 0.02,
+                        left: size.width * 0.1,
+                        right: size.width * 0.14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              _switchaccountModalBottomSheet(context);
+                            },
+                            child: Image.asset(
+                              switch_icon,
+                              height: size.height * 0.03,
+                            )),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(right: size.width * 0.03),
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              CalenderScreen()));
+                                },
+                                child: Image.asset(
+                                  planner_icon,
+                                  height: size.height * 0.03,
+                                ))),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        SvgPicture.asset(
+                          stylearrw_icon,
+                          height: size.height * 0.03,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: size.height * 0.3),
+              // height: size.height*0.8,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: btnclr,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  )),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * 0.04, right: size.width * 0.04),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.015,
+                    ),
+                    Container(
+                      height: size.height * 0.3,
+                      width: size.width,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.015,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: size.width * 0.04,
+                                  right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    ' My Card',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.018,
+                                        fontFamily: 'MBold'),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  EditMyCardScreen()));
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Edit Card',
+                                          style: TextStyle(
+                                              fontSize: size.height * 0.015,
+                                              fontFamily: 'Msemibold'),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.03,
+                                        ),
+                                        Image.asset(
+                                          edit_icon,
+                                          color: cgreen,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height * 0.025,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Dialog errorDialog = Dialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  //this right here
+                                  child: Container(
+                                    height: size.height * 0.5,
+                                    width: size.width,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: size.width * 0.04,
+                                          right: size.width * 0.04,
+                                          top: size.height * 0.02),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Card Info',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        size.height * 0.018,
+                                                    fontFamily: 'MBold'),
+                                              ),
+                                              // SizedBox(width: 70,),
+                                              // Spacer(),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    size: 20,
+                                                  ))
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: size.height * 0.04,
+                                          ),
+                                          PrettyQr(
+                                            image: AssetImage(concard_icon),
+                                            typeNumber: 4,
+                                            size: size.height*0.1,
+                                            data: 'https://www.google.ru',
+                                            errorCorrectLevel:
+                                                QrErrorCorrectLevel.M,
+                                            roundEdges: true,
+                                            elementColor: signupclor_dark,
+                                          ),
+                                        
+                                          SizedBox(height: size.height * 0.06),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(internet_icon),
+                                              SizedBox(
+                                                width: size.width * 0.02,
+                                              ),
+                                              Text(
+                                                'www.company.com',
+                                                style: TextStyle(
+                                                    fontFamily: "Msemibold",
+                                                    fontSize:
+                                                        size.height * 0.013),
+                                              ),
+                                              Spacer(),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    height: size.height * 0.035,
+                                                    width: size.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        color: bckgrnd,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30)),
+                                                    child: Text(
+                                                      'Visit',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              "Msemibold",
+                                                          color:
+                                                              signupclor_dark,
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.013),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: size.height * 0.02),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(location_icon),
+                                              SizedBox(
+                                                width: size.width * 0.02,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Office 23, Floor 23, building 2, St 7,',
+                                                    style: TextStyle(
+                                                        fontFamily: "Msemibold",
+                                                        fontSize: size.height *
+                                                            0.011),
+                                                  ),
+                                                  Text(
+                                                    'Al salama, Jeddah, Saudia Arabia ',
+                                                    style: TextStyle(
+                                                        fontFamily: "Msemibold",
+                                                        fontSize: size.height *
+                                                            0.011),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    height: size.height * 0.035,
+                                                    width: size.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        color: bckgrnd,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30)),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 10,
+                                                              left: 5),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Image.asset(
+                                                            maparrw_icon,
+                                                            height:
+                                                                size.height *
+                                                                    0.015,
+                                                          ),
+                                                          Text(
+                                                            'Locate',
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "Msemibold",
+                                                                color:
+                                                                    signupclor_dark,
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.013),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: size.height * 0.02),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(usermail_icon),
+                                              SizedBox(
+                                                width: size.width * 0.02,
+                                              ),
+                                              Text(
+                                                'User.123@company.com',
+                                                style: TextStyle(
+                                                    fontFamily: "Msemibold",
+                                                    fontSize:
+                                                        size.height * 0.013),
+                                              ),
+                                              Spacer(),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    height: size.height * 0.035,
+                                                    width: size.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        color: bckgrnd,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30)),
+                                                    child: Text(
+                                                      'Contact',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              "Msemibold",
+                                                          color:
+                                                              signupclor_dark,
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.018),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: size.height * 0.02),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(phonecall_icon),
+                                              SizedBox(
+                                                width: size.width * 0.02,
+                                              ),
+                                              Text(
+                                                '+966 55 889 0098',
+                                                style: TextStyle(
+                                                    fontFamily: "Stf",
+                                                    fontSize:
+                                                        size.height * 0.018),
+                                              ),
+                                              Spacer(),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    height: size.height * 0.035,
+                                                    width: size.width * 0.2,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        color: bckgrnd,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30)),
+                                                    child: Text(
+                                                      'Call',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              "Msemibold",
+                                                          color:
+                                                              signupclor_dark,
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.018),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        errorDialog);
+                              },
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                    mycard_icon,
+                                    height: size.height * 0.2,
+                                    width: size.width * 0.85,
+                                    fit: BoxFit.cover,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            _comprofileModalBottomSheet(context);
+                          },
+                          child: Container(
+                            height: size.height * 0.04,
+                            width: size.width * 0.41,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: signupclor_dark),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Text(
+                                'Company Profile',
+                                style: TextStyle(
+                                    fontFamily: 'MBold',
+                                    fontSize: size.height * 0.018,
+                                    color: signupclor_dark),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _brochfileModalBottomSheet(context);
+                          },
+                          child: Container(
+                            height: size.height * 0.04,
+                            width: size.width * 0.4,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: signupclor_dark),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Text(
+                                'Brochure',
+                                style: TextStyle(
+                                    fontFamily: 'MBold',
+                                    fontSize: size.height * 0.018,
+                                    color: signupclor_dark),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        RatingReviewScreen()));
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'Rating & Reviews',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.018,
+                                    color: Colors.black,
+                                    fontFamily: 'Msemibold'),
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              child: RatingBar.builder(
+                                itemSize: size.height * 0.02,
+                                initialRating: 3,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 2.0),
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: primarygreen,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Text(
+                              '4.5',
+                              style: TextStyle(
+                                  fontSize: size.height * 0.018,
+                                  color: Colors.black,
+                                  fontFamily: 'Msemibold'),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    AnalyticsScreen()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Dashboard',
+                            style: TextStyle(
+                                fontSize: size.height * 0.018,
+                                color: Colors.black,
+                                fontFamily: 'Msemibold'),
+                          ),
+                          Container(
+                            height: size.height * 0.04,
+                            width: size.width * 0.2,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: gradientgreen),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                'View',
+                                style: TextStyle(
+                                    fontFamily: 'MBold',
+                                    fontSize: size.height * 0.015,
+                                    color: gradientgreen),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.015,
+                    ),
+                    Container(
+                      height: size.height * 0.15,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          color: bckgrnd,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: size.height * 0.11,
+                            width: size.width * 0.25,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [prmryblue, darkblue])),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '35',
+                                        style: TextStyle(
+                                            fontFamily: "Msemibold",
+                                            color: bckgrnd,
+                                            fontSize: size.height * 0.03),
+                                      ),
+                                      SvgPicture.asset(
+                                        groupreach_icon,
+                                        color: bckgrnd,
+                                      )
+                                    ],
+                                  ),
+                                  margin: EdgeInsets.only(
+                                      top: size.height * 0.01,
+                                      right: size.width * 0.02,
+                                      left: size.width * 0.03),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(left: size.width * 0.02),
+                                  child: Text(
+                                    'Reached\nConcards',
+                                    style: TextStyle(
+                                        fontFamily: "Msemibold",
+                                        color: bckgrnd,
+                                        fontSize: size.height * 0.015),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: size.height * 0.11,
+                            width: size.width * 0.25,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [gradientgreen, primarygreen])),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '24',
+                                        style: TextStyle(
+                                            fontFamily: "Msemibold",
+                                            color: bckgrnd,
+                                            fontSize: size.height * 0.03),
+                                      ),
+                                      SvgPicture.asset(
+                                        downloading_icon,
+                                        color: bckgrnd,
+                                      )
+                                    ],
+                                  ),
+                                  margin: EdgeInsets.only(
+                                      top: size.height * 0.01,
+                                      right: size.width * 0.02,
+                                      left: size.width * 0.03),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(left: size.width * 0.017),
+                                  child: Text(
+                                    'Saved\nConcards',
+                                    style: TextStyle(
+                                        fontFamily: "Msemibold",
+                                        color: bckgrnd,
+                                        fontSize: size.height * 0.015),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: size.height * 0.11,
+                            width: size.width * 0.25,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      signupclor_light,
+                                      signupclor_dark
+                                    ])),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '12',
+                                        style: TextStyle(
+                                            fontFamily: "Msemibold",
+                                            color: bckgrnd,
+                                            fontSize: size.height * 0.03),
+                                      ),
+                                      SvgPicture.asset(
+                                        favoutline_icon,
+                                        color: bckgrnd,
+                                        height: size.height * 0.04,
+                                      )
+                                    ],
+                                  ),
+                                  margin: EdgeInsets.only(
+                                      top: size.height * 0.01,
+                                      right: size.width * 0.02,
+                                      left: size.width * 0.03),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.02,
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(left: size.width * 0.03),
+                                  child: Text(
+                                    'Favorites',
+                                    style: TextStyle(
+                                        fontFamily: "Msemibold",
+                                        color: bckgrnd,
+                                        fontSize: size.height * 0.015),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "product & Services",
+                          style: TextStyle(
+                              fontSize: size.height * 0.018,
+                              color: Colors.black,
+                              fontFamily: 'MBold'),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.01,
+                        ),
+                        Text(
+                          "(12)",
+                          style: TextStyle(
+                            fontSize: size.height * 0.018,
+                            color: primarygreen,
+                            fontFamily: 'Mbold',
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Container(
+                      height: size.height * 0.15,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: bckgrnd,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 0.02,
+                            top: size.height * 0.02,
+                            right: size.width * 0.02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Buisness',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.22,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Growth',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.2,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Progress',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.2,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Now',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.15,
+                                ),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            ),
+                            SizedBox(
+                              height: size.height * 0.01,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Progress',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.2,
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: btnclr,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                      child: Text(
+                                    'Now',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "Msemibold"),
+                                  )),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.15,
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Container(
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                     border: Border.all(color: gradientgreen),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Center(
+                                    child: Text(
+                                      'Add +',
+                                      style: TextStyle(
+                                          fontFamily: 'MBold',
+                                          fontSize: size.height * 0.015,
+                                          color: gradientgreen),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.035,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "About",
+                          style: TextStyle(
+                              fontSize: size.height * 0.018,
+                              color: Colors.black,
+                              fontFamily: 'MBold'),
+                        ),
+                        Container(
+                          height: size.height * 0.04,
+                          width: size.width * 0.2,
+                          decoration: BoxDecoration(
+                             border: Border.all(color:gradientgreen),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text(
+                              'Edit',
+                              style: TextStyle(
+                                  fontFamily: 'MBold',
+                                  fontSize: size.height * 0.015,
+                                  color: gradientgreen),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.015,
+                    ),
+                    Container(
+                      height: size.height * 0.13,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: bckgrnd,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 0.04, top: size.height * 0.02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Contrary to popular belief, Lorem Ipsum is not\nsimply random text. It has roots in a piece of\nclassical Latin literature from 45 BC, making it over\n2000 years old.',
+                              style: TextStyle(
+                                  fontSize: size.height * 0.015,
+                                  fontFamily: "Msemibold"),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Social media",
+                          style: TextStyle(
+                              fontSize: size.height * 0.018,
+                              color: Colors.black,
+                              fontFamily: 'MBold'),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        SocialLinksScreen()));
+                          },
+                          child: Container(
+                            height: size.height * 0.04,
+                            width: size.width * 0.2,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: gradientgreen),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                'Add +',
+                                style: TextStyle(
+                                    fontFamily: 'MBold',
+                                    fontSize: size.height * 0.015,
+                                    color: gradientgreen),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.025,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.001,
+                        ),
+                        GestureDetector(
+                          child: Image.asset(circllinkedin_icon),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        Image.asset(twitterone_icon),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        Image.asset(circlefb_icon),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        Image.asset(instaicon_icon),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Conmpany/ Team members",
+                              style: TextStyle(
+                                fontSize: size.height * 0.018,
+                                color: Colors.black,
+                                fontFamily: 'MBold',
+                              ),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.02,
+                            ),
+                            Image.asset(
+                              hideeye_icon,
+                              height: size.height * 0.04,
+                            )
+                          ],
+                        ),
+                        Container(
+                          height: size.height * 0.04,
+                          width: size.width * 0.2,
+                          decoration: BoxDecoration(
+                             border: Border.all(color: gradientgreen),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text(
+                              'Add +',
+                              style: TextStyle(
+                                  fontFamily: 'MBold',
+                                  fontSize: size.height * 0.015,
+                                  color: gradientgreen),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    Container(
+                      child: ListView.builder(
+                        padding:EdgeInsets.all(0),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.only(left: size.width * 0.03),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(
+                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                    ),
+                                  ),
+                                  Text(
+                                    'Tomy jones',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.018,
+                                        fontFamily: 'MBold'),
+                                  ),
+                                  Text(
+                                    'Lorem ipsum',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.014,
+                                        fontFamily: 'Msemibold'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                      margin: EdgeInsets.only(
+                        top: 15,
+                      ),
+                      height: size.height * 0.15,
+                      width: size.width * 0.9,
+                    ),
+                    SizedBox(
+                      height: 80,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: isShareProfile != true,
+              child: Container(
+                height: size.height * 2.0,
+                width: size.width * 1.0,
+                color: Colors.black.withOpacity(0.5),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * 0.04, right: size.width * 0.04),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.23,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: size.width * 0.05),
+                        alignment: Alignment.topRight,
+                        child: CircleAvatar(
+                          radius: size.height * 0.04,
+                          backgroundColor: bckgrnd,
+                          child: SvgPicture.asset(stylearrw_icon),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Container(
+                        height: size.height * 0.25,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: primarygreen),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: size.width * 0.04, top: size.height * 0.04),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Share your profile',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.02,
+                                  color: bckgrnd,
+                                  fontFamily: 'Msemibold',
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.03,
+                              ),
+                              Text(
+                                'Contrary to popular belief, Lorem Ipsum is not\nsimply random text. It has roots in a piece of\nclassical Latin literature from 45 BC, making it over\n2000 years old.',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.015,
+                                  fontFamily: "Msemibold",
+                                  color: bckgrnd,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.29,
+                      ),
+                      Container(
+                        height: size.height * 0.05,
+                        width: size.width,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            setState(() {
+                              isShareProfile = true;
+                            });
+                          },
+                          child: Text(
+                            'Got It!',
+                            style: TextStyle(
+                                fontFamily: "Msemibold",
+                                fontSize: size.height * 0.018),
+                          ),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                              ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(primarygreen)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _switchaccountModalBottomSheet(context) {
+    var size = MediaQuery.of(context).size;
+
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setSte) {
+              return Stack(
+                children: [
+                  Container(
+                    height: size.height * 0.4,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        color: gradientgreen,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: size.height * 0.01,
+                          right: size.width * 0.04,
+                          left: size.width * 0.04),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: size.height * 0.02,
+                                width: size.width * 0.1,
+                              ),
+                              Text(
+                                'Premium Feature',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.018,
+                                    fontFamily: "Stf",
+                                    color: bckgrnd),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              UpgradeToPremiumIndividualScreen()));
+                                },
+                                child: Container(
+                                  height: size.height * 0.03,
+                                  width: size.width * 0.18,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.4),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Upgrade',
+                                      style: TextStyle(
+                                          fontFamily: "MBold",
+                                          fontSize: size.height * 0.015,
+                                          color: bckgrnd),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: size.height * 0.05),
+                    decoration: BoxDecoration(
+                        color: bckgrnd,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
+                    height: size.height * 0.35,
+                    width: size.width,
+                    child: Wrap(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: size.width * 0.04,
+                              right: size.width * 0.04,
+                              top: size.height * 0.02),
+                          child: Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Switch Card',
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.018,
+                                      fontFamily: "MBold",
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  Container(
+                                      child: Image.asset(
+                                    switchprem,
+                                  )),
+                                  Spacer(),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Icon(Icons.close,
+                                              size: size.height * 0.025)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.02,
+                              ),
+                              Container(
+                                height: size.height * 0.12,
+                                child: ListView.builder(
+                                    itemCount: 1,
+                                    padding: EdgeInsets.all(0),
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: size.height * 0.12,
+                                        width: size.width * 0.9,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: gradientgreen),
+                                            color: txtcolr.withOpacity(0.2)),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: size.width * 0.04,
+                                              right: size.width * 0.04,
+                                              top: size.height * 0.02),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: size.height * 0.03,
+                                                    backgroundImage: NetworkImage(
+                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
+                                                  ),
+                                                  SizedBox(
+                                                      width: size.width * 0.03),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        'Assem Yamak',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.018,
+                                                          fontFamily: "MBold",
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                          height: size.height *
+                                                              0.01),
+                                                      Text(
+                                                        'Operations Manager',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.015,
+                                                          fontFamily: "Stf",
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                          height: size.height *
+                                                              0.01),
+                                                      Text(
+                                                        'Dynamic Oil Tools',
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.015,
+                                                          fontFamily: "Stf",
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacer(),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      height:
+                                                          size.height * 0.04,
+                                                      width: size.width * 0.2,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        color: txtcolr
+                                                            .withOpacity(0.2),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
+                                                      child: Center(
+                                                          child: Text(
+                                                        'Currently in use',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                size.height *
+                                                                    0.01,
+                                                            fontFamily: "MBOld",
+                                                            color:
+                                                                signupclor_dark),
+                                                      )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.015,
+                              ),
+                              Container(
+                                height: size.height * 0.12,
+                                width: size.width * 0.9,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: gradientgreen),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        '+ Add a new Card',
+                                        style: TextStyle(
+                                            fontSize: size.height * 0.018,
+                                            fontFamily: "Stf"),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+  }
+
+  void _comprofileModalBottomSheet(context) {
+    var size = MediaQuery.of(context).size;
+
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setSte) {
+              return Container(
+                decoration: BoxDecoration(
+                    color: bckgrnd,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                height: size.height * 0.28,
+                width: size.width,
+                child: Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.02),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Company Profile',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.018,
+                                  fontFamily: "MBold",
+                                ),
+                              ),
+                              Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(Icons.close,
+                                      size: size.height * 0.025)),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.06,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(compupload),
+                              SizedBox(
+                                width: size.width * 0.06,
+                              ),
+                              Text(
+                                'Upload New Profile',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    fontFamily: "Stf"),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.06,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(compdelete),
+                              SizedBox(
+                                width: size.width * 0.06,
+                              ),
+                              Text(
+                                'Delete Current Profile',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    fontFamily: "Stf"),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void _brochfileModalBottomSheet(context) {
+    var size = MediaQuery.of(context).size;
+
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setSte) {
+              return Container(
+                decoration: BoxDecoration(
+                    color: bckgrnd,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                height: size.height * 0.28,
+                width: size.width,
+                child: Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.02),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Company Brochure',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.018,
+                                  fontFamily: "MBold",
+                                ),
+                              ),
+                              Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(Icons.close,
+                                      size: size.height * 0.025)),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.06,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(compupload),
+                              SizedBox(
+                                width: size.width * 0.06,
+                              ),
+                              Text(
+                                'Upload New Brochure',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    fontFamily: "Stf"),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.06,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(compdelete),
+                              SizedBox(
+                                width: size.width * 0.06,
+                              ),
+                              Text(
+                                'Delete Current Brochure',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    fontFamily: "Stf"),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  void _requirementsModalBottomSheet(context) {
+    var size = MediaQuery.of(context).size;
+
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context, setSte) {
+              return Container(
+                decoration: BoxDecoration(
+                    color: bckgrnd,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                height: size.height * 0.34,
+                width: size.width,
+                child: Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.02),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Requirements',
+                                style: TextStyle(
+                                  fontSize: size.height * 0.018,
+                                  fontFamily: "MBold",
+                                ),
+                              ),
+                              Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(Icons.close,
+                                      size: size.height * 0.025)),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                        
+                          Text(
+                            'Phone Number',
+                            style: TextStyle(
+                                fontSize: size.height * 0.015,
+                                fontFamily: "Stf"),
+                          ),
+                        
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          Text(
+                            'Email Address',
+                            style: TextStyle(
+                                fontSize: size.height * 0.015,
+                                fontFamily: "Stf"),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          Text(
+                            'Identification',
+                            style: TextStyle(
+                                fontSize: size.height * 0.015,
+                                fontFamily: "Stf"),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          Text(
+                            'LinkedIn Profile',
+                            style: TextStyle(
+                                fontSize: size.height * 0.015,
+                                fontFamily: "Stf"),
+                          ),
+                            SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Center(
+                              child: Container(
+                                height: size.height * 0.05,
+                                width: size.width * 0.8,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: signupclor_dark),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  'Go to Settings',
+                                  style: TextStyle(
+                                      fontSize: size.height * 0.018,
+                                      fontFamily: "MBOld",
+                                      color: signupclor_dark),
+                                )),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+}
