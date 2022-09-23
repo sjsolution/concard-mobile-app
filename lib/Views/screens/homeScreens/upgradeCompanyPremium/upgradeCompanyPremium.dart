@@ -408,7 +408,9 @@ class _UpgradeToPremiumCompanyScreenState
                           SizedBox(
                     height: size.height*0.02,
                   ),
-                  Center(child: FieldText(hinttxt: "Number of accounts (Minimum 5 accounts)", controller: controller, textInputType: TextInputType.number, pass: false)),
+                  Center(child: FieldText( validate: (String? value){
+                        return '';
+                      },hinttxt: "Number of accounts (Minimum 5 accounts)", controller: controller, textInputType: TextInputType.number, pass: false)),
                    SizedBox(
                     height: size.height*0.04,
                   ),

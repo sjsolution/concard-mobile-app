@@ -168,8 +168,8 @@ class _FollowingCardsScreenState extends State<FollowingCardsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            height: size.height*0.05,
-                            width: size.width*0.8,
+                           height: size.height * 0.09,
+                          width: size.width * 0.85,
                             child: TextFormField(
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(

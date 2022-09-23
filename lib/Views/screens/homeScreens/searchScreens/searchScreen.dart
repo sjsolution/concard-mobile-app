@@ -39,8 +39,8 @@ class SearchScreen extends StatelessWidget {
                         child: Icon(Icons.arrow_back_ios, size: 20, color: bckgrnd,)),
                     SizedBox(width: 20,),
                     Container(
-                      height: size.height*0.05,
-                      width: size.width*0.8,
+                       height: size.height * 0.09,
+                          width: size.width * 0.85,
                       child:TextFormField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(

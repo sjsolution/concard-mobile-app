@@ -1,6 +1,6 @@
 import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
-import 'package:concard/Views/screens/authScreens/individual/signup/signupIndividual.dart';
+import 'package:concard/Views/screens/authScreens/individual/signup/signup_choice_class.dart';
 import 'package:concard/Views/widgets/customButton.dart';
 import 'package:concard/Views/widgets/socialButton.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SignupScreen extends StatelessWidget {
+  const SignupScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -64,7 +66,7 @@ class SignupScreen extends StatelessWidget {
               width: size.width,
               decoration: BoxDecoration(
                   color: bckgrnd,
-                  borderRadius: BorderRadius.only(
+                  borderRadius:const BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   )),
@@ -93,7 +95,8 @@ class SignupScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext contect,)=>SignupIndividual()));
+                      Navigator.pushNamed(context, '/choiceClass');
+                      // Navigator.push(context, MaterialPageRoute(builder: (BuildContext contect,)=> const SignupChoiceClass()));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(top: size.height * 0.02),
@@ -107,12 +110,17 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: size.height*0.02,),
-                  CustomButton(
-                    text: "Login",
-                    color1: Colors.white,
-                    color2: Colors.white,
-                    textcolor2: signupclor_dark,
-                    textcolor1: signupclor_dark,
+                  InkWell(
+                    onTap: ()async{
+                        Navigator.pushNamed(context, '/signIn');
+                    },
+                    child: CustomButton(
+                      text: "Login",
+                      color1: Colors.white,
+                      color2: Colors.white,
+                      textcolor2: signupclor_dark,
+                      textcolor1: signupclor_dark,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: size.height * 0.04,left: size.width*0.11,right:size.width*0.11 ),

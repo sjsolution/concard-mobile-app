@@ -156,9 +156,18 @@ var locationarrow='asset/icons/locationarrow.png';
 var remove='asset/icons/remove.png';
 var adpec='asset/icons/adpec.png';
 var prfle='asset/images/prfle.jpeg';
+var deccard="asset/images/deccard.png";
 
 
 
+
+//social iconassetxs
+var behance='asset/socialIcons/be.png';
+var facebook='asset/socialIcons/fb.png';
+var instagram='asset/socialIcons/instagram.png';
+var link='asset/socialIcons/link.png';
+var linkdin='asset/socialIcons/linkdin.png';
+var twiter='asset/socialIcons/twiter.png';
 
 
 

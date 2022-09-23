@@ -101,8 +101,8 @@ bool? switchRemove=false;
                   ),),
                   SizedBox(height: size.height*0.03,),
                   Container(
-                    height: size.height * 0.055,
-                    width: size.width*0.9,
+                   height: size.height * 0.09,
+                          width: size.width * 0.85,
                     child: TextFormField(
                       decoration: InputDecoration(
 

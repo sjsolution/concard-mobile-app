@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.concard">
+    package="com.sj.concard">
    <application
-        android:label="concard"
+        android:label="Concard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

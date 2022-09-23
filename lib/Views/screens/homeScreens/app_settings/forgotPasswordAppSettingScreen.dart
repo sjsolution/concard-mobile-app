@@ -124,8 +124,8 @@ class _ForgetPasswordAppSettingScreenState extends State<ForgetPasswordAppSettin
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: size.height * 0.05,
-                      width: size.width*0.8,
+                   height: size.height * 0.09,
+                          width: size.width * 0.85,
                       child: TextFormField(
                         cursorColor: Colors.black,
                         showCursor: true,

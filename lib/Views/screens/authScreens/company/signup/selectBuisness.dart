@@ -3,13 +3,15 @@ import 'package:concard/Views/screens/authScreens/company/signup/companySignupHo
 import 'package:concard/Views/screens/authScreens/company/singnin/compnaySignInScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
 
 import '../../../../../Constants/colors.dart';
 import '../../../../../Constants/images.dart';
 import '../../../../widgets/customButton.dart';
 
 class SelectBuisness extends StatelessWidget {
-  const SelectBuisness({Key? key}) : super(key: key);
+  SelectBuisness({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,9 @@ class SelectBuisness extends StatelessWidget {
                   SizedBox(height: size.height*0.02,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext cotext)=>CompanySignUpHomeScreen()));
+                    Globals.businessType='1';
+                      Navigator.pushNamed(context, '/compnaySigup');
+                      // Navigator.push(context, MaterialPageRoute(builder: (BuildContext cotext)=>CompanySignUpHomeScreen()));
                     },
                     child: CustomButton(
                         text: "Select",
@@ -121,7 +125,9 @@ class SelectBuisness extends StatelessWidget {
                     ,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder:(context)=>CompanySignUpHomeScreen()));
+                      Globals.businessType='2';
+                      Navigator.pushNamed(context, '/compnaySigup');
+                      // Navigator.push(context, MaterialPageRoute(builder:(context)=>CompanySignUpHomeScreen()));
                     },
                     child: CustomButton(
                         text: "Select",

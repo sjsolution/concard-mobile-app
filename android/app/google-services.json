@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "729567542424",
+    "project_id": "concard-ab4c5",
+    "storage_bucket": "concard-ab4c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729567542424:android:6770172f7c7c785adfe4ed",
+        "android_client_info": {
+          "package_name": "com.sj.concard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729567542424-vjorkdkl0e32i04mci2vm7uktjd84o8m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sj.concard",
+            "certificate_hash": "d13fd30366f893ad6dc3e20a9cefc9ba27c24291"
+          }
+        },
+        {
+          "client_id": "729567542424-g58bgpdfdnbq99kbkve3befs6mp9t84o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0iCg6XVTaedGHiqQ6Y0n26OAqfnsJjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729567542424-g58bgpdfdnbq99kbkve3befs6mp9t84o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729567542424-onrigdf97viqme28h5eluase4ohe8a3o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sj.concard"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

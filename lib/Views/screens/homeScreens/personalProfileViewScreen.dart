@@ -1,5 +1,11 @@
+import 'package:concard/Controllers/indiviualController/profile_controller.dart';
+import 'package:concard/Controllers/indiviualController/social_links_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Models/Indiviuals/profile_model.dart';
+import 'package:concard/Models/Indiviuals/social_links_model.dart';
 import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
+import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/individualPremium/individualPremiumScreen.dart';
 import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
@@ -10,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
@@ -26,10 +33,22 @@ class PersonalProfileViewScreen extends StatefulWidget {
 bool? isShareProfile = false;
 
 class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
+  AppProvider? appPro;
+  @override
+  void initState() {
+    // TODO: implement initState
+    appPro = Provider.of<AppProvider>(context, listen: false);
+    super.initState();
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerMenuScreen(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Stack(
@@ -53,16 +72,21 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          more_icon,
-                          height: 15,
+                        InkWell(
+                          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                          child: Image.asset(
+                            more_icon,
+                            height: 15,
+                          ),
                         ),
                         Column(
                           children: [
                             CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage(drwrmyacunt_icon),
-                            ),
+                                radius: size.height * 0.03,
+                                backgroundImage: NetworkImage(
+                                  appPro!.indiviualProfileModel!.data!.image ??
+                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                )),
                           ],
                         ),
                         Image.asset(
@@ -84,53 +108,58 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   builder: (_) => IndividualPremiumScreen()));
                         },
                         child: Container(
-                          height: size.height * 0.04,
-                          width: size.width * 0.3,
+                          alignment: Alignment.center,
+                          // margin: EdgeInsets.only(left: 10.0),
+                          // padding: EdgeInsets.only(left: 07.0),
+                          height: size.height * 0.05,
+                          // width: size.width * 0.3,
                           decoration: BoxDecoration(
                               color: bckgrnd.withOpacity(0.1),
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(10),
                                   bottomRight: Radius.circular(10))),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.01,
-                            ),
-                            child: Row(children: [
-                              Image.asset(
+                          child: Row(children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 3.0, bottom: 09.0),
+                              child: Image.asset(
                                 premium_icon,
-                                height: size.height * 0.04,
+                                // height: size.width * 0.07,
                               ),
-                              SizedBox(
-                                width: size.width * 0.01,
-                              ),
-                              Text(
+                            ),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
                                 'Premium',
                                 style: TextStyle(
                                     fontSize: size.height * 0.015,
                                     fontFamily: "MBold",
                                     color: bckgrnd),
                               ),
-                            ]),
-                          ),
+                            ),
+                          ]),
                         ),
                       ),
-                      SizedBox(
-                        width: size.width * 0.1,
-                      ),
+                      // SizedBox(
+                      //   width: size.width * 0.1,
+                      // ),
                       Row(
                         children: [
                           Column(
                             children: [
                               Text(
-                                'John Smith',
+                                '${appPro!.indiviualProfileModel!.data!.firstName ?? ''} ${appPro!.indiviualProfileModel!.data!.lastName ?? ''}',
                                 style: TextStyle(
                                     fontFamily: 'MBold',
                                     fontSize: size.height * 0.02,
                                     color: bckgrnd),
                               ),
                               Text(
-                                'Lorem ipsum',
+                                appPro!.indiviualProfileModel!.data!.email ??
+                                    '',
                                 style: TextStyle(
                                     fontFamily: 'Stf',
                                     fontSize: size.height * 0.017,
@@ -192,7 +221,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                child: Icon(
+                                                                child:
+                                                                    const Icon(
                                                                   Icons.close,
                                                                   size: 20,
                                                                 ))
@@ -351,7 +381,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                               Navigator.pop(
                                                                   context);
                                                             },
-                                                            child: Icon(
+                                                            child: const Icon(
                                                               Icons.close,
                                                               size: 20,
                                                             ))
@@ -385,7 +415,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                     _requirementsModalBottomSheet(context);
+                                                      _requirementsModalBottomSheet(
+                                                          context);
                                                     },
                                                     child: Container(
                                                       height:
@@ -435,7 +466,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               margin: EdgeInsets.only(top: size.height * 0.23),
               // height: size.height*0.8,
               width: size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
@@ -470,7 +501,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              CalenderScreen()));
+                                              const CalenderScreen()));
                                 },
                                 child: Image.asset(
                                   planner_icon,
@@ -495,13 +526,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               width: size.width,
               decoration: BoxDecoration(
                   color: btnclr,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: const Radius.circular(15),
+                    topRight: const Radius.circular(15),
                   )),
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: size.width * 0.04, right: size.width * 0.04),
+                    left: size.width * 0.02, right: size.width * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -509,8 +540,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       height: size.height * 0.015,
                     ),
                     Container(
-                      height: size.height * 0.3,
-                      width: size.width,
+                      height: size.height * 0.376,
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -521,8 +551,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: size.width * 0.04,
-                                  right: size.width * 0.04),
+                                  left: size.width * 0.02,
+                                  right: size.width * 0.02),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -566,297 +596,18 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               height: size.height * 0.025,
                             ),
                             GestureDetector(
-                              onTap: () {
-                                Dialog errorDialog = Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  //this right here
-                                  child: Container(
-                                    height: size.height * 0.5,
-                                    width: size.width,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: size.width * 0.04,
-                                          right: size.width * 0.04,
-                                          top: size.height * 0.02),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Card Info',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                        size.height * 0.018,
-                                                    fontFamily: 'MBold'),
-                                              ),
-                                              // SizedBox(width: 70,),
-                                              // Spacer(),
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    size: 20,
-                                                  ))
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.04,
-                                          ),
-                                          PrettyQr(
-                                            image: AssetImage(concard_icon),
-                                            typeNumber: 4,
-                                            size: size.height*0.1,
-                                            data: 'https://www.google.ru',
-                                            errorCorrectLevel:
-                                                QrErrorCorrectLevel.M,
-                                            roundEdges: true,
-                                            elementColor: signupclor_dark,
-                                          ),
-                                        
-                                          SizedBox(height: size.height * 0.06),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(internet_icon),
-                                              SizedBox(
-                                                width: size.width * 0.02,
-                                              ),
-                                              Text(
-                                                'www.company.com',
-                                                style: TextStyle(
-                                                    fontFamily: "Msemibold",
-                                                    fontSize:
-                                                        size.height * 0.013),
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: size.height * 0.035,
-                                                    width: size.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        color: bckgrnd,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Text(
-                                                      'Visit',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "Msemibold",
-                                                          color:
-                                                              signupclor_dark,
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.013),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: size.height * 0.02),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(location_icon),
-                                              SizedBox(
-                                                width: size.width * 0.02,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Office 23, Floor 23, building 2, St 7,',
-                                                    style: TextStyle(
-                                                        fontFamily: "Msemibold",
-                                                        fontSize: size.height *
-                                                            0.011),
-                                                  ),
-                                                  Text(
-                                                    'Al salama, Jeddah, Saudia Arabia ',
-                                                    style: TextStyle(
-                                                        fontFamily: "Msemibold",
-                                                        fontSize: size.height *
-                                                            0.011),
-                                                  ),
-                                                ],
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: size.height * 0.035,
-                                                    width: size.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        color: bckgrnd,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 10,
-                                                              left: 5),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Image.asset(
-                                                            maparrw_icon,
-                                                            height:
-                                                                size.height *
-                                                                    0.015,
-                                                          ),
-                                                          Text(
-                                                            'Locate',
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    "Msemibold",
-                                                                color:
-                                                                    signupclor_dark,
-                                                                fontSize:
-                                                                    size.height *
-                                                                        0.013),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: size.height * 0.02),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(usermail_icon),
-                                              SizedBox(
-                                                width: size.width * 0.02,
-                                              ),
-                                              Text(
-                                                'User.123@company.com',
-                                                style: TextStyle(
-                                                    fontFamily: "Msemibold",
-                                                    fontSize:
-                                                        size.height * 0.013),
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: size.height * 0.035,
-                                                    width: size.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        color: bckgrnd,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Text(
-                                                      'Contact',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "Msemibold",
-                                                          color:
-                                                              signupclor_dark,
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: size.height * 0.02),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(phonecall_icon),
-                                              SizedBox(
-                                                width: size.width * 0.02,
-                                              ),
-                                              Text(
-                                                '+966 55 889 0098',
-                                                style: TextStyle(
-                                                    fontFamily: "Stf",
-                                                    fontSize:
-                                                        size.height * 0.018),
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: size.height * 0.035,
-                                                    width: size.width * 0.2,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        color: bckgrnd,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Text(
-                                                      'Call',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "Msemibold",
-                                                          color:
-                                                              signupclor_dark,
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        errorDialog);
-                              },
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    mycard_icon,
-                                    height: size.height * 0.2,
-                                    width: size.width * 0.85,
-                                    fit: BoxFit.cover,
-                                  )),
-                            )
+                                onTap: () {
+                                  _cardInfoPopup(context);
+                                },
+                                //umar changed
+                                child: cardWidget(
+                                    context, appPro!.indiviualProfileModel!))
                           ],
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: size.height * 0.02,
+                      height: size.height * 0.08,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -917,7 +668,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        RatingReviewScreen()));
+                                        const RatingReviewScreen()));
                           },
                           child: Row(
                             children: [
@@ -928,7 +679,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     color: Colors.black,
                                     fontFamily: 'Msemibold'),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_drop_down,
                                 size: 25,
                               ),
@@ -946,7 +697,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 2.0),
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: primarygreen,
@@ -1332,7 +1083,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
                                   decoration: BoxDecoration(
-                                     border: Border.all(color: gradientgreen),
+                                      border: Border.all(color: gradientgreen),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                     child: Text(
@@ -1367,7 +1118,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           height: size.height * 0.04,
                           width: size.width * 0.2,
                           decoration: BoxDecoration(
-                             border: Border.all(color:gradientgreen),
+                              border: Border.all(color: gradientgreen),
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text(
@@ -1414,14 +1165,15 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Social media",
+                          "Social Media",
                           style: TextStyle(
                               fontSize: size.height * 0.018,
                               color: Colors.black,
                               fontFamily: 'MBold'),
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async{
+                            // await ProfileController().uplaodImage(hideeye_icon);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -1450,28 +1202,59 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     SizedBox(
                       height: size.height * 0.025,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.001,
-                        ),
-                        GestureDetector(
-                          child: Image.asset(circllinkedin_icon),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Image.asset(twitterone_icon),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Image.asset(circlefb_icon),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Image.asset(instaicon_icon),
-                      ],
-                    ),
+                    Container(
+                        // padding: EdgeInsets.all(8.0),
+                        color: Colors.transparent,
+                        height: size.height * 0.1,
+                        // width: size.width,
+                        child: FutureBuilder<SocialLinksModel?>(
+                            future: SocialLinksController().getSocialLink(),
+                            builder: (context, snapshot) {
+                              if (snapshot.data == null) {
+                                return const Text(
+                                    "Something went wrong. Try again later");
+                              } else if (snapshot
+                                  .data!.linksDataList!.isEmpty) {
+                                return const Text("There is no liks added yet");
+                              } else {
+                                List<LinksDataList>? linksDataList =
+                                    snapshot.data!.linksDataList;
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: linksDataList!.length,
+                                  itemBuilder: ((context, index) {
+                                    return Row(
+                                      children: [
+                                        Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              CircleAvatar(
+                                                radius: size.width * 0.06,
+                                                backgroundColor:
+                                                    signupclor_dark,
+                                                child: CircleAvatar(
+                                                    radius: size.width * 0.055,
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            linksDataList[index]
+                                                                .image!)),
+                                              ),
+                                              Text(
+                                                  "${linksDataList[index].title}",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ]),
+                                        const SizedBox(width: 15.0),
+                                      ],
+                                    );
+                                  }),
+                                );
+                              }
+                            })),
                     SizedBox(
                       height: size.height * 0.04,
                     ),
@@ -1501,7 +1284,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           height: size.height * 0.04,
                           width: size.width * 0.2,
                           decoration: BoxDecoration(
-                             border: Border.all(color: gradientgreen),
+                              border: Border.all(color: gradientgreen),
                               borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text(
@@ -1520,14 +1303,14 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     ),
                     Container(
                       child: ListView.builder(
-                        padding:EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return Container(
                               margin: EdgeInsets.only(left: size.width * 0.03),
                               child: Column(
                                 children: [
-                                  CircleAvatar(
+                                  const CircleAvatar(
                                     radius: 30,
                                     backgroundImage: NetworkImage(
                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
@@ -1549,13 +1332,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                             );
                           }),
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                         top: 15,
                       ),
                       height: size.height * 0.15,
                       width: size.width * 0.9,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 80,
                     )
                   ],
@@ -1662,13 +1445,431 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     );
   }
 
+  Widget cardWidget(context, IndiviualProfileModel? indiviualProfileModel) {
+    var size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Container(
+          height: size.height * 0.3,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Stack(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    deccard,
+                    height: size.height * 0.3,
+                    fit: BoxFit.cover,
+                  )),
+              Padding(
+                padding: EdgeInsets.only(right: size.width * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.black,
+                      size: size.height * 0.02,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: size.height * 0.055,
+                        left: size.width * 0.02,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  SvgPicture.asset(con_icon),
+                                  SizedBox(
+                                    height: size.height * 0.015,
+                                  ),
+                                  Text(
+                                    "CONCARD",
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.02,
+                                      color: signupclor_dark,
+                                      fontFamily: "Mbold",
+                                      letterSpacing: 5,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.015,
+                                  ),
+                                  PrettyQr(
+                                    typeNumber: 4,
+                                    size: size.height * 0.06,
+                                    data:
+                                        '${indiviualProfileModel!.data!.id ?? "0"}',
+                                    errorCorrectLevel: QrErrorCorrectLevel.M,
+                                    roundEdges: true,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: size.width * 0.03),
+                              Container(
+                                height: size.height * 0.2,
+                                width: size.width * 0.002,
+                                color: cgreen,
+                              ),
+                              SizedBox(width: size.width * 0.08),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${indiviualProfileModel.data!.firstName ?? ''} ${indiviualProfileModel.data!.lastName ?? ''}",
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.015,
+                                      color: signupclor_dark,
+                                      fontFamily: "Mbold",
+                                    ),
+                                  ),
+                                  Text(
+                                    "Your title",
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.015,
+                                      color: signupclor_dark,
+                                      fontFamily: "Stf",
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(location_icon),
+                                      SizedBox(
+                                        width: size.width * 0.015,
+                                      ),
+                                      Text(
+                                        "Address",
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.015,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.015,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(phonecall_icon),
+                                      SizedBox(
+                                        width: size.width * 0.02,
+                                      ),
+                                      Text(
+                                        indiviualProfileModel
+                                                .data!.mobileNumber ??
+                                            '',
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.015,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.015,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        email_icon,
+                                        color: signupclor_dark,
+                                      ),
+                                      SizedBox(
+                                        width: size.width * 0.01,
+                                      ),
+                                      Text(
+                                        indiviualProfileModel.data!.email ?? '',
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.012,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.015,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(internet_icon),
+                                      SizedBox(
+                                        width: size.width * 0.02,
+                                      ),
+                                      Text(
+                                        "Website",
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.015,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: size.height * 0.02,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  void _cardInfoPopup(context) {
+    var size = MediaQuery.of(context).size;
+    Dialog errorDialog = Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      //this right here
+      child: Container(
+        height: size.height * 0.5,
+        width: size.width,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: size.width * 0.04,
+              right: size.width * 0.04,
+              top: size.height * 0.02),
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Card Info',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.height * 0.018,
+                        fontFamily: 'MBold'),
+                  ),
+                  // SizedBox(width: 70,),
+                  // Spacer(),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        Icons.close,
+                        size: 20,
+                      ))
+                ],
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              PrettyQr(
+                image: AssetImage(concard_icon),
+                typeNumber: 4,
+                size: size.height * 0.1,
+                data: 'https://www.google.ru',
+                errorCorrectLevel: QrErrorCorrectLevel.M,
+                roundEdges: true,
+                elementColor: signupclor_dark,
+              ),
+              SizedBox(height: size.height * 0.06),
+              Row(
+                children: [
+                  SvgPicture.asset(internet_icon),
+                  SizedBox(
+                    width: size.width * 0.02,
+                  ),
+                  Text(
+                    'www.company.com',
+                    style: TextStyle(
+                        fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.035,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: signupclor_dark),
+                            color: bckgrnd,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          'Visit',
+                          style: TextStyle(
+                              fontFamily: "Msemibold",
+                              color: signupclor_dark,
+                              fontSize: size.height * 0.013),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: size.height * 0.02),
+              Row(
+                children: [
+                  SvgPicture.asset(location_icon),
+                  SizedBox(
+                    width: size.width * 0.02,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Office 23, Floor 23, building 2, St 7,',
+                        style: TextStyle(
+                            fontFamily: "Msemibold",
+                            fontSize: size.height * 0.011),
+                      ),
+                      Text(
+                        'Al salama, Jeddah, Saudia Arabia ',
+                        style: TextStyle(
+                            fontFamily: "Msemibold",
+                            fontSize: size.height * 0.011),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.035,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: signupclor_dark),
+                            color: bckgrnd,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10, left: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.asset(
+                                maparrw_icon,
+                                height: size.height * 0.015,
+                              ),
+                              Text(
+                                'Locate',
+                                style: TextStyle(
+                                    fontFamily: "Msemibold",
+                                    color: signupclor_dark,
+                                    fontSize: size.height * 0.013),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: size.height * 0.02),
+              Row(
+                children: [
+                  SvgPicture.asset(usermail_icon),
+                  SizedBox(
+                    width: size.width * 0.02,
+                  ),
+                  Text(
+                    'User.123@company.com',
+                    style: TextStyle(
+                        fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.035,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: signupclor_dark),
+                            color: bckgrnd,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          'Contact',
+                          style: TextStyle(
+                              fontFamily: "Msemibold",
+                              color: signupclor_dark,
+                              fontSize: size.height * 0.018),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: size.height * 0.02),
+              Row(
+                children: [
+                  SvgPicture.asset(phonecall_icon),
+                  SizedBox(
+                    width: size.width * 0.02,
+                  ),
+                  Text(
+                    '+966 55 889 0098',
+                    style: TextStyle(
+                        fontFamily: "Stf", fontSize: size.height * 0.018),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.035,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: signupclor_dark),
+                            color: bckgrnd,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          'Call',
+                          style: TextStyle(
+                              fontFamily: "Msemibold",
+                              color: signupclor_dark,
+                              fontSize: size.height * 0.018),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    showDialog(
+        context: context, builder: (BuildContext context) => errorDialog);
+  }
+
   void _switchaccountModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                topLeft: const Radius.circular(10),
+                topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1680,7 +1881,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     width: size.width,
                     decoration: BoxDecoration(
                         color: gradientgreen,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10))),
                     child: Padding(
@@ -1740,7 +1941,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     margin: EdgeInsets.only(top: size.height * 0.05),
                     decoration: BoxDecoration(
                         color: bckgrnd,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10))),
                     height: size.height * 0.35,
@@ -1771,7 +1972,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       child: Image.asset(
                                     switchprem,
                                   )),
-                                  Spacer(),
+                                  const Spacer(),
                                   Row(
                                     children: [
                                       InkWell(
@@ -1791,7 +1992,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 height: size.height * 0.12,
                                 child: ListView.builder(
                                     itemCount: 1,
-                                    padding: EdgeInsets.all(0),
+                                    padding: const EdgeInsets.all(0),
                                     itemBuilder: (context, index) {
                                       return Container(
                                         height: size.height * 0.12,
@@ -1815,8 +2016,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                 children: [
                                                   CircleAvatar(
                                                     radius: size.height * 0.03,
-                                                    backgroundImage: NetworkImage(
-                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
+                                                    backgroundImage:
+                                                        const NetworkImage(
+                                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
                                                   ),
                                                   SizedBox(
                                                       width: size.width * 0.03),
@@ -1860,7 +2062,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   InkWell(
                                                     onTap: () {
                                                       Navigator.pop(context);
@@ -1942,9 +2144,10 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                topLeft: const Radius.circular(10),
+                topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1952,9 +2155,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               return Container(
                 decoration: BoxDecoration(
                     color: bckgrnd,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: const Radius.circular(10),
+                        topRight: const Radius.circular(10))),
                 height: size.height * 0.28,
                 width: size.width,
                 child: Wrap(
@@ -1976,7 +2179,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   fontFamily: "MBold",
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               InkWell(
                                   onTap: () {
                                     Navigator.pop(context);
@@ -2034,8 +2237,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
+        shape: const RoundedRectangleBorder(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
@@ -2044,7 +2247,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               return Container(
                 decoration: BoxDecoration(
                     color: bckgrnd,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10))),
                 height: size.height * 0.28,
@@ -2068,7 +2271,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   fontFamily: "MBold",
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               InkWell(
                                   onTap: () {
                                     Navigator.pop(context);
@@ -2126,7 +2329,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
@@ -2136,8 +2339,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               return Container(
                 decoration: BoxDecoration(
                     color: bckgrnd,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: const Radius.circular(10),
                         topRight: Radius.circular(10))),
                 height: size.height * 0.34,
                 width: size.width,
@@ -2161,7 +2364,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   fontFamily: "MBold",
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               InkWell(
                                   onTap: () {
                                     Navigator.pop(context);
@@ -2173,14 +2376,12 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           SizedBox(
                             height: size.height * 0.03,
                           ),
-                        
                           Text(
                             'Phone Number',
                             style: TextStyle(
                                 fontSize: size.height * 0.015,
                                 fontFamily: "Stf"),
                           ),
-                        
                           SizedBox(
                             height: size.height * 0.03,
                           ),
@@ -2208,7 +2409,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 fontSize: size.height * 0.015,
                                 fontFamily: "Stf"),
                           ),
-                            SizedBox(
+                          SizedBox(
                             height: size.height * 0.03,
                           ),
                           InkWell(

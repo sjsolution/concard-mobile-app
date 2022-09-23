@@ -121,8 +121,8 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: size.height * 0.055,
-                          width: size.width * 0.8,
+                         height: size.height * 0.09,
+                          width: size.width * 0.85,
                           child: TextFormField(
                             decoration: InputDecoration(
                               prefixIcon: Icon(

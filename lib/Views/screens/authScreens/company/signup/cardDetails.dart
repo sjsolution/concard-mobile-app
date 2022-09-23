@@ -42,9 +42,13 @@ class CardDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30,),
-          FieldText(hinttxt: 'Card number', controller: controll, textInputType: TextInputType.text, pass: false),
+          FieldText( validate: (String? value){
+                        return '';
+                      },hinttxt: 'Card number', controller: controll, textInputType: TextInputType.text, pass: false),
           SizedBox(height: size.height*0.02,),
-          FieldText(hinttxt: 'Name on the card', controller: controll, textInputType: TextInputType.text, pass: false),
+          FieldText( validate: (String? value){
+                        return '';
+                      },hinttxt: 'Name on the card', controller: controll, textInputType: TextInputType.text, pass: false),
           SizedBox(height: size.height*0.02,),
           Padding(
             padding:  EdgeInsets.only(left: size.height*0.05,right: size.width*0.09),
