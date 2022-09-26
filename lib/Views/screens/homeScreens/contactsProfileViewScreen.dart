@@ -65,14 +65,15 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                           Image.asset(
                             notify_icon,
                           ),
-                          SizedBox(
-                            width:size.width*0.02
-                          ),
+                          SizedBox(width: size.width * 0.02),
                           InkWell(
-                            onTap: (){
-                              _moreModalBottomSheet(context);
-                            },
-                            child: Icon(Icons.more_vert,color: bckgrnd,))
+                              onTap: () {
+                                _moreModalBottomSheet(context);
+                              },
+                              child: Icon(
+                                Icons.more_vert,
+                                color: bckgrnd,
+                              ))
                         ],
                       ),
                     ],
@@ -150,7 +151,6 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                         ),
                         Image.asset(
                           safesheld_icon,
-                          
                         ),
                       ],
                     ),
@@ -291,7 +291,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           _switchaccountModalBottomSheet(context);
                         },
                         child: Image.asset(
@@ -441,7 +441,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 height: size.height * 0.04,
                                 width: size.width * 0.43,
                                 decoration: BoxDecoration(
-                                    border: Border.all(color:signupclor_dark),
+                                    border: Border.all(color: signupclor_dark),
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: Text(
@@ -469,7 +469,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   height: size.height * 0.04,
                                   width: size.width * 0.25,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color:gradientgreen),
+                                      border: Border.all(color: gradientgreen),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Padding(
                                     padding: EdgeInsets.only(
@@ -488,7 +488,10 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                 color: gradientgreen),
                                           ),
                                         ),
-                                        Image.asset(star_icon,color: gradientgreen,),
+                                        Image.asset(
+                                          star_icon,
+                                          color: gradientgreen,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -543,15 +546,17 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     fontFamily: 'Mbold'),
                               ),
                               InkWell(
-                                onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (_)=>Reminderscreen()));
-
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => Reminderscreen()));
                                 },
                                 child: Container(
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
                                   decoration: BoxDecoration(
-                                     border:Border.all(color: gradientgreen),
+                                      border: Border.all(color: gradientgreen),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                     child: Text(
@@ -570,8 +575,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                             height: size.height * 0.015,
                           ),
                           InkWell(
-                            onTap: (){
-                            },
+                            onTap: () {},
                             child: TextFormField(
                               maxLines: 3,
                               decoration: InputDecoration(
@@ -823,7 +827,6 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 color: Colors.black,
                                 fontFamily: 'MBold'),
                           ),
-                        
                           SizedBox(
                             height: size.height * 0.025,
                           ),
@@ -880,8 +883,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                             height: size.height * 0.02,
                           ),
                           InkWell(
-                            onTap: (){
-                            //  Navigator.push(context, MaterialPageRoute(builder: (_)=>AddCardsToGroupScreen()));
+                            onTap: () {
+                              //  Navigator.push(context, MaterialPageRoute(builder: (_)=>AddCardsToGroupScreen()));
                             },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -997,7 +1000,10 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: size.width*0.04, right: size.width*0.04, top: size.height*0.02),
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.02),
                       child: Row(
                         children: [
                           Text(
@@ -1210,7 +1216,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
         });
   }
 
-   void _switchaccountModalBottomSheet(context) {
+  void _switchaccountModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
@@ -1248,7 +1254,6 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   fontFamily: "MBold",
                                 ),
                               ),
-                             
                               Spacer(),
                               Row(
                                 children: [
@@ -1275,10 +1280,9 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     height: size.height * 0.12,
                                     width: size.width * 0.9,
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: gradientgreen),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border:
+                                            Border.all(color: gradientgreen),
                                         color: txtcolr.withOpacity(0.2)),
                                     child: Padding(
                                       padding: EdgeInsets.only(
@@ -1300,39 +1304,35 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   width: size.width * 0.03),
                                               Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     'Assem Yamak',
                                                     style: TextStyle(
                                                       fontSize:
-                                                          size.height *
-                                                              0.018,
+                                                          size.height * 0.018,
                                                       fontFamily: "MBold",
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                      height: size.height *
-                                                          0.01),
+                                                      height:
+                                                          size.height * 0.01),
                                                   Text(
                                                     'Operations Manager',
                                                     style: TextStyle(
                                                       fontSize:
-                                                          size.height *
-                                                              0.015,
+                                                          size.height * 0.015,
                                                       fontFamily: "Stf",
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                      height: size.height *
-                                                          0.01),
+                                                      height:
+                                                          size.height * 0.01),
                                                   Text(
                                                     'Dynamic Oil Tools',
                                                     style: TextStyle(
                                                       fontSize:
-                                                          size.height *
-                                                              0.015,
+                                                          size.height * 0.015,
                                                       fontFamily: "Stf",
                                                     ),
                                                   ),
@@ -1344,29 +1344,25 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   Navigator.pop(context);
                                                 },
                                                 child: Container(
-                                                  height:
-                                                      size.height * 0.04,
+                                                  height: size.height * 0.04,
                                                   width: size.width * 0.2,
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color:
-                                                            signupclor_dark),
+                                                        color: signupclor_dark),
                                                     color: txtcolr
                                                         .withOpacity(0.2),
                                                     borderRadius:
-                                                        BorderRadius
-                                                            .circular(20),
+                                                        BorderRadius.circular(
+                                                            20),
                                                   ),
                                                   child: Center(
                                                       child: Text(
                                                     'Currently in use',
                                                     style: TextStyle(
                                                         fontSize:
-                                                            size.height *
-                                                                0.01,
+                                                            size.height * 0.01,
                                                         fontFamily: "MBOld",
-                                                        color:
-                                                            signupclor_dark),
+                                                        color: signupclor_dark),
                                                   )),
                                                 ),
                                               ),

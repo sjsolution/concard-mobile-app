@@ -128,7 +128,7 @@ class _HomepageState extends State<Homepage> {
                               child: CircleAvatar(
                                   radius: size.height * 0.02,
                                   backgroundImage: NetworkImage(
-                                    appPro!.indiviualProfileModel!=null?appPro!.indiviualProfileModel!.data!
+                                    appPro!.indiviualProfileModel!=null?appPro!.indiviualProfileModel!.profileData!
                                             .image ??
                                         "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg":"https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                   )),

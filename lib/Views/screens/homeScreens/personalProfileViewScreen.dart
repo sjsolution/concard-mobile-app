@@ -84,7 +84,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             CircleAvatar(
                                 radius: size.height * 0.03,
                                 backgroundImage: NetworkImage(
-                                  appPro!.indiviualProfileModel!.data!.image ??
+                                  appPro!.indiviualProfileModel!.profileData!
+                                          .image ??
                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                 )),
                           ],
@@ -151,14 +152,15 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           Column(
                             children: [
                               Text(
-                                '${appPro!.indiviualProfileModel!.data!.firstName ?? ''} ${appPro!.indiviualProfileModel!.data!.lastName ?? ''}',
+                                '${appPro!.indiviualProfileModel!.profileData!.firstName ?? ''} ${appPro!.indiviualProfileModel!.profileData!.lastName ?? ''}',
                                 style: TextStyle(
                                     fontFamily: 'MBold',
                                     fontSize: size.height * 0.02,
                                     color: bckgrnd),
                               ),
                               Text(
-                                appPro!.indiviualProfileModel!.data!.email ??
+                                appPro!.indiviualProfileModel!.profileData!
+                                        .email ??
                                     '',
                                 style: TextStyle(
                                     fontFamily: 'Stf',
@@ -1172,7 +1174,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               fontFamily: 'MBold'),
                         ),
                         GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             // await ProfileController().uplaodImage(hideeye_icon);
                             Navigator.push(
                                 context,
@@ -1447,196 +1449,198 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
 
   Widget cardWidget(context, IndiviualProfileModel? indiviualProfileModel) {
     var size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        Container(
-          height: size.height * 0.3,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-          ),
-          child: Stack(
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    deccard,
-                    height: size.height * 0.3,
-                    fit: BoxFit.cover,
-                  )),
-              Padding(
-                padding: EdgeInsets.only(right: size.width * 0.01),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.black,
-                      size: size.height * 0.02,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: size.height * 0.055,
-                        left: size.width * 0.02,
-                      ),
-                      child: Column(
+    return Container(
+      height: size.height * 0.29,
+      // margin:const EdgeInsets.all(0.4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.transparent,
+      ),
+      child: Stack(
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                deccard,
+                height: size.height * 0.30,
+                fit: BoxFit.cover,
+              )),
+          Padding(
+            padding: EdgeInsets.only(right: size.width * 0.01),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black,
+                  size: size.height * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.055,
+                    left: size.width * 0.02,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          Row(
+                          Column(
                             children: [
-                              Column(
-                                children: [
-                                  SvgPicture.asset(con_icon),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  Text(
-                                    "CONCARD",
-                                    style: TextStyle(
-                                      fontSize: size.height * 0.02,
-                                      color: signupclor_dark,
-                                      fontFamily: "Mbold",
-                                      letterSpacing: 5,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  PrettyQr(
-                                    typeNumber: 4,
-                                    size: size.height * 0.06,
-                                    data:
-                                        '${indiviualProfileModel!.data!.id ?? "0"}',
-                                    errorCorrectLevel: QrErrorCorrectLevel.M,
-                                    roundEdges: true,
-                                  ),
-                                ],
+                              SvgPicture.asset(con_icon),
+                              SizedBox(
+                                height: size.height * 0.015,
                               ),
-                              SizedBox(width: size.width * 0.03),
-                              Container(
-                                height: size.height * 0.2,
-                                width: size.width * 0.002,
-                                color: cgreen,
+                              Text(
+                                "CONCARD",
+                                style: TextStyle(
+                                  fontSize: size.height * 0.02,
+                                  color: signupclor_dark,
+                                  fontFamily: "Mbold",
+                                  letterSpacing: 5,
+                                ),
                               ),
-                              SizedBox(width: size.width * 0.08),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${indiviualProfileModel.data!.firstName ?? ''} ${indiviualProfileModel.data!.lastName ?? ''}",
-                                    style: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      color: signupclor_dark,
-                                      fontFamily: "Mbold",
-                                    ),
-                                  ),
-                                  Text(
-                                    "Your title",
-                                    style: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      color: signupclor_dark,
-                                      fontFamily: "Stf",
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(location_icon),
-                                      SizedBox(
-                                        width: size.width * 0.015,
-                                      ),
-                                      Text(
-                                        "Address",
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          color: signupclor_dark,
-                                          fontFamily: "Mbold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(phonecall_icon),
-                                      SizedBox(
-                                        width: size.width * 0.02,
-                                      ),
-                                      Text(
-                                        indiviualProfileModel
-                                                .data!.mobileNumber ??
-                                            '',
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          color: signupclor_dark,
-                                          fontFamily: "Mbold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        email_icon,
-                                        color: signupclor_dark,
-                                      ),
-                                      SizedBox(
-                                        width: size.width * 0.01,
-                                      ),
-                                      Text(
-                                        indiviualProfileModel.data!.email ?? '',
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.012,
-                                          color: signupclor_dark,
-                                          fontFamily: "Mbold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(internet_icon),
-                                      SizedBox(
-                                        width: size.width * 0.02,
-                                      ),
-                                      Text(
-                                        "Website",
-                                        style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          color: signupclor_dark,
-                                          fontFamily: "Mbold",
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                              SizedBox(
+                                height: size.height * 0.015,
+                              ),
+                              PrettyQr(
+                                typeNumber: 4,
+                                size: size.height * 0.06,
+                                data:
+                                    '${indiviualProfileModel!.profileData!.id ?? "0"}',
+                                errorCorrectLevel: QrErrorCorrectLevel.M,
+                                roundEdges: true,
                               ),
                             ],
-                          )
+                          ),
+                          SizedBox(width: size.width * 0.03),
+                          Container(
+                            height: size.height * 0.2,
+                            width: size.width * 0.002,
+                            color: cgreen,
+                          ),
+                          SizedBox(width: size.width * 0.08),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${indiviualProfileModel.profileData!.firstName ?? ''} ${indiviualProfileModel.profileData!.lastName ?? ''}",
+                                style: TextStyle(
+                                  fontSize: size.height * 0.015,
+                                  color: signupclor_dark,
+                                  fontFamily: "Mbold",
+                                ),
+                              ),
+                              Text(
+                                "Your title",
+                                style: TextStyle(
+                                  fontSize: size.height * 0.015,
+                                  color: signupclor_dark,
+                                  fontFamily: "Stf",
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
+                                children: [
+                                  Column(children: [
+                                    SvgPicture.asset(location_icon),
+                                  ]),
+                                  SizedBox(
+                                    width: size.width * 0.015,
+                                  ),
+                                  Column(children: [
+                                    Text(
+                                      "${indiviualProfileModel.profileData!.address}",
+                                      style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        color: signupclor_dark,
+                                        fontFamily: "Mbold",
+                                      ),
+                                    ),
+                                  ]),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.015,
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(phonecall_icon),
+                                  SizedBox(
+                                    width: size.width * 0.02,
+                                  ),
+                                  Text(
+                                    indiviualProfileModel
+                                            .profileData!.mobileNumber ??
+                                        '',
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.015,
+                                      color: signupclor_dark,
+                                      fontFamily: "Mbold",
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.015,
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    email_icon,
+                                    color: signupclor_dark,
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.01,
+                                  ),
+                                  Text(
+                                    indiviualProfileModel.profileData!.email ??
+                                        '',
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.012,
+                                      color: signupclor_dark,
+                                      fontFamily: "Mbold",
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.015,
+                              ),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(internet_icon),
+                                  SizedBox(
+                                    width: size.width * 0.02,
+                                  ),
+                                  Text(
+                                    "${indiviualProfileModel.profileData!.website}",
+                                    style: TextStyle(
+                                      fontSize: size.height * 0.015,
+                                      color: signupclor_dark,
+                                      fontFamily: "Mbold",
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ],
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.black,
-                      size: size.height * 0.02,
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.black,
+                  size: size.height * 0.02,
+                ),
+              ],
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 

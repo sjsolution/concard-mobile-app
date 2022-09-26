@@ -20,13 +20,14 @@ class AuthenticationClass {
       var response =
           await services.postResponse(url: '/login', formData: formData);
       if (response != null) {
+        print(response.toString());
         if (response['success']) {
           Globals.token = response['token'];
 
           Globals.userType = response['user_type'];
 
           Globals.userId = response['user']['id'].toString();
-          
+
           localStorageClass.setData(
               localStorageClass.tokenKey, response['token']);
 

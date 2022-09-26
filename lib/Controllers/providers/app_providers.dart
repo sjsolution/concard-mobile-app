@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:concard/Constants/Colors.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AppProvider extends ChangeNotifier {
   var fNameControll = TextEditingController();
@@ -30,7 +32,7 @@ class AppProvider extends ChangeNotifier {
 
   bool? isCheckedSms = false;
   bool? ischeckedEmail = false;
-
+  
   setValue(bool value, String? type) {
     switch (type) {
       case 'sms':
@@ -103,6 +105,8 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  
+ 
   setLoadingFalse() {
     isLoading = false;
     notifyListeners();

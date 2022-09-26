@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
@@ -15,7 +16,9 @@ class PostController {
       var formData = FormData.fromMap({});
       var response =
           await services.postResponse(url: '/posts/list', formData: formData);
+      debugPrint(response.toString());
       if (response != null) {
+        
         PostsListModal? postsListModal = PostsListModal.fromJson(response);
         Globals.postsListModal = postsListModal;
         return postsListModal;

@@ -70,7 +70,7 @@ class SocialLinksScreen extends StatelessWidget {
                                     radius: size.height * 0.025,
                                     backgroundImage: NetworkImage(
                                       app.indiviualProfileModel != null
-                                          ? app.indiviualProfileModel!.data!
+                                          ? app.indiviualProfileModel!.profileData!
                                                   .image ??
                                               "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
@@ -80,14 +80,14 @@ class SocialLinksScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         Text(
-                                          '${app.indiviualProfileModel!.data!.firstName} ${app.indiviualProfileModel!.data!.lastName}',
+                                          '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
                                           style: TextStyle(
                                               fontFamily: 'MBold',
                                               fontSize: size.height * 0.02,
                                               color: bckgrnd),
                                         ),
                                         Text(
-                                          '${app.indiviualProfileModel!.data!.email}',
+                                          '${app.indiviualProfileModel!.profileData!.email}',
                                           style: TextStyle(
                                               fontFamily: 'Stf',
                                               fontSize: size.height * 0.017,
