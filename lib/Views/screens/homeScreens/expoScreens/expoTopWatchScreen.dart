@@ -6,22 +6,34 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
+import '../../../../Controllers/ExpoController/expo_badge_controller.dart';
 import '../../../widgets/customButton.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 
 
 class ExpoTopWatchScreen extends StatefulWidget {
-  ExpoTopWatchScreen({Key? key,required this.expoFilterListModal,required this.Text}) : super(key: key);
-List<ListData>? expoFilterListModal;
+  ExpoTopWatchScreen({Key? key,required this.expoFilterListModal,required this.textType}) : super(key: key);
 // String? isNearby;
 // String? isOngoing;
 // String? isUpcoming;
-String? Text;
+String? textType;
   @override
   State<ExpoTopWatchScreen> createState() => _ExpoTopWatchScreenState();
 }
 
 class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+    getFilterList(String? widget.textType)async{
+    Globals.expoFilterListModal = await ExpoBadgeController().expoBadgeFilter(widget.textType);
+    print('12344.............'+Globals.expoFilterListModal.toString());
+    setState(() {
+      
+    });
+  }
   bool? isLocation = false;
   bool? isCatgry = false;
   bool? filterLocation = false;
