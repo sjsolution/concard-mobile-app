@@ -126,4 +126,32 @@ class AppProvider extends ChangeNotifier {
       _postImage=image;
       notifyListeners();
     }
+    ///AddCard
+    var compNameControl= TextEditingController();
+    var websiteControll= TextEditingController();
+    var postionNameControl= TextEditingController();
+    var workPhoneControl = TextEditingController();
+    var mobileNumberControl= TextEditingController();
+    var emailControl= TextEditingController();
+    var cityControl= TextEditingController();
+    var provinceControl= TextEditingController();
+    var countryControl= TextEditingController();
+    var postalCodeControl= TextEditingController();
+    var addressControl= TextEditingController();
+
+     void clearAllController() {
+    compNameControl.clear();
+    websiteControll.clear();
+    postionNameControl.clear();
+    workPhoneControl.clear();
+    mobileNumberControl.clear();
+    emailControl.clear();
+    cityControl.clear();
+    provinceControl.clear();
+    countryControl.clear();
+    postalCodeControl.clear();
+    addressControl.clear();
+    notifyListeners();
+  }
+
 }

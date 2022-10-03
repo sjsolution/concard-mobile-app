@@ -1,7 +1,11 @@
 library my_prj.globals;
 
+import 'package:concard/Models/add_card_modal.dart';
 import 'package:concard/Models/country_city_list.dart';
 import 'package:concard/Models/employee_count.dart';
+import 'package:concard/Models/expo_filter_list_modal.dart';
+import 'package:concard/Models/expobadge_list_model.dart';
+import 'package:concard/Models/following_list_modal.dart';
 import 'package:concard/Models/industries_list.dart';
 import 'package:concard/Models/post_list_modal.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +17,7 @@ String? token = '';
 String? userType = '';
 String? userId = '';
 String? businessType = '';
-
+String? id='1';
 PostsListModal? postsListModal;
 CountryCityListModal? countryCityListModal;
 List<String>? cities = [];
@@ -23,9 +27,15 @@ List<String>? emploNumber = [];
 List<String>? industries = [];
 EmployeeCountListModal? employeeCountListModal;
 IndustriesListModal? industriesListModal;
+FollowingListModal? followingListModal;
+ExpoBadgeListModal? expoBadgeListModal;
+ExpoFilterListModal? expoFilterListModal;
+AddCardModal? addCardModal;
 
 showToastMethod({
   String? msg,
+ 
+
   ToastGravity toastGravity = ToastGravity.BOTTOM,
 }) {
   Fluttertoast.showToast(

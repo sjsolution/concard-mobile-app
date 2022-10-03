@@ -1,3 +1,4 @@
+import 'package:concard/Models/expo_filter_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/expoScreens/expoDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,16 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
 import '../../../widgets/customButton.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
+
 
 class ExpoTopWatchScreen extends StatefulWidget {
-  ExpoTopWatchScreen({Key? key}) : super(key: key);
-
+  ExpoTopWatchScreen({Key? key,required this.expoFilterListModal,required this.Text}) : super(key: key);
+List<ListData>? expoFilterListModal;
+// String? isNearby;
+// String? isOngoing;
+// String? isUpcoming;
+String? Text;
   @override
   State<ExpoTopWatchScreen> createState() => _ExpoTopWatchScreenState();
 }
@@ -23,8 +30,8 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
+      body:  SingleChildScrollView(
+        child:  Stack(
           children: [
             Column(
               children: [
@@ -93,13 +100,35 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                   children: [
                     Row(
                       children: [
-                        Text(
-                          'Top',
+
+
+                      // widget.isTop.toString()=='Top'? 
+                      Text(
+                          widget.Text.toString(),
                           style: TextStyle(
                             fontSize: size.height * 0.018,
                             fontFamily: "MBold"
                           ),
                         ),
+                      //:widget.isNearby.toString()=='Nearby'? Text(
+                      //     'NearBy',
+                      //     style: TextStyle(
+                      //       fontSize: size.height * 0.018,
+                      //       fontFamily: "MBold"
+                      //     ),
+                      //   ):widget.isOngoing.toString()=='Ongoing'?Text(
+                      //     'Ongoing',
+                      //     style: TextStyle(
+                      //       fontSize: size.height * 0.018,
+                      //       fontFamily: "MBold"
+                      //     ),
+                      //   ):widget.isUpcoming.toString()=='Upcoming'?Text(
+                      //     'Upcoming',
+                      //     style: TextStyle(
+                      //       fontSize: size.height * 0.018,
+                      //       fontFamily: "MBold"
+                      //     ),
+                      //   ):Text(''),
                         Spacer(),
                         Visibility(
                           visible: filterLocation=true,
@@ -179,9 +208,9 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                         child: ListView.builder(
                           padding: EdgeInsets.all(0),
                             scrollDirection: Axis.vertical,
-                            itemCount: 20,
+                            itemCount: widget.expoFilterListModal!.length,
                             itemBuilder: (context, index) {
-                              return Container(
+                              return widget.expoFilterListModal!.isNotEmpty? Container(
                                 margin: EdgeInsets.only(top: size.height*0.02),
                                 child: Row(
                                   children: [
@@ -203,13 +232,13 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Expo name 1',
+                                         widget.expoFilterListModal![index].badgeName.toString(),
                                           style: TextStyle(
                                               fontSize: size.height * 0.015,
                                               fontFamily: "Msemibold"),
                                         ),
                                         Text(
-                                          'expo details 1',
+                                          widget.expoFilterListModal![index].location!=null? widget.expoFilterListModal![index].location!:'',
                                           style: TextStyle(
                                               fontSize: size.height * 0.012,
                                               fontFamily: "Stf",
@@ -229,7 +258,7 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                                     )
                                   ],
                                 ),
-                              );
+                              ):Text('No data');
                             }),
                       ),
                       margin: EdgeInsets.only(

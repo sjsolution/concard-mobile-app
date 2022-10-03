@@ -15,6 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
+
+import '../../../Controllers/OthersController/date_time.dart';
+import '../../../Controllers/indiviualController/following_list_controller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -39,11 +43,22 @@ class _HomepageState extends State<Homepage> {
   //   return postsListModal;
 
   // }
+
+  getFollowingLit() async {
+    Globals.followingListModal =
+        await FollowingController().getFollowingRequest(Globals.userId);
+// print('follow id \n'+Globals.followingListModal!.data![0].firstName.toString());
+    // print('added to followers................\n' +Globals!.uderId.Globals.followingListModal!.data.toString());
+    setState(() {});
+  }
+
   List<int>? isLikeList = [];
   AppProvider? appPro;
   @override
   void initState() {
     // getPostsList();
+    getFollowingLit();
+
     appPro = Provider.of<AppProvider>(context, listen: false);
     // TODO: implement initState
     super.initState();
@@ -128,9 +143,11 @@ class _HomepageState extends State<Homepage> {
                               child: CircleAvatar(
                                   radius: size.height * 0.02,
                                   backgroundImage: NetworkImage(
-                                    appPro!.indiviualProfileModel!=null?appPro!.indiviualProfileModel!.profileData!
-                                            .image ??
-                                        "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg":"https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                    appPro!.indiviualProfileModel != null
+                                        ? appPro!.indiviualProfileModel!
+                                                .profileData!.image ??
+                                            "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                        : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                   )),
                             ),
                             SizedBox(
@@ -156,25 +173,35 @@ class _HomepageState extends State<Homepage> {
                   )),
               child: Column(
                 children: [
-                  Container(
-                    child: ListView.builder(
-                        padding: const EdgeInsets.all(0),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 7,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage: AssetImage(walimg)),
-                            margin: EdgeInsets.only(left: size.width * 0.02),
-                          );
-                        }),
-                    margin: EdgeInsets.only(
-                      top: size.height * 0.01,
-                    ),
-                    height: size.height * 0.1,
-                    width: size.width * 0.9,
-                  ),
+                  Globals.followingListModal != null
+                      ? Container(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(0),
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  Globals.followingListModal!.data!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(Globals
+                                                  .followingListModal !=
+                                              null
+                                          ? Globals.followingListModal!
+                                              .data![index].profileImage
+                                              .toString()
+                                          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_RhLhMFQptcSkzBWhnq13UqR12y7mXuSVw&usqp=CAU')),
+                                  margin:
+                                      EdgeInsets.only(left: size.width * 0.02),
+                                );
+                              }),
+                          margin: EdgeInsets.only(
+                            top: size.height * 0.01,
+                          ),
+                          height: size.height * 0.1,
+                          width: size.width * 0.9,
+                        )
+                      : Text('No data Found'),
                   // postsListModal != null
                   //     ?
                   Container(
@@ -263,13 +290,19 @@ class _HomepageState extends State<Homepage> {
                                                                 .end,
                                                         children: [
                                                           Text(
-                                                            DateTime.now()
-                                                                    .difference(
-                                                                        DateTime.parse(
-                                                                            posts[index].createdAt!))
-                                                                    .inHours
-                                                                    .toString() +
-                                                                " h ago",
+                                                            DateTimeManueplate()
+                                                                .giveDifferenceInTime(
+                                                                    DateTime.parse(posts[
+                                                                            index]
+                                                                        .createdAt!
+                                                                        .toString()))!,
+                                                            // DateTime.now()
+                                                            //         .difference(
+                                                            //             DateTime.parse(
+                                                            //                 posts[index].createdAt!))
+                                                            //         .inHours
+                                                            //         .toString() +
+                                                            //     " h ago",
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     size.height *
@@ -286,6 +319,7 @@ class _HomepageState extends State<Homepage> {
                                                           ),
                                                           InkWell(
                                                             onTap: () {
+                                                              // FollowController().sendFollowRequest(followRequest['following_id']);
                                                               setState(() {
                                                                 isSelected =
                                                                     !isSelected;
