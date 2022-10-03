@@ -50,13 +50,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
 //     }
     setState(() {});
   }
-  getFilterList(String? badgeStatusSeeAl)async{
-    Globals.expoFilterListModal = await ExpoBadgeController().expoBadgeFilter('top',);
-    print('12344.............'+Globals.expoFilterListModal.toString());
-    setState(() {
-      
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -711,7 +705,6 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   ExpoTopWatchScreen(textType: 'Upcoming',
-                                 
                                   )));
                         },
                         child: Row(
