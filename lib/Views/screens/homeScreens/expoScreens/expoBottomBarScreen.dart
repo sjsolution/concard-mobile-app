@@ -426,7 +426,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                        
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  ExpoTopWatchScreen(textType: 'Top',
+                                  ExpoTopWatchScreen(
+                                    textType: 'Top',
                               
                                   )));
                         },

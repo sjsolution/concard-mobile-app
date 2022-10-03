@@ -1,5 +1,3 @@
-
-
 import 'package:concard/Models/expo_filter_list_modal.dart';
 import 'package:concard/Models/expobadge_list_model.dart';
 import 'package:concard/Services/network.dart';
@@ -9,22 +7,20 @@ import 'package:flutter/cupertino.dart';
 
 import '../OthersController/sharedPrefController.dart';
 
-class ExpoBadgeController{
-   ServicesClass services = ServicesClass();
+class ExpoBadgeController {
+  ServicesClass services = ServicesClass();
   Future<ExpoBadgeListModal?> getExpoBadgeDetail(String? id) async {
     try {
-      var formData = FormData.fromMap({
-        'id':id
-      });
-      var response =
-          await services.postResponse(url: '/expobadge/list', formData: formData);
+      var formData = FormData.fromMap({'id': id});
+      var response = await services.postResponse(
+          url: '/expobadge/list', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
-        
-        ExpoBadgeListModal? expoBadgeListModal = ExpoBadgeListModal.fromJson(response);
+        ExpoBadgeListModal? expoBadgeListModal =
+            ExpoBadgeListModal.fromJson(response);
         Globals.expoBadgeListModal = expoBadgeListModal;
-        print('my badge'+expoBadgeListModal.toString());
-        print('Global var'+Globals.expoBadgeListModal.toString());
+        print('my badge' + expoBadgeListModal.toString());
+        print('Global var' + Globals.expoBadgeListModal.toString());
 
         return expoBadgeListModal;
       } else {
@@ -38,20 +34,18 @@ class ExpoBadgeController{
     }
   }
 
-   Future<ExpoFilterListModal?> expoBadgeFilter(String? filter) async {
+  Future<ExpoFilterListModal?> expoBadgeFilter(String? filter) async {
     try {
-      var formData = FormData.fromMap({
-        'filter_by':filter
-      });
-      var response =
-          await services.postResponse(url: '/expobadge/filter', formData: formData);
+      var formData = FormData.fromMap({'filter_by': filter});
+      var response = await services.postResponse(
+          url: '/expobadge/filter', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
-        
-        ExpoFilterListModal? expoFilterListModal = ExpoFilterListModal.fromJson(response);
+        ExpoFilterListModal? expoFilterListModal =
+            ExpoFilterListModal.fromJson(response);
         Globals.expoFilterListModal = expoFilterListModal;
-        print('Filter By'+expoFilterListModal.toString());
-        print('Global var'+Globals.expoBadgeListModal.toString());
+        // print('Filter By'+expoFilterListModal.toString());
+        // print('Global var'+Globals.expoBadgeListModal.toString());
 
         return expoFilterListModal;
       } else {
@@ -64,5 +58,4 @@ class ExpoBadgeController{
       return null;
     }
   }
-
 }

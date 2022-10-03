@@ -8,11 +8,11 @@ class ExpoFilterListModal {
   ExpoFilterListModal.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['code'] = code;
     data['message'] = message;
     if (this.data != null) {
@@ -31,7 +31,7 @@ class Data {
     if (json['list'] != null) {
       list = <ListData>[];
       json['list'].forEach((v) {
-        list!.add(new ListData.fromJson(v));
+        list!.add( ListData.fromJson(v));
       });
     }
   }
