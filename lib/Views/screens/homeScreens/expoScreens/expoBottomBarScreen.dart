@@ -432,8 +432,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                        
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  ExpoTopWatchScreen(Text: 'Top',
-                                  expoFilterListModal: Globals.expoFilterListModal!.data!.list,
+                                  ExpoTopWatchScreen(
+                                    textType: 'Top',
                               
                                   )));
                         },
@@ -526,8 +526,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                         
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  ExpoTopWatchScreen(Text: 'Nearby',
-                                  expoFilterListModal: Globals.expoFilterListModal!.data!.list,
+                                  ExpoTopWatchScreen(textType: 'Nearby',
                                    
                                   )));
                         },
@@ -619,8 +618,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                         
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  ExpoTopWatchScreen(Text: 'Ongoing',
-                                  expoFilterListModal: Globals.expoFilterListModal!.data!.list,
+                                  ExpoTopWatchScreen(textType: 'Ongoing',
                                    
                                   )));
                         },
@@ -712,8 +710,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                         
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  ExpoTopWatchScreen(Text: 'Upcoming',
-                                  expoFilterListModal: Globals.expoFilterListModal!.data!.list,
+                                  ExpoTopWatchScreen(textType: 'Upcoming',
+                                 
                                   )));
                         },
                         child: Row(
