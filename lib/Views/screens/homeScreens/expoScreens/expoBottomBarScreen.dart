@@ -1,5 +1,7 @@
 import 'package:concard/Models/expobadge_list_model.dart';
+import 'package:concard/Views/screens/homeScreens/expoScreens/expoDetailsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/expoScreens/expoTopWatchScreen.dart';
+import 'package:concard/Views/widgets/shimmer_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -121,7 +123,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) =>
-                                                PersonalProfileViewScreen()));
+                                           const    PersonalProfileViewScreen()));
                                   },
                                   child: CircleAvatar(
                                       radius: size.height * 0.02,
@@ -143,11 +145,11 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                 width: size.width,
                 decoration: BoxDecoration(
                     color: btnclr,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15),
                     )),
-                child: Padding(
+                child: Globals.expoBadgeListModal!=null? Padding(
                   padding: EdgeInsets.only(
                     left: size.width * 0.04,
                     right: size.width * 0.04,
@@ -439,7 +441,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   fontSize: size.height * 0.018,
                                   fontFamily: "MBold"),
                             ),
-                            Spacer(),
+                           const Spacer(),
                             Text(
                               'See all',
                               style: TextStyle(
@@ -456,53 +458,58 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: Globals.expoBadgeListModal!.data!.top!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: size.width * 0.32,
-                                child: Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            // SizedBox(height: 20,),
-                                            SvgPicture.asset(
-                                              expo_icon,
-                                              height: size.height * 0.035,
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.03,
-                                            ),
-                                            Text(
-                                              Globals.expoBadgeListModal!
-                                                  .data!.top![index].badgeName
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.012,
-                                                  fontFamily: "Msemibold"),
-                                            ),
-                                            Text(
-                                              Globals
-                                                          .expoBadgeListModal!
-                                                          .data!.top![index]
-                                                          .location !=
-                                                      null
-                                                  ? Globals.expoBadgeListModal!
-                                                      .data!.top![index].location
-                                                      .toString()
-                                                  : '',
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.012,
-                                                  fontFamily: "Stf",
-                                                  color: infocolor),
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            )
-                                          ],
-                                        )
-                                      ,
+                              return InkWell(
+                                onTap:(){
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>ExpoDetailsScreen(expoDetail:  Globals.expoBadgeListModal!.data!.top![index])));
+                                },
+                                child: SizedBox(
+                                  width: size.width * 0.32,
+                                  child: Card(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              // SizedBox(height: 20,),
+                                              SvgPicture.asset(
+                                                expo_icon,
+                                                height: size.height * 0.035,
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.03,
+                                              ),
+                                              Text(
+                                                Globals.expoBadgeListModal!
+                                                    .data!.top![index].badgeName
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: size.height * 0.012,
+                                                    fontFamily: "Msemibold"),
+                                              ),
+                                              Text(
+                                                Globals
+                                                            .expoBadgeListModal!
+                                                            .data!.top![index]
+                                                            .location !=
+                                                        null
+                                                    ? Globals.expoBadgeListModal!
+                                                        .data!.top![index].location
+                                                        .toString()
+                                                    : '',
+                                                style: TextStyle(
+                                                    fontSize: size.height * 0.012,
+                                                    fontFamily: "Stf",
+                                                    color: infocolor),
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.01,
+                                              )
+                                            ],
+                                          )
+                                        ,
+                                  ),
                                 ),
                               );
                             }),
@@ -521,7 +528,6 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   ExpoTopWatchScreen(textType: 'Nearby',
-                                   
                                   )));
                         },
                         child: Row(
@@ -532,7 +538,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   fontSize: size.height * 0.018,
                                   fontFamily: "Mbold"),
                             ),
-                            Spacer(),
+                           const Spacer(),
                             Text(
                               'See all',
                               style: TextStyle(
@@ -545,56 +551,62 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                       ),
                       Container(
                         child: ListView.builder(
-                            padding: EdgeInsets.all(0),
+                            padding:const EdgeInsets.all(0),
                             scrollDirection: Axis.horizontal,
                             itemCount: Globals.expoBadgeListModal!.data!.nearBy!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: size.width * 0.32,
-                                child: Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SvgPicture.asset(
-                                              expo_icon,
-                                              height: size.height * 0.035,
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.03,
-                                            ),
-                                            Text(
-                                              Globals.expoBadgeListModal!
-                                                  .data!.nearBy![index].badgeName
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.012,
-                                                  fontFamily: "Msemibold"),
-                                            ),
-                                            Text(
-                                              Globals
-                                                          .expoBadgeListModal!
-                                                          .data!.nearBy![index]
-                                                          .location !=
-                                                      null
-                                                  ? Globals.expoBadgeListModal!
-                                                      .data!.nearBy![index].location
-                                                      .toString()
-                                                  : '',
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.012,
-                                                  fontFamily: "Stf",
-                                                  color: infocolor),
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
-                                            )
-                                          ],
-                                        )
-                                    
+                              return InkWell(
+                                 onTap: (){
+                                   
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>ExpoDetailsScreen(expoDetail:Globals.expoBadgeListModal!.data!.nearBy![index])));
+                                 },
+                                child: SizedBox(
+                                  width: size.width * 0.32,
+                                  child: Card(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              SvgPicture.asset(
+                                                expo_icon,
+                                                height: size.height * 0.035,
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.03,
+                                              ),
+                                              Text(
+                                                Globals.expoBadgeListModal!
+                                                    .data!.nearBy![index].badgeName
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: size.height * 0.012,
+                                                    fontFamily: "Msemibold"),
+                                              ),
+                                              Text(
+                                                Globals
+                                                            .expoBadgeListModal!
+                                                            .data!.nearBy![index]
+                                                            .location !=
+                                                        null
+                                                    ? Globals.expoBadgeListModal!
+                                                        .data!.nearBy![index].location
+                                                        .toString()
+                                                    : '',
+                                                style: TextStyle(
+                                                    fontSize: size.height * 0.012,
+                                                    fontFamily: "Stf",
+                                                    color: infocolor),
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.01,
+                                              )
+                                            ],
+                                          )
+                                      
+                                  ),
                                 ),
                               );
                             }),
@@ -624,7 +636,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   fontSize: size.height * 0.018,
                                   fontFamily: "MBold"),
                             ),
-                            Spacer(),
+                           const Spacer(),
                             Text(
                               'See all',
                               style: TextStyle(
@@ -637,11 +649,11 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                       ),
                       Container(
                         child: ListView.builder(
-                            padding: EdgeInsets.all(0),
+                            padding: const EdgeInsets.all(0),
                             scrollDirection: Axis.horizontal,
                             itemCount: Globals.expoBadgeListModal!.data!.ongoing!.length,
                             itemBuilder: (context, index) {
-                              return Container(
+                              return SizedBox(
                                 width: size.width * 0.32,
                                 child: Card(
                                   elevation: 5,
@@ -715,7 +727,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   fontSize: size.height * 0.018,
                                   fontFamily: "MBold"),
                             ),
-                            Spacer(),
+                           const Spacer(),
                             Text(
                               'See all',
                               style: TextStyle(
@@ -728,11 +740,11 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                       ),
                       Container(
                         child: ListView.builder(
-                            padding: EdgeInsets.all(0),
+                            padding: const EdgeInsets.all(0),
                             scrollDirection: Axis.horizontal,
                             itemCount: Globals.expoBadgeListModal!.data!.upcoming!.length,
                             itemBuilder: (context, index) {
-                              return Container(
+                              return SizedBox(
                                 width: size.width * 0.32,
                                 child: Card(
                                   elevation: 5,
@@ -789,7 +801,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                       ),
                     ],
                   ),
-                ),
+                ):const ShimmerLoadWidget(),
               ),
             ],
           ),

@@ -246,13 +246,7 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                     Globals.expoFilterListModal != null
                         ? Container(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            ExpoDetailsScreen()));
-                              },
+                             
                               child: Globals.expoFilterListModal!.data!.list!
                                       .isNotEmpty
                                   ? ListView.builder(
@@ -261,75 +255,84 @@ class _ExpoTopWatchScreenState extends State<ExpoTopWatchScreen> {
                                       itemCount: Globals.expoFilterListModal!
                                           .data!.list!.length,
                                       itemBuilder: (context, index) {
-                                        return Container(
-                                          margin: EdgeInsets.only(
-                                              top: size.height * 0.02),
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: size.height * 0.025,
-                                                child: ClipRRect(
-                                                  child: Image.asset(
-                                                    expowtch_icon,
-                                                    height: size.height * 0.02,
-                                                    fit: BoxFit.cover,
+                                        return InkWell(
+                                           onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            ExpoDetailsScreen(expoDetail: Globals.expoFilterListModal!.data!.list![index],)));
+                              },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                top: size.height * 0.02),
+                                            child: Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: size.height * 0.025,
+                                                  child: ClipRRect(
+                                                    child: Image.asset(
+                                                      expowtch_icon,
+                                                      height: size.height * 0.02,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
+                                                  backgroundColor: Colors.white,
                                                 ),
-                                                backgroundColor: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: size.width * 0.03,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    Globals
-                                                        .expoFilterListModal!
-                                                        .data!
-                                                        .list![index]
-                                                        .badgeName
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.015,
-                                                        fontFamily:
-                                                            "Msemibold"),
-                                                  ),
-                                                  Text(
-                                                    Globals
-                                                                .expoFilterListModal!
-                                                                .data!
-                                                                .list![index]
-                                                                .location !=
-                                                            null
-                                                        ? Globals
-                                                            .expoFilterListModal!
-                                                            .data!
-                                                            .list![index]
-                                                            .location!
-                                                        : '',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.012,
-                                                        fontFamily: "Stf",
-                                                        color: infocolor),
-                                                  ),
-                                                ],
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .arrow_forward_ios_sharp,
-                                                    size: size.height * 0.02,
-                                                    color: infocolor,
-                                                  )
-                                                ],
-                                              )
-                                            ],
+                                                SizedBox(
+                                                  width: size.width * 0.03,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      Globals
+                                                          .expoFilterListModal!
+                                                          .data!
+                                                          .list![index]
+                                                          .badgeName
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              size.height * 0.015,
+                                                          fontFamily:
+                                                              "Msemibold"),
+                                                    ),
+                                                    Text(
+                                                      Globals
+                                                                  .expoFilterListModal!
+                                                                  .data!
+                                                                  .list![index]
+                                                                  .location !=
+                                                              null
+                                                          ? Globals
+                                                              .expoFilterListModal!
+                                                              .data!
+                                                              .list![index]
+                                                              .location!
+                                                          : '',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              size.height * 0.012,
+                                                          fontFamily: "Stf",
+                                                          color: infocolor),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_forward_ios_sharp,
+                                                      size: size.height * 0.02,
+                                                      color: infocolor,
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         );
                                       })
