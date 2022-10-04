@@ -21,11 +21,10 @@ class CreateNewSocialLink extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   var formKey = GlobalKey<FormState>();
-
+  var titleCon = TextEditingController();
+  var urlCon = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var titleCon = TextEditingController();
-    var urlCon = TextEditingController();
     var size = MediaQuery.of(context).size;
 
     return Consumer<AppProvider>(builder: (context, app, _) {
@@ -68,8 +67,8 @@ class CreateNewSocialLink extends StatelessWidget {
                                         radius: size.height * 0.025,
                                         backgroundImage: NetworkImage(
                                           app.indiviualProfileModel != null
-                                              ? app.indiviualProfileModel!.profileData!
-                                                      .image ??
+                                              ? app.indiviualProfileModel!
+                                                      .profileData!.image ??
                                                   "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         )),
@@ -237,8 +236,7 @@ class CreateNewSocialLink extends StatelessWidget {
                                   Navigator.pop(context);
                                   app.setProfileImage(await ImagePickerMethods()
                                       .getImage(ImageSource.gallery));
-                                }, 
-                                () async {
+                                }, () async {
                                   Navigator.pop(context);
                                   app.setProfileImage(await ImagePickerMethods()
                                       .getImage(ImageSource.camera));

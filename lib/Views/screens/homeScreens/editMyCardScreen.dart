@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:concard/Controllers/OthersController/image_picker_controller.dart';
 import 'package:concard/Controllers/indiviualController/profile_controller.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
@@ -148,7 +149,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 // if(formKey.currentState!.validate()){
                                 app.setLoadingTrue();
                                 loaderWidget(context, size);
-                                await ProfileController().updateProfile(
+                                IndiviualProfileModel? indiviualProfileModel =
+                                    await ProfileController().updateProfile(
                                   fName: app.indiviualProfileModel!.profileData!
                                       .firstName,
                                   lName: app.indiviualProfileModel!.profileData!
@@ -163,23 +165,42 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       ? telMobileControl.text.trim()
                                       : app.indiviualProfileModel!.profileData!
                                           .mobileNumber,
-                                  compName:
-                                      companyNameControl.text.trim() ?? '',
+                                  compName: companyNameControl.text.isNotEmpty
+                                      ? companyNameControl.text.trim()
+                                      : '',
                                   comWebsite:
-                                      companyWebsiteControl.text.trim() ?? '',
-                                  comField:
-                                      companyFieldControl.text.trim() ?? '',
-                                  workTel: telWokeControl.text.trim() ?? '',
-                                  city: cityControl.text.trim() ?? '',
-                                  state: provinceControl.text.trim() ?? '',
-                                  country: countryControl.text.trim() ?? '',
-                                  postalCode:
-                                      postalCodeControl.text.trim() ?? '',
-                                  address: addressControl.text.trim() ?? '',
-                                  about: aboutControl.text.trim() ?? '',
+                                      companyWebsiteControl.text.isNotEmpty
+                                          ? companyWebsiteControl.text.trim()
+                                          : '',
+                                  comField: companyFieldControl.text.isNotEmpty
+                                      ? companyFieldControl.text.trim()
+                                      : '',
+                                  workTel: telWokeControl.text.isNotEmpty
+                                      ? telWokeControl.text.trim()
+                                      : '',
+                                  city: cityControl.text.isNotEmpty
+                                      ? cityControl.text.trim()
+                                      : '',
+                                  state: provinceControl.text.isNotEmpty
+                                      ? provinceControl.text.trim()
+                                      : '',
+                                  country: countryControl.text.isNotEmpty
+                                      ? countryControl.text.trim()
+                                      : '',
+                                  postalCode: postalCodeControl.text.isNotEmpty
+                                      ? postalCodeControl.text.trim()
+                                      : '',
+                                  address: addressControl.text.isNotEmpty
+                                      ? addressControl.text.trim()
+                                      : '',
+                                  about: aboutControl.text.isNotEmpty
+                                      ? aboutControl.text.trim()
+                                      : '',
                                   userType: "1",
                                 );
-
+                                if (indiviualProfileModel != null) {
+                                  app.setIndvProfileObj(indiviualProfileModel);
+                                }
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
                                 setState(() {});
@@ -187,9 +208,9 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) =>
-                                            CompanyProfileScreen()));
+                                            const CompanyProfileScreen()));
                               },
-                              child: Container(
+                              child: SizedBox(
                                 height: size.height * 0.06,
                                 width: size.width * .13,
                                 // color: Colors.red,
@@ -250,8 +271,11 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                               SizedBox(
                                 height: size.height * 0.02,
                               ),
-                              Container(
-                                height: size.height * 0.2,
+                              SizedBox(
+                                //  margin: EdgeInsets.only(
+                                //         left: size.width * 0.04,
+                                //         right: size.width * 0.04),
+                                // height: size.height * 0.2,
                                 width: size.width,
                                 child: Card(
                                   elevation: 10,
@@ -271,71 +295,88 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                Text(
-                                                  '${app.indiviualProfileModel!.profileData!.jobTitle}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                Text(
-                                                  'Company',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                              ],
+                                            SizedBox(
+                                              width: size.width / 2.5,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Text(
+                                                    '${app.indiviualProfileModel!.profileData!.jobTitle}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Text(
+                                                    'Company',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${app.indiviualProfileModel!.profileData!.email}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                Text(
-                                                  '${app.indiviualProfileModel!.profileData!.website}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                Text(
-                                                  '${app.indiviualProfileModel!.profileData!.mobileNumber}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      fontFamily: "Stf"),
-                                                ),
-                                              ],
+                                            // SizedBox(
+                                            //   width: 3,
+                                            // ),
+                                            Container(
+                                              height: size.height * 0.08,
+                                              width: 1,
+                                              color: cgreen,
+                                            ),
+                                            SizedBox(
+                                              width: 3,
+                                            ),
+                                            SizedBox(
+                                              width: size.width / 2.5,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${app.indiviualProfileModel!.profileData!.email}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Text(
+                                                    '${app.indiviualProfileModel!.profileData!.website}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Text(
+                                                    '${app.indiviualProfileModel!.profileData!.mobileNumber}',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            size.height * 0.016,
+                                                        fontFamily: "Stf"),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -352,6 +393,9 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             SvgPicture.asset(smallcard_icon),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -361,94 +405,14 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 height: size.height * 0.02,
                               ),
                               Container(
-                                height: size.height * 0.05,
-                                width: size.width * 0.9,
-                                decoration: BoxDecoration(
-                                  color: bckgrnd,
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.grey),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: size.width * 0.04,
-                                      right: size.width * 0.01),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        uploadCard != null
-                                            ? 'Uploaded...'
-                                            : 'Insert Card',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: "Msemibold",
-                                            color: uploadCard != null
-                                                ? Colors.green
-                                                : infocolor),
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          getImageType(context, () async {
-                                            Navigator.pop(context);
-                                            uploadCard =
-                                                await ImagePickerMethods()
-                                                    .getImage(
-                                                        ImageSource.gallery);
-                                            if (uploadCard != null) {
-                                              await ProfileController()
-                                                  .uplaodImage(uploadCard!.path,
-                                                      'insert_card');
-                                            }
-                                            if (mounted) {
-                                              setState(() {});
-                                            }
-                                          }, () async {
-                                            Navigator.pop(context);
-                                            uploadCard =
-                                                await ImagePickerMethods()
-                                                    .getImage(
-                                                        ImageSource.camera);
-                                            if (uploadCard != null) {
-                                              await ProfileController()
-                                                  .uplaodImage(uploadCard!.path,
-                                                      'insert_card');
-                                            }
-                                            if (mounted) {
-                                              setState(() {});
-                                            }
-                                          });
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.2,
-                                          decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: [
-                                                    signupclor_light,
-                                                    signupclor_dark
-                                                  ]),
-                                              border: Border.all(
-                                                  color: signupclor_dark),
-                                              color: bckgrnd,
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Text(
-                                            'Upload',
-                                            style: TextStyle(
-                                                fontFamily: "Mbold",
-                                                fontSize: size.height * 0.02,
-                                                color: bckgrnd),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  // height: size.height * 0.05,
+                                  width: size.width * 0.9,
+                                  decoration: BoxDecoration(
+                                    color: bckgrnd,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.grey),
                                   ),
-                                ),
-                              ),
+                                  child: cardUploadView(size: size, app: app)),
                               SizedBox(
                                 height: size.height * 0.03,
                               ),
@@ -472,7 +436,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           if (uploadPhoto != null) {
                                             await ProfileController()
                                                 .uplaodImage(
-                                                    uploadPhoto!.path, 'photo');
+                                                    image: uploadPhoto!.path,
+                                                    imageType: "0");
                                           }
                                           if (mounted) {
                                             setState(() {});
@@ -485,7 +450,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           if (uploadPhoto != null) {
                                             await ProfileController()
                                                 .uplaodImage(
-                                                    uploadPhoto!.path, 'photo');
+                                                    image: uploadPhoto!.path,
+                                                    imageType: "0");
                                           }
                                           if (mounted) {
                                             setState(() {});
@@ -691,7 +657,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           if (uploadLogo != null) {
                                             await ProfileController()
                                                 .uplaodImage(
-                                                    uploadLogo!.path, 'logo');
+                                                    image: uploadLogo!.path,
+                                                    imageType: "2");
                                           }
                                           if (mounted) {
                                             setState(() {});
@@ -704,7 +671,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           if (uploadLogo != null) {
                                             await ProfileController()
                                                 .uplaodImage(
-                                                    uploadLogo!.path, 'logo');
+                                                    image: uploadLogo!.path,
+                                                    imageType: "2");
                                           }
                                           if (mounted) {
                                             setState(() {});
@@ -1567,7 +1535,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                             .getImage(ImageSource.gallery);
                         if (uploadProfile != null) {
                           await ProfileController().uplaodImage(
-                              uploadProfile!.path, 'profile_image');
+                              image: uploadProfile!.path, imageType: "3");
                         }
                         if (mounted) {
                           setState(() {});
@@ -1578,29 +1546,59 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                             .getImage(ImageSource.camera);
                         if (uploadProfile != null) {
                           await ProfileController().uplaodImage(
-                              uploadProfile!.path, 'profile_image');
+                              image: uploadProfile!.path, imageType: "3");
                         }
                         if (mounted) {
                           setState(() {});
                         }
                       });
                     },
-                    child: Container(
-                        height: size.height * 0.10,
-                        width: size.width * 0.2,
-                        decoration: const BoxDecoration(
-                            color: Colors.transparent, shape: BoxShape.circle),
-                        margin: EdgeInsets.only(
-                            top: size.height * 0.15, left: size.width * 0.04),
-                        child: uploadProfile != null
-                            ? Image.file(uploadProfile!, fit: BoxFit.cover)
-                            : Image.network(
-                                app.indiviualProfileModel!.profileData!
-                                        .profileImage ??
-                                    "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                              )
-                        // SvgPicture.asset(con_icon),
-                        ),
+                    child: uploadProfile == null &&
+                            app.indiviualProfileModel!.profileData!
+                                    .profileImage ==
+                                null
+                        ? Container(
+                            height: size.height * 0.10,
+                            width: size.width * 0.2,
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                shape: BoxShape.circle),
+                            margin: EdgeInsets.only(
+                                top: size.height * 0.15,
+                                left: size.width * 0.04),
+                            child: Image.network(
+                              "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                            )
+                            // SvgPicture.asset(con_icon),
+                            )
+                        : uploadProfile != null
+                            ? Container(
+                                height: size.height * 0.10,
+                                width: size.width * 0.2,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    shape: BoxShape.circle),
+                                margin: EdgeInsets.only(
+                                    top: size.height * 0.15,
+                                    left: size.width * 0.04),
+                                child: Image.file(uploadProfile!,
+                                    fit: BoxFit.cover))
+                            : Container(
+                                height: size.height * 0.10,
+                                width: size.width * 0.2,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    shape: BoxShape.circle),
+                                margin: EdgeInsets.only(
+                                    top: size.height * 0.15,
+                                    left: size.width * 0.04),
+                                child: Image.network(
+                                  app.indiviualProfileModel!.profileData!
+                                          .profileImage ??
+                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                )
+                                // SvgPicture.asset(con_icon),
+                                ),
                   ),
                   uploadProfile == null
                       ? Container(
@@ -1612,6 +1610,116 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
               ),
             ],
           ));
+    });
+  }
+
+  Widget cardUploadView({Size? size, AppProvider? app}) {
+    return Column(
+      children: [
+        uploadCard == null &&
+                app!.indiviualProfileModel!.profileData!.card == null
+            ? Padding(
+                padding: EdgeInsets.only(
+                    left: size!.width * 0.04, right: size.width * 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Insert Card',
+                      style: TextStyle(
+                          fontSize: size.height * 0.02,
+                          fontFamily: "Msemibold",
+                          color: uploadCard != null ? Colors.green : infocolor),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        cardUploadFunction();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: size.height * 0.05,
+                        width: size.width * 0.2,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [signupclor_light, signupclor_dark]),
+                            border: Border.all(color: signupclor_dark),
+                            color: bckgrnd,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          'Upload',
+                          style: TextStyle(
+                              fontFamily: "Mbold",
+                              fontSize: size.height * 0.02,
+                              color: bckgrnd),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : uploadCard != null
+                ? cardUpload(size: size, image: FileImage(uploadCard!))
+                : cardUpload(
+                    size: size,
+                    image: NetworkImage(
+                      app!.indiviualProfileModel!.profileData!.card ??
+                          "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                    ))
+      ],
+    );
+  }
+
+  Widget cardUpload({Size? size, ImageProvider? image}) {
+    return Container(
+        margin: const EdgeInsets.only(top: 0),
+        alignment: Alignment.topRight,
+        height: size!.height * 0.3,
+        width: size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(image: image!, fit: BoxFit.cover),
+        ),
+        child: Padding(
+            padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+            child: InkWell(
+              onTap: () {
+                cardUploadFunction();
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.black,
+                child: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            )));
+  }
+
+  void cardUploadFunction() {
+    getImageType(context, () async {
+      Navigator.pop(context);
+      uploadCard = await ImagePickerMethods().getImage(ImageSource.gallery);
+      if (uploadCard != null) {
+        await ProfileController()
+            .uplaodImage(image: uploadCard!.path, imageType: "1");
+      }
+      if (mounted) {
+        setState(() {});
+      }
+    }, () async {
+      Navigator.pop(context);
+      uploadCard = await ImagePickerMethods().getImage(ImageSource.camera);
+      if (uploadCard != null) {
+        await ProfileController()
+            .uplaodImage(image: uploadCard!.path, imageType: "1");
+      }
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 }
