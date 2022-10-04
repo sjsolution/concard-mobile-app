@@ -54,12 +54,17 @@ class Top {
   final String? badgeName;
   final String? badgeType;
   final String? description;
-  final dynamic location;
+  final String? location;
+  final String? lat;
+  final String? lng;
+  final String? dateTime;
   final String? status;
   final String? createdAt;
   final String? updatedAt;
   final String? image;
   final User? user;
+  final List<dynamic>? categories;
+  final List<dynamic>? participants;
 
   Top({
     this.id,
@@ -68,11 +73,16 @@ class Top {
     this.badgeType,
     this.description,
     this.location,
+    this.lat,
+    this.lng,
+    this.dateTime,
     this.status,
     this.createdAt,
     this.updatedAt,
     this.image,
     this.user,
+    this.categories,
+    this.participants,
   });
 
   Top.fromJson(Map<String, dynamic> json)
@@ -81,12 +91,17 @@ class Top {
       badgeName = json['badge_name'] as String?,
       badgeType = json['badge_type'] as String?,
       description = json['description'] as String?,
-      location = json['location'],
+      location = json['location'] as String?,
+      lat = json['lat'] as String?,
+      lng = json['lng'] as String?,
+      dateTime = json['date_time'] as String?,
       status = json['status'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       image = json['image'] as String?,
-      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null,
+      categories = json['categories'] as List?,
+      participants = json['participants'] as List?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -95,11 +110,16 @@ class Top {
     'badge_type' : badgeType,
     'description' : description,
     'location' : location,
+    'lat' : lat,
+    'lng' : lng,
+    'date_time' : dateTime,
     'status' : status,
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'image' : image,
-    'user' : user?.toJson()
+    'user' : user?.toJson(),
+    'categories' : categories,
+    'participants' : participants
   };
 }
 
@@ -111,7 +131,7 @@ class User {
   final String? email;
   final String? userType;
   final dynamic emailVerifiedAt;
-  final dynamic jobTitle;
+  final String? jobTitle;
   final String? website;
   final String? companyName;
   final String? companyField;
@@ -166,7 +186,7 @@ class User {
       email = json['email'] as String?,
       userType = json['user_type'] as String?,
       emailVerifiedAt = json['email_verified_at'],
-      jobTitle = json['job_title'],
+      jobTitle = json['job_title'] as String?,
       website = json['website'] as String?,
       companyName = json['company_name'] as String?,
       companyField = json['company_field'] as String?,
@@ -220,12 +240,17 @@ class NearBy {
   final String? badgeName;
   final String? badgeType;
   final String? description;
-  final dynamic location;
+  final String? location;
+  final String? lat;
+  final String? lng;
+  final String? dateTime;
   final String? status;
   final String? createdAt;
   final String? updatedAt;
   final String? image;
   final User? user;
+  final List<dynamic>? categories;
+  final List<dynamic>? participants;
 
   NearBy({
     this.id,
@@ -234,11 +259,16 @@ class NearBy {
     this.badgeType,
     this.description,
     this.location,
+    this.lat,
+    this.lng,
+    this.dateTime,
     this.status,
     this.createdAt,
     this.updatedAt,
     this.image,
     this.user,
+    this.categories,
+    this.participants,
   });
 
   NearBy.fromJson(Map<String, dynamic> json)
@@ -247,12 +277,17 @@ class NearBy {
       badgeName = json['badge_name'] as String?,
       badgeType = json['badge_type'] as String?,
       description = json['description'] as String?,
-      location = json['location'],
+      location = json['location'] as String?,
+      lat = json['lat'] as String?,
+      lng = json['lng'] as String?,
+      dateTime = json['date_time'] as String?,
       status = json['status'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       image = json['image'] as String?,
-      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null,
+      categories = json['categories'] as List?,
+      participants = json['participants'] as List?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -261,15 +296,20 @@ class NearBy {
     'badge_type' : badgeType,
     'description' : description,
     'location' : location,
+    'lat' : lat,
+    'lng' : lng,
+    'date_time' : dateTime,
     'status' : status,
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'image' : image,
-    'user' : user?.toJson()
+    'user' : user?.toJson(),
+    'categories' : categories,
+    'participants' : participants
   };
 }
 
-class BadgeUser {
+class NearByUser {
   final int? id;
   final String? firstName;
   final String? lastName;
@@ -277,7 +317,7 @@ class BadgeUser {
   final String? email;
   final String? userType;
   final dynamic emailVerifiedAt;
-  final dynamic jobTitle;
+  final String? jobTitle;
   final String? website;
   final String? companyName;
   final String? companyField;
@@ -296,7 +336,7 @@ class BadgeUser {
   final String? logo;
   final String? profileImage;
 
-  BadgeUser({
+  NearByUser({
     this.id,
     this.firstName,
     this.lastName,
@@ -324,7 +364,7 @@ class BadgeUser {
     this.profileImage,
   });
 
-  BadgeUser.fromJson(Map<String, dynamic> json)
+  NearByUser.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
       firstName = json['first_name'] as String?,
       lastName = json['last_name'] as String?,
@@ -332,7 +372,7 @@ class BadgeUser {
       email = json['email'] as String?,
       userType = json['user_type'] as String?,
       emailVerifiedAt = json['email_verified_at'],
-      jobTitle = json['job_title'],
+      jobTitle = json['job_title'] as String?,
       website = json['website'] as String?,
       companyName = json['company_name'] as String?,
       companyField = json['company_field'] as String?,
@@ -386,12 +426,17 @@ class Ongoing {
   final String? badgeName;
   final String? badgeType;
   final String? description;
-  final dynamic location;
+  final String? location;
+  final String? lat;
+  final String? lng;
+  final String? dateTime;
   final String? status;
   final String? createdAt;
   final String? updatedAt;
   final String? image;
   final User? user;
+  final List<dynamic>? categories;
+  final List<dynamic>? participants;
 
   Ongoing({
     this.id,
@@ -400,11 +445,16 @@ class Ongoing {
     this.badgeType,
     this.description,
     this.location,
+    this.lat,
+    this.lng,
+    this.dateTime,
     this.status,
     this.createdAt,
     this.updatedAt,
     this.image,
     this.user,
+    this.categories,
+    this.participants,
   });
 
   Ongoing.fromJson(Map<String, dynamic> json)
@@ -413,12 +463,17 @@ class Ongoing {
       badgeName = json['badge_name'] as String?,
       badgeType = json['badge_type'] as String?,
       description = json['description'] as String?,
-      location = json['location'],
+      location = json['location'] as String?,
+      lat = json['lat'] as String?,
+      lng = json['lng'] as String?,
+      dateTime = json['date_time'] as String?,
       status = json['status'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       image = json['image'] as String?,
-      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null,
+      categories = json['categories'] as List?,
+      participants = json['participants'] as List?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -427,15 +482,20 @@ class Ongoing {
     'badge_type' : badgeType,
     'description' : description,
     'location' : location,
+    'lat' : lat,
+    'lng' : lng,
+    'date_time' : dateTime,
     'status' : status,
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'image' : image,
-    'user' : user?.toJson()
+    'user' : user?.toJson(),
+    'categories' : categories,
+    'participants' : participants
   };
 }
 
-class ExpoUser {
+class OngoingUser {
   final int? id;
   final String? firstName;
   final String? lastName;
@@ -443,7 +503,7 @@ class ExpoUser {
   final String? email;
   final String? userType;
   final dynamic emailVerifiedAt;
-  final dynamic jobTitle;
+  final String? jobTitle;
   final String? website;
   final String? companyName;
   final String? companyField;
@@ -462,7 +522,7 @@ class ExpoUser {
   final String? logo;
   final String? profileImage;
 
-  ExpoUser({
+  OngoingUser({
     this.id,
     this.firstName,
     this.lastName,
@@ -490,7 +550,7 @@ class ExpoUser {
     this.profileImage,
   });
 
-  ExpoUser.fromJson(Map<String, dynamic> json)
+  OngoingUser.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
       firstName = json['first_name'] as String?,
       lastName = json['last_name'] as String?,
@@ -498,7 +558,7 @@ class ExpoUser {
       email = json['email'] as String?,
       userType = json['user_type'] as String?,
       emailVerifiedAt = json['email_verified_at'],
-      jobTitle = json['job_title'],
+      jobTitle = json['job_title'] as String?,
       website = json['website'] as String?,
       companyName = json['company_name'] as String?,
       companyField = json['company_field'] as String?,
@@ -552,12 +612,17 @@ class Upcoming {
   final String? badgeName;
   final String? badgeType;
   final String? description;
-  final dynamic location;
+  final String? location;
+  final String? lat;
+  final String? lng;
+  final String? dateTime;
   final String? status;
   final String? createdAt;
   final String? updatedAt;
   final String? image;
   final User? user;
+  final List<dynamic>? categories;
+  final List<dynamic>? participants;
 
   Upcoming({
     this.id,
@@ -566,11 +631,16 @@ class Upcoming {
     this.badgeType,
     this.description,
     this.location,
+    this.lat,
+    this.lng,
+    this.dateTime,
     this.status,
     this.createdAt,
     this.updatedAt,
     this.image,
     this.user,
+    this.categories,
+    this.participants,
   });
 
   Upcoming.fromJson(Map<String, dynamic> json)
@@ -579,12 +649,17 @@ class Upcoming {
       badgeName = json['badge_name'] as String?,
       badgeType = json['badge_type'] as String?,
       description = json['description'] as String?,
-      location = json['location'],
+      location = json['location'] as String?,
+      lat = json['lat'] as String?,
+      lng = json['lng'] as String?,
+      dateTime = json['date_time'] as String?,
       status = json['status'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       image = json['image'] as String?,
-      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null,
+      categories = json['categories'] as List?,
+      participants = json['participants'] as List?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -593,15 +668,20 @@ class Upcoming {
     'badge_type' : badgeType,
     'description' : description,
     'location' : location,
+    'lat' : lat,
+    'lng' : lng,
+    'date_time' : dateTime,
     'status' : status,
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'image' : image,
-    'user' : user?.toJson()
+    'user' : user?.toJson(),
+    'categories' : categories,
+    'participants' : participants
   };
 }
 
-class EUser {
+class UpcomingUser {
   final int? id;
   final String? firstName;
   final String? lastName;
@@ -609,7 +689,7 @@ class EUser {
   final String? email;
   final String? userType;
   final dynamic emailVerifiedAt;
-  final dynamic jobTitle;
+  final String? jobTitle;
   final String? website;
   final String? companyName;
   final String? companyField;
@@ -628,7 +708,7 @@ class EUser {
   final String? logo;
   final String? profileImage;
 
-  EUser({
+  UpcomingUser({
     this.id,
     this.firstName,
     this.lastName,
@@ -656,7 +736,7 @@ class EUser {
     this.profileImage,
   });
 
- EUser.fromJson(Map<String, dynamic> json)
+  UpcomingUser.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
       firstName = json['first_name'] as String?,
       lastName = json['last_name'] as String?,
@@ -664,7 +744,7 @@ class EUser {
       email = json['email'] as String?,
       userType = json['user_type'] as String?,
       emailVerifiedAt = json['email_verified_at'],
-      jobTitle = json['job_title'],
+      jobTitle = json['job_title'] as String?,
       website = json['website'] as String?,
       companyName = json['company_name'] as String?,
       companyField = json['company_field'] as String?,
