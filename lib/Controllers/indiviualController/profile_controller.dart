@@ -26,6 +26,7 @@ class ProfileController {
           debugPrint(response.toString());
           IndiviualProfileModel? profileModel =
               IndiviualProfileModel.fromJson(response);
+          
           return profileModel;
         } else {
           //status false
@@ -43,13 +44,14 @@ class ProfileController {
     }
   }
 
-  Future uplaodImage(String? image, String? key) async {
+  Future uplaodImage({String? image, String? imageType}) async {
     try {
       var formData = FormData.fromMap({
-        '$key': await MultipartFile.fromFile(image!),
+        'image': await MultipartFile.fromFile(image!),
+        'img_type':imageType   //0=user{photo},1=card,2=logo,3=profile
       });
       var response = await services.postResponse(
-          url: '/user/update-user', formData: formData);
+          url: '/user/image-upload', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
           debugPrint(response.toString());
@@ -120,9 +122,10 @@ class ProfileController {
         if (response['data'] != null) {
           debugPrint(response.toString());
           Globals.showToastMethod(msg: "${response['message']}");
-          // IndiviualProfileModel? profileModel =
-          //     IndiviualProfileModel.fromJson(response);
-          return response;
+
+          IndiviualProfileModel? profileModel =
+              IndiviualProfileModel.fromJson(response);
+          return profileModel;
         } else {
           //status false
           Globals.showToastMethod(msg: "User not exist");

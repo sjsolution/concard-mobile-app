@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 loaderWidget(BuildContext? context,Size? size){
     context!.read<AppProvider>().isLoading!? showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
        builder:(context){
         return Container(

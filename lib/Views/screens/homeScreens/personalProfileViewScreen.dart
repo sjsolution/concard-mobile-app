@@ -54,23 +54,19 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
         child: Stack(
           children: [
             Container(
-              height: size.height * 0.25,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topCenter,
-                    colors: [signupclor_light, signupclor_dark]),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.04,
-                        right: size.width * 0.04,
-                        top: size.height * 0.06),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                height: size.height * 0.25,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topCenter,
+                      colors: [signupclor_light, signupclor_dark]),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //premium or drawer column
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         InkWell(
                           onTap: () => _scaffoldKey.currentState!.openDrawer(),
@@ -79,260 +75,87 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             height: 15,
                           ),
                         ),
-                        Column(
-                          children: [
-                            CircleAvatar(
-                                radius: size.height * 0.03,
-                                backgroundImage: NetworkImage(
-                                  appPro!.indiviualProfileModel!.profileData!
-                                          .image ??
-                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                                )),
-                          ],
-                        ),
-                        Image.asset(
-                          notify_icon,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => IndividualPremiumScreen()));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            // margin: EdgeInsets.only(left: 10.0),
+                            // padding: EdgeInsets.only(left: 07.0),
+                            height: size.height * 0.05,
+                            // width: size.width * 0.3,
+                            decoration: BoxDecoration(
+                                color: bckgrnd.withOpacity(0.1),
+                                borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                    bottomRight: Radius.circular(10))),
+                            child: Row(children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 3.0, bottom: 09.0),
+                                child: Image.asset(
+                                  premium_icon,
+                                  // height: size.width * 0.07,
+                                ),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  'Premium',
+                                  style: TextStyle(
+                                      fontSize: size.height * 0.015,
+                                      fontFamily: "MBold",
+                                      color: bckgrnd),
+                                ),
+                              ),
+                            ]),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.005,
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => IndividualPremiumScreen()));
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          // margin: EdgeInsets.only(left: 10.0),
-                          // padding: EdgeInsets.only(left: 07.0),
-                          height: size.height * 0.05,
-                          // width: size.width * 0.3,
-                          decoration: BoxDecoration(
-                              color: bckgrnd.withOpacity(0.1),
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10))),
-                          child: Row(children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 3.0, bottom: 09.0),
-                              child: Image.asset(
-                                premium_icon,
-                                // height: size.width * 0.07,
-                              ),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.01,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                'Premium',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: bckgrnd),
-                              ),
-                            ),
-                          ]),
+                    //profile show Column
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                            radius: size.height * 0.035,
+                            backgroundImage: NetworkImage(
+                              appPro!.indiviualProfileModel!.profileData!
+                                      .image ??
+                                  "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                            )),
+                              const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      // SizedBox(
-                      //   width: size.width * 0.1,
-                      // ),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                '${appPro!.indiviualProfileModel!.profileData!.firstName ?? ''} ${appPro!.indiviualProfileModel!.profileData!.lastName ?? ''}',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.02,
-                                    color: bckgrnd),
-                              ),
-                              Text(
-                                appPro!.indiviualProfileModel!.profileData!
-                                        .email ??
-                                    '',
-                                style: TextStyle(
-                                    fontFamily: 'Stf',
-                                    fontSize: size.height * 0.017,
-                                    color: bckgrnd),
-                              ),
-                              SizedBox(
-                                height: size.height * 0.01,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: size.height * 0.1),
-                                            child: Dialog(
-                                              alignment: AlignmentDirectional
-                                                  .bottomCenter,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                              //this right here
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: btnclr,
-                                                ),
-                                                height: size.height * 0.25,
-                                                width: size.width * 0.9,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: size.width * 0.04,
-                                                      right: size.width * 0.04,
-                                                      top: size.height * 0.02),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Container(
-                                                                width:
-                                                                    size.width *
-                                                                        0.1),
-                                                            SvgPicture.asset(
-                                                              con_icon,
-                                                              height:
-                                                                  size.height *
-                                                                      0.04,
-                                                            ),
-                                                            // Spacer(),
-                                                            GestureDetector(
-                                                                onTap: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons.close,
-                                                                  size: 20,
-                                                                ))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
-                                                      ),
-                                                      Text(
-                                                        'Promote your Concard',
-                                                        style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.015,
-                                                          fontFamily: "MBold",
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
-                                                      ),
-                                                      Text(
-                                                        'Make your card visible when people search on',
-                                                        style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.015,
-                                                          fontFamily: "Stf",
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        'Concard or Google',
-                                                        style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.015,
-                                                          fontFamily: "Stf",
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Container(
-                                                          height: size.height *
-                                                              0.05,
-                                                          width:
-                                                              size.width * 0.5,
-                                                          decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color:
-                                                                      signupclor_dark),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20),
-                                                              color: btnclr),
-                                                          child: Center(
-                                                              child: Text(
-                                                            'Go to Settings',
-                                                            style: TextStyle(
-                                                                fontSize:
-                                                                    size.height *
-                                                                        0.018,
-                                                                fontFamily:
-                                                                    "MBOld",
-                                                                color:
-                                                                    signupclor_dark),
-                                                          )),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ));
-                                },
-                                child: Container(
-                                  height: size.height * 0.025,
-                                  width: size.width * 0.18,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: bckgrnd),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Promote',
-                                      style: TextStyle(
-                                          fontFamily: "Stf",
-                                          fontSize: size.height * 0.015,
-                                          color: bckgrnd),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
+                        Text(
+                          '${appPro!.indiviualProfileModel!.profileData!.firstName ?? ''} ${appPro!.indiviualProfileModel!.profileData!.lastName ?? ''}',
+                          style: TextStyle(
+                              fontFamily: 'MBold',
+                              fontSize: size.height * 0.02,
+                              color: bckgrnd),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(children: [
+                          Text(
+                            appPro!.indiviualProfileModel!.profileData!.email ??
+                                '',
+                            style: TextStyle(
+                                fontFamily: 'Stf',
+                                fontSize: size.height * 0.017,
+                                color: bckgrnd),
                           ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
+                          const SizedBox(
+                          height: 10,
+                        ),
                           InkWell(
                             onTap: () {
                               showDialog(
@@ -457,13 +280,172 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               color: infocolor,
                             ),
                           ),
+                        ]),
+                       const SizedBox(
+                          height: 10,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) => Container(
+                                      margin: EdgeInsets.only(
+                                          bottom: size.height * 0.1),
+                                      child: Dialog(
+                                        alignment:
+                                            AlignmentDirectional.bottomCenter,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0)),
+                                        //this right here
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: btnclr,
+                                          ),
+                                          height: size.height * 0.25,
+                                          width: size.width * 0.9,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * 0.04,
+                                                right: size.width * 0.04,
+                                                top: size.height * 0.02),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          width:
+                                                              size.width * 0.1),
+                                                      SvgPicture.asset(
+                                                        con_icon,
+                                                        height:
+                                                            size.height * 0.04,
+                                                      ),
+                                                      // Spacer(),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.close,
+                                                            size: 20,
+                                                          ))
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.02,
+                                                ),
+                                                Text(
+                                                  'Promote your Concard',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        size.height * 0.015,
+                                                    fontFamily: "MBold",
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.02,
+                                                ),
+                                                Text(
+                                                  'Make your card visible when people search on',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        size.height * 0.015,
+                                                    fontFamily: "Stf",
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Concard or Google',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        size.height * 0.015,
+                                                    fontFamily: "Stf",
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.02,
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    height: size.height * 0.05,
+                                                    width: size.width * 0.5,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                signupclor_dark),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        color: btnclr),
+                                                    child: Center(
+                                                        child: Text(
+                                                      'Go to Settings',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.018,
+                                                          fontFamily: "MBOld",
+                                                          color:
+                                                              signupclor_dark),
+                                                    )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ));
+                          },
+                          child: Container(
+                            height: size.height * 0.025,
+                            width: size.width * 0.18,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: bckgrnd),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Promote',
+                                style: TextStyle(
+                                    fontFamily: "Stf",
+                                    fontSize: size.height * 0.015,
+                                    color: bckgrnd),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    //notification icon
+                    Padding(
+                      padding: const EdgeInsets.only(right:8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            notify_icon,
+                          ),
+                          const Text("")
                         ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+                    ),
+                      // SizedBox(
+                      //     width: 1,
+                      //   ),
+                  ],
+                )),
             Container(
               margin: EdgeInsets.only(top: size.height * 0.23),
               // height: size.height*0.8,
@@ -1473,11 +1455,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 Icon(
                   Icons.arrow_back_ios_new,
                   color: Colors.black,
-                  size: size.height * 0.02,
+                  size: size.height * 0.018,
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: size.height * 0.055,
+                    top: size.height * 0.047,
                     left: size.width * 0.02,
                   ),
                   child: Column(
@@ -1487,13 +1469,12 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           Column(
                             children: [
                               SvgPicture.asset(con_icon),
-                              SizedBox(
-                                height: size.height * 0.015,
-                              ),
+                              const SizedBox(height: 10 //size.height * 0.015,
+                                  ),
                               Text(
                                 "CONCARD",
                                 style: TextStyle(
-                                  fontSize: size.height * 0.02,
+                                  fontSize: size.height * 0.016,
                                   color: signupclor_dark,
                                   fontFamily: "Mbold",
                                   letterSpacing: 5,
@@ -1515,7 +1496,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           SizedBox(width: size.width * 0.03),
                           Container(
                             height: size.height * 0.2,
-                            width: size.width * 0.002,
+                            width: 1,
                             color: cgreen,
                           ),
                           SizedBox(width: size.width * 0.08),
@@ -1525,40 +1506,42 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               Text(
                                 "${indiviualProfileModel.profileData!.firstName ?? ''} ${indiviualProfileModel.profileData!.lastName ?? ''}",
                                 style: TextStyle(
-                                  fontSize: size.height * 0.015,
+                                  fontSize: size.height * 0.013,
                                   color: signupclor_dark,
                                   fontFamily: "Mbold",
                                 ),
                               ),
                               Text(
-                                "Your title",
+                                "${indiviualProfileModel.profileData!.jobTitle ?? ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.015,
                                   color: signupclor_dark,
                                   fontFamily: "Stf",
                                 ),
                               ),
-                              SizedBox(
-                                height: size.height * 0.01,
-                              ),
+                              const SizedBox(height: 8 //size.height * 0.01,
+                                  ),
                               Row(
                                 children: [
                                   Column(children: [
                                     SvgPicture.asset(location_icon),
                                   ]),
-                                  SizedBox(
-                                    width: size.width * 0.015,
+                                  const SizedBox(
+                                    width: 4, //size.width * 0.015,
                                   ),
-                                  Column(children: [
-                                    Text(
-                                      "${indiviualProfileModel.profileData!.address}",
-                                      style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        color: signupclor_dark,
-                                        fontFamily: "Mbold",
+                                  Container(
+                                    width: size.width * .35,
+                                    child: Column(children: [
+                                      Text(
+                                        "${indiviualProfileModel.profileData!.address}",
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.015,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
                                       ),
-                                    ),
-                                  ]),
+                                    ]),
+                                  ),
                                 ],
                               ),
                               SizedBox(
@@ -1594,13 +1577,21 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   SizedBox(
                                     width: size.width * 0.01,
                                   ),
-                                  Text(
-                                    indiviualProfileModel.profileData!.email ??
-                                        '',
-                                    style: TextStyle(
-                                      fontSize: size.height * 0.012,
-                                      color: signupclor_dark,
-                                      fontFamily: "Mbold",
+                                  Container(
+                                    width: size.width * .35,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          indiviualProfileModel
+                                                  .profileData!.email ??
+                                              '',
+                                          style: TextStyle(
+                                            fontSize: size.height * 0.012,
+                                            color: signupclor_dark,
+                                            fontFamily: "Mbold",
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -1614,12 +1605,19 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   SizedBox(
                                     width: size.width * 0.02,
                                   ),
-                                  Text(
-                                    "${indiviualProfileModel.profileData!.website}",
-                                    style: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      color: signupclor_dark,
-                                      fontFamily: "Mbold",
+                                  Container(
+                                    width: size.width * .35,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "${indiviualProfileModel.profileData!.website}",
+                                          style: TextStyle(
+                                            fontSize: size.height * 0.015,
+                                            color: signupclor_dark,
+                                            fontFamily: "Mbold",
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
