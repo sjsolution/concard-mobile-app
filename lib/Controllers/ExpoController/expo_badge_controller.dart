@@ -1,17 +1,43 @@
-import 'package:concard/Models/expo_filter_list_modal.dart';
-import 'package:concard/Models/expobadge_list_model.dart';
+import 'package:concard/Models/Expo/expo_detail_model.dart';
 import 'package:concard/Services/network.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../Models/Expo/expo_filter_list_modal.dart';
+import '../../Models/Expo/expobadge_list_model.dart';
 import '../OthersController/sharedPrefController.dart';
 
-class ExpoBadgeController {
+class ExpoController {
   ServicesClass services = ServicesClass();
-  Future<ExpoBadgeListModal?> getExpoBadgeDetail(String? id) async {
+   Future<ExpoDetailModel?> getExpoBadgeDetail(String? id) async {
     try {
       var formData = FormData.fromMap({'id': id});
+      var response = await services.postResponse(
+          url: '/expobadge/detail', formData: formData);
+      debugPrint(response.toString());
+      if (response != null) {
+        ExpoDetailModel? expoDetailModel =
+            ExpoDetailModel.fromJson(response);
+        Globals.expoDetailModel = expoDetailModel;
+        // print('my badge' + expoDetailModel.toString());
+        // print('Global var' + Globals.expoDetailModel.toString());
+
+        return expoDetailModel;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      // debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future<ExpoBadgeListModal?> getExpoBadgeList() async {
+    try {
+      var formData = FormData.fromMap({});
       var response = await services.postResponse(
           url: '/expobadge/list', formData: formData);
       debugPrint(response.toString());
