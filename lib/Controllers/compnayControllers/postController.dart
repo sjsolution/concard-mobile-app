@@ -62,11 +62,11 @@ class PostController {
     }
   }
 
-  Future addPostLike(String? postId, String? isLike) async {
+  Future addPostLike(String? postId) async {
     try {
       var formData = FormData.fromMap({
         "post_id": postId,
-        "text": isLike,
+        // "text": isLike,
       });
       var response = await services.postResponse(
           url: '/like/post-like', formData: formData);
@@ -79,6 +79,27 @@ class PostController {
       }
     } catch (e) {
       debugPrint("post like exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future addCommentLike(String? commentId) async {
+    try {
+      var formData = FormData.fromMap({
+        "comment_id": commentId,
+        // "text": isLike,
+      });
+      var response = await services.postResponse(
+          url: '/like/comment-like', formData: formData);
+      if (response != null) {
+        return response;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("comment like exception:" + e.toString());
       return null;
     }
   }
