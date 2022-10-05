@@ -1,4 +1,4 @@
-import 'package:concard/Models/add_card_modal.dart';
+import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Services/network.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:dio/dio.dart';

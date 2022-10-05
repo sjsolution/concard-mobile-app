@@ -1,13 +1,14 @@
 import 'package:concard/Controllers/CardsController/add_card_controller.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Views/widgets/caledar_widget.dart';
 import 'package:concard/Views/widgets/customCardInputField.dart';
 import 'package:concard/Views/widgets/fieldText.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
@@ -20,12 +21,27 @@ class AddContactCardsScreen extends StatefulWidget {
 }
 
 class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
+  
   @override
   void initState() {
     AddMyCard();
     // TODO: implement initState
     super.initState();
   }
+   DateTime selectedDate = DateTime.now();
+    Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+  
   AddMyCard()async{
     Globals.addCardModal=await AddCardController().addCard('', '', '', '', '', '', '', '', '', '', '');
     print('aadd card'+Globals.addCardModal.toString());
@@ -122,7 +138,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                 width: size.width,
                 decoration: BoxDecoration(
                     color: btnclr,
-                    borderRadius: BorderRadius.only(
+                    borderRadius:const BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15),
                     )),
@@ -196,7 +212,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                         CustomCardInputField(
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return "Enter company name";
+                                return "Enter Your name";
                               }
                               return null;
                             },
@@ -209,7 +225,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                         CustomCardInputField(
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return "Enter company name";
+                                return "Enter Your Job itle";
                               }
                               return null;
                             },
@@ -221,6 +237,11 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                         ),
                         InkWell(
                           onTap: (){
+                  //            CalendarWidget();
+                  _selectDate(context);
+                  setState(() {
+                    
+                  });
 //    DateTimePicker(
 //   initialValue: '',
 //   firstDate: DateTime(2000),
@@ -255,13 +276,13 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Day',
+                                      selectedDate.day!=null?    '${selectedDate.day}':'Day',
                                           style: TextStyle(
                                               fontFamily: "Msemibold",
                                               fontSize: size.height * 0.018,
                                               color: infocolor),
                                         ),
-                                        Image.asset(downarrow_icon)
+                                        // Image.asset(downarrow_icon)
                                       ],
                                     ),
                                   )),
@@ -280,13 +301,13 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Month',
+                                         selectedDate.day!=null? '${selectedDate.month}':'Month',
                                           style: TextStyle(
                                               fontFamily: "Msemibold",
                                               fontSize: size.height * 0.018,
                                               color: infocolor),
                                         ),
-                                        Image.asset(downarrow_icon)
+                                        // Image.asset(downarrow_icon)
                                       ],
                                     ),
                                   )),
@@ -305,13 +326,13 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Year',
+                                         selectedDate.day!=null? '${selectedDate.year}':'Year',
                                           style: TextStyle(
                                               fontFamily: "Msemibold",
                                               fontSize: size.height * 0.018,
                                               color: infocolor),
                                         ),
-                                        Image.asset(downarrow_icon)
+                                        // Image.asset(downarrow_icon)
                                       ],
                                     ),
                                   )),

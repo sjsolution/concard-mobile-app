@@ -16,7 +16,7 @@ class CalenderScreen extends StatefulWidget {
 }
 
 class _CalenderScreenState extends State<CalenderScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
 
@@ -156,8 +156,8 @@ class _CalenderScreenState extends State<CalenderScreen> {
                     daysOfWeekVisible: true,
                     sixWeekMonthsEnforced: true,
                     shouldFillViewport: false,
-                    headerStyle: HeaderStyle(titleTextStyle: TextStyle(fontSize: 20, color: Colors.deepPurple, fontWeight: FontWeight.w800)),
-                    calendarStyle: CalendarStyle(todayTextStyle: TextStyle(fontSize:20, color: Colors.white, fontWeight: FontWeight.bold )),
+                    headerStyle:const HeaderStyle(titleTextStyle: TextStyle(fontSize: 20, color: Colors.deepPurple, fontWeight: FontWeight.w800)),
+                    calendarStyle:const CalendarStyle(todayTextStyle: TextStyle(fontSize:20, color: Colors.white, fontWeight: FontWeight.bold )),
                   ),
                 )
               ],
@@ -170,7 +170,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
   void _settingModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10)
@@ -180,13 +180,13 @@ class _CalenderScreenState extends State<CalenderScreen> {
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
-              return Container(
+              return SizedBox(
                 height: size.height * 4,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10,top: 20),
+                      padding:const EdgeInsets.only(left: 10, right: 10,top: 20),
                       child: Row(
                         children: [
                           Text(
