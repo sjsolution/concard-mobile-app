@@ -8,6 +8,7 @@ import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Views/screens/authScreens/individual/signup/mobileVerification.dart';
 import 'package:concard/Views/widgets/customNextButton.dart';
 import 'package:concard/Views/widgets/fieldText.dart';
+import 'package:concard/Views/widgets/loader_widget.dart';
 import 'package:concard/Views/widgets/signupAppbar.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -141,9 +142,10 @@ class IndividualBasicDetail extends StatelessWidget {
                                 //    regex = RegExp(pattern);
                                 if (value!.isEmpty) {
                                   return "Enter email";
-                                } else if (!value.contains('@gmail.com')) {
-                                  return 'Enter Valid email';
-                                }
+                                } 
+                                // else if (!value.contains('@gmail.com')) {
+                                //   return 'Enter Valid email';
+                                // }
                                 return null;
                               },
                               hinttxt: "E-mail",
@@ -273,11 +275,13 @@ class IndividualBasicDetail extends StatelessWidget {
                             color2: signupclor_dark,
                             onTap: () async {
                               if (formKey.currentState!.validate()) {
-                                context.read<AppProvider>().setLoadingTrue();
+                                appPro.setLoadingTrue();
+                                loaderWidget(context, size);
                                 var result = await AuthenticationClass()
                                     .verifyEmailExist(
                                         appPro.emailControll.text.trim());
-                                context.read<AppProvider>().setLoadingFalse();
+                                appPro.setLoadingFalse();
+                                Navigator.pop(context);
                                 if (!result['success']) {
                                   Navigator.pushNamed(context, '/indiCodeSend');
                                 } else {

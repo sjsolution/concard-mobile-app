@@ -32,7 +32,7 @@ class AppProvider extends ChangeNotifier {
 
   bool? isCheckedSms = false;
   bool? ischeckedEmail = false;
-  
+
   setValue(bool value, String? type) {
     switch (type) {
       case 'sms':
@@ -91,6 +91,14 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? positionTitle;
+  String? positionId;
+  setPostionStauts(String value, String? id) {
+    positionTitle = value;
+    positionId = id;
+    notifyListeners();
+  }
+
   String? headquarterLocation; //='Headquarter Location';
   String? headquarterId; //='Headquarter Location';
   setheadquarterLocation(String value, String? id) {
@@ -105,8 +113,6 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  
- 
   setLoadingFalse() {
     isLoading = false;
     notifyListeners();
@@ -120,26 +126,27 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-   File? _postImage;
-    File? get postImage=>_postImage;
-    setProfileImage(File? image){
-      _postImage=image;
-      notifyListeners();
-    }
-    ///AddCard
-    var compNameControl= TextEditingController();
-    var websiteControll= TextEditingController();
-    var postionNameControl= TextEditingController();
-    var workPhoneControl = TextEditingController();
-    var mobileNumberControl= TextEditingController();
-    var emailControl= TextEditingController();
-    var cityControl= TextEditingController();
-    var provinceControl= TextEditingController();
-    var countryControl= TextEditingController();
-    var postalCodeControl= TextEditingController();
-    var addressControl= TextEditingController();
+  File? _postImage;
+  File? get postImage => _postImage;
+  setProfileImage(File? image) {
+    _postImage = image;
+    notifyListeners();
+  }
 
-     void clearAllController() {
+  ///AddCard
+  var compNameControl = TextEditingController();
+  var websiteControll = TextEditingController();
+  var postionNameControl = TextEditingController();
+  var workPhoneControl = TextEditingController();
+  var mobileNumberControl = TextEditingController();
+  var emailControl = TextEditingController();
+  var cityControl = TextEditingController();
+  var provinceControl = TextEditingController();
+  var countryControl = TextEditingController();
+  var postalCodeControl = TextEditingController();
+  var addressControl = TextEditingController();
+
+  void clearAllController() {
     compNameControl.clear();
     websiteControll.clear();
     postionNameControl.clear();
@@ -153,5 +160,4 @@ class AppProvider extends ChangeNotifier {
     addressControl.clear();
     notifyListeners();
   }
-
 }

@@ -6,6 +6,7 @@ import 'package:concard/Views/screens/homeScreens/bottomNavBar.dart';
 import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
 import 'package:concard/Views/screens/homeScreens/homepge.dart';
 import 'package:concard/Views/widgets/customButton.dart';
+import 'package:concard/Views/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -233,10 +234,12 @@ class _SignInState extends State<SignIn> {
                               if (!context.read<AppProvider>().isLoading!) {
                                 if (formKey.currentState!.validate()) {
                                   context.read<AppProvider>().setLoadingTrue();
+                                  loaderWidget(context, size);
                                   var result = await AuthenticationClass()
                                       .login(emailControll.text.trim(),
                                           passwordControll.text.trim());
                                   context.read<AppProvider>().setLoadingFalse();
+                                  Navigator.pop(context);
                                   if (result != null) {
                                     emailControll.clear();
                                     passwordControll.clear();

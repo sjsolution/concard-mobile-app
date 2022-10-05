@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
+import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/country_city_list.dart';
 import 'package:concard/Models/employee_count.dart';
 import 'package:concard/Models/industries_list.dart';
@@ -12,6 +13,27 @@ import 'package:flutter/cupertino.dart';
 class AboutCompnayController {
   ServicesClass services = ServicesClass();
   LocalStorageClass localStorageClass = LocalStorageClass();
+ 
+  Future getPositions() async {
+    try {
+      var formData = FormData.fromMap({});
+
+      var response =
+          await services.postResponse(url: '/postion/list', formData: formData);
+      if (response != null) {
+        // print("Countr: "+response);
+        Globals.positionModel = PositionModel.fromJson(response);
+        var finalList = PositionModel.fromJson(response);
+        return finalList;
+      }
+    } catch (e) {
+      debugPrint("positions exception:" + e.toString());
+      return null;
+    }
+  }
+ 
+ 
+ 
   Future getCountryCity() async {
     try {
       var formData = FormData.fromMap({});

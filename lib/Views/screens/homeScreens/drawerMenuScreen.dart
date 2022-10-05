@@ -935,6 +935,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
               child: InkWell(
                 onTap: () async {
                   LocalStorageClass().removeData(LocalStorageClass().tokenKey);
+                  LocalStorageClass().removeData(LocalStorageClass().userIdKey);
                   LocalStorageClass()
                       .removeData(LocalStorageClass().userTypeKey);
                   Navigator.pushReplacementNamed(context, '/intialScreen');
