@@ -52,7 +52,8 @@ class _HomepageState extends State<Homepage> {
     setState(() {});
   }
 
-  List<int>? isLikeList = [];
+  List<int>? isPostLikeList = [];
+  List<int>? isCommentLikeList = [];
   AppProvider? appPro;
   @override
   void initState() {
@@ -218,7 +219,7 @@ class _HomepageState extends State<Homepage> {
                                 var posts = snapshot.data!.posts;
 
                                 for (var isLike in posts!) {
-                                  isLikeList!.add(isLike.userLike!);
+                                  isPostLikeList!.add(isLike.userLike!);
                                 }
                                 return ListView.builder(
                                     padding: const EdgeInsets.all(0),
@@ -452,24 +453,26 @@ class _HomepageState extends State<Homepage> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
-                                                      if (isLikeList![index] ==
+                                                      if (isPostLikeList![
+                                                              index] ==
                                                           1) {
-                                                        isLikeList!
-                                                            .insert(index, 0);
+                                                        isPostLikeList![index] =
+                                                            0;
                                                       } else {
-                                                        isLikeList!
-                                                            .insert(index, 1);
+                                                        isPostLikeList![index] =
+                                                            1;
                                                       }
                                                       setState(() {});
                                                       var result =
                                                           await PostController()
                                                               .addPostLike(
-                                                                  posts[index]
-                                                                      .id
-                                                                      .toString(),
-                                                                  isLikeList![
-                                                                          index]
-                                                                      .toString());
+                                                        posts[index]
+                                                            .id
+                                                            .toString(),
+                                                        // isLikeList![
+                                                        //         index]
+                                                        //     .toString()
+                                                      );
                                                       if (result['code'] ==
                                                           200) {
                                                         setState(() {});
@@ -484,7 +487,7 @@ class _HomepageState extends State<Homepage> {
                                                             height:
                                                                 size.height *
                                                                     0.025,
-                                                            color: isLikeList![
+                                                            color: isPostLikeList![
                                                                         index] ==
                                                                     1
                                                                 ? signupclor_dark
@@ -501,7 +504,7 @@ class _HomepageState extends State<Homepage> {
                                                                       0.015,
                                                               fontFamily:
                                                                   "Msemibold",
-                                                              color: isLikeList![
+                                                              color: isPostLikeList![
                                                                           index] ==
                                                                       1
                                                                   ? signupclor_dark
@@ -595,414 +598,13 @@ class _HomepageState extends State<Homepage> {
                                       SpinKitChasingDots(color: primarygreen),
                                 );
                               }
-                              // if (snapshot.connectionState ==
-                              //     ConnectionState.done) {
-                              //   if (snapshot.hasError) {
-                              //     return const Center(
-                              //       child: Text("Something went wrong"),
-                              //     );
-                              //   } else if (snapshot.data!.posts!.isEmpty) {
-                              //     return const Center(
-                              //       child: Text("There is no post yet"),
-                              //     );
-                              //   } else if (snapshot.hasData) {
-                              //     var postData = snapshot.data;
-                              //     return ListView.builder(
-                              //         padding: const EdgeInsets.all(0),
-                              //         scrollDirection: Axis.vertical,
-                              //         itemCount: postData!.posts!.length,
-                              //         itemBuilder: (context, index) {
-                              //           return Container(
-                              //             decoration: BoxDecoration(
-                              //                 color: Colors.white,
-                              //                 borderRadius:
-                              //                     BorderRadius.circular(10)),
-
-                              //             // height: size.height * 0.43,
-                              //             width: size.width * 0.9,
-                              //             child: Column(
-                              //               crossAxisAlignment:
-                              //                   CrossAxisAlignment.start,
-                              //               children: [
-                              //                 Padding(
-                              //                   padding: EdgeInsets.only(
-                              //                       left: size.width * 0.02,
-                              //                       top: size.height * 0.02,
-                              //                       right: size.width * 0.02),
-                              //                   child: Row(
-                              //                     crossAxisAlignment:
-                              //                         CrossAxisAlignment.start,
-                              //                     children: [
-                              //                       CircleAvatar(
-                              //                           radius: 20,
-                              //                           backgroundImage:
-                              //                               NetworkImage(
-                              //                                   '${posts![index].user!.image}')),
-                              //                       const SizedBox(
-                              //                         width: 10,
-                              //                       ),
-                              //                       Column(
-                              //                         crossAxisAlignment:
-                              //                             CrossAxisAlignment
-                              //                                 .start,
-                              //                         children: [
-                              //                           Text(
-                              //                             '${posts![index].user!.firstName} ${posts![index].user!.lastName}',
-                              //                             style: TextStyle(
-                              //                                 fontSize:
-                              //                                     size.height *
-                              //                                         0.015,
-                              //                                 fontFamily:
-                              //                                     "MBold"),
-                              //                           ),
-                              //                           SizedBox(
-                              //                             height: size.height *
-                              //                                 0.003,
-                              //                           ),
-                              //                           Text(
-                              //                             '${posts![index].user!.email}',
-                              //                             style: TextStyle(
-                              //                                 fontSize:
-                              //                                     size.height *
-                              //                                         0.015,
-                              //                                 fontFamily:
-                              //                                     "Stf"),
-                              //                           ),
-                              //                         ],
-                              //                       ),
-                              //                       const Spacer(),
-                              //                       Row(
-                              //                         children: [
-                              //                           Column(
-                              //                             crossAxisAlignment:
-                              //                                 CrossAxisAlignment
-                              //                                     .end,
-                              //                             children: [
-                              //                               Text(
-                              //                                 DateTime.now()
-                              //                                         .difference(DateTime.parse(postData
-                              //                                             .posts![
-                              //                                                 index]
-                              //                                             .createdAt!))
-                              //                                         .inHours
-                              //                                         .toString() +
-                              //                                     " h ago",
-                              //                                 style: TextStyle(
-                              //                                     fontSize:
-                              //                                         size.height *
-                              //                                             0.015,
-                              //                                     color:
-                              //                                         infocolor,
-                              //                                     fontFamily:
-                              //                                         "Msemibold"),
-                              //                               ),
-                              //                               SizedBox(
-                              //                                 height:
-                              //                                     size.height *
-                              //                                         0.02,
-                              //                               ),
-                              //                               InkWell(
-                              //                                 onTap: () {
-                              //                                   setState(() {
-                              //                                     isSelected =
-                              //                                         !isSelected;
-                              //                                   });
-                              //                                 },
-                              //                                 child: Container(
-                              //                                   height:
-                              //                                       size.height *
-                              //                                           0.03,
-                              //                                   width:
-                              //                                       size.width *
-                              //                                           0.23,
-                              //                                   decoration: BoxDecoration(
-                              //                                       borderRadius:
-                              //                                           BorderRadius.circular(
-                              //                                               30),
-                              //                                       border: Border.all(
-                              //                                           color:
-                              //                                               signupclor_dark)),
-                              //                                   child: Padding(
-                              //                                     padding: EdgeInsets.only(
-                              //                                         left: size
-                              //                                                 .width *
-                              //                                             0.05,
-                              //                                         right: size
-                              //                                                 .width *
-                              //                                             0.01),
-                              //                                     child: Row(
-                              //                                       mainAxisAlignment:
-                              //                                           MainAxisAlignment
-                              //                                               .spaceBetween,
-                              //                                       children: [
-                              //                                         Text(
-                              //                                           isSelected
-                              //                                               ? 'Added'
-                              //                                               : 'Add',
-                              //                                           style: TextStyle(
-                              //                                               fontFamily:
-                              //                                                   "Msemibold",
-                              //                                               fontSize: size.height *
-                              //                                                   0.015,
-                              //                                               color:
-                              //                                                   signupclor_dark),
-                              //                                         ),
-                              //                                         Icon(
-                              //                                           isSelected
-                              //                                               ? Icons.check
-                              //                                               : Icons.add,
-                              //                                           size: size.height *
-                              //                                               0.02,
-                              //                                           color:
-                              //                                               signupclor_dark,
-                              //                                         )
-                              //                                       ],
-                              //                                     ),
-                              //                                   ),
-                              //                                 ),
-                              //                               )
-                              //                             ],
-                              //                           ),
-                              //                         ],
-                              //                       ),
-                              //                       const SizedBox(
-                              //                         width: 5,
-                              //                       )
-                              //                     ],
-                              //                   ),
-                              //                 ),
-                              //                 const SizedBox(
-                              //                   height: 15,
-                              //                 ),
-
-                              //                 SizedBox(
-                              //                   height: size.height * 0.01,
-                              //                 ),
-                              //                 (posts![index].text ==
-                              //                             null ||
-                              //                         posts![index]
-                              //                                 .text ==
-                              //                             "")
-                              //                     ? const SizedBox(
-                              //                         height: 0,
-                              //                       )
-                              //                     : Text(postData
-                              //                         .posts![index].text
-                              //                         .toString()),
-                              //                 (posts![index].image ==
-                              //                             null ||
-                              //                         posts![index]
-                              //                                 .image ==
-                              //                             "")
-                              //                     ? const SizedBox(
-                              //                         height: 0,
-                              //                       )
-                              //                     : InkWell(
-                              //                         onTap: () {
-                              //                           Navigator.push(
-                              //                               context,
-                              //                               MaterialPageRoute(
-                              //                                   builder:
-                              //                                       (context) =>
-                              //                                           ShowFullScreenImage(
-                              //                                             images: [
-                              //                                               posts![index].image!
-                              //                                             ],
-                              //                                           )));
-                              //                         },
-                              //                         child: ClipRRect(
-                              //                           child: Image.network(
-                              //                             "${posts![index].image}",
-                              //                             height: size.height *
-                              //                                 0.25,
-                              //                             width:
-                              //                                 size.width * 0.8,
-                              //                             fit: BoxFit.cover,
-                              //                           ),
-                              //                           borderRadius:
-                              //                               BorderRadius
-                              //                                   .circular(10),
-                              //                         ),
-                              //                       ),
-
-                              //                 Padding(
-                              //                   padding: EdgeInsets.only(
-                              //                       left: size.width * 0.04,
-                              //                       right: size.width * 0.04,
-                              //                       top: size.height * 0.015),
-                              //                   child: Row(
-                              //                     mainAxisAlignment:
-                              //                         MainAxisAlignment
-                              //                             .spaceBetween,
-                              //                     children: [
-                              //                       InkWell(
-                              //                         onTap: () async {
-                              //                           log(postData
-                              //                               .posts![index].id
-                              //                               .toString());
-                              //                           print("like:" +
-                              //                               postData
-                              //                                   .posts![index]
-                              //                                   .userLike
-                              //                                   .toString());
-                              //                           // if (postData
-                              //                           //         .posts![index]
-                              //                           //         .userLike ==
-                              //                           //     0) {
-                              //                           //   posts![index]
-                              //                           //           .userLike !=
-                              //                           //       1;
-                              //                           //   setState(() {});
-                              //                           // } else {
-                              //                           //   posts![index]
-                              //                           //           .userLike !=
-                              //                           //       0;
-                              //                           //   setState(() {});
-                              //                           // }
-                              //                           var result = await PostController()
-                              //                               .addPostLike(
-                              //                                   postData
-                              //                                       .posts![
-                              //                                           index]
-                              //                                       .id
-                              //                                       .toString(),
-                              //                                   posts![index]
-                              //                                               .userLike ==
-                              //                                           1
-                              //                                       ? "0"
-                              //                                       : "1");
-                              //                           if (result['code'] ==
-                              //                               200) {
-                              //                             setState(() {});
-                              //                           }
-                              //                           setState(() {
-                              //                             likeIndex =
-                              //                                 !likeIndex;
-                              //                           });
-                              //                         },
-                              //                         child: Row(
-                              //                           children: [
-                              //                             Image.asset(like_icon,
-                              //                                 height:
-                              //                                     size.height *
-                              //                                         0.025,
-                              //                                 color: postData
-                              //                                             .posts![
-                              //                                                 index]
-                              //                                             .userLike ==
-                              //                                         1
-                              //                                     ? signupclor_dark
-                              //                                     : infocolor),
-                              //                             SizedBox(
-                              //                               width: size.width *
-                              //                                   0.02,
-                              //                             ),
-                              //                             Text(
-                              //                               'Like (${posts![index].likeCounts})',
-                              //                               style: TextStyle(
-                              //                                   fontSize:
-                              //                                       size.height *
-                              //                                           0.015,
-                              //                                   fontFamily:
-                              //                                       "Msemibold",
-                              //                                   color: postData
-                              //                                               .posts![index]
-                              //                                               .userLike ==
-                              //                                           1
-                              //                                       ? signupclor_dark
-                              //                                       : infocolor),
-                              //                             ),
-                              //                           ],
-                              //                         ),
-                              //                       ),
-                              //                       InkWell(
-                              //                         onTap: () {},
-                              //                         child: Row(
-                              //                           children: [
-                              //                             Image.asset(
-                              //                               comment_icon,
-                              //                               height:
-                              //                                   size.height *
-                              //                                       0.025,
-                              //                               color: infocolor,
-                              //                             ),
-                              //                             SizedBox(
-                              //                               width: size.width *
-                              //                                   0.02,
-                              //                             ),
-                              //                             Text(
-                              //                               'Comment (${posts![index].comments!.length})',
-                              //                               style: TextStyle(
-                              //                                   fontSize:
-                              //                                       size.height *
-                              //                                           0.015,
-                              //                                   fontFamily:
-                              //                                       "Msemibold",
-                              //                                   color:
-                              //                                       infocolor),
-                              //                             ),
-                              //                           ],
-                              //                         ),
-                              //                       ),
-                              //                       InkWell(
-                              //                         onTap: () {},
-                              //                         child: Row(
-                              //                           children: [
-                              //                             Image.asset(
-                              //                               shareicon,
-                              //                               height:
-                              //                                   size.height *
-                              //                                       0.025,
-                              //                               color: infocolor,
-                              //                             ),
-                              //                             SizedBox(
-                              //                               width: size.width *
-                              //                                   0.02,
-                              //                             ),
-                              //                             Text(
-                              //                               'Share',
-                              //                               style: TextStyle(
-                              //                                   fontSize:
-                              //                                       size.height *
-                              //                                           0.015,
-                              //                                   fontFamily:
-                              //                                       "Msemibold",
-                              //                                   color:
-                              //                                       infocolor),
-                              //                             ),
-                              //                           ],
-                              //                         ),
-                              //                       ),
-                              //                     ],
-                              //                   ),
-                              //                 ),
-                              //                 // Divider(
-                              //                 //   thickness: 1,
-                              //                 //   indent: 15,
-                              //                 //   endIndent: 15,
-                              //                 // ),
-                              //               ],
-                              //             ),
-                              //             margin:
-                              //                 const EdgeInsets.only(bottom: 10),
-                              //             padding: const EdgeInsets.all(10),
-                              //           );
-                              //         });
-                              //   }
-                              // }
-                              // return Text("");
-                            })
-                    // : const Center(
-                    //     child: Text("No post available yet"),
-                    //   ),
-                    ,
+                            }),
                     margin: const EdgeInsets.only(
                       top: 5,
                     ),
                     height: size.height * 0.67,
                     width: size.width * 0.9,
                   )
-                  // : Center(child: SpinKitFadingCube(color: primarygreen)),
                 ],
               ),
             ),
@@ -1022,6 +624,8 @@ class _HomepageState extends State<Homepage> {
     var size = MediaQuery.of(context).size;
     List<Comment> childReplies = [];
     List<Comment> parentComments = [];
+    List<String> parentCommentsId = [];
+    List<String> childRepliesId = [];
     List<Comments>? comments = singlePost!.comments;
     var commentsList = [];
     var repliesApiList = [];
@@ -1032,7 +636,7 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.transparent,
         builder: (context) {
           return Scaffold(body: StatefulBuilder(
-            builder: ((context, setStat) {
+            builder: ((context, setStats) {
               return Container(
                   // height:size.height*.8,
                   padding: const EdgeInsets.only(top: 40),
@@ -1062,6 +666,9 @@ class _HomepageState extends State<Homepage> {
                                       commentsList = comments;
                                       parentComments.clear();
                                       childReplies.clear();
+                                      parentCommentsId.clear();
+                                      childRepliesId.clear();
+                                      isCommentLikeList!.clear();
                                       repliesApiList =
                                           commentsList[index].replies;
                                       for (var comment in commentsList) {
@@ -1069,6 +676,10 @@ class _HomepageState extends State<Homepage> {
                                             avatar: comment.user!.image,
                                             userName: comment.user!.firstName,
                                             content: comment.text));
+                                        parentCommentsId
+                                            .add(comment.id.toString());
+                                        isCommentLikeList!
+                                            .add(comment.userLike);
                                       }
                                       for (var subComment in repliesApiList) {
                                         childReplies.add(Comment(
@@ -1076,8 +687,10 @@ class _HomepageState extends State<Homepage> {
                                             userName:
                                                 subComment.user!.firstName,
                                             content: subComment.text));
+                                        childRepliesId
+                                            .add(subComment.id.toString());
                                       }
-
+                                      // like pe kam krna
                                       return CommentTreeWidget<Comment,
                                           Comment>(
                                         Comment(
@@ -1276,7 +889,77 @@ class _HomepageState extends State<Homepage> {
                                                           width:
                                                               size.width * 0.03,
                                                         ),
-                                                        Text('Like'),
+                                                        InkWell(
+                                                            onTap: () async {
+                                                              debugPrint("Comment ID :" +
+                                                                  parentCommentsId[
+                                                                          index]
+                                                                      .toString());
+                                                              debugPrint(
+                                                                  "Comment Index :" +
+                                                                      index
+                                                                          .toString());
+
+                                                              debugPrint("Before :" +
+                                                                  isCommentLikeList
+                                                                      .toString());
+
+                                                              //change comment like button status on frontend
+                                                              //if 0 (dislike) -> 1(like)
+                                                              //if 1 (like)  ->  0 (dislike)
+                                                              if (isCommentLikeList![
+                                                                      index] ==
+                                                                  0) {
+                                                                isCommentLikeList![
+                                                                    index] = 1;
+                                                                setState(() {
+                                                                  setStats(
+                                                                      () {});
+                                                                });
+                                                              } else {
+                                                                isCommentLikeList![
+                                                                    index] = 0;
+                                                                setState(() {
+                                                                  setStats(
+                                                                      () {});
+                                                                });
+                                                              }
+
+                                                              setState(() {
+                                                                setStats(() {});
+                                                              });
+
+                                                              debugPrint("After :" +
+                                                                  isCommentLikeList
+                                                                      .toString());
+                                                              //change comment like  status on backend
+
+                                                              var result =
+                                                                  await PostController()
+                                                                      .addCommentLike(
+                                                                parentCommentsId[
+                                                                    index],
+                                                                // isLikeList![
+                                                                //         index]
+                                                                //     .toString()
+                                                              );
+                                                              if (result[
+                                                                      'code'] ==
+                                                                  200) {
+                                                                setState(() {
+                                                                  setStats(
+                                                                      () {});
+                                                                });
+                                                              }
+                                                            },
+                                                            child: Text('Like',
+                                                                style: TextStyle(
+                                                                    color: isCommentLikeList![index] ==
+                                                                            0
+                                                                        ? Colors
+                                                                            .black
+                                                                        : Colors
+                                                                            .blue))), //changed
                                                         SizedBox(
                                                           width:
                                                               size.width * 0.03,
@@ -1346,7 +1029,7 @@ class _HomepageState extends State<Homepage> {
                                                               .toString(),
                                                           commentController.text
                                                               .trim());
-                                                  setStat(() {
+                                                  setStats(() {
                                                     setState(() {});
                                                   });
                                                 },

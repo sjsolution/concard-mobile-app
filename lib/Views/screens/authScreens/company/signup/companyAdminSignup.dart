@@ -5,7 +5,9 @@ import 'package:concard/Constants/globals.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/Authentication/authentication.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Views/screens/authScreens/company/signup/companySignupHomeScreen.dart';
+import 'package:concard/Views/widgets/customDropDown.dart';
 import 'package:concard/Views/widgets/customNextButton.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +51,12 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
 
   getCities(int? countryId) {
     // log(countryId.toString());
+
     Globals.cities?.clear();
     Globals.countries?.clear();
     Globals.emploNumber?.clear();
     Globals.industries?.clear();
+
     for (Countries? country in Globals.countryCityListModal!.countries!) {
       Globals.countries!.add(country!.title!);
       // debugPrint(city.title.toString());
@@ -73,18 +77,35 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
       Globals.industries!.add(industries!.title!);
       // debugPrint(city.title.toString());
     }
-    debugPrint('---------------------------------');
-    print(Globals.cities!.toSet());
-    print('---------------------------------');
+    // debugPrint('---------------------------------');
+    // print(Globals.cities!.toSet());
+    // print('---------------------------------');
 
-    print(Globals.emploNumber!.toSet());
+    // print(Globals.emploNumber!.toSet());
 
-    print('---------------------------------');
-    print(Globals.countries!.toSet());
+    // print('---------------------------------');
+    // print(Globals.countries!.toSet());
 
-    print('---------------------------------');
-    print(Globals.industries!.toSet());
-    print('---------------------------------');
+    // print('---------------------------------');
+    // print(Globals.industries!.toSet());
+    // print('---------------------------------');
+  }
+
+  getPositions() async {
+    Globals.positionsList?.clear();
+    Globals.positionModel = await AboutCompnayController().getPositions();
+    if (Globals.positionModel != null) {
+      if (Globals.positionModel!.positions != null &&
+          Globals.positionModel!.positions!.isNotEmpty) {
+        for (Positions? posi in Globals.positionModel!.positions!) {
+          Globals.positionsList!.add(posi!.title.toString());
+        }
+        debugPrint(Globals.positionsList.toString());
+      }
+    }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   getSignUpData() async {
@@ -95,6 +116,7 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
     Globals.industriesListModal =
         await AboutCompnayController().getIndustryList();
     log(Globals.countryCityListModal.toString());
+    getPositions();
     getCities(Globals.countryCityListModal!.countries!.first.id);
     setState(() {});
   }
@@ -190,7 +212,8 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
                           Text(
                             "Who's the Admin",
                             style: TextStyle(
-                                fontSize: size.height * 0.02, fontFamily: "MBold"),
+                                fontSize: size.height * 0.02,
+                                fontFamily: "MBold"),
                           ),
                           SizedBox(
                             height: size.height * 0.04,
@@ -237,9 +260,10 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
                                 //    regex = RegExp(pattern);
                                 if (value!.isEmpty) {
                                   return "Enter email";
-                                } else if (!value.contains('@gmail.com')) {
-                                  return 'Enter Valid email';
-                                }
+                                } 
+                                // else if (!value.contains('@gmail.com')) {
+                                //   return 'Enter Valid email';
+                                // }
                                 return null;
                               },
                               hinttxt: "E-mail",
@@ -249,85 +273,22 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
                           SizedBox(
                             height: size.height * 0.03,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
-                            child: Container(
-                              height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: primarygreen,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 12.0),
-                                  child: Theme(
-                                    data: Theme.of(context).copyWith(
-                                      canvasColor: primarygreen,
-                                    ),
-                                    child: DropdownButtonFormField(
-                                      icon: const Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          size: 20.0,
-                                          color: Colors.white),
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: primarygreen,
-                                        // label:Text('Gender',style: TextStyle(fontSize: size.height*23,color: Colors.black),),
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 0.0, right: 12.0),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                          borderSide: BorderSide(
-                                            color: primarygreen,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                          borderSide: BorderSide(
-                                            color: primarygreen,
-                                          ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                          borderSide: BorderSide(
-                                            color: primarygreen,
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                          borderSide: BorderSide(
-                                            color: primarygreen,
-                                          ),
-                                        ),
-                                      ),
-                                      // decoration: const InputDecoration.collapsed(
-                                      //     hintText: 'Position / Desigation'),
-                                      value: appPro.userPosition,
-                                      // hint: Text('Business Category'),
-                                      onChanged: (value) {
-                                        print(value.toString());
-                                        // log(positionList[int.parse(value.toString())].toString());
-                                        appPro.setPosition(value.toString());
-                                        // setState(() {
-                                        //   commonJobType = value.toString();
-                                        // });
-                                      },
-                                      items: List.generate(4, (index) {
-                                        return DropdownMenuItem(
-                                          child: Text(
-                                            positionList[index].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                          value: positionList[index].toString(),
-                                        );
-                                      }),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          CustomDropDownButton(
+                              hint: "Select Position",
+                              listItems:
+                                  Globals.positionsList!.toSet().toList(),
+                              selectedValue: appPro.positionTitle,
+                              onChanged: (value) {
+                                String? id = Globals.positionModel!
+                                    .positions![int.parse(value.toString())].id
+                                    .toString();
+                                print("position:" +
+                                    value.toString() +
+                                    "  ID:" +
+                                    id);
+
+                                appPro.setPostionStauts(value.toString(), id);
+                              }),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
@@ -452,16 +413,18 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
                             onTap: () async {
                               if (formKey.currentState!.validate()) {
                                 if (appPro.userPosition == 'Select Position') {
-                                  showToastMethod(msg: "Please Select Position");
+                                  showToastMethod(
+                                      msg: "Please Select Position");
                                 } else {
-                                   context.read<AppProvider>().setLoadingTrue();
+                                  context.read<AppProvider>().setLoadingTrue();
                                   var result = await AuthenticationClass()
                                       .verifyEmailExist(
                                           appPro.emailControll.text.trim());
-                                           context.read<AppProvider>().setLoadingFalse();
+                                  context.read<AppProvider>().setLoadingFalse();
                                   if (result != null) {
                                     if (!result['success']) {
-                                      Navigator.pushNamed(context, '/aboutCompany');
+                                      Navigator.pushNamed(
+                                          context, '/aboutCompany');
                                     } else {
                                       Globals.showToastMethod(
                                           msg: result['message']);
@@ -491,15 +454,13 @@ class _CompanyAdminSignupState extends State<CompanyAdminSignup> {
                 ],
               ),
             ),
-             context.read<AppProvider>().isLoading!
+            context.read<AppProvider>().isLoading!
                 ? Center(
                     child: SpinKitDualRing(color: primarygreen),
                   )
                 : const SizedBox()
           ],
-          
         ),
-        
       );
     });
   }

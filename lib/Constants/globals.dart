@@ -1,6 +1,7 @@
 library my_prj.globals;
 
-import 'package:concard/Models/Cards/add_card_modal.dart';
+import 'package:concard/Models/Company/positions_model.dart';
+import 'package:concard/Models/add_card_modal.dart';
 import 'package:concard/Models/country_city_list.dart';
 import 'package:concard/Models/employee_count.dart';
 import 'package:concard/Models/Expo/expo_detail_model.dart';
@@ -22,6 +23,8 @@ String? businessType = '';
 String? id='1';
 PostsListModal? postsListModal;
 CountryCityListModal? countryCityListModal;
+PositionModel? positionModel;
+List<String>? positionsList = [];
 List<String>? cities = [];
 List<String>? citiesIds = [];
 List<String>? countries = [];
