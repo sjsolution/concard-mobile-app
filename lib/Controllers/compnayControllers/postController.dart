@@ -83,7 +83,7 @@ class PostController {
     }
   }
 
-  Future addCommentLike(String? commentId) async {
+Future addCommentLike(String? commentId) async {
     try {
       var formData = FormData.fromMap({
         "comment_id": commentId,
@@ -104,6 +104,28 @@ class PostController {
     }
   }
 
+  Future addReplyCommentLike(String? replyCommentId)async {
+    try {
+      var formData = FormData.fromMap({
+        "reply_id": replyCommentId,
+        // "text": isLike,
+      });
+      var response = await services.postResponse(
+          url: '/like/reply-comment-like', formData: formData);
+      if (response != null) {
+        return response;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("reply comment  like exception:" + e.toString());
+      return null;
+    }
+  }
+
+  
   Future addPostComment(String? postId, String? comment) async {
     try {
       var formData = FormData.fromMap({

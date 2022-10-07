@@ -617,18 +617,20 @@ class _HomepageState extends State<Homepage> {
   bool? isprofile = false;
   bool? isSendBtn = false;
   bool? isShow = false;
+
+  List<Comment> childReplies = [];
+  List<Comment> parentComments = [];
+  List<String> parentCommentsId = [];
+  List<String> childRepliesId = [];
+  var commentsList = [];
+  var repliesApiList = [];
   void _commentsModalBottomSheet(
     context,
     Posts? singlePost,
   ) {
     var size = MediaQuery.of(context).size;
-    List<Comment> childReplies = [];
-    List<Comment> parentComments = [];
-    List<String> parentCommentsId = [];
-    List<String> childRepliesId = [];
     List<Comments>? comments = singlePost!.comments;
-    var commentsList = [];
-    var repliesApiList = [];
+
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -910,18 +912,18 @@ class _HomepageState extends State<Homepage> {
                                                               if (isCommentLikeList![
                                                                       index] ==
                                                                   0) {
-                                                                isCommentLikeList![
-                                                                    index] = 1;
-                                                                setState(() {
-                                                                  setStats(
-                                                                      () {});
+                                                                setStats(() {
+                                                                  setState(() {
+                                                                    isCommentLikeList![
+                                                                        index] = 1;
+                                                                  });
                                                                 });
                                                               } else {
-                                                                isCommentLikeList![
-                                                                    index] = 0;
-                                                                setState(() {
-                                                                  setStats(
-                                                                      () {});
+                                                                setStats(() {
+                                                                  setState(() {
+                                                                    isCommentLikeList![
+                                                                        index] = 0;
+                                                                  });
                                                                 });
                                                               }
 

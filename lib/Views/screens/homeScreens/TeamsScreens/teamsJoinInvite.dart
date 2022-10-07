@@ -7,8 +7,8 @@ import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
 
 class TeamsJoinInviteScreen extends StatelessWidget {
-  const TeamsJoinInviteScreen({Key? key}) : super(key: key);
-
+  const TeamsJoinInviteScreen({Key? key,required this.teamName}) : super(key: key);
+  final String? teamName;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -49,7 +49,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                     //   width: 5,
                     // ),
                     Text(
-                      'Teams 1',
+                      teamName!.toUpperCase(),
                       style: TextStyle(
                           fontSize: size.height * 0.018,
                           fontFamily: "MBold",
@@ -105,8 +105,8 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                         SizedBox(
                           width: size.width * 0.03,
                         ),
-                        Text(
-                          'Team 1',
+                        Text( 
+                          teamName!.toUpperCase(),
                           style: TextStyle(
                               fontSize: size.height * 0.018,
                               fontFamily: 'MBold',
@@ -274,11 +274,11 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                       width: size.width,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      TeamsJoinInviteScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (BuildContext context) =>
+                          //             TeamsJoinInviteScreen()));
                         },
                         child: ListView.builder(
                             padding: EdgeInsets.all(0),

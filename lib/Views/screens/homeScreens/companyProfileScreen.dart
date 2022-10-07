@@ -993,6 +993,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
               ],
             ),
             InkWell(
+              
               onTap: () => _scaffoldKey.currentState!.openDrawer(),
               child: Container(
                 margin: EdgeInsets.only(

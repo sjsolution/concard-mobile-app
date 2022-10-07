@@ -104,7 +104,9 @@ class ChatController {
 
   Future<ConversationsListModel?> getConversationsList() async {
     try {
-      var formData = FormData.fromMap({});
+      var formData = FormData.fromMap({
+        
+      });
       var response = await services.postResponse(
           url: '/conversation/list', formData: formData);
 
@@ -115,6 +117,25 @@ class ChatController {
       return null;
     } catch (e) {
       print("error in converstion:$e");
+      return null;
+    }
+  }
+
+  Future<ConversationsListModel?> searchConversationsList(String? search) async {
+    try {
+      var formData = FormData.fromMap({
+        "search":search
+      });
+      var response = await services.postResponse(
+          url: '/conversation/search-user', formData: formData);
+
+      if (response != null) {
+        var finalList = ConversationsListModel.fromJson(response);
+        return finalList;
+      }
+      return null;
+    } catch (e) {
+      print("error in search converstion:$e");
       return null;
     }
   }

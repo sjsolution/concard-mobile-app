@@ -1,7 +1,9 @@
 library my_prj.globals;
 
+import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
-import 'package:concard/Models/add_card_modal.dart';
+import 'package:concard/Models/Indiviuals/team_detail_model.dart';
+import 'package:concard/Models/Indiviuals/team_list_model.dart';
 import 'package:concard/Models/country_city_list.dart';
 import 'package:concard/Models/employee_count.dart';
 import 'package:concard/Models/Expo/expo_detail_model.dart';
@@ -37,6 +39,8 @@ ExpoBadgeListModal? expoBadgeListModal;
 ExpoDetailModel? expoDetailModel;
 ExpoFilterListModal? expoFilterListModal;
 AddCardModal? addCardModal;
+TeamsListModel? teamsListModel;
+TeamDetailModel? teamDetailModel;
 
 showToastMethod({
   String? msg,
