@@ -167,7 +167,7 @@ class TeamsFilterScreen extends StatelessWidget {
                       width: size.width,
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TeamsJoinInviteScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TeamsJoinInviteScreen(teamName: "",)));
                         },
                         child: ListView.builder(
                           padding: EdgeInsets.all(0),

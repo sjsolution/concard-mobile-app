@@ -160,4 +160,14 @@ class AppProvider extends ChangeNotifier {
     addressControl.clear();
     notifyListeners();
   }
+
+
+  List<int>? isCommentLikeList = [];
+  // Color commentLikeColor=Colors.blue;
+  Color commentLikeColor=Colors.black;
+  setCommentValue(int index,int value){
+    isCommentLikeList![index]=value;
+    value==1?commentLikeColor=Colors.blue:commentLikeColor=Colors.black;
+    notifyListeners();
+  }
 }
