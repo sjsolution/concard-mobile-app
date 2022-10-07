@@ -1,28 +1,29 @@
-class AddCardModal {
+class CardListModal {
   final int? code;
   final String? message;
-  final Data? data;
+  final List<CardListData>? cardListData;
 
-  AddCardModal({
+  CardListModal({
     this.code,
     this.message,
-    this.data,
+    this.cardListData,
   });
 
-  AddCardModal.fromJson(Map<String, dynamic> json)
+  CardListModal.fromJson(Map<String, dynamic> json)
     : code = json['code'] as int?,
       message = json['message'] as String?,
-      data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null;
+      cardListData = (json['data'] as List?)?.map((dynamic e) => CardListData.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
     'code' : code,
     'message' : message,
-    'data' : data?.toJson()
+    'data' : cardListData?.map((e) => e.toJson()).toList()
   };
 }
 
-class Data {
-  final int? userId;
+class CardListData {
+  final int? id;
+  final String? userId;
   final String? companyName;
   final String? website;
   final String? field;
@@ -35,15 +36,15 @@ class Data {
   final String? postalCode;
   final String? address;
   final String? birthDate;
-  final String? location;
   final String? username;
-  final String? jobTitle;
   final String? meetingDateTime;
-  final String? updatedAt;
+  final dynamic jobTitle;
+  final String? location;
   final String? createdAt;
-  final int? id;
+  final String? updatedAt;
 
-  Data({
+  CardListData({
+    this.id,
     this.userId,
     this.companyName,
     this.website,
@@ -57,17 +58,17 @@ class Data {
     this.postalCode,
     this.address,
     this.birthDate,
-    this.location,
     this.username,
-    this.jobTitle,
     this.meetingDateTime,
-    this.updatedAt,
+    this.jobTitle,
+    this.location,
     this.createdAt,
-    this.id,
+    this.updatedAt,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
-    : userId = json['user_id'] as int?,
+  CardListData.fromJson(Map<String, dynamic> json)
+    : id = json['id'] as int?,
+      userId = json['user_id'] as String?,
       companyName = json['company_name'] as String?,
       website = json['website'] as String?,
       field = json['field'] as String?,
@@ -80,15 +81,15 @@ class Data {
       postalCode = json['postal_code'] as String?,
       address = json['address'] as String?,
       birthDate = json['birth_date'] as String?,
-      location = json['location'] as String?,
       username = json['username'] as String?,
-      jobTitle = json['job_title'] as String?,
       meetingDateTime = json['meeting_date_time'] as String?,
-      updatedAt = json['updated_at'] as String?,
+      jobTitle = json['job_title'],
+      location = json['location'] as String?,
       createdAt = json['created_at'] as String?,
-      id = json['id'] as int?;
+      updatedAt = json['updated_at'] as String?;
 
   Map<String, dynamic> toJson() => {
+    'id' : id,
     'user_id' : userId,
     'company_name' : companyName,
     'website' : website,
@@ -102,12 +103,11 @@ class Data {
     'postal_code' : postalCode,
     'address' : address,
     'birth_date' : birthDate,
-    'location' : location,
     'username' : username,
-    'job_title' : jobTitle,
     'meeting_date_time' : meetingDateTime,
-    'updated_at' : updatedAt,
+    'job_title' : jobTitle,
+    'location' : location,
     'created_at' : createdAt,
-    'id' : id
+    'updated_at' : updatedAt
   };
 }
