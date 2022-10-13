@@ -18,6 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../Models/Cards/add_card_modal.dart';
 import '../Models/Expo/expo_filter_list_modal.dart';
 import '../Models/Expo/expobadge_list_model.dart';
+import '../Models/Indiviuals/story_model.dart';
 
 // String? baseUrl='http://localhost/sj-solutions/concard/api';
 String? baseUrl = 'https://salloumdesign.com/concard/api';
@@ -25,7 +26,7 @@ String? token = '';
 String? userType = '';
 String? userId = '';
 String? businessType = '';
-String? id='1';
+String? id = '1';
 PostsListModal? postsListModal;
 CountryCityListModal? countryCityListModal;
 PositionModel? positionModel;
@@ -45,11 +46,10 @@ AddCardModal? addCardModal;
 CardListModal? cardListModal;
 TeamsListModel? teamsListModel;
 TeamDetailModel? teamDetailModel;
+StoryModel? storyModel;
 
 showToastMethod({
   String? msg,
- 
-
   ToastGravity toastGravity = ToastGravity.BOTTOM,
 }) {
   Fluttertoast.showToast(
@@ -60,6 +60,5 @@ showToastMethod({
       toastLength: Toast.LENGTH_LONG,
       timeInSecForIosWeb: 2);
 }
-
 
 //models objects

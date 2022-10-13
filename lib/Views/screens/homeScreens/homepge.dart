@@ -16,9 +16,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
-
+import 'package:concard/Views/screens/story_view.dart';
 import '../../../Controllers/OthersController/date_time.dart';
 import '../../../Controllers/indiviualController/following_list_controller.dart';
+import '../../../Controllers/storyController/story_controller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -44,9 +45,10 @@ class _HomepageState extends State<Homepage> {
 
   // }
 
-  getFollowingLit() async {
-    Globals.followingListModal =
-        await FollowingController().getFollowingRequest(Globals.userId);
+  getStoriesList() async {
+    // Globals.followingListModal =
+    //     await FollowingController().getFollowingRequest(Globals.userId);
+    Globals.storyModel = await StoryController().getStories();
 // print('follow id \n'+Globals.followingListModal!.data![0].firstName.toString());
     // print('added to followers................\n' +Globals!.uderId.Globals.followingListModal!.data.toString());
     setState(() {});
@@ -58,7 +60,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     // getPostsList();
-    getFollowingLit();
+    getStoriesList();
 
     appPro = Provider.of<AppProvider>(context, listen: false);
     // TODO: implement initState
@@ -174,27 +176,52 @@ class _HomepageState extends State<Homepage> {
                   )),
               child: Column(
                 children: [
-                  Globals.followingListModal != null
+                  Globals.storyModel != null
                       ? Container(
                           child: ListView.builder(
                               padding: const EdgeInsets.all(0),
                               scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  Globals.followingListModal!.data!.length,
+                              itemCount: Globals.storyModel!.data!.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  child: CircleAvatar(
+                                    child: InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => StoryViewClass(
+                                                profilePicture: Globals
+                                                    .storyModel!
+                                                    .data![index]
+                                                    .profileImage
+                                                    .toString(),
+                                                name:
+                                                    "${Globals.storyModel!.data![index].firstName.toString()} ${Globals.storyModel!.data![index].lastName.toString()}",
+                                                // createdAt: Globals
+                                                //     .storyModel!
+                                                //     .data![index]
+                                                //     .stories![index]
+                                                //     .createdAt
+                                                //     .toString(),
+                                                stories: Globals.storyModel!
+                                                    .data![index].stories!,
+                                                // numOfStories: Globals.followingListModal!.data!.,
+                                              ))),
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                      right: size.height * 0.01,
+                                    ),
+                                    child: CircleAvatar(
                                       radius: 30,
-                                      backgroundImage: NetworkImage(Globals
-                                                  .followingListModal !=
-                                              null
-                                          ? Globals.followingListModal!
-                                              .data![index].profileImage
-                                              .toString()
-                                          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_RhLhMFQptcSkzBWhnq13UqR12y7mXuSVw&usqp=CAU')),
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.02),
-                                );
+                                      backgroundImage: NetworkImage(
+                                        Globals.storyModel != null
+                                            ? Globals.storyModel!.data![index]
+                                                .profileImage
+                                                .toString()
+                                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_RhLhMFQptcSkzBWhnq13UqR12y7mXuSVw&usqp=CAU',
+                                      ),
+                                    ),
+                                  ),
+                                ));
                               }),
                           margin: EdgeInsets.only(
                             top: size.height * 0.01,
