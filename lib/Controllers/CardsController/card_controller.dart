@@ -1,5 +1,6 @@
 import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
+import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Services/network.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:dio/dio.dart';
@@ -124,4 +125,34 @@ class CardController {
       return null;
     }
   }
+
+  // Single Card Detail
+    Future<SingleCardDetailModal?> singleContatProfile(
+   String? cardId
+  ) async {
+    try {
+      var formData = FormData.fromMap({
+        "card_id":cardId
+      });
+      var response =
+          await services.postResponse(url: '/card/show', formData: formData);
+      debugPrint(response.toString());
+      if (response != null) {
+        SingleCardDetailModal? singleCardDetailModal= SingleCardDetailModal.fromJson(response);
+        Globals.singleCardDetailModal = singleCardDetailModal;
+        print('' + singleCardDetailModal.toString());
+        print('' + Globals.singleCardDetailModal.toString());
+
+        return singleCardDetailModal;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      // debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+  
 }
