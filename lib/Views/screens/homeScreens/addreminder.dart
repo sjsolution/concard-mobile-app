@@ -138,7 +138,7 @@ class _AddreminderState extends State<Addreminder> {
           SizedBox(height: size.height*0.6,),
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>ContactProfileViewScreen()));
+              // Navigator.push(context, MaterialPageRoute(builder: (_)=>ContactProfileViewScreen(id: ,)));
             },
             child: Container(
                           // margin: EdgeInsets.only(top: size.height * 0.35),

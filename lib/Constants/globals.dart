@@ -1,6 +1,7 @@
 library my_prj.globals;
 
 import 'package:concard/Models/Cards/card_list_modal.dart';
+import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
@@ -45,6 +46,7 @@ AddCardModal? addCardModal;
 CardListModal? cardListModal;
 TeamsListModel? teamsListModel;
 TeamDetailModel? teamDetailModel;
+SingleCardDetailModal? singleCardDetailModal;
 
 showToastMethod({
   String? msg,
