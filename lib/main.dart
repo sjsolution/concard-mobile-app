@@ -37,24 +37,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=>AppProvider())
+        ChangeNotifierProvider(create: (context) => AppProvider()),
       ],
       child: MaterialApp(
         title: "Concard",
         debugShowCheckedModeBanner: false,
-        initialRoute:'/',
+        initialRoute: '/',
         routes: {
-          '/':(context)=> const SplashScreen(),
-          '/indiBasic':(context)=> IndividualBasicDetail(),
-          '/indiCodeSend':(context)=> const NumberVerification(),
-          '/signIn':(context)=> const SignIn(),
-          '/choiceClass':(context)=> const SignupChoiceClass(),
-          '/companyBusinessType':(context)=>  SelectBuisness(),
-          '/compnaySigup':(context)=>  CompanyAdminSignup(),//CompanySignUpHomeScreen(),
-          '/aboutCompany':(context)=>  AboutCompanySignup(),
-          '/companyMobileVeri':(context)=>  const CompanyMobileVerification(),
-          '/intialScreen':(context)=>  const SignupScreen(),
-         
+          '/': (context) => const SplashScreen(),
+          '/indiBasic': (context) => IndividualBasicDetail(),
+          '/indiCodeSend': (context) => const NumberVerification(),
+          '/signIn': (context) => const SignIn(),
+          '/choiceClass': (context) => const SignupChoiceClass(),
+          '/companyBusinessType': (context) => SelectBuisness(),
+          '/compnaySigup': (context) =>
+              CompanyAdminSignup(), //CompanySignUpHomeScreen(),
+          '/aboutCompany': (context) => AboutCompanySignup(),
+          '/companyMobileVeri': (context) => const CompanyMobileVerification(),
+          '/intialScreen': (context) => const SignupScreen(),
+
           // '/indiCodeVerif':(context)=> CodeVerification(),
         },
 
