@@ -71,14 +71,16 @@ class CardController {
   }
 
     Future<CardListModal?> cardList(
-   
+   String? filterBy,
+   String? sortBY
   ) async {
     try {
       var formData = FormData.fromMap({
-        
+        "filter_by":filterBy,
+        "sort_by":sortBY
       });
       var response =
-          await services.postResponse(url: '/card/list', formData: formData);
+          await services.postResponse(url: '/card/filtered-list', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
         CardListModal? cardListModal= CardListModal.fromJson(response);
@@ -154,5 +156,33 @@ class CardController {
       return null;
     }
   }
+
+
+  //product List
+  // Future<ProductListModal?> getProductList(
+  // ) async {
+  //   try {
+  //     var formData = FormData.fromMap({
+  //     });
+  //     var response =
+  //         await services.postResponse(url: '/product/list', formData: formData);
+  //     debugPrint(response.toString());
+  //     if (response != null) {
+  //       ProductListModal? productListModal= ProductListModal.fromJson(response);
+  //       Globals.productListModal = productListModal;
+  //       print('Product list............' + productListModal.toString());
+  //       print('my product.....................' + Globals.productListModal.toString());
+
+  //       return productListModal;
+  //     } else {
+  //       Globals.showToastMethod(
+  //           msg: "There is something went worng. Please try again later");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     // debugPrint("post list exception:" + e.toString());
+  //     return null;
+  //   }
+  // }
   
 }

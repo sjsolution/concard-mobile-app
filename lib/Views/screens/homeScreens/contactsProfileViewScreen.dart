@@ -151,7 +151,7 @@ setState(() {
                                     backgroundImage: NetworkImage(Globals.singleCardDetailModal!.singleCardData!.user!.image.toString()),
                                   ),
                                    Text(
-                                      Globals.singleCardDetailModal!.singleCardData!.username.toString(),
+                                      Globals.singleCardDetailModal!.singleCardData!.username!=null?Globals.singleCardDetailModal!.singleCardData!.username.toString():'',
                                       style: TextStyle(
                                           fontFamily: 'MBold',
                                           fontSize: size.height * 0.02,
@@ -393,56 +393,7 @@ setState(() {
                                   SizedBox(
                                     height: size.height * 0.015,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: size.width * 0.04,
-                                        right: size.width * 0.04),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Card',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              fontFamily: 'MBold'),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        EditMyCardScreen()));
-                                          },
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Edit Card',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.015,
-                                                        fontFamily: 'Msemibold'),
-                                                  ),
-                                                  SizedBox(
-                                                    width: size.width * 0.03,
-                                                  ),
-                                                  Image.asset(
-                                                    edit_icon,
-                                                    color: cgreen,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                 
                                   SizedBox(
                                     height: size.height * 0.025,
                                   ),
@@ -878,7 +829,8 @@ setState(() {
                                 width: size.width * 0.04,
                               ),
                               Text(
-                                DateFormat('EEE,').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+''+DateFormat(' d').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+'th '+DateFormat('MMM y').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+" "+DateFormat('KK:mm a').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())),
+                                
+                               Globals.singleCardDetailModal!.singleCardData!.meetingDateTime!=null? DateFormat('EEE,').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+''+DateFormat(' d').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+'th '+DateFormat('MMM y').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+" "+DateFormat('KK:mm a').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())):'',
                                 style: TextStyle(
                                     fontSize: size.height * 0.018,
                                     color: Colors.black,
@@ -898,7 +850,7 @@ setState(() {
                                 width: size.width * 0.04,
                               ),
                               Text(
-                                Globals.singleCardDetailModal!.singleCardData!.location.toString(),
+                                Globals.singleCardDetailModal!.singleCardData!.location!=null? Globals.singleCardDetailModal!.singleCardData!.location.toString():'',
                                 style: TextStyle(
                                     fontSize: size.height * 0.018,
                                     color: Colors.black,
@@ -1521,7 +1473,7 @@ setState(() {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${singleCardData.username.toString() ?? ''}",
+                              "${singleCardData.username!=null?singleCardData.username.toString():'' }",
                               style: TextStyle(
                                 fontSize: size.height * 0.013,
                                 color: signupclor_dark,
