@@ -29,12 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> initUniLinks() async {
     try {
       Uri? initialLink = await getInitialUri();
-      debugPrint("-------- initialLink :" + initialLink.toString());
-      debugPrint("-------- hasQuery :" + initialLink!.hasQuery.toString());
-      debugPrint("-------- team :" +
-          initialLink.toString().contains("team").toString());
-      debugPrint("-------- hasQuery :" +
-          initialLink.toString().split('=')[1]);
+      // debugPrint("-------- initialLink :" + initialLink.toString());
+      // debugPrint("-------- hasQuery :" + initialLink!.hasQuery.toString());
+      // debugPrint("-------- team :" +
+          // initialLink.toString().contains("team").toString());
+      // debugPrint("-------- hasQuery :" +
+          // initialLink.toString().split('=')[1]);
 
           
       if (initialLink != null) {
