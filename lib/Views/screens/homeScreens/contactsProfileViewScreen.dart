@@ -416,7 +416,7 @@ setState(() {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: Text(
-                                    'Profile file',
+                                    'Company Profile',
                                     style: TextStyle(
                                         fontFamily: 'MBold',
                                         fontSize: size.height * 0.018,
@@ -432,7 +432,7 @@ setState(() {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: Text(
-                                    'Brochure file',
+                                    'Brochure ',
                                     style: TextStyle(
                                         fontFamily: 'MBold',
                                         fontSize: size.height * 0.018,

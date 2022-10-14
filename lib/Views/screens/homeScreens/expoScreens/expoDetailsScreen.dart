@@ -51,9 +51,13 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
   }
 
   getExpoDetail() async {
+    Globals.expoDetailModel=null;
     Globals.expoDetailModel =
         await ExpoController().getExpoBadgeDetail(widget.id);
         print('Id.........'+ widget.id.toString());
+        setState(() {
+          
+        });
   }
 
   @override
@@ -154,24 +158,25 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                   width: 10,
                                 ),
                                 Column(
-                                  crossAxisAlignment:CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
-                                      radius: size.height * 0.03,
+                                      radius: size.height * 0.05,
                                       backgroundImage: NetworkImage(Globals.expoDetailModel!.data!.image.toString()),
                                                                             backgroundColor: Colors.white,
                                     ),
                                     SizedBox(
                                       height: size.height * 0.02,
                                     ),
-                                    Text(
-                                      Globals.expoDetailModel!.data!.badgeName
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.017,
-                                          fontFamily: "Msemibold"),
-                                    ),
-                                    SizedBox(
+                                    Column(
+                                      children: [
+                                        Text(
+                                          Globals.expoDetailModel!.data!.badgeName
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: size.height * 0.017,
+                                              fontFamily: "Msemibold"),
+                                        ),
+                                         SizedBox(
                                       height: size.height * 0.01,
                                     ),
                                     Text(
@@ -186,15 +191,22 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           fontFamily: "Stf",
                                           color: infocolor),
                                     ),
+                                      ],
+                                    ),
+                                   
                                   ],
                                 ),
                                 // SizedBox(
                                 //   width:size.width*0.,
                                 // ),
-                                SvgPicture.asset(
-                                  stylearrw_icon,
-                                  height: size.height * 0.02,
-                                  color: prmryblue,
+                                Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      stylearrw_icon,
+                                      height: size.height * 0.02,
+                                      color: prmryblue,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
