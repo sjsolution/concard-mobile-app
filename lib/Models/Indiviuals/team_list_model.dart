@@ -1,7 +1,7 @@
 class TeamsListModel {
   final int? code;
   final String? message;
-  final List<TeamDetail>? teamDetail;
+  final List<TeamData>? teamDetail;
 
   TeamsListModel({
     this.code,
@@ -13,7 +13,7 @@ class TeamsListModel {
       : code = json['code'] as int?,
         message = json['message'] as String?,
         teamDetail = (json['data'] as List?)
-            ?.map((dynamic e) => TeamDetail.fromJson(e as Map<String, dynamic>))
+            ?.map((dynamic e) => TeamData.fromJson(e as Map<String, dynamic>))
             .toList();
 
   Map<String, dynamic> toJson() => {
@@ -23,7 +23,7 @@ class TeamsListModel {
       };
 }
 
-class TeamDetail {
+class TeamData {
   final int? id;
   final String? userId;
   final String? teamName;
@@ -36,7 +36,7 @@ class TeamDetail {
   final String? updatedAt;
   final String? image;
 
-  TeamDetail({
+  TeamData({
     this.id,
     this.userId,
     this.teamName,
@@ -50,7 +50,7 @@ class TeamDetail {
     this.image,
   });
 
-  TeamDetail.fromJson(Map<String, dynamic> json)
+  TeamData.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int?,
         userId = json['user_id'] as String?,
         teamName = json['team_name'] as String?,

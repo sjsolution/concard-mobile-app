@@ -11,30 +11,29 @@ class TeamsFilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size= MediaQuery.of(context).size;
-    return  Scaffold(
+    var size = MediaQuery.of(context).size;
+    return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
-              height: size.height*0.15,
+              height: size.height * 0.15,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topCenter,
-                    colors: [
-                      signupclor_light,
-                      signupclor_dark
-                    ]
-                ),
+                    colors: [signupclor_light, signupclor_dark]),
               ),
-              child:  Padding(
-                padding: EdgeInsets.only(left: size.width*0.04, right: size.width*0.04,top: size.height*0.04),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * 0.04,
+                    right: size.width * 0.04,
+                    top: size.height * 0.04),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
                       },
                       child: Icon(
@@ -45,9 +44,12 @@ class TeamsFilterScreen extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Image.asset(group,color: bckgrnd,),
+                        Image.asset(
+                          group,
+                          color: bckgrnd,
+                        ),
                         SizedBox(
-                          width: size.width*0.02,
+                          width: size.width * 0.02,
                         ),
                         Text(
                           'Teams',
@@ -59,8 +61,8 @@ class TeamsFilterScreen extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      height: size.height*0.01,
-                      width: size.width*0.03,
+                      height: size.height * 0.01,
+                      width: size.width * 0.03,
                     )
                     // Image.asset(notify_icon),
                   ],
@@ -68,7 +70,7 @@ class TeamsFilterScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: size.height*0.13),
+              margin: EdgeInsets.only(top: size.height * 0.13),
               // height: size.height*0.8,
               width: size.width,
               decoration: BoxDecoration(
@@ -78,25 +80,34 @@ class TeamsFilterScreen extends StatelessWidget {
                     topRight: Radius.circular(15),
                   )),
               child: Padding(
-                padding: EdgeInsets.only(left:size.width*0.04, right: size.width*0.04),
+                padding: EdgeInsets.only(
+                    left: size.width * 0.04, right: size.width * 0.04),
                 child: Column(
                   children: [
-                    SizedBox(height: size.height*0.02,),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('All teams',style: TextStyle(
-                            fontSize: size.height*0.018,
-                            fontFamily: 'MBold',
-                            color: signupclor_dark
-                        ),),
+                        Text(
+                          'All teams',
+                          style: TextStyle(
+                              fontSize: size.height * 0.018,
+                              fontFamily: 'MBold',
+                              color: signupclor_dark),
+                        ),
                         GestureDetector(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>CreateNewTeamScreen()));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        CreateNewTeamScreen()));
                           },
                           child: Container(
-                            height: size.height*0.04,
-                            width: size.width*0.45,
+                            height: size.height * 0.04,
+                            width: size.width * 0.45,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.topCenter,
@@ -104,21 +115,27 @@ class TeamsFilterScreen extends StatelessWidget {
                                     colors: [
                                       gradientgreen,
                                       primarygreen,
-                                    ]
-                                ),
-                                borderRadius: BorderRadius.circular(15)
-                            ),
+                                    ]),
+                                borderRadius: BorderRadius.circular(15)),
                             child: Padding(
-                              padding: const EdgeInsets.only(left:5,right: 15),
+                              padding:
+                                  const EdgeInsets.only(left: 5, right: 15),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(Icons.add,size: 20,color: bckgrnd,),
-                                  Text('Create new Team',style: TextStyle(
-                                      fontFamily: 'MBold',
-                                      fontSize: size.height*0.018,
-                                      color: bckgrnd
-                                  ),),
+                                  Icon(
+                                    Icons.add,
+                                    size: 20,
+                                    color: bckgrnd,
+                                  ),
+                                  Text(
+                                    'Create new Team',
+                                    style: TextStyle(
+                                        fontFamily: 'MBold',
+                                        fontSize: size.height * 0.018,
+                                        color: bckgrnd),
+                                  ),
                                 ],
                               ),
                             ),
@@ -126,7 +143,9 @@ class TeamsFilterScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: size.height*0.03,),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -135,45 +154,49 @@ class TeamsFilterScreen extends StatelessWidget {
                           width: size.width * 0.85,
                           child: TextFormField(
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.search,color: signupclor_dark,),
-                                filled: true,
-                                fillColor: bckgrnd,
-                                hintText: 'Search Teams',
-                                contentPadding:
-                                EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle:
-                                TextStyle(fontSize: size.width * 0.04, color: infocolor),
-                                enabledBorder:
-                                OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide(color: bckgrnd)
-                                ),
-                              focusedBorder:
-                              OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                  borderSide: BorderSide(color: bckgrnd)
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: signupclor_dark,
                               ),
+                              filled: true,
+                              fillColor: bckgrnd,
+                              hintText: 'Search Teams',
+                              contentPadding: EdgeInsets.only(
+                                  top: 0.0, left: 22.0, bottom: 2.0),
+                              hintStyle: TextStyle(
+                                  fontSize: size.width * 0.04,
+                                  color: infocolor),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: BorderSide(color: bckgrnd)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: BorderSide(color: bckgrnd)),
                             ),
                           ),
                         ),
                         SvgPicture.asset(sort_icon)
                       ],
                     ),
-                    SizedBox(
-                      height:size.height*0.03
-                    ),
+                    SizedBox(height: size.height * 0.03),
                     Container(
-                      height: size.height*1.0,
+                      height: size.height * 1.0,
                       width: size.width,
                       child: GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TeamsJoinInviteScreen(teamName: "",)));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      TeamsJoinInviteScreen(
+                                        teamData: null,
+                                      )));
                         },
                         child: ListView.builder(
-                          padding: EdgeInsets.all(0),
-                          itemCount: 5,
+                            padding: EdgeInsets.all(0),
+                            itemCount: 5,
                             scrollDirection: Axis.vertical,
-                            itemBuilder:(context, index){
+                            itemBuilder: (context, index) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -181,29 +204,42 @@ class TeamsFilterScreen extends StatelessWidget {
                                     children: [
                                       CircleAvatar(
                                           radius: 20,
-                                          backgroundImage: NetworkImage(    "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",)),
-                                      SizedBox(width: size.width*0.03,),
+                                          backgroundImage: NetworkImage(
+                                            "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                          )),
+                                      SizedBox(
+                                        width: size.width * 0.03,
+                                      ),
                                       Column(
                                         children: [
-                                          Text('Team 1',style: TextStyle(
-                                              fontSize: size.height*0.018,
-                                              fontFamily: 'Mbold'
-                                          ),),
-                                          SizedBox(height:size.height*0.01,),
-                                          Text('12 cards shared',style: TextStyle(
-                                              fontSize: size.height*0.015,
-                                              color: infocolor,
-                                              fontFamily: 'Stf'
-                                          ),),
-
+                                          Text(
+                                            'Team 1',
+                                            style: TextStyle(
+                                                fontSize: size.height * 0.018,
+                                                fontFamily: 'Mbold'),
+                                          ),
+                                          SizedBox(
+                                            height: size.height * 0.01,
+                                          ),
+                                          Text(
+                                            '12 cards shared',
+                                            style: TextStyle(
+                                                fontSize: size.height * 0.015,
+                                                color: infocolor,
+                                                fontFamily: 'Stf'),
+                                          ),
                                         ],
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                       ),
                                       Spacer(),
-                                     Icon(Icons.arrow_forward_ios_sharp,size: 15,)
-
+                                      Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        size: 15,
+                                      )
                                     ],
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                   ),
                                   Divider(
                                     thickness: 1,
@@ -212,9 +248,7 @@ class TeamsFilterScreen extends StatelessWidget {
                                   )
                                 ],
                               );
-                            }
-
-                        ),
+                            }),
                       ),
                     ),
                     // SizedBox(height: 40,)
@@ -224,7 +258,7 @@ class TeamsFilterScreen extends StatelessWidget {
             ),
           ],
         ),
-      ) ,
+      ),
     );
   }
 }

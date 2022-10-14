@@ -236,7 +236,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        const CreateTeamScreen()));
+                                         CreateTeamScreen(type:"norm",teamName: "",)));
                           },
                           child: Row(
                             children: [

@@ -373,6 +373,7 @@ class CreateNewSocialLink extends StatelessWidget {
                                     app.setLoadingFalse();
                                   }
                                 }
+                                
                               },
                               child: Container(
                                 height: size.height * 0.05,

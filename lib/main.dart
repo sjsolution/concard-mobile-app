@@ -12,6 +12,7 @@ import 'package:concard/Views/screens/authScreens/individual/signup/codeVerifica
 import 'package:concard/Views/screens/authScreens/individual/signup/mobileVerification.dart';
 import 'package:concard/Views/screens/authScreens/individual/signup/signup_choice_class.dart';
 import 'package:concard/Views/screens/authScreens/signupScreen.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/createTeamScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyPremiumPlan/upgradeCompanyPlanScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradeCompanyPremium/upgradeCompanyPremium.dart';
 import 'package:firebase_core/firebase_core.dart';

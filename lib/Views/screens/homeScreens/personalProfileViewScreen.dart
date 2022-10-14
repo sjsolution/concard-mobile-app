@@ -3,6 +3,7 @@ import 'package:concard/Controllers/indiviualController/social_links_controller.
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/Indiviuals/social_links_model.dart';
+import 'package:concard/Views/screens/authScreens/individual/Social/new_social_link.dart';
 import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
@@ -1158,11 +1159,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         GestureDetector(
                           onTap: () async {
                             // await ProfileController().uplaodImage(hideeye_icon);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SocialLinksScreen()));
+                             Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CreateNewSocialLink()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             SocialLinksScreen()));
                           },
                           child: Container(
                             height: size.height * 0.04,

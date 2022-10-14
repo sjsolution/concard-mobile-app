@@ -4,6 +4,7 @@ import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/OthersController/image_picker_controller.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Views/screens/authScreens/individual/Social/new_social_link.dart';
 import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyPremiumPlan/upgradeCompanyPlanScreen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
@@ -595,7 +596,17 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SocialLinksScreen()));
+                         Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            CreateNewSocialLink()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (BuildContext context) =>
+                        //             SocialLinksScreen()));
+
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
