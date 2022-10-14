@@ -1,3 +1,5 @@
+import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addCardsToGroupScreen.dart';
 import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
@@ -7,22 +9,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
+import 'package:intl/intl.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
+import '../../widgets/shimmer_widgets.dart';
+import 'individualPremium/individualPremiumScreen.dart';
 
 class ContactProfileViewScreen extends StatefulWidget {
-  const ContactProfileViewScreen({Key? key}) : super(key: key);
-
+ ContactProfileViewScreen({Key? key,required this.id}) : super(key: key);
+String? id;
   @override
   State<ContactProfileViewScreen> createState() =>
       _ContactProfileViewScreenState();
 }
 
 class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
   bool? addValue = false;
   bool? inviteValue = true;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSingleCardDetail();
+  }
+
+  getSingleCardDetail()async{
+
+Globals.singleCardDetailModal = await CardController().singleContatProfile(widget.id.toString());
+print('id.....'+widget.id.toString());
+print('Singl card.........'+Globals.singleCardDetailModal.toString());
+setState(() {
+  
+});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +56,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          
           Container(
             height: size.height * 0.25,
             decoration: BoxDecoration(
@@ -41,121 +65,135 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                   end: Alignment.topCenter,
                   colors: [signupclor_light, signupclor_dark]),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04,
-                      right: size.width * 0.04,
-                      top: size.height * 0.06),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        more_icon,
-                        height: 15,
-                      ),
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage(drwrmyacunt_icon),
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            notify_icon,
+                //premium code
+                InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => IndividualPremiumScreen()));
+                          },
+                          child: Padding(
+                            padding:  EdgeInsets.only(top: size.height*0.1),
+                            child: Container(
+                              alignment: Alignment.center,
+                              // margin: EdgeInsets.only(left: 10.0),
+                              // padding: EdgeInsets.only(left: 07.0),
+                              height: size.height * 0.05,
+                              width: size.width * 0.3,
+                              decoration: BoxDecoration(
+                                  color: bckgrnd.withOpacity(0.1),
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10))),
+                              child: Row(children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 3.0, bottom: 09.0),
+                                  child: Image.asset(
+                                    premium_icon,
+                                    // height: size.width * 0.07,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.01,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    'Premium',
+                                    style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        fontFamily: "MBold",
+                                        color: bckgrnd),
+                                  ),
+                                ),
+                              ]),
+                            ),
                           ),
-                          SizedBox(width: size.width * 0.02),
-                          InkWell(
-                              onTap: () {
-                                _moreModalBottomSheet(context);
-                              },
-                              child: Icon(
-                                Icons.more_vert,
-                                color: bckgrnd,
-                              ))
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.005,
-                ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => IndividualPremiumScreen()));
-                      },
-                      child: Container(
-                        height: size.height * 0.04,
-                        width: size.width * 0.3,
-                        decoration: BoxDecoration(
-                            color: bckgrnd.withOpacity(0.1),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10))),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: size.width * 0.04,
-                            right: size.width * 0.01,
-                          ),
-                          child: Row(children: [
-                            Image.asset(
-                              premium_icon,
-                              height: size.height * 0.04,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.01,
-                            ),
-                            Text(
-                              'Premium',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "MBold",
-                                  color: bckgrnd),
-                            ),
-                          ]),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.05,
-                    ),
-                    Row(
-                      children: [
-                        Column(
+
+               Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.06),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              'John Smith',
-                              style: TextStyle(
-                                  fontFamily: 'MBold',
-                                  fontSize: size.height * 0.02,
-                                  color: bckgrnd),
+                            InkWell(
+                              onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                              child: Image.asset(
+                                more_icon,
+                                height: 15,
+                              ),
                             ),
-                            Text(
-                              'Lorem ipsum',
-                              style: TextStyle(
-                                  fontFamily: 'Stf',
-                                  fontSize: size.height * 0.017,
-                                  color: bckgrnd),
-                            ),
+                            
                           ],
                         ),
-                        SizedBox(
-                          width: size.width * 0.01,
-                        ),
-                        Image.asset(
-                          safesheld_icon,
-                        ),
-                      ],
+                        SizedBox(width: size.width*0.03,),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 25,
+                                    backgroundImage: NetworkImage(Globals.singleCardDetailModal!.singleCardData!.user!.image.toString()),
+                                  ),
+                                   Text(
+                                      Globals.singleCardDetailModal!.singleCardData!.username!=null?Globals.singleCardDetailModal!.singleCardData!.username.toString():'',
+                                      style: TextStyle(
+                                          fontFamily: 'MBold',
+                                          fontSize: size.height * 0.02,
+                                          color: bckgrnd),
+                                    ),
+                                    Text(
+                                       Globals.singleCardDetailModal!.singleCardData!.jobTitle!=null?Globals.singleCardDetailModal!.singleCardData!.jobTitle.toString():'',
+                                      style: TextStyle(
+                                          fontFamily: 'Stf',
+                                          fontSize: size.height * 0.017,
+                                          color: bckgrnd),
+                                    ),
+                                ],
+                              ),
+                                Image.asset(
+                              safesheld_icon,
+                            ),
+                            ],
+                          ),
+                          
+                          Row(
+                            children: [
+                              Image.asset(
+                                notify_icon,
+                              ),
+                              SizedBox(width: size.width * 0.02),
+                              InkWell(
+                                  onTap: () {
+                                    _moreModalBottomSheet(context);
+                                  },
+                                  child: Icon(
+                                    Icons.more_vert,
+                                    color: bckgrnd,
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
+                  
                   ],
-                ),
+                )
               ],
             ),
           ),
@@ -331,7 +369,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   )),
-              child: ListView(
+              child:Globals.singleCardDetailModal!.singleCardData!=null?  ListView(
                 padding: EdgeInsets.all(0),
                 children: [
                   Padding(
@@ -345,7 +383,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                             height: size.height * 0.015,
                           ),
                           Container(
-                            height: size.height * 0.3,
+                            height: size.height * 0.365,
                             width: size.width,
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -355,62 +393,11 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   SizedBox(
                                     height: size.height * 0.015,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: size.width * 0.04,
-                                        right: size.width * 0.04),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Card',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              fontFamily: 'MBold'),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        EditMyCardScreen()));
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                'Edit Card',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontFamily: 'Msemibold'),
-                                              ),
-                                              SizedBox(
-                                                width: size.width * 0.03,
-                                              ),
-                                              Image.asset(
-                                                edit_icon,
-                                                color: cgreen,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                 
                                   SizedBox(
                                     height: size.height * 0.025,
                                   ),
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.asset(
-                                        mycard_icon,
-                                        height: size.height * 0.2,
-                                        width: size.width * 0.85,
-                                        fit: BoxFit.cover,
-                                      ))
+                                 cardWidget(context, Globals.singleCardDetailModal!.singleCardData)
                                 ],
                               ),
                             ),
@@ -796,26 +783,27 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                           SizedBox(
                             height: size.height * 0.025,
                           ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: size.width * 0.025,
-                              ),
-                              GestureDetector(
-                                  child: Image.asset(circllinkedin_icon)),
-                              SizedBox(
-                                width: size.width * 0.035,
-                              ),
-                              Image.asset(twitterone_icon),
-                              SizedBox(
-                                width: size.width * 0.035,
-                              ),
-                              Image.asset(circlefb_icon),
-                              SizedBox(
-                                width: size.width * 0.035,
-                              ),
-                              Image.asset(instaicon_icon)
-                            ],
+                          Container(
+                            height: size.height*0.1,
+                            child: ListView.builder(
+                              padding:const EdgeInsets.all(0),
+                              itemCount:Globals.singleCardDetailModal!.singleCardData!.socialLinks!.length,
+                              scrollDirection:Axis.horizontal,
+                              itemBuilder: 
+                            (context,index){
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(width: size.width*0.03,),
+                                      Image.network(Globals.singleCardDetailModal!.singleCardData!.socialLinks![index].image.toString(),height: size.height*0.04,)
+                                      
+                                    ],
+                                  )
+                                ],
+                              );
+                            }
+                            ),
                           ),
                           SizedBox(
                             height: size.height * 0.04,
@@ -841,7 +829,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 width: size.width * 0.04,
                               ),
                               Text(
-                                "Sat, 9th Apr 22, 02:30 pm",
+                                
+                               Globals.singleCardDetailModal!.singleCardData!.meetingDateTime!=null? DateFormat('EEE,').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+''+DateFormat(' d').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+'th '+DateFormat('MMM y').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))+" "+DateFormat('KK:mm a').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())):'',
                                 style: TextStyle(
                                     fontSize: size.height * 0.018,
                                     color: Colors.black,
@@ -861,7 +850,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 width: size.width * 0.04,
                               ),
                               Text(
-                                "Expo Dubai, UAE",
+                                Globals.singleCardDetailModal!.singleCardData!.location!=null? Globals.singleCardDetailModal!.singleCardData!.location.toString():'',
                                 style: TextStyle(
                                     fontSize: size.height * 0.018,
                                     color: Colors.black,
@@ -978,7 +967,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                     ),
                   ),
                 ],
-              )),
+              ):ShimmerLoadWidget(),
+              ),
         ],
       ),
     );
@@ -1408,5 +1398,213 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
             },
           );
         });
+  }
+   Widget cardWidget(context, SingleCardData? singleCardData) {
+    var size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * 0.29,
+      // margin:const EdgeInsets.all(0.4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.transparent,
+      ),
+      child: Stack(
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                deccard,
+                height: size.height * 0.30,
+                fit: BoxFit.cover,
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.black,
+                size: size.height * 0.018,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: size.height * 0.047,
+                  left: size.width * 0.02,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            SvgPicture.asset(con_icon),
+                            const SizedBox(height: 10 //size.height * 0.015,
+                                ),
+                            Text(
+                              "CONCARD",
+                              style: TextStyle(
+                                fontSize: size.height * 0.016,
+                                color: signupclor_dark,
+                                fontFamily: "Mbold",
+                                letterSpacing: 5,
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height * 0.015,
+                            ),
+                            PrettyQr(
+                              typeNumber: 4,
+                              size: size.height * 0.06,
+                              data:
+                                  '${singleCardData!.id.toString()?? "0"}',
+                              errorCorrectLevel: QrErrorCorrectLevel.M,
+                              roundEdges: true,
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: size.width * 0.03),
+                        Container(
+                          height: size.height * 0.2,
+                          width: 1,
+                          color: cgreen,
+                        ),
+                        SizedBox(width: size.width * 0.08),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${singleCardData.username!=null?singleCardData.username.toString():'' }",
+                              style: TextStyle(
+                                fontSize: size.height * 0.013,
+                                color: signupclor_dark,
+                                fontFamily: "Mbold",
+                              ),
+                            ),
+                            Text(
+                              "${singleCardData.jobTitle!=null?singleCardData.jobTitle.toString():'' }",
+                              style: TextStyle(
+                                fontSize: size.height * 0.015,
+                                color: signupclor_dark,
+                                fontFamily: "Stf",
+                              ),
+                            ),
+                            const SizedBox(height: 8 //size.height * 0.01,
+                                ),
+                            Row(
+                              children: [
+                                Column(children: [
+                                  SvgPicture.asset(location_icon),
+                                ]),
+                                const SizedBox(
+                                  width: 10 //size.width * 0.015,
+                                ),
+                                Container(
+                                  // width: size.width * .35,
+                                  child: Column(children: [
+                                    Text(
+                                      "${singleCardData.address.toString()}",
+                                      style: TextStyle(
+                                        fontSize: size.height * 0.015,
+                                        color: signupclor_dark,
+                                        fontFamily: "Mbold",
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height * 0.015,
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(phonecall_icon),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Text(
+                                  singleCardData.mobileNo ??
+                                      '',
+                                  style: TextStyle(
+                                    fontSize: size.height * 0.015,
+                                    color: signupclor_dark,
+                                    fontFamily: "Mbold",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height * 0.015,
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  email_icon,
+                                  color: signupclor_dark,
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Container(
+                                  // width: size.width * .35,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        singleCardData.email ??
+                                            '',
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.012,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height * 0.015,
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(internet_icon),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Container(
+                                  // width: size.width * .35,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "${singleCardData.website}",
+                                        style: TextStyle(
+                                          fontSize: size.height * 0.015,
+                                          color: signupclor_dark,
+                                          fontFamily: "Mbold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.black,
+                size: size.height * 0.02,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

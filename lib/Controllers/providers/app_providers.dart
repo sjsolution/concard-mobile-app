@@ -132,8 +132,10 @@ class AppProvider extends ChangeNotifier {
     _postImage = image;
     notifyListeners();
   }
-
   ///AddCard
+
+  var userNameControl = TextEditingController();
+  var jobTitleControl = TextEditingController();
   var compNameControl = TextEditingController();
   var websiteControll = TextEditingController();
   var postionNameControl = TextEditingController();
@@ -145,8 +147,13 @@ class AppProvider extends ChangeNotifier {
   var countryControl = TextEditingController();
   var postalCodeControl = TextEditingController();
   var addressControl = TextEditingController();
+  var locationControllor=TextEditingController();
+  var meetingDateTimeControllor=TextEditingController();
+
 
   void clearAllController() {
+    userNameControl.clear();
+    jobTitleControl.clear();
     compNameControl.clear();
     websiteControll.clear();
     postionNameControl.clear();
@@ -158,9 +165,10 @@ class AppProvider extends ChangeNotifier {
     countryControl.clear();
     postalCodeControl.clear();
     addressControl.clear();
+    locationControllor.clear();
+    meetingDateTimeControllor.clear();
     notifyListeners();
   }
-
 
   List<int>? isCommentLikeList = [];
   // Color commentLikeColor=Colors.blue;

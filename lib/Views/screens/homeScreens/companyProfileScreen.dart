@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:concard/Constants/globals.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/OthersController/image_picker_controller.dart';
@@ -16,16 +15,15 @@ import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
 import 'package:concard/Views/screens/homeScreens/socialLinksScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradeCompanyPremium/upgradeCompanyPremium.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../../Constants/colors.dart';
+import '../../../Models/Company/ProductAndServicesModel.dart';
 import 'editMyCardScreen.dart';
+import 'package:concard/Controllers/compnayControllers/product_and_services_controller.dart';
 
 class CompanyProfileScreen extends StatefulWidget {
   const CompanyProfileScreen({Key? key}) : super(key: key);
@@ -39,6 +37,21 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   var textController = TextEditingController();
+  ProductAndServicesModel? productAndServices;
+  late List<ProductAndServicesModel?> productList;
+
+  @override
+  void initState() {
+    getProductsAndServices();
+    super.initState();
+  }
+
+  getProductsAndServices() async {
+    productAndServices = await ProductAndServicesController().getProductsAndServices();
+    productList.add(productAndServices);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -51,10 +64,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
             Container(
                 height: size.height * 0.35,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [signupclor_light, signupclor_dark]),
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                 ),
                 child: Container(
                   width: size.width,
@@ -74,10 +84,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     topRight: const Radius.circular(15),
                   )),
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.04,
-                    right: size.width * 0.04,
-                    top: size.height * 0.03),
+                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.03),
                 child: Column(
                   children: [
                     Row(
@@ -88,16 +95,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           children: [
                             Text(
                               'Concard',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.018,
-                                  fontFamily: "Mbold"),
+                              style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Mbold"),
                             ),
                             Text(
                               'Company detail',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "Stf",
-                                  color: infocolor),
+                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf", color: infocolor),
                             ),
                           ],
                         ),
@@ -116,14 +118,9 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         width: size.width,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [gradientgreen, primarygreen])),
+                            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen])),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.02,
-                              right: size.width * 0.02),
+                          padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -132,11 +129,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 color: bckgrnd,
                                 size: 25,
                               ),
-                              Text('Start a Post',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.02,
-                                      fontFamily: "Msemibold",
-                                      color: bckgrnd)),
+                              Text('Start a Post', style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Msemibold", color: bckgrnd)),
                               Container(
                                 width: size.width * 0.03,
                                 height: size.height * 0.02,
@@ -153,42 +146,30 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       height: size.height * 0.3,
                       width: size.width,
                       child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
                             SizedBox(
                               height: size.height * 0.015,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
-                                  left: size.width * 0.04,
-                                  right: size.width * 0.04),
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     ' Company Card',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: 'MBold'),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  EditMyCardScreen()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditMyCardScreen()));
                                     },
                                     child: Row(
                                       children: [
                                         Text(
                                           'Edit Card',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.015,
-                                              fontFamily: 'Stf'),
+                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Stf'),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.03,
@@ -225,8 +206,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       height: size.height * 0.02,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.02, right: size.width * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -237,18 +217,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             child: Container(
                               height: size.height * 0.05,
                               width: size.width * 0.4,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: signupclor_dark),
-                                  color: btnclr,
-                                  borderRadius: BorderRadius.circular(30)),
+                              decoration:
+                                  BoxDecoration(border: Border.all(color: signupclor_dark), color: btnclr, borderRadius: BorderRadius.circular(30)),
                               child: Container(
                                 child: Center(
                                   child: Text(
                                     'Profile file',
-                                    style: TextStyle(
-                                        color: signupclor_dark,
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(color: signupclor_dark, fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   ),
                                 ),
                               ),
@@ -261,21 +236,14 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             child: Container(
                               height: size.height * 0.05,
                               width: size.width * 0.4,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: signupclor_dark),
-                                  color: btnclr,
-                                  borderRadius: BorderRadius.circular(30)),
+                              decoration:
+                                  BoxDecoration(border: Border.all(color: signupclor_dark), color: btnclr, borderRadius: BorderRadius.circular(30)),
                               child: Container(
-                                margin: EdgeInsets.only(
-                                    left: size.width * 0.04,
-                                    right: size.width * 0.02),
+                                margin: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.02),
                                 child: Center(
                                   child: Text(
                                     'Brochure file',
-                                    style: TextStyle(
-                                        color: signupclor_dark,
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(color: signupclor_dark, fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   ),
                                 ),
                               ),
@@ -289,11 +257,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const RatingReviewScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const RatingReviewScreen()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -302,10 +266,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             children: [
                               Text(
                                 'Rating & Reviews',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.018,
-                                    color: Colors.black,
-                                    fontFamily: 'Msemibold'),
+                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                               ),
                               const Icon(
                                 Icons.arrow_drop_down,
@@ -323,8 +284,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   itemCount: 5,
-                                  itemPadding: const EdgeInsets.symmetric(
-                                      horizontal: 2.0),
+                                  itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                                   itemBuilder: (context, _) => Icon(
                                     Icons.star,
                                     color: primarygreen,
@@ -339,10 +299,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 '4.5',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.018,
-                                    color: Colors.black,
-                                    fontFamily: 'Msemibold'),
+                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                               )
                             ],
                           ),
@@ -354,35 +311,23 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    AnalyticsScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AnalyticsScreen()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Dashboard',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                color: Colors.black,
-                                fontFamily: 'Msemibold'),
+                            style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                           ),
                           Container(
                             height: size.height * 0.04,
                             width: size.width * 0.2,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: gradientgreen),
-                                borderRadius: BorderRadius.circular(15)),
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'View',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.015,
-                                    color: gradientgreen),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                               ),
                             ),
                           ),
@@ -395,9 +340,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     Container(
                       height: size.height * 0.15,
                       width: size.width,
-                      decoration: BoxDecoration(
-                          color: bckgrnd,
-                          borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(color: bckgrnd, borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -406,24 +349,17 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [prmryblue, darkblue])),
+                                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [prmryblue, darkblue])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '35',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         groupreach_icon,
@@ -431,23 +367,16 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.015,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.017),
+                                  margin: EdgeInsets.only(left: size.width * 0.017),
                                   child: Text(
                                     'Reached\nConcards',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.017),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.017),
                                   ),
                                 ),
                               ],
@@ -458,27 +387,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      gradientgreen,
-                                      primarygreen,
-                                    ])),
+                                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                  gradientgreen,
+                                  primarygreen,
+                                ])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '24',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         downloading_icon,
@@ -486,23 +408,16 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.015,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.017),
+                                  margin: EdgeInsets.only(left: size.width * 0.017),
                                   child: Text(
                                     'Saved\nConcards',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.017),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.017),
                                   ),
                                 ),
                               ],
@@ -514,26 +429,17 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      signupclor_light,
-                                      signupclor_dark
-                                    ])),
+                                    begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '12',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         favoutline_icon,
@@ -542,23 +448,16 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.02,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.03),
+                                  margin: EdgeInsets.only(left: size.width * 0.03),
                                   child: Text(
                                     'Favorites',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.017),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.017),
                                   ),
                                 ),
                               ],
@@ -574,16 +473,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       children: [
                         Text(
                           "product & Services",
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              color: Colors.black,
-                              fontFamily: 'Msemibold'),
+                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                         ),
                         SizedBox(
                           width: size.width * 0.01,
                         ),
                         Text(
-                          "(12)",
+                          productAndServices?.data?.length == null ? "0" : productAndServices!.data!.length.toString(),
                           style: TextStyle(
                             fontSize: size.height * 0.018,
                             color: primarygreen,
@@ -596,164 +492,56 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       height: size.height * 0.02,
                     ),
                     Container(
-                      height: size.height * 0.165,
                       width: size.width,
                       decoration: BoxDecoration(
                         color: bckgrnd,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: size.height * 0.13,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: bckgrnd,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.width * 0.02,
-                                    right: size.width * 0.02,
-                                    top: size.height * 0.02),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Buisness',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.2,
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.01, vertical: size.height * 0.03),
+                        child: Wrap(
+                          children: List.generate(
+                            productAndServices?.data?.length == null ? 0 : productAndServices!.data!.length + 1,
+                            (index) {
+                              if (index == productAndServices!.data!.length) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01, top: size.height * 0.01),
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        addProductsAndServices(context);
+                                      });
+                                    },
+                                    child: Container(
+                                      height: size.height * 0.03,
+                                      width: size.width * 0.15,
+                                      decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                                      child: Center(
+                                        child: Text(
+                                          'Add +',
+                                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: txtcolr),
                                         ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Growth',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.2,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Progress',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.2,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Now',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.15,
-                                        ),
-                                      ],
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: size.height * 0.01,
+                                  ),
+                                );
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Container(
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.2,
+                                  child: Center(
+                                    child: Text(
+                                      productAndServices!.data![index].name.toString(),
+                                      style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015),
                                     ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Progress',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.2,
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: btnclr,
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                              child: Text(
-                                            'Now',
-                                            style: TextStyle(
-                                                fontFamily: "Msemibold",
-                                                fontSize: size.height * 0.015),
-                                          )),
-                                          height: size.height * 0.04,
-                                          width: size.width * 0.15,
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Container(
-                                          height: size.height * 0.03,
-                                          width: size.width * 0.15,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: gradientgreen),
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Center(
-                                            child: Text(
-                                              'Add +',
-                                              style: TextStyle(
-                                                  fontFamily: 'MBold',
-                                                  fontSize: size.height * 0.015,
-                                                  color: txtcolr),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -765,24 +553,16 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       children: [
                         Text(
                           "About",
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              color: Colors.black,
-                              fontFamily: 'Msemibold'),
+                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                         ),
                         Container(
                           height: size.height * 0.035,
                           width: size.width * 0.2,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: gradientgreen),
-                              borderRadius: BorderRadius.circular(15)),
+                          decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text(
                               'Edit',
-                              style: TextStyle(
-                                  fontFamily: 'MBold',
-                                  fontSize: size.height * 0.018,
-                                  color: txtcolr),
+                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
                             ),
                           ),
                         ),
@@ -799,16 +579,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: size.width * 0.04, top: size.height * 0.02),
+                        padding: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Contrary to popular belief, Lorem Ipsum is not\nsimply random text. It has roots in a piece of\nclassical Latin literature from 45 BC, making it over\n2000 years old.',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "Stf"),
+                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                             )
                           ],
                         ),
@@ -829,30 +606,23 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         //     MaterialPageRoute(
                         //         builder: (BuildContext context) =>
                         //             SocialLinksScreen()));
+
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Social media",
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                color: Colors.black,
-                                fontFamily: 'Msemibold'),
+                            style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                           ),
                           Container(
                             height: size.height * 0.035,
                             width: size.width * 0.2,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: gradientgreen),
-                                borderRadius: BorderRadius.circular(15)),
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'Add +',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.018,
-                                    color: txtcolr),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
                               ),
                             ),
                           ),
@@ -911,25 +681,16 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        ManageCompanyCardsScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => ManageCompanyCardsScreen()));
                           },
                           child: Container(
                             height: size.height * 0.035,
                             width: size.width * 0.2,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: gradientgreen),
-                                borderRadius: BorderRadius.circular(15)),
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'Manage',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.018,
-                                    color: txtcolr),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
                               ),
                             ),
                           ),
@@ -955,15 +716,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 ),
                                 Text(
                                   'Tomy jones',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.017,
-                                      fontFamily: 'Msemibold'),
+                                  style: TextStyle(fontSize: size.height * 0.017, fontFamily: 'Msemibold'),
                                 ),
                                 Text(
                                   'Lorem ipsum',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.012,
-                                      fontFamily: 'Stf'),
+                                  style: TextStyle(fontSize: size.height * 0.012, fontFamily: 'Stf'),
                                 ),
                               ],
                             );
@@ -984,26 +741,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
             Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(
-                      top: size.height * 0.15, left: size.width * 0.04),
+                  margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
                   child: CircleAvatar(
                     radius: 35,
                     backgroundColor: bckgrnd,
                     child: SvgPicture.asset(con_icon),
                   ),
                 ),
-                Container(
-                    margin: EdgeInsets.only(
-                        top: size.height * 0.21, left: size.width * 0.18),
-                    child: Image.asset(compcamera_icon)),
+                Container(margin: EdgeInsets.only(top: size.height * 0.21, left: size.width * 0.18), child: Image.asset(compcamera_icon)),
               ],
             ),
             InkWell(
-              
               onTap: () => _scaffoldKey.currentState!.openDrawer(),
               child: Container(
-                margin: EdgeInsets.only(
-                    top: size.height * 0.08, left: size.width * 0.04),
+                margin: EdgeInsets.only(top: size.height * 0.08, left: size.width * 0.04),
                 child: Image.asset(more_icon),
               ),
             ),
@@ -1015,11 +766,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const NotificationsScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(right: size.width * 0.04),
@@ -1030,19 +777,14 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => UpgradeToPremiumCompanyScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => UpgradeToPremiumCompanyScreen()));
                     },
                     child: Container(
                       height: size.height * 0.04,
                       width: size.width * 0.3,
                       decoration: BoxDecoration(
                           color: bckgrnd.withOpacity(0.1),
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10))),
+                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
                       child: Padding(
                         padding: EdgeInsets.only(
                           left: size.width * 0.04,
@@ -1058,10 +800,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                           Text(
                             'Premium',
-                            style: TextStyle(
-                                fontSize: size.height * 0.015,
-                                fontFamily: "MBold",
-                                color: bckgrnd),
+                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                           ),
                         ]),
                       ),
@@ -1074,14 +813,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     height: size.height * 0.04,
                     width: size.width * 0.32,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: const Radius.circular(10),
-                          bottomLeft: Radius.circular(10)),
+                      borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), bottomLeft: Radius.circular(10)),
                       color: Colors.white.withOpacity(0.1),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.02, right: size.width * 0.01),
+                      padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.01),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -1091,10 +827,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                           Text(
                             'Select a cover photo',
-                            style: TextStyle(
-                                fontFamily: "MBold",
-                                fontSize: size.height * 0.011,
-                                color: Colors.white),
+                            style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.011, color: Colors.white),
                           )
                         ],
                       ),
@@ -1109,12 +842,98 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
     );
   }
 
+  void addProductsAndServices(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, setStateBuilder) {
+          TextEditingController name = TextEditingController();
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            alignment: Alignment.center,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Add Product or Services",
+                  style: TextStyle(
+                    fontFamily: 'MBold',
+                    fontSize: size.height * 0.015,
+                    color: txtcolr,
+                  ),
+                ),
+              ],
+            ),
+            content: Container(
+              height: size.height * 0.18,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    cursorColor: txtcolr,
+                    controller: name,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: txtcolr),
+                        ),
+                        filled: true,
+                        isDense: true,
+                        hintStyle: TextStyle(color: Colors.grey, fontSize: size.width * 0.03),
+                        hintText: "Add Product or Services",
+                        fillColor: Colors.white70),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          child: Text(
+                            "Add",
+                            style: TextStyle(
+                              color: txtcolr,
+                            ),
+                          ),
+                          onPressed: () async {
+                            ProductAndServicesController().addProductAndServices(name: name.text);
+                            await ProductAndServicesController().getProductsAndServices();
+                            setStateBuilder(() {
+                              setState(() {});
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: txtcolr,
+                            ),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
   void _settingModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1126,10 +945,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -1141,9 +957,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 'Start a Post',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Mbold'),
+                                style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                               ),
                               GestureDetector(
                                   onTap: () {
@@ -1158,10 +972,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           Container(
                             height: size.height * 0.15,
                             width: size.width,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.grey[200]!),
-                                color: bckgrnd),
+                            decoration:
+                                BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: Colors.grey[200]!), color: bckgrnd),
                             child: TextFormField(
                               validator: (String? value) {
                                 // if (value!.isEmpty) {
@@ -1174,14 +986,9 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               controller: textController,
                               decoration: InputDecoration(
                                   hintText: 'text',
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 0.0, left: 22.0, bottom: 2.0),
-                                  hintStyle: TextStyle(
-                                      fontSize: size.height * 0.017,
-                                      color: infocolor,
-                                      fontFamily: "Stf"),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20))),
+                                  contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                  hintStyle: TextStyle(fontSize: size.height * 0.017, color: infocolor, fontFamily: "Stf"),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
                             ),
                           ),
                           SizedBox(
@@ -1195,8 +1002,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                     width: size.width * .17,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                            color: Colors.grey[200]!),
+                                        border: Border.all(color: Colors.grey[200]!),
                                         color: Colors.grey[200]),
                                     child: Image.file(
                                       postImage!,
@@ -1211,8 +1017,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                     width: size.width * .17,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                            color: Colors.grey[200]!),
+                                        border: Border.all(color: Colors.grey[200]!),
                                         color: Colors.grey[200]),
                                     // child: Image.file(postImage!),
                                   ),
@@ -1226,15 +1031,13 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               InkWell(
                                 onTap: () async {
                                   getImageType(context, () async {
-                                    postImage = await ImagePickerMethods()
-                                        .getImage(ImageSource.gallery);
+                                    postImage = await ImagePickerMethods().getImage(ImageSource.gallery);
                                     Navigator.pop(context);
                                     setSte(() {
                                       setState(() {});
                                     });
                                   }, () async {
-                                    postImage = await ImagePickerMethods()
-                                        .getImage(ImageSource.camera);
+                                    postImage = await ImagePickerMethods().getImage(ImageSource.camera);
                                     Navigator.pop(context);
                                     setSte(() {
                                       setState(() {});
@@ -1249,9 +1052,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                     ),
                                     Text(
                                       'Photo',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.02,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Stf"),
                                     )
                                   ],
                                 ),
@@ -1264,9 +1065,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   ),
                                   Text(
                                     'Video',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.02,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Stf"),
                                   )
                                 ],
                               ),
@@ -1278,9 +1077,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   ),
                                   Text(
                                     'poll',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.02,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Stf"),
                                   )
                                 ],
                               ),
@@ -1292,9 +1089,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   ),
                                   Text(
                                     'Article',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.02,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Stf"),
                                   )
                                 ],
                               ),
@@ -1312,21 +1107,14 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               });
 
                               var response;
-                              if (textController.text.isNotEmpty &&
-                                  postImage != null) {
-                                response = await PostController().addPost(
-                                    text: textController.text.trim(),
-                                    postImage: postImage!.path);
+                              if (textController.text.isNotEmpty && postImage != null) {
+                                response = await PostController().addPost(text: textController.text.trim(), postImage: postImage!.path);
                               } else if (postImage == null) {
-                                response = await PostController()
-                                    .addPost(text: textController.text.trim());
+                                response = await PostController().addPost(text: textController.text.trim());
                               } else if (textController.text.isEmpty) {
-                                response = await PostController()
-                                    .addPost(postImage: postImage!.path);
+                                response = await PostController().addPost(postImage: postImage!.path);
                               } else {
-                                showToastMethod(
-                                    msg:
-                                        "write text or pick image to contineue");
+                                showToastMethod(msg: "write text or pick image to contineue");
                               }
                               setState(() {
                                 setSte(() {
@@ -1337,9 +1125,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               if (response['code'] == 200) {
                                 showToastMethod(msg: response['message']);
                               } else {
-                                showToastMethod(
-                                    msg:
-                                        "Something went wrong. Try again later");
+                                showToastMethod(msg: "Something went wrong. Try again later");
                               }
                               postImage = null;
                               textController.clear();
@@ -1354,17 +1140,10 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               height: size.height * 0.05,
                               width: size.width * 0.9,
                               decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        context.read<AppProvider>().isLoading!
-                                            ? Colors.green
-                                            : signupclor_light,
-                                        context.read<AppProvider>().isLoading!
-                                            ? Colors.green
-                                            : signupclor_dark
-                                      ]),
+                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                    context.read<AppProvider>().isLoading! ? Colors.green : signupclor_light,
+                                    context.read<AppProvider>().isLoading! ? Colors.green : signupclor_dark
+                                  ]),
                                   border: Border.all(color: Colors.grey),
                                   color: bckgrnd,
                                   borderRadius: BorderRadius.circular(30)),
@@ -1372,13 +1151,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 // margin: EdgeInsets.only(left: size.width*0.04),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  context.read<AppProvider>().isLoading!
-                                      ? 'Uploading post....'
-                                      : 'Post',
-                                  style: TextStyle(
-                                      color: bckgrnd,
-                                      fontSize: size.height * 0.025,
-                                      fontFamily: "Msemibold"),
+                                  context.read<AppProvider>().isLoading! ? 'Uploading post....' : 'Post',
+                                  style: TextStyle(color: bckgrnd, fontSize: size.height * 0.025, fontFamily: "Msemibold"),
                                 ),
                               ),
                             ),
@@ -1401,29 +1175,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-                topLeft: const Radius.circular(10),
-                topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
                 decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: const Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                    color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
                 height: size.height * 0.28,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -1441,8 +1206,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Icon(Icons.close,
-                                      size: size.height * 0.025)),
+                                  child: Icon(Icons.close, size: size.height * 0.025)),
                             ],
                           ),
                           SizedBox(
@@ -1456,9 +1220,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 'Upload New Profile',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -1473,9 +1235,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 'Delete Current Profile',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -1494,28 +1254,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
                 decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: const Radius.circular(10))),
+                    color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: const Radius.circular(10))),
                 height: size.height * 0.28,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -1533,8 +1285,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Icon(Icons.close,
-                                      size: size.height * 0.025)),
+                                  child: Icon(Icons.close, size: size.height * 0.025)),
                             ],
                           ),
                           SizedBox(
@@ -1548,9 +1299,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 'Upload New Brochure',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -1565,9 +1314,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               Text(
                                 'Delete  Brochure',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),

@@ -34,6 +34,11 @@ class Data {
   final String? country;
   final String? postalCode;
   final String? address;
+  final String? birthDate;
+  final String? location;
+  final String? username;
+  final String? jobTitle;
+  final String? meetingDateTime;
   final String? updatedAt;
   final String? createdAt;
   final int? id;
@@ -51,6 +56,11 @@ class Data {
     this.country,
     this.postalCode,
     this.address,
+    this.birthDate,
+    this.location,
+    this.username,
+    this.jobTitle,
+    this.meetingDateTime,
     this.updatedAt,
     this.createdAt,
     this.id,
@@ -69,6 +79,11 @@ class Data {
       country = json['country'] as String?,
       postalCode = json['postal_code'] as String?,
       address = json['address'] as String?,
+      birthDate = json['birth_date'] as String?,
+      location = json['location'] as String?,
+      username = json['username'] as String?,
+      jobTitle = json['job_title'] as String?,
+      meetingDateTime = json['meeting_date_time'] as String?,
       updatedAt = json['updated_at'] as String?,
       createdAt = json['created_at'] as String?,
       id = json['id'] as int?;
@@ -86,6 +101,11 @@ class Data {
     'country' : country,
     'postal_code' : postalCode,
     'address' : address,
+    'birth_date' : birthDate,
+    'location' : location,
+    'username' : username,
+    'job_title' : jobTitle,
+    'meeting_date_time' : meetingDateTime,
     'updated_at' : updatedAt,
     'created_at' : createdAt,
     'id' : id

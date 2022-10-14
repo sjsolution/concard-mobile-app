@@ -37,13 +37,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => AppProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppProvider()),
+      ],
       child: MaterialApp(
         title: "Concard",
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          // '/concard/team/q=$team': (context) => const CreateTeamScreen(),
           '/': (context) => const SplashScreen(),
           '/indiBasic': (context) => IndividualBasicDetail(),
           '/indiCodeSend': (context) => const NumberVerification(),

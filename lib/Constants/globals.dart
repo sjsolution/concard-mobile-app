@@ -1,5 +1,8 @@
 library my_prj.globals;
 
+import 'package:concard/Models/Cards/card_list_modal.dart';
+import 'package:concard/Models/Cards/single_card_detail_modal.dart';
+import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/Indiviuals/team_detail_model.dart';
@@ -13,8 +16,11 @@ import 'package:concard/Models/post_list_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../Models/Cards/add_card_modal.dart';
 import '../Models/Expo/expo_filter_list_modal.dart';
 import '../Models/Expo/expobadge_list_model.dart';
+import '../Models/Indiviuals/story_model.dart';
+import 'package:concard/Models/Company/ProductAndServicesModel.dart';
 
 // String? baseUrl='http://localhost/sj-solutions/concard/api';
 String? baseUrl = 'https://salloumdesign.com/concard/api';
@@ -22,7 +28,7 @@ String? token = '';
 String? userType = '';
 String? userId = '';
 String? businessType = '';
-String? id='1';
+String? id = '1';
 PostsListModal? postsListModal;
 CountryCityListModal? countryCityListModal;
 PositionModel? positionModel;
@@ -39,13 +45,15 @@ ExpoBadgeListModal? expoBadgeListModal;
 ExpoDetailModel? expoDetailModel;
 ExpoFilterListModal? expoFilterListModal;
 AddCardModal? addCardModal;
+CardListModal? cardListModal;
 TeamsListModel? teamsListModel;
 TeamDetailModel? teamDetailModel;
+SingleCardDetailModal? singleCardDetailModal;
+StoryModel? storyModel;
+ProductAndServicesModel? productAndServicesModel;
 
 showToastMethod({
   String? msg,
- 
-
   ToastGravity toastGravity = ToastGravity.BOTTOM,
 }) {
   Fluttertoast.showToast(
@@ -56,6 +64,5 @@ showToastMethod({
       toastLength: Toast.LENGTH_LONG,
       timeInSecForIosWeb: 2);
 }
-
 
 //models objects
