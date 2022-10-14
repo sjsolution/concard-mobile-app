@@ -5,7 +5,6 @@ import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/post_list_modal.dart';
-import 'package:concard/Views/screens/homeScreens/cardsScrens/cardsBottomBarScreen.dart';
 import 'package:concard/Views/screens/homeScreens/expoScreens/expoBottomBarScreen.dart';
 import 'package:concard/Views/screens/homeScreens/homepge.dart';
 import 'package:concard/Views/screens/homeScreens/messagesScreen/messagesScreen.dart';
@@ -15,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:provider/provider.dart';
+
+import 'cardsScrens/cardsBottomBarScreen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);

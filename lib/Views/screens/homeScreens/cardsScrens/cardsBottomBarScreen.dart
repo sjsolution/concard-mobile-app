@@ -2,7 +2,10 @@ import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/allCards.dart';
 import 'package:concard/Views/screens/homeScreens/cardsScrens/favouritescards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/reachedCards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/savedCards.dart';
 import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
 import 'package:concard/Views/screens/homeScreens/followingCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
@@ -28,6 +31,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   bool? isMore = false;
   bool? isSelctedt = false;
   bool? isRadio = false;
+  bool? isIndexSelected=false;
 
   @override
   void initState() {
@@ -37,426 +41,124 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   }
 
   getCardList() async {
-    Globals.cardListModal = await CardController().cardList();
+    Globals.cardListModal = await CardController().cardList('0','0');
     print('My Card List........\n' + Globals.cardListModal.toString());
     setState(() {});
   }
+ 
+
+ 
 
 
-List? cardType=[
-  'Reached Concards',
-  "All Cards",
-  'Favourite',
-  'Saved Cards',
-
-];
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: Stack(
-        children: [
-          Container(
-            height: size.height * 0.15,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topCenter,
-                  colors: [signupclor_light, signupclor_dark]),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.04,
-                  top: size.height * 0.04),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: size.height * 0.02,
-                        color: bckgrnd,
-                      )),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Cards',
-                      style: TextStyle(
-                          fontSize: size.height * 0.018,
-                          fontFamily: "MBold",
-                          color: bckgrnd),
+    return DefaultTabController(
+      
+      length: 4,
+      initialIndex: 0,
+      child: Scaffold(
+          body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: size.height * 0.15,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topCenter,
+                    colors: [signupclor_light, signupclor_dark]),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * 0.04,
+                    right: size.width * 0.04,
+                    top: size.height * 0.04),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: size.height * 0.02,
+                          color: bckgrnd,
+                        )),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Cards',
+                        style: TextStyle(
+                            fontSize: size.height * 0.018,
+                            fontFamily: "MBold",
+                            color: bckgrnd),
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 10,
-                    width: 5,
-                  )
-                ],
+                    Container(
+                      height: 10,
+                      width: 5,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: size.height * 0.13),
-            height: size.height * 1.0,
-            width: size.width,
-            decoration: BoxDecoration(
-                color: btnclr,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                )),
-            child:  Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.02,
-                  right: size.width * 0.02,
-                  top: size.height * 0.02),
-              child: Globals.cardListModal!= null? Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: size.height * 0.05,
-                        width: size.width * 0.68,
-                        child: InkWell(
-                          onTap: (){
-                          },
-                          child: ListView.builder(
-                              padding: const EdgeInsets.all(0),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: cardType!.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_)=>FavouritesScreen(favourites: 'favourites'[index],)));
-                                      
-                                    },
-                                    child: Text(
-                                     ' ${cardType![index]} |'.toString(),
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Msemibold",
-                                          color: signupclor_dark),
-                                    ));
-                              }),
-                        ),
-                      ),
-                      const Spacer(),
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  gradientgreen,
-                                  primarygreen,
-                                ]),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) => Container(
-                                      margin: EdgeInsets.only(
-                                          bottom: size.height * 0.1),
-                                      child: Dialog(
-                                        alignment:
-                                            AlignmentDirectional.bottomEnd,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        //this right here
-                                        child: Container(
-                                          height: size.height * 0.18,
-                                          width: size.width,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.01,
-                                                right: size.width * 0.01,
-                                                top: size.height * 0.02),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                        height:
-                                                            size.height * 0.01,
-                                                        width:
-                                                            size.width * 0.03,
-                                                      ),
-                                                      Text(
-                                                        'Manage',
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize:
-                                                                size.height *
-                                                                    0.02,
-                                                            fontFamily:
-                                                                'MBold'),
-                                                      ),
-                                                      // Spacer(),
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Icon(
-                                                            Icons.close,
-                                                            size: size.height *
-                                                                0.025,
-                                                          ))
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    height:
-                                                        size.height * 0.015),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left:
-                                                              size.width * 0.01,
-                                                          right: size.width *
-                                                              0.01),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (BuildContext
-                                                                              context) =>
-                                                                          GroupsCardsScreen()));
-                                                            },
-                                                            child: Column(
-                                                              children: [
-                                                                SvgPicture
-                                                                    .asset(
-                                                                  grptwo_icon,
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.01,
-                                                                ),
-                                                                Text(
-                                                                  'Groups',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          size.height *
-                                                                              0.015,
-                                                                      fontFamily:
-                                                                          "Stf"),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Column(
-                                                            children: [
-                                                              SvgPicture.asset(
-                                                                export_icon,
-                                                              ),
-                                                              SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01,
-                                                              ),
-                                                              Text(
-                                                                'Export',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.015,
-                                                                    fontFamily:
-                                                                        "Stf"),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (BuildContext
-                                                                              context) =>
-                                                                          ImportCardsScreen()));
-                                                            },
-                                                            child: Column(
-                                                              children: [
-                                                                SvgPicture
-                                                                    .asset(
-                                                                  import_icon,
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.007,
-                                                                ),
-                                                                Text(
-                                                                  'Import',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          size.height *
-                                                                              0.015,
-                                                                      fontFamily:
-                                                                          "Stf"),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Column(
-                                                            children: [
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    Navigator.push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (BuildContext context) =>
-                                                                                AddContactCardsScreen()));
-                                                                  },
-                                                                  child:
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                    addcntct_icon,
-                                                                  )),
-                                                              SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01,
-                                                              ),
-                                                              Text(
-                                                                'Add Contact',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.015,
-                                                                    fontFamily:
-                                                                        "Stf"),
-                                                              ),
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Manage',
-                              style: TextStyle(
-                                  color: bckgrnd,
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: 'Msemibold'),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: size.height * 0.09,
-                        width: size.width * 0.8,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            prefixIcon: Image.asset(
-                              srch_icon,
-                              color: signupclor_dark,
-                            ),
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Search cards',
-                            contentPadding: EdgeInsets.only(
-                                top: 0.0, left: 22.0, bottom: 2.0),
-                            hintStyle: TextStyle(
-                                fontSize: size.width * 0.04, color: infocolor),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            _settingModalBottomSheet(context);
-                          },
-                          child: SvgPicture.asset(
-                            sort_icon,
-                            height: 20,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Visibility(
-                    visible: isSelctedt != isMore,
-                    child: Row(
+
+           
+            Container(
+              margin: EdgeInsets.only(top: size.height * 0.13),
+              // height: size.height * 1.0,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: btnclr,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  )),
+              child:  Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * 0.02,
+                    right: size.width * 0.02,
+                    top: size.height * 0.02),
+                child: Globals.cardListModal!= null? Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.check,
-                          size: size.height * 0.02,
-                          color: signupclor_light,
+                        Container(
+                          width: size.width*0.65,
+                          child: Column(
+                            children: [
+                              TabBar(
+                                labelColor: primaryblue,
+                                unselectedLabelColor: Colors.grey,
+                                indicatorColor: btnclr,
+                                
+                                // labelStyle: ,
+                                
+              isScrollable: true,
+              tabs: [
+                
+              Text('All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',style: TextStyle(
+                
+              ),),
+              Text('Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',style: TextStyle(
+              ),),
+              Text('Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',style: TextStyle(
+              ),),
+              Text('Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',style: TextStyle(
+              ),),
+
+            ]),
+
+            
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        Text(
-                          '(1) Card Selected',
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              fontFamily: "MBOld"),
-                        ),
-                        Spacer(),
+
+                        const Spacer(),
                         Container(
                           alignment: Alignment.center,
                           height: size.height * 0.035,
@@ -466,17 +168,230 @@ List? cardType=[
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    signupclor_light,
-                                    signupclor_dark,
+                                    gradientgreen,
+                                    primarygreen,
                                   ]),
                               color: bckgrnd,
                               borderRadius: BorderRadius.circular(30)),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: size.height * 0.1),
+                                        child: Dialog(
+                                          alignment:
+                                              AlignmentDirectional.bottomEnd,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          //this right here
+                                          child: Container(
+                                            height: size.height * 0.18,
+                                            width: size.width,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * 0.01,
+                                                  right: size.width * 0.01,
+                                                  top: size.height * 0.02),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          height:
+                                                              size.height * 0.01,
+                                                          width:
+                                                              size.width * 0.03,
+                                                        ),
+                                                        Text(
+                                                          'Manage',
+                                                          style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.02,
+                                                              fontFamily:
+                                                                  'MBold'),
+                                                        ),
+                                                        // Spacer(),
+                                                        GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              size: size.height *
+                                                                  0.025,
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                          size.height * 0.015),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.only(
+                                                            left:
+                                                                size.width * 0.01,
+                                                            right: size.width *
+                                                                0.01),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (BuildContext
+                                                                                context) =>
+                                                                            GroupsCardsScreen()));
+                                                              },
+                                                              child: Column(
+                                                                children: [
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                    grptwo_icon,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        size.height *
+                                                                            0.01,
+                                                                  ),
+                                                                  Text(
+                                                                    'Groups',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            size.height *
+                                                                                0.015,
+                                                                        fontFamily:
+                                                                            "Stf"),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                SvgPicture.asset(
+                                                                  export_icon,
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.01,
+                                                                ),
+                                                                Text(
+                                                                  'Export',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          size.height *
+                                                                              0.015,
+                                                                      fontFamily:
+                                                                          "Stf"),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (BuildContext
+                                                                                context) =>
+                                                                            ImportCardsScreen()));
+                                                              },
+                                                              child: Column(
+                                                                children: [
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                    import_icon,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        size.height *
+                                                                            0.007,
+                                                                  ),
+                                                                  Text(
+                                                                    'Import',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            size.height *
+                                                                                0.015,
+                                                                        fontFamily:
+                                                                            "Stf"),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                              builder: (BuildContext context) =>
+                                                                                  AddContactCardsScreen()));
+                                                                    },
+                                                                    child:
+                                                                        SvgPicture
+                                                                            .asset(
+                                                                      addcntct_icon,
+                                                                    )),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.01,
+                                                                ),
+                                                                Text(
+                                                                  'Add Contact',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          size.height *
+                                                                              0.015,
+                                                                      fontFamily:
+                                                                          "Stf"),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ));
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               child: Text(
-                                'Select all',
+                                'Manage',
                                 style: TextStyle(
                                     color: bckgrnd,
                                     fontSize: size.height * 0.015,
@@ -487,433 +402,34 @@ List? cardType=[
                         )
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Globals.cardListModal!.cardListData != null
-                      ? GestureDetector(
-                        onLongPress: (){
+                    SizedBox(
+                      height: size.height*0.02,
+                    ),
+                    Container(
+                      height: size.height,
+                      child: TabBarView(children: [
 
-                          setState(() {
-                            // isRadio=true;
-
-                          });
-                                                },
-                         
-                          child: Container(
-                            height: size.height * 0.8,
-                            width: size.width,
-                            child: ListView.builder(
-                              padding: const EdgeInsets.all(0),
-                              scrollDirection: Axis.vertical,
-                              itemCount: Globals.cardListModal!.cardListData!.length,
-                              itemBuilder: (context, index) {
-                                return Globals.cardListModal!.cardListData != null
-                                    ? InkWell(
-                                       onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                         ContactProfileViewScreen(id: Globals.cardListModal!.cardListData![index].id.toString())));
-                          },
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                   Visibility(
-                                                    visible: isRadio !,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          width: 19,
-                                                          child: Radio(
-                                                            toggleable: false,
-                                                            value: index.toString(),
-                                                            groupValue: isSelect,
-                                                            onChanged: (dynamic newValue) =>
-                                                                setState(() =>
-                                                                    isSelect = newValue),
-                                                            activeColor: signupclor_light,
-                                                            // selected: false,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: size.width*0.04,),
-                                                  Column(
-                                                    children: [
-                                                      Container(
-                                                        height: size.height * 0.1,
-                                                        child: Stack(
-                                                          children: [
-                                                            ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        20),
-                                                                child: Image.asset(
-                                                                  deccard,
-                                                                  height:
-                                                                      size.height * 0.08,
-                                                                  fit: BoxFit.cover,
-                                                                )),
-                                                            Padding(
-                                                                padding: EdgeInsets.only(
-                                                                    right:
-                                                                        size.width * 0.01,
-                                                                    left:
-                                                                        size.width * 0.02,
-                                                                    top: size.height *
-                                                                        0.015),
-                                                                child: Column(
-                                                                  children: [
-                                                                    Row(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Column(
-                                                                          children: [
-                                                                            SvgPicture
-                                                                                .asset(
-                                                                              con_icon,
-                                                                              height: size
-                                                                                      .height *
-                                                                                  0.02,
-                                                                            ),
-                                                                            const SizedBox(
-                                                                                height:
-                                                                                    5 //size.height * 0.015,
-                                                                                ),
-                                                                            Text(
-                                                                              "CONCARD",
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontSize:
-                                                                                    size.height *
-                                                                                        0.003,
-                                                                                color:
-                                                                                    signupclor_dark,
-                                                                                fontFamily:
-                                                                                    "Mbold",
-                                                                                letterSpacing:
-                                                                                    2,
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: size
-                                                                                      .height *
-                                                                                  0.004,
-                                                                            ),
-                                                                            PrettyQr(
-                                                                              typeNumber:
-                                                                                  4,
-                                                                              size: size
-                                                                                      .height *
-                                                                                  0.01,
-                                                                              data:
-                                                                                  '${Globals.cardListModal!.cardListData![index].userId.toString() ?? "0"}',
-                                                                              errorCorrectLevel:
-                                                                                  QrErrorCorrectLevel
-                                                                                      .M,
-                                                                              roundEdges:
-                                                                                  true,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                            width:
-                                                                                size.width *
-                                                                                    0.01),
-                                                                        Container(
-                                                                          height:
-                                                                              size.height *
-                                                                                  0.06,
-                                                                          width: 1,
-                                                                          color: cgreen,
-                                                                        ),
-                                                                        SizedBox(
-                                                                            width:
-                                                                                size.width *
-                                                                                    0.02),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
-                                                                          children: [
-                                                                            Text(
-                                                                              "${Globals.cardListModal!.cardListData![index].username.toString() ?? ''}",
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontSize:
-                                                                                    size.height *
-                                                                                        0.007,
-                                                                                color:
-                                                                                    signupclor_dark,
-                                                                                fontFamily:
-                                                                                    "Mbold",
-                                                                              ),
-                                                                            ),
-                                                                            Text(
-                                                                              "${Globals.cardListModal!.cardListData![index].jobTitle.toString() ?? ''}",
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontSize:
-                                                                                    size.height *
-                                                                                        0.007,
-                                                                                color:
-                                                                                    signupclor_dark,
-                                                                                fontFamily:
-                                                                                    "Stf",
-                                                                              ),
-                                                                            ),
-                                                                            const SizedBox(
-                                                                                height:
-                                                                                    1 //size.height * 0.01,
-                                                                                ),
-                                                                            Row(
-                                                                              children: [
-                                                                                Column(
-                                                                                    children: [
-                                                                                      SvgPicture.asset(
-                                                                                        location_icon,
-                                                                                        height: size.height * 0.006,
-                                                                                      ),
-                                                                                    ]),
-                                                                                const SizedBox(
-                                                                                  width:
-                                                                                      1, //size.width * 0.015,
-                                                                                ),
-                                                                                Column(
-                                                                                    children: [
-                                                                                      SizedBox(
-                                                                                        width: size.width * 0.15,
-                                                                                        child: Text(
-                                                                                          "${Globals.cardListModal!.cardListData![index].address.toString()}",
-                                                                                          style: TextStyle(
-                                                                                            fontSize: size.height * 0.006,
-                                                                                            color: signupclor_dark,
-                                                                                            fontFamily: "Mbold",
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ]),
-                                                                              ],
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: size
-                                                                                      .height *
-                                                                                  0.001,
-                                                                            ),
-                                                                            Row(
-                                                                              children: [
-                                                                                SvgPicture
-                                                                                    .asset(
-                                                                                  phonecall_icon,
-                                                                                  height: size.height *
-                                                                                      0.006,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: size.width *
-                                                                                      0.01,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: size.width *
-                                                                                      0.15,
-                                                                                  child:
-                                                                                      Text(
-                                                                                    Globals.cardListModal!.cardListData![index].mobileNo ??
-                                                                                        '',
-                                                                                    style:
-                                                                                        TextStyle(
-                                                                                      fontSize:
-                                                                                          size.height * 0.006,
-                                                                                      color:
-                                                                                          signupclor_dark,
-                                                                                      fontFamily:
-                                                                                          "Mbold",
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: size
-                                                                                      .height *
-                                                                                  0.001,
-                                                                            ),
-                                                                            Row(
-                                                                              children: [
-                                                                                Image
-                                                                                    .asset(
-                                                                                  email_icon,
-                                                                                  height: size.height *
-                                                                                      0.005,
-                                                                                  color:
-                                                                                      signupclor_dark,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: size.width *
-                                                                                      0.01,
-                                                                                ),
-                                                                                Column(
-                                                                                  children: [
-                                                                                    SizedBox(
-                                                                                      width:
-                                                                                          size.width * 0.15,
-                                                                                      child:
-                                                                                          Text(
-                                                                                        Globals.cardListModal!.cardListData![index].email.toString() ?? '',
-                                                                                        style: TextStyle(
-                                                                                          fontSize: size.height * 0.004,
-                                                                                          color: signupclor_dark,
-                                                                                          fontFamily: "Mbold",
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: size
-                                                                                      .height *
-                                                                                  0.001,
-                                                                            ),
-                                                                            Row(
-                                                                              children: [
-                                                                                SvgPicture
-                                                                                    .asset(
-                                                                                  internet_icon,
-                                                                                  height: size.height *
-                                                                                      0.005,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: size.width *
-                                                                                      0.01,
-                                                                                ),
-                                                                                Column(
-                                                                                  children: [
-                                                                                    SizedBox(
-                                                                                      width:
-                                                                                          size.width * 0.15,
-                                                                                      child:
-                                                                                          Text(
-                                                                                        "${Globals.cardListModal!.cardListData![index].website}",
-                                                                                        style: TextStyle(
-                                                                                          fontSize: size.height * 0.006,
-                                                                                          color: signupclor_dark,
-                                                                                          fontFamily: "Mbold",
-                                                                                        ),
-                                                                                      ),
-                                                                                    )
-                                                                                  ],
-                                                                                )
-                                                                              ],
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                                ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: size.width*0.05,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        Globals.cardListModal!
-                                                            .cardListData![index].companyName
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                size.height * 0.015,
-                                                            fontFamily: "MBold"),
-                                                      ),
-                                                      SizedBox(
-                                                        height: size.height * 0.02,
-                                                      ),
-                                                      Text(
-                                                        'Lorem ipsum dolor sit amet',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                size.height * 0.01,
-                                                            fontFamily: "Msemibold",
-                                                            color: infocolor),
-                                                      ),
-                                                      SizedBox(
-                                                        height: size.height * 0.01,
-                                                      ),
-                                                      Text(
-                                                        'Concsectetuer adipiscing elit, sed fiam',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                size.height * 0.01,
-                                                            fontFamily: "Msemibold",
-                                                            color: infocolor),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  
-                                                  
-                                    
-                                                ],
-                                              ),
-                                             
-                                             Spacer(),
-                                              InkWell(
-                                                  onTap: () {
-                                                    _optionsModalBottomSheet(
-                                                        context,Globals.cardListModal!.cardListData![index]);
-                                                    setState(() {
-                                                      isMore = true;
-                                    
-                                                    });
-                                                  },
-                                                  child: Visibility(
-                                                      visible: isMore != true,
-                                                      child: Icon(
-                                                        Icons.more_vert,
-                                                        color: signupclor_dark,
-                                                      )))
-                                            ],
-                                            
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    : const Center(
-                                        child: Text('There is no card'),
-                                      );
-                              },
-                            ),
-                          ),
-                        )
-                      : const ShimmerLoadWidget(),
-                ],
-              ):ShimmerLoadWidget(),
+                        AllCards(),
+                        
+                        ReachedCardsScreen(),
+                        
+                        
+                        FavouritesScreen(),
+                        
+                        SavedCards(),
+                      ]),
+                    )
+                  ],
+                ):ShimmerLoadWidget(),
+              ),
             ),
-          ),
-        ],
-      ),
-    ));
+          ],
+        ),
+      )),
+    );
   }
 
-  void _optionsModalBottomSheet(context, CardListData? cardListData) {
+  void _optionsModalBottomSheet(context, Cards? cards) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
@@ -1015,7 +531,7 @@ List? cardType=[
                               ),
                               InkWell(
                                 onTap: (){
-                                  CardController().favouriteCardList(cardListData!.id.toString());
+                                  CardController().favouriteCardList(cards!.id.toString());
                                   setState(() {
                                     setSte((){
                                       
