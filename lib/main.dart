@@ -12,6 +12,7 @@ import 'package:concard/Views/screens/authScreens/individual/signup/codeVerifica
 import 'package:concard/Views/screens/authScreens/individual/signup/mobileVerification.dart';
 import 'package:concard/Views/screens/authScreens/individual/signup/signup_choice_class.dart';
 import 'package:concard/Views/screens/authScreens/signupScreen.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/createTeamScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyPremiumPlan/upgradeCompanyPlanScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradeCompanyPremium/upgradeCompanyPremium.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,25 +37,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context)=>AppProvider())
-      ],
+      providers: [ChangeNotifierProvider(create: (context) => AppProvider())],
       child: MaterialApp(
         title: "Concard",
         debugShowCheckedModeBanner: false,
-        initialRoute:'/',
+        initialRoute: '/',
         routes: {
-          '/':(context)=> const SplashScreen(),
-          '/indiBasic':(context)=> IndividualBasicDetail(),
-          '/indiCodeSend':(context)=> const NumberVerification(),
-          '/signIn':(context)=> const SignIn(),
-          '/choiceClass':(context)=> const SignupChoiceClass(),
-          '/companyBusinessType':(context)=>  SelectBuisness(),
-          '/compnaySigup':(context)=>  CompanyAdminSignup(),//CompanySignUpHomeScreen(),
-          '/aboutCompany':(context)=>  AboutCompanySignup(),
-          '/companyMobileVeri':(context)=>  const CompanyMobileVerification(),
-          '/intialScreen':(context)=>  const SignupScreen(),
-         
+          // '/concard/team/q=$team': (context) => const CreateTeamScreen(),
+          '/': (context) => const SplashScreen(),
+          '/indiBasic': (context) => IndividualBasicDetail(),
+          '/indiCodeSend': (context) => const NumberVerification(),
+          '/signIn': (context) => const SignIn(),
+          '/choiceClass': (context) => const SignupChoiceClass(),
+          '/companyBusinessType': (context) => SelectBuisness(),
+          '/compnaySigup': (context) =>
+              CompanyAdminSignup(), //CompanySignUpHomeScreen(),
+          '/aboutCompany': (context) => AboutCompanySignup(),
+          '/companyMobileVeri': (context) => const CompanyMobileVerification(),
+          '/intialScreen': (context) => const SignupScreen(),
+
           // '/indiCodeVerif':(context)=> CodeVerification(),
         },
 

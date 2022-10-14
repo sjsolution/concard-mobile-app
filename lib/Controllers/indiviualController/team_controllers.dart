@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
+import 'package:concard/Models/Indiviuals/search_teamlist_model.dart';
 import 'package:concard/Models/Indiviuals/social_links_model.dart';
 import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:concard/Models/Indiviuals/team_list_model.dart';
@@ -25,7 +26,8 @@ class TeamController {
   }) async {
     try {
       var formData = FormData.fromMap({
-        'image': teamIcon!=''?await MultipartFile.fromFile(teamIcon!):teamIcon,
+        'image':
+            teamIcon != '' ? await MultipartFile.fromFile(teamIcon!) : teamIcon,
         'name': teamName,
         'invite_member': inviteMembers! ? 1 : 0,
         'add_card': addCards! ? 1 : 0,
@@ -86,9 +88,9 @@ class TeamController {
 
   Future<TeamDetailModel?> getSingleTeamDetail(String? id) async {
     try {
-      var formData = FormData.fromMap({});
-      var response = await services.postResponse(
-          url: '/team/show/$id', formData: formData);
+      var formData = FormData.fromMap({"id": id});
+      var response =
+          await services.postResponse(url: '/team/show', formData: formData);
       if (response != null) {
         debugPrint(response.toString());
         Globals.teamDetailModel = TeamDetailModel.fromJson(response);
@@ -104,21 +106,62 @@ class TeamController {
     }
   }
 
+  Future<SearchTeamListModel?> searcTeamhList(String? search) async {
+    try {
+      var formData = FormData.fromMap({"search": search});
+      var response = await services.postResponse(
+          url: '/team/search/list', formData: formData);
+
+      if (response != null) {
+        var finalList = SearchTeamListModel.fromJson(response);
+        return finalList;
+      }
+      return null;
+    } catch (e) {
+      print("error in search converstion:$e");
+      return null;
+    }
+  }
+
   Future joinTeam(String? id) async {
     try {
-      var formData = FormData.fromMap({"id": id});
-      var response = await services.postResponse(
-          url: '/team/development-2', formData: formData);
+      var formData = FormData.fromMap({});
+      var response =
+          await services.postResponse(url: '/team/$id', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
-          debugPrint(response.toString());
+          debugPrint("--------------::::   " + response.toString());
+          Globals.showToastMethod(msg: "Successfully Joined the team.");
 
-          // return socialLinksModel;
+          return response;
         } else {
           //status false
           Globals.showToastMethod(msg: "There is no team with that id");
           return null;
         }
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("join team exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future removeMemberFormTeam(String? memberId, String? teamId) async {
+    try {
+      var formData = FormData.fromMap({
+        "user_id": memberId,
+        "team_id": teamId,
+      });
+      var response = await services.postResponse(
+          url: '/team/remove/member', formData: formData);
+      if (response != null) {
+        Globals.showToastMethod(msg: response['message']);
+
+        return response;
       } else {
         Globals.showToastMethod(
             msg: "There is something went worng. Please try again later");
