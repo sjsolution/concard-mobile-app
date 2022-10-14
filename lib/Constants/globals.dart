@@ -20,6 +20,7 @@ import '../Models/Cards/add_card_modal.dart';
 import '../Models/Expo/expo_filter_list_modal.dart';
 import '../Models/Expo/expobadge_list_model.dart';
 import '../Models/Indiviuals/story_model.dart';
+import 'package:concard/Models/Company/ProductAndServicesModel.dart';
 
 // String? baseUrl='http://localhost/sj-solutions/concard/api';
 String? baseUrl = 'https://salloumdesign.com/concard/api';
@@ -49,6 +50,7 @@ TeamsListModel? teamsListModel;
 TeamDetailModel? teamDetailModel;
 SingleCardDetailModal? singleCardDetailModal;
 StoryModel? storyModel;
+ProductAndServicesModel? productAndServicesModel;
 
 showToastMethod({
   String? msg,
