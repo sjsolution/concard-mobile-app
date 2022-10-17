@@ -8,11 +8,10 @@ import 'package:concard/Views/screens/authScreens/individual/Social/new_social_l
 import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
 import 'package:concard/Controllers/storyController/story_controller.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
-import 'package:concard/Views/screens/homeScreens/importCardsScreen.dart';
+import 'package:concard/Views/screens/text_status_add.dart';
 import 'package:concard/Views/screens/homeScreens/manageCompanyCards.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
-import 'package:concard/Views/screens/homeScreens/socialLinksScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradeCompanyPremium/upgradeCompanyPremium.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../Constants/colors.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
+import '../../../Controllers/providers/story_provider.dart';
 import '../story_view.dart';
 import 'editMyCardScreen.dart';
 import 'package:concard/Controllers/compnayControllers/product_and_services_controller.dart';
@@ -118,115 +118,131 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           SvgPicture.asset(stylearrw_icon)
                         ],
                       ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              getImageType(context, () async {
-                                Navigator.pop(context);
-                                uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
-                                if (uploadProfile != null) {
-                                  print(uploadProfile);
-                                  await StoryController().addStory(file: uploadProfile);
-                                }
-                                if (mounted) {
-                                  setState(() {});
-                                }
-                              }, () async {
-                                Navigator.pop(context);
-                                uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
-                                if (uploadProfile != null) {
-                                  print(uploadProfile);
-                                  await StoryController().addStory(file: uploadProfile);
-                                }
-                                if (mounted) {
-                                  setState(() {});
-                                }
-                              });
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                top: size.height * 0.01,
-                              ),
-                              height: size.height * 0.07,
-                              width: size.height * 0.07,
-                              child: Stack(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(Globals.profilePic.toString()),
-                                    radius: 28,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: CircleAvatar(
-                                      radius: 10,
-                                      backgroundColor: Colors.white,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Globals.storyModel != null
-                              ? Container(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    padding: const EdgeInsets.all(0),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: Globals.storyModel!.data!.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        child: InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => StoryViewClass(
-                                                profilePicture: Globals.storyModel!.data![index].profileImage.toString(),
-                                                name:
-                                                    "${Globals.storyModel!.data![index].firstName.toString()} ${Globals.storyModel!.data![index].lastName.toString()}",
-                                                // createdAt: Globals
-                                                //     .storyModel!
-                                                //     .data![index]
-                                                //     .stories![index]
-                                                //     .createdAt
-                                                //     .toString(),
-                                                stories: Globals.storyModel!.data![index].stories!,
-                                                // numOfStories: Globals.followingListModal!.data!.,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Container(
-                                            padding: EdgeInsets.only(
-                                              right: size.height * 0.01,
-                                            ),
-                                            child: CircleAvatar(
-                                              radius: 30,
-                                              backgroundImage: NetworkImage(
-                                                Globals.storyModel != null
-                                                    ? Globals.storyModel!.data![index].profileImage.toString()
-                                                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_RhLhMFQptcSkzBWhnq13UqR12y7mXuSVw&usqp=CAU',
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                      // Stories View Line
+                      Consumer<StoryProvider>(
+                        builder: (context, storyProvider, child) {
+                          return Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  getImageType(
+                                    context,
+                                    () async {
+                                      Navigator.pop(context);
+                                      uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
+                                      if (uploadProfile != null) {
+                                        print(uploadProfile);
+                                        await StoryController().addStory(file: uploadProfile);
+                                      }
+                                      if (mounted) {
+                                        setState(() {});
+                                      }
                                     },
-                                  ),
+                                    () async {
+                                      Navigator.pop(context);
+                                      uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
+                                      if (uploadProfile != null) {
+                                        print(uploadProfile);
+                                        await StoryController().addStory(file: uploadProfile);
+                                        StoryProvider().getStories();
+                                      }
+                                      if (mounted) {
+                                        setState(() {});
+                                      }
+                                    },
+                                    true,
+                                    () {
+                                      print("1");
+                                      Navigator.pop(context);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => TextStatusAdd()));
+                                    },
+                                  );
+                                },
+                                child: Container(
                                   margin: EdgeInsets.only(
                                     top: size.height * 0.01,
                                   ),
-                                  height: size.height * 0.1,
-                                  // width: size.width * 0.9,
-                                )
-                              : Text('No data Found'),
-                        ],
+                                  height: size.height * 0.07,
+                                  width: size.height * 0.07,
+                                  child: Stack(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(Globals.profilePic.toString()),
+                                        radius: 28,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: CircleAvatar(
+                                          radius: 10,
+                                          backgroundColor: Colors.white,
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Globals.storyModel != null
+                                  ? Container(
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.all(0),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: Globals.storyModel!.data!.length,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            child: InkWell(
+                                              onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => StoryViewClass(
+                                                    profilePicture: Globals.storyModel!.data![index].profileImage.toString(),
+                                                    name:
+                                                        "${Globals.storyModel!.data![index].firstName.toString()} ${Globals.storyModel!.data![index].lastName.toString()}",
+                                                    // createdAt: Globals
+                                                    //     .storyModel!
+                                                    //     .data![index]
+                                                    //     .stories![index]
+                                                    //     .createdAt
+                                                    //     .toString(),
+                                                    stories: Globals.storyModel!.data![index].stories!,
+                                                    // numOfStories: Globals.followingListModal!.data!.,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Container(
+                                                padding: EdgeInsets.only(
+                                                  right: size.height * 0.01,
+                                                ),
+                                                child: CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundImage: NetworkImage(
+                                                    Globals.storyModel != null
+                                                        ? Globals.storyModel!.data![index].profileImage.toString()
+                                                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_RhLhMFQptcSkzBWhnq13UqR12y7mXuSVw&usqp=CAU',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      margin: EdgeInsets.only(
+                                        top: size.height * 0.01,
+                                      ),
+                                      height: size.height * 0.1,
+                                      // width: size.width * 0.9,
+                                    )
+                                  : Text('No data Found'),
+                            ],
+                          );
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.03,
@@ -1149,19 +1165,33 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  getImageType(context, () async {
-                                    postImage = await ImagePickerMethods().getImage(ImageSource.gallery);
-                                    Navigator.pop(context);
-                                    setSte(() {
-                                      setState(() {});
-                                    });
-                                  }, () async {
-                                    postImage = await ImagePickerMethods().getImage(ImageSource.camera);
-                                    Navigator.pop(context);
-                                    setSte(() {
-                                      setState(() {});
-                                    });
-                                  });
+                                  getImageType(
+                                    context,
+                                    () async {
+                                      postImage = await ImagePickerMethods().getImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                      setSte(() {
+                                        setState(() {});
+                                      });
+                                    },
+                                    () async {
+                                      postImage = await ImagePickerMethods().getImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                      setSte(() {
+                                        setState(() {});
+                                      });
+                                    },
+                                    false,
+                                    () {
+                                      print("1");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TextStatusAdd(),
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
                                 child: Column(
                                   children: [
