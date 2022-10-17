@@ -10,9 +10,12 @@ class StoryController {
 
   Future<void> addStory({String? text, File? file}) async {
     try {
-      var formData = FormData.fromMap({'text': text, 'image': await MultipartFile.fromFile(file!.path.toString())});
+      var formData = FormData.fromMap({'text': text, 'image': text == null || text == '' ? await MultipartFile.fromFile(file!.path.toString()) : ''});
+      print("this is text--------------------");
+      print(text);
       var response = await services.postResponse(url: '/story/store', formData: formData);
       if (response != null) {
+        print("Story Uploaded");
         Globals.showToastMethod(msg: "Status Uploaded");
         return null;
       } else {
@@ -30,8 +33,8 @@ class StoryController {
       var formData = FormData.fromMap({});
       var response = await services.postResponse(url: '/story/list', formData: formData);
       if (response != null) {
-        debugPrint("this is story response");
-        print(response.toString());
+        // debugPrint("this is story response");
+        // print(response.toString());
         StoryModel storyModel = StoryModel.fromJson(response);
         Globals.storyModel = storyModel;
         return storyModel;

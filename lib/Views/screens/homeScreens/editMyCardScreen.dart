@@ -60,50 +60,19 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    emailControl.text = app.indiviualProfileModel!.profileData!.email != null
-        ? app.indiviualProfileModel!.profileData!.email!
-        : '';
-    telMobileControl.text =
-        app.indiviualProfileModel!.profileData!.mobileNumber != null
-            ? app.indiviualProfileModel!.profileData!.mobileNumber!
-            : '';
-    companyNameControl.text =
-        app.indiviualProfileModel!.profileData!.companyName != null
-            ? app.indiviualProfileModel!.profileData!.companyName!
-            : "";
-    companyWebsiteControl.text =
-        app.indiviualProfileModel!.profileData!.website != null
-            ? app.indiviualProfileModel!.profileData!.website!
-            : '';
+    emailControl.text = app.indiviualProfileModel!.profileData!.email != null ? app.indiviualProfileModel!.profileData!.email! : '';
+    telMobileControl.text = app.indiviualProfileModel!.profileData!.mobileNumber != null ? app.indiviualProfileModel!.profileData!.mobileNumber! : '';
+    companyNameControl.text = app.indiviualProfileModel!.profileData!.companyName != null ? app.indiviualProfileModel!.profileData!.companyName! : "";
+    companyWebsiteControl.text = app.indiviualProfileModel!.profileData!.website != null ? app.indiviualProfileModel!.profileData!.website! : '';
     companyFieldControl.text =
-        app.indiviualProfileModel!.profileData!.companyField != null
-            ? app.indiviualProfileModel!.profileData!.companyField!
-            : '';
-    telWokeControl.text =
-        app.indiviualProfileModel!.profileData!.workTel != null
-            ? app.indiviualProfileModel!.profileData!.workTel!
-            : '';
-    provinceControl.text = app.indiviualProfileModel!.profileData!.state != null
-        ? app.indiviualProfileModel!.profileData!.state!
-        : '';
-    cityControl.text = app.indiviualProfileModel!.profileData!.city != null
-        ? app.indiviualProfileModel!.profileData!.city!
-        : '';
-    countryControl.text =
-        app.indiviualProfileModel!.profileData!.country != null
-            ? app.indiviualProfileModel!.profileData!.country!
-            : '';
-    postalCodeControl.text =
-        app.indiviualProfileModel!.profileData!.postalCode != null
-            ? app.indiviualProfileModel!.profileData!.postalCode!
-            : '';
-    addressControl.text =
-        app.indiviualProfileModel!.profileData!.address != null
-            ? app.indiviualProfileModel!.profileData!.address!
-            : '';
-    aboutControl.text = app.indiviualProfileModel!.profileData!.about != null
-        ? app.indiviualProfileModel!.profileData!.about!
-        : '';
+        app.indiviualProfileModel!.profileData!.companyField != null ? app.indiviualProfileModel!.profileData!.companyField! : '';
+    telWokeControl.text = app.indiviualProfileModel!.profileData!.workTel != null ? app.indiviualProfileModel!.profileData!.workTel! : '';
+    provinceControl.text = app.indiviualProfileModel!.profileData!.state != null ? app.indiviualProfileModel!.profileData!.state! : '';
+    cityControl.text = app.indiviualProfileModel!.profileData!.city != null ? app.indiviualProfileModel!.profileData!.city! : '';
+    countryControl.text = app.indiviualProfileModel!.profileData!.country != null ? app.indiviualProfileModel!.profileData!.country! : '';
+    postalCodeControl.text = app.indiviualProfileModel!.profileData!.postalCode != null ? app.indiviualProfileModel!.profileData!.postalCode! : '';
+    addressControl.text = app.indiviualProfileModel!.profileData!.address != null ? app.indiviualProfileModel!.profileData!.address! : '';
+    aboutControl.text = app.indiviualProfileModel!.profileData!.about != null ? app.indiviualProfileModel!.profileData!.about! : '';
 
     setState(() {});
   }
@@ -121,16 +90,10 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                   Container(
                     height: size.height * 0.34,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topCenter,
-                          colors: [signupclor_light, signupclor_dark]),
+                      gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.08),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.08),
                       child: Container(
                         alignment: Alignment.topLeft,
                         child: Row(
@@ -149,53 +112,24 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 // if(formKey.currentState!.validate()){
                                 app.setLoadingTrue();
                                 loaderWidget(context, size);
-                                IndiviualProfileModel? indiviualProfileModel =
-                                    await ProfileController().updateProfile(
-                                  fName: app.indiviualProfileModel!.profileData!
-                                      .firstName,
-                                  lName: app.indiviualProfileModel!.profileData!
-                                      .lastName,
-                                  email: emailControl.text.isNotEmpty
-                                      ? emailControl.text.trim()
-                                      : app.indiviualProfileModel!.profileData!
-                                          .email,
-                                  jobTitle: app.indiviualProfileModel!
-                                      .profileData!.jobTitle,
+                                IndiviualProfileModel? indiviualProfileModel = await ProfileController().updateProfile(
+                                  fName: app.indiviualProfileModel!.profileData!.firstName,
+                                  lName: app.indiviualProfileModel!.profileData!.lastName,
+                                  email: emailControl.text.isNotEmpty ? emailControl.text.trim() : app.indiviualProfileModel!.profileData!.email,
+                                  jobTitle: app.indiviualProfileModel!.profileData!.jobTitle,
                                   mobileNumber: telMobileControl.text.isNotEmpty
                                       ? telMobileControl.text.trim()
-                                      : app.indiviualProfileModel!.profileData!
-                                          .mobileNumber,
-                                  compName: companyNameControl.text.isNotEmpty
-                                      ? companyNameControl.text.trim()
-                                      : '',
-                                  comWebsite:
-                                      companyWebsiteControl.text.isNotEmpty
-                                          ? companyWebsiteControl.text.trim()
-                                          : '',
-                                  comField: companyFieldControl.text.isNotEmpty
-                                      ? companyFieldControl.text.trim()
-                                      : '',
-                                  workTel: telWokeControl.text.isNotEmpty
-                                      ? telWokeControl.text.trim()
-                                      : '',
-                                  city: cityControl.text.isNotEmpty
-                                      ? cityControl.text.trim()
-                                      : '',
-                                  state: provinceControl.text.isNotEmpty
-                                      ? provinceControl.text.trim()
-                                      : '',
-                                  country: countryControl.text.isNotEmpty
-                                      ? countryControl.text.trim()
-                                      : '',
-                                  postalCode: postalCodeControl.text.isNotEmpty
-                                      ? postalCodeControl.text.trim()
-                                      : '',
-                                  address: addressControl.text.isNotEmpty
-                                      ? addressControl.text.trim()
-                                      : '',
-                                  about: aboutControl.text.isNotEmpty
-                                      ? aboutControl.text.trim()
-                                      : '',
+                                      : app.indiviualProfileModel!.profileData!.mobileNumber,
+                                  compName: companyNameControl.text.isNotEmpty ? companyNameControl.text.trim() : '',
+                                  comWebsite: companyWebsiteControl.text.isNotEmpty ? companyWebsiteControl.text.trim() : '',
+                                  comField: companyFieldControl.text.isNotEmpty ? companyFieldControl.text.trim() : '',
+                                  workTel: telWokeControl.text.isNotEmpty ? telWokeControl.text.trim() : '',
+                                  city: cityControl.text.isNotEmpty ? cityControl.text.trim() : '',
+                                  state: provinceControl.text.isNotEmpty ? provinceControl.text.trim() : '',
+                                  country: countryControl.text.isNotEmpty ? countryControl.text.trim() : '',
+                                  postalCode: postalCodeControl.text.isNotEmpty ? postalCodeControl.text.trim() : '',
+                                  address: addressControl.text.isNotEmpty ? addressControl.text.trim() : '',
+                                  about: aboutControl.text.isNotEmpty ? aboutControl.text.trim() : '',
                                   userType: "1",
                                 );
                                 if (indiviualProfileModel != null) {
@@ -204,11 +138,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
                                 setState(() {});
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) =>
-                                            const CompanyProfileScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => const CompanyProfileScreen()));
                               },
                               child: SizedBox(
                                 height: size.height * 0.06,
@@ -242,10 +172,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                     padding: const EdgeInsets.all(0),
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                            top: size.height * 0.03,
-                            left: size.width * 0.04,
-                            right: size.width * 0.04),
+                        padding: EdgeInsets.only(top: size.height * 0.03, left: size.width * 0.04, right: size.width * 0.04),
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
@@ -253,9 +180,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     'Edit Card',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: 'MBold'),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   )),
                               SizedBox(
                                 height: size.height * 0.02,
@@ -264,9 +189,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     'Card Info',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: 'Msemibold'),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
                                   )),
                               SizedBox(
                                 height: size.height * 0.02,
@@ -283,50 +206,37 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: size.width * 0.04,
-                                        right: size.width * 0.04),
+                                    padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                     child: Column(
                                       children: [
                                         SizedBox(
                                           height: size.height * 0.02,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
                                               width: size.width / 2.5,
                                               child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
                                                     '${app.indiviualProfileModel!.profileData!.jobTitle}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
                                                     'Company',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                 ],
                                               ),
@@ -345,35 +255,25 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             SizedBox(
                                               width: size.width / 2.5,
                                               child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     '${app.indiviualProfileModel!.profileData!.email}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
                                                     '${app.indiviualProfileModel!.profileData!.website}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
                                                     '${app.indiviualProfileModel!.profileData!.mobileNumber}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.016,
-                                                        fontFamily: "Stf"),
+                                                    style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                 ],
                                               ),
@@ -384,8 +284,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           height: size.height * 0.02,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             SvgPicture.asset(editpen_icon),
                                             SvgPicture.asset(txt_icon),
@@ -417,69 +316,51 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 height: size.height * 0.03,
                               ),
                               Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.width * 0.01,
-                                    right: size.width * 0.01),
+                                padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     InkWell(
                                       onTap: () async {
-                                        getImageType(context, () async {
-                                          Navigator.pop(context);
-                                          uploadPhoto =
-                                              await ImagePickerMethods()
-                                                  .getImage(
-                                                      ImageSource.gallery);
+                                        getImageType(
+                                          context,
+                                          () async {
+                                            Navigator.pop(context);
+                                            uploadPhoto = await ImagePickerMethods().getImage(ImageSource.gallery);
 
-                                          if (uploadPhoto != null) {
-                                            await ProfileController()
-                                                .uplaodImage(
-                                                    image: uploadPhoto!.path,
-                                                    imageType: "0");
-                                          }
-                                          if (mounted) {
-                                            setState(() {});
-                                          }
-                                        }, () async {
-                                          Navigator.pop(context);
-                                          uploadPhoto =
-                                              await ImagePickerMethods()
-                                                  .getImage(ImageSource.camera);
-                                          if (uploadPhoto != null) {
-                                            await ProfileController()
-                                                .uplaodImage(
-                                                    image: uploadPhoto!.path,
-                                                    imageType: "0");
-                                          }
-                                          if (mounted) {
-                                            setState(() {});
-                                          }
-                                        });
+                                            if (uploadPhoto != null) {
+                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "0");
+                                            }
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          () async {
+                                            Navigator.pop(context);
+                                            uploadPhoto = await ImagePickerMethods().getImage(ImageSource.camera);
+                                            if (uploadPhoto != null) {
+                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "0");
+                                            }
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          false,
+                                          () {},
+                                        );
                                       },
-                                      child: uploadPhoto == null &&
-                                              app.indiviualProfileModel!
-                                                      .profileData!.image ==
-                                                  null
+                                      child: uploadPhoto == null && app.indiviualProfileModel!.profileData!.image == null
                                           ? Container(
                                               height: size.height * 0.15,
                                               width: size.width * 0.3,
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  gradient: LinearGradient(
-                                                      begin:
-                                                          Alignment.topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        signupclor_light,
-                                                        signupclor_dark,
-                                                      ])),
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                    signupclor_light,
+                                                    signupclor_dark,
+                                                  ])),
                                               child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   // Container(
                                                   //   child: Icon(
@@ -495,43 +376,25 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   Column(
                                                     children: [
                                                       Container(
-                                                        child: Image.asset(
-                                                            camera_icon),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        margin: EdgeInsets.only(
-                                                            top: size.height *
-                                                                0.015),
+                                                        child: Image.asset(camera_icon),
+                                                        alignment: Alignment.center,
+                                                        margin: EdgeInsets.only(top: size.height * 0.015),
                                                       ),
                                                       SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
+                                                        height: size.height * 0.02,
                                                       ),
                                                       Container(
-                                                        height:
-                                                            size.height * 0.025,
-                                                        width:
-                                                            size.width * 0.15,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: bckgrnd
-                                                                .withOpacity(
-                                                                    0.5)),
+                                                        height: size.height * 0.025,
+                                                        width: size.width * 0.15,
+                                                        decoration:
+                                                            BoxDecoration(borderRadius: BorderRadius.circular(20), color: bckgrnd.withOpacity(0.5)),
                                                         child: Center(
                                                           child: Text(
                                                             'Photo',
                                                             style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize:
-                                                                    size.height *
-                                                                        0.020,
-                                                                fontFamily:
-                                                                    "Stf",
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: size.height * 0.020,
+                                                                fontFamily: "Stf",
                                                                 color: bckgrnd),
                                                           ),
                                                         ),
@@ -550,44 +413,26 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   height: size.height * 0.15,
                                                   width: size.width * 0.3,
                                                   decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: FileImage(
-                                                              uploadPhoto!),
-                                                          fit: BoxFit.cover),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
-                                                          end: Alignment
-                                                              .bottomCenter,
-                                                          colors: [
-                                                            signupclor_light,
-                                                            signupclor_dark,
-                                                          ])),
+                                                      image: DecorationImage(image: FileImage(uploadPhoto!), fit: BoxFit.cover),
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                        signupclor_light,
+                                                        signupclor_dark,
+                                                      ])),
                                                   child: Column(
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          app.setProfileImage(
-                                                              null);
+                                                          app.setProfileImage(null);
                                                         },
                                                         child: Container(
                                                           child: Icon(
                                                             Icons.delete,
                                                             color: Colors.red,
-                                                            size: size.width *
-                                                                .06,
+                                                            size: size.width * .06,
                                                           ), // Image.asset(bin_icon),
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          margin: EdgeInsets.only(
-                                                              right:
-                                                                  size.width *
-                                                                      0.03,
-                                                              top: size.height *
-                                                                  0.015),
+                                                          alignment: Alignment.topRight,
+                                                          margin: EdgeInsets.only(right: size.width * 0.03, top: size.height * 0.015),
                                                         ),
                                                       ),
                                                     ],
@@ -598,47 +443,29 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                           image: NetworkImage(
-                                                            app
-                                                                    .indiviualProfileModel!
-                                                                    .profileData!
-                                                                    .image ??
+                                                            app.indiviualProfileModel!.profileData!.image ??
                                                                 "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                           ),
                                                           fit: BoxFit.cover),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
-                                                          end: Alignment
-                                                              .bottomCenter,
-                                                          colors: [
-                                                            signupclor_light,
-                                                            signupclor_dark,
-                                                          ])),
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                        signupclor_light,
+                                                        signupclor_dark,
+                                                      ])),
                                                   child: Column(
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          app.setProfileImage(
-                                                              null);
+                                                          app.setProfileImage(null);
                                                         },
                                                         child: Container(
                                                           child: Icon(
                                                             Icons.delete,
                                                             color: Colors.red,
-                                                            size: size.width *
-                                                                .06,
+                                                            size: size.width * .06,
                                                           ), // Image.asset(bin_icon),
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          margin: EdgeInsets.only(
-                                                              right:
-                                                                  size.width *
-                                                                      0.03,
-                                                              top: size.height *
-                                                                  0.015),
+                                                          alignment: Alignment.topRight,
+                                                          margin: EdgeInsets.only(right: size.width * 0.03, top: size.height * 0.015),
                                                         ),
                                                       ),
                                                     ],
@@ -647,60 +474,45 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     SvgPicture.asset(crop_icon),
                                     InkWell(
                                       onTap: () async {
-                                        getImageType(context, () async {
-                                          Navigator.pop(context);
-                                          uploadLogo =
-                                              await ImagePickerMethods()
-                                                  .getImage(
-                                                      ImageSource.gallery);
+                                        getImageType(
+                                          context,
+                                          () async {
+                                            Navigator.pop(context);
+                                            uploadLogo = await ImagePickerMethods().getImage(ImageSource.gallery);
 
-                                          if (uploadLogo != null) {
-                                            await ProfileController()
-                                                .uplaodImage(
-                                                    image: uploadLogo!.path,
-                                                    imageType: "2");
-                                          }
-                                          if (mounted) {
-                                            setState(() {});
-                                          }
-                                        }, () async {
-                                          Navigator.pop(context);
-                                          uploadLogo =
-                                              await ImagePickerMethods()
-                                                  .getImage(ImageSource.camera);
-                                          if (uploadLogo != null) {
-                                            await ProfileController()
-                                                .uplaodImage(
-                                                    image: uploadLogo!.path,
-                                                    imageType: "2");
-                                          }
-                                          if (mounted) {
-                                            setState(() {});
-                                          }
-                                        });
+                                            if (uploadLogo != null) {
+                                              await ProfileController().uplaodImage(image: uploadLogo!.path, imageType: "2");
+                                            }
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          () async {
+                                            Navigator.pop(context);
+                                            uploadLogo = await ImagePickerMethods().getImage(ImageSource.camera);
+                                            if (uploadLogo != null) {
+                                              await ProfileController().uplaodImage(image: uploadLogo!.path, imageType: "2");
+                                            }
+                                            if (mounted) {
+                                              setState(() {});
+                                            }
+                                          },
+                                          false,
+                                          () {},
+                                        );
                                       },
-                                      child: uploadLogo == null &&
-                                              app.indiviualProfileModel!
-                                                      .profileData!.logo ==
-                                                  null
+                                      child: uploadLogo == null && app.indiviualProfileModel!.profileData!.logo == null
                                           ? Container(
                                               height: size.height * 0.15,
                                               width: size.width * 0.3,
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  gradient: LinearGradient(
-                                                      begin:
-                                                          Alignment.topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        signupclor_light,
-                                                        signupclor_dark,
-                                                      ])),
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                    signupclor_light,
+                                                    signupclor_dark,
+                                                  ])),
                                               child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   // Container(
                                                   //   child: Icon(
@@ -716,43 +528,25 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   Column(
                                                     children: [
                                                       Container(
-                                                        child: Image.asset(
-                                                            camera_icon),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        margin: EdgeInsets.only(
-                                                            top: size.height *
-                                                                0.015),
+                                                        child: Image.asset(camera_icon),
+                                                        alignment: Alignment.center,
+                                                        margin: EdgeInsets.only(top: size.height * 0.015),
                                                       ),
                                                       SizedBox(
-                                                        height:
-                                                            size.height * 0.02,
+                                                        height: size.height * 0.02,
                                                       ),
                                                       Container(
-                                                        height:
-                                                            size.height * 0.025,
-                                                        width:
-                                                            size.width * 0.15,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: bckgrnd
-                                                                .withOpacity(
-                                                                    0.5)),
+                                                        height: size.height * 0.025,
+                                                        width: size.width * 0.15,
+                                                        decoration:
+                                                            BoxDecoration(borderRadius: BorderRadius.circular(20), color: bckgrnd.withOpacity(0.5)),
                                                         child: Center(
                                                           child: Text(
                                                             'Logo',
                                                             style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize:
-                                                                    size.height *
-                                                                        0.020,
-                                                                fontFamily:
-                                                                    "Stf",
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: size.height * 0.020,
+                                                                fontFamily: "Stf",
                                                                 color: bckgrnd),
                                                           ),
                                                         ),
@@ -771,44 +565,26 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   height: size.height * 0.15,
                                                   width: size.width * 0.3,
                                                   decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: FileImage(
-                                                              uploadLogo!),
-                                                          fit: BoxFit.cover),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
-                                                          end: Alignment
-                                                              .bottomCenter,
-                                                          colors: [
-                                                            signupclor_light,
-                                                            signupclor_dark,
-                                                          ])),
+                                                      image: DecorationImage(image: FileImage(uploadLogo!), fit: BoxFit.cover),
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                        signupclor_light,
+                                                        signupclor_dark,
+                                                      ])),
                                                   child: Column(
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          app.setProfileImage(
-                                                              null);
+                                                          app.setProfileImage(null);
                                                         },
                                                         child: Container(
                                                           child: Icon(
                                                             Icons.delete,
                                                             color: Colors.red,
-                                                            size: size.width *
-                                                                .06,
+                                                            size: size.width * .06,
                                                           ), // Image.asset(bin_icon),
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          margin: EdgeInsets.only(
-                                                              right:
-                                                                  size.width *
-                                                                      0.03,
-                                                              top: size.height *
-                                                                  0.015),
+                                                          alignment: Alignment.topRight,
+                                                          margin: EdgeInsets.only(right: size.width * 0.03, top: size.height * 0.015),
                                                         ),
                                                       ),
                                                     ],
@@ -819,47 +595,29 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                           image: NetworkImage(
-                                                            app
-                                                                    .indiviualProfileModel!
-                                                                    .profileData!
-                                                                    .logo ??
+                                                            app.indiviualProfileModel!.profileData!.logo ??
                                                                 "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                           ),
                                                           fit: BoxFit.cover),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                      gradient: LinearGradient(
-                                                          begin: Alignment
-                                                              .topCenter,
-                                                          end: Alignment
-                                                              .bottomCenter,
-                                                          colors: [
-                                                            signupclor_light,
-                                                            signupclor_dark,
-                                                          ])),
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                                        signupclor_light,
+                                                        signupclor_dark,
+                                                      ])),
                                                   child: Column(
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          app.setProfileImage(
-                                                              null);
+                                                          app.setProfileImage(null);
                                                         },
                                                         child: Container(
                                                           child: Icon(
                                                             Icons.delete,
                                                             color: Colors.red,
-                                                            size: size.width *
-                                                                .06,
+                                                            size: size.width * .06,
                                                           ), // Image.asset(bin_icon),
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          margin: EdgeInsets.only(
-                                                              right:
-                                                                  size.width *
-                                                                      0.03,
-                                                              top: size.height *
-                                                                  0.015),
+                                                          alignment: Alignment.topRight,
+                                                          margin: EdgeInsets.only(right: size.width * 0.03, top: size.height * 0.015),
                                                         ),
                                                       ),
                                                     ],
@@ -879,9 +637,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       alignment: Alignment.topLeft,
                                       child: Text(
                                         'Company',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'MBold'),
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
                                     height: size.height * 0.03,
@@ -929,42 +685,27 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       alignment: Alignment.topLeft,
                                       child: Text(
                                         'Tel',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'MBold'),
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
                                     height: size.height * 0.03,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                           height: size.height * 0.06,
                                           width: size.width * 0.3,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: Colors.white),
+                                              borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.grey), color: Colors.white),
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
                                                   'Work',
-                                                  style: TextStyle(
-                                                      fontFamily: "Msemibold",
-                                                      fontSize:
-                                                          size.height * 0.018,
-                                                      color: infocolor),
+                                                  style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.018, color: infocolor),
                                                 ),
                                                 // Image.asset(downarrow_icon)
                                               ],
@@ -983,20 +724,12 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           },
                                           decoration: InputDecoration(
                                               hintText: 'Number',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 0.0,
-                                                      left: 22.0,
-                                                      bottom: 2.0),
-                                              hintStyle: TextStyle(
-                                                  fontSize: size.height * 0.018,
-                                                  color: infocolor,
-                                                  fontFamily: "Msemibold"),
+                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                              hintStyle: TextStyle(fontSize: size.height * 0.018, color: infocolor, fontFamily: "Msemibold"),
                                               fillColor: Colors.white,
                                               filled: true,
                                               border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
+                                                borderRadius: BorderRadius.circular(30),
                                               )),
                                         ),
                                       ),
@@ -1006,34 +739,21 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     height: size.height * 0.03,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                           height: size.height * 0.06,
                                           width: size.width * 0.3,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: Colors.white),
+                                              borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.grey), color: Colors.white),
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
                                                   'Mobile',
-                                                  style: TextStyle(
-                                                      fontFamily: "Msemibold",
-                                                      fontSize:
-                                                          size.height * 0.02,
-                                                      color: infocolor),
+                                                  style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.02, color: infocolor),
                                                 ),
                                                 // Image.asset(downarrow_icon)
                                               ],
@@ -1052,19 +772,12 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           },
                                           decoration: InputDecoration(
                                               hintText: 'Number',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 0.0,
-                                                      left: 22.0,
-                                                      bottom: 2.0),
-                                              hintStyle: TextStyle(
-                                                  fontSize: size.width * 0.04,
-                                                  color: infocolor),
+                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                              hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                               fillColor: Colors.white,
                                               filled: true,
                                               border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
+                                                borderRadius: BorderRadius.circular(25),
                                               )),
                                         ),
                                       ),
@@ -1077,9 +790,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       alignment: Alignment.topLeft,
                                       child: Text(
                                         'Email',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'MBold'),
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
                                     height: size.height * 0.03,
@@ -1097,18 +808,12 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       },
                                       decoration: InputDecoration(
                                           hintText: 'Email',
-                                          contentPadding: EdgeInsets.only(
-                                              top: 0.0,
-                                              left: 22.0,
-                                              bottom: 2.0),
-                                          hintStyle: TextStyle(
-                                              fontSize: size.width * 0.04,
-                                              color: infocolor),
+                                          contentPadding: EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                          hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                           fillColor: Colors.white,
                                           filled: true,
                                           border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
+                                            borderRadius: BorderRadius.circular(25),
                                           )),
                                     ),
                                   ),
@@ -1119,16 +824,13 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       alignment: Alignment.topLeft,
                                       child: Text(
                                         'Address',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'MBold'),
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
                                     height: size.height * 0.03,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       // Expanded(
                                       //   flex: 1,
@@ -1177,11 +879,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             controller: cityControl,
                                             decoration: InputDecoration(
                                                 hintText: 'City',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 0.0,
-                                                        left: 22.0,
-                                                        bottom: 2.0),
+                                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                                 hintStyle: TextStyle(
                                                   fontSize: size.height * 0.02,
                                                   color: infocolor,
@@ -1190,8 +888,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
+                                                  borderRadius: BorderRadius.circular(25),
                                                 )),
                                           ),
                                         ),
@@ -1247,11 +944,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             },
                                             decoration: InputDecoration(
                                                 hintText: 'Province',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 0.0,
-                                                        left: 22.0,
-                                                        bottom: 2.0),
+                                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                                 hintStyle: TextStyle(
                                                   fontSize: size.height * 0.02,
                                                   color: infocolor,
@@ -1260,8 +953,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
+                                                  borderRadius: BorderRadius.circular(25),
                                                 )),
                                           ),
                                         ),
@@ -1285,11 +977,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             },
                                             decoration: InputDecoration(
                                                 hintText: 'Country',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 0.0,
-                                                        left: 22.0,
-                                                        bottom: 2.0),
+                                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                                 hintStyle: TextStyle(
                                                   fontSize: size.height * 0.02,
                                                   color: infocolor,
@@ -1298,8 +986,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
+                                                  borderRadius: BorderRadius.circular(25),
                                                 )),
                                           ),
                                         ),
@@ -1343,8 +1030,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     height: size.height * 0.03,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       // Expanded(
                                       //   flex: 1,
@@ -1393,11 +1079,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             },
                                             decoration: InputDecoration(
                                                 hintText: 'Postal Code',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 0.0,
-                                                        left: 22.0,
-                                                        bottom: 2.0),
+                                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                                 hintStyle: TextStyle(
                                                   fontSize: size.height * 0.02,
                                                   color: infocolor,
@@ -1406,8 +1088,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
+                                                  borderRadius: BorderRadius.circular(25),
                                                 )),
                                           ),
                                         ),
@@ -1431,11 +1112,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             },
                                             decoration: InputDecoration(
                                                 hintText: 'Address',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 0.0,
-                                                        left: 22.0,
-                                                        bottom: 2.0),
+                                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                                 hintStyle: TextStyle(
                                                   fontSize: size.height * 0.02,
                                                   color: infocolor,
@@ -1444,8 +1121,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
+                                                  borderRadius: BorderRadius.circular(25),
                                                 )),
                                           ),
                                         ),
@@ -1459,9 +1135,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       alignment: Alignment.topLeft,
                                       child: Text(
                                         'About',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            fontFamily: 'MBold'),
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
                                     height: size.height * 0.03,
@@ -1479,16 +1153,12 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     // textAlign: TextAlign.center,
                                     decoration: InputDecoration(
                                         hintText: 'About......',
-                                        contentPadding: EdgeInsets.only(
-                                            top: 10.0, left: 22.0, bottom: 2.0),
-                                        hintStyle: TextStyle(
-                                            fontSize: size.width * 0.04,
-                                            color: infocolor),
+                                        contentPadding: EdgeInsets.only(top: 10.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                         fillColor: Colors.white,
                                         filled: true,
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
+                                          borderRadius: BorderRadius.circular(25),
                                         )),
                                   ),
                                   SizedBox(
@@ -1501,10 +1171,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 children: [
                                   Text(
                                     '+ Add Another',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.02,
-                                        color: cgreen,
-                                        fontFamily: 'Stf'),
+                                    style: TextStyle(fontSize: size.height * 0.02, color: cgreen, fontFamily: 'Stf'),
                                   ),
                                   SizedBox(
                                     width: 10,
@@ -1529,43 +1196,38 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                 children: [
                   InkWell(
                     onTap: () async {
-                      getImageType(context, () async {
-                        Navigator.pop(context);
-                        uploadProfile = await ImagePickerMethods()
-                            .getImage(ImageSource.gallery);
-                        if (uploadProfile != null) {
-                          await ProfileController().uplaodImage(
-                              image: uploadProfile!.path, imageType: "3");
-                        }
-                        if (mounted) {
-                          setState(() {});
-                        }
-                      }, () async {
-                        Navigator.pop(context);
-                        uploadProfile = await ImagePickerMethods()
-                            .getImage(ImageSource.camera);
-                        if (uploadProfile != null) {
-                          await ProfileController().uplaodImage(
-                              image: uploadProfile!.path, imageType: "3");
-                        }
-                        if (mounted) {
-                          setState(() {});
-                        }
-                      });
+                      getImageType(
+                        context,
+                        () async {
+                          Navigator.pop(context);
+                          uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
+                          if (uploadProfile != null) {
+                            await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
+                          }
+                          if (mounted) {
+                            setState(() {});
+                          }
+                        },
+                        () async {
+                          Navigator.pop(context);
+                          uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
+                          if (uploadProfile != null) {
+                            await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
+                          }
+                          if (mounted) {
+                            setState(() {});
+                          }
+                        },
+                        false,
+                        () {},
+                      );
                     },
-                    child: uploadProfile == null &&
-                            app.indiviualProfileModel!.profileData!
-                                    .profileImage ==
-                                null
+                    child: uploadProfile == null && app.indiviualProfileModel!.profileData!.profileImage == null
                         ? Container(
                             height: size.height * 0.10,
                             width: size.width * 0.2,
-                            decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                shape: BoxShape.circle),
-                            margin: EdgeInsets.only(
-                                top: size.height * 0.15,
-                                left: size.width * 0.04),
+                            decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+                            margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
                             child: Image.network(
                               "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                             )
@@ -1575,36 +1237,23 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                             ? Container(
                                 height: size.height * 0.10,
                                 width: size.width * 0.2,
-                                decoration: const BoxDecoration(
-                                    color: Colors.transparent,
-                                    shape: BoxShape.circle),
-                                margin: EdgeInsets.only(
-                                    top: size.height * 0.15,
-                                    left: size.width * 0.04),
-                                child: Image.file(uploadProfile!,
-                                    fit: BoxFit.cover))
+                                decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+                                margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
+                                child: Image.file(uploadProfile!, fit: BoxFit.cover))
                             : Container(
                                 height: size.height * 0.10,
                                 width: size.width * 0.2,
-                                decoration: const BoxDecoration(
-                                    color: Colors.transparent,
-                                    shape: BoxShape.circle),
-                                margin: EdgeInsets.only(
-                                    top: size.height * 0.15,
-                                    left: size.width * 0.04),
+                                decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+                                margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
                                 child: Image.network(
-                                  app.indiviualProfileModel!.profileData!
-                                          .profileImage ??
+                                  app.indiviualProfileModel!.profileData!.profileImage ??
                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                 )
                                 // SvgPicture.asset(con_icon),
                                 ),
                   ),
                   uploadProfile == null
-                      ? Container(
-                          margin: EdgeInsets.only(
-                              top: size.height * 0.21, left: size.width * 0.17),
-                          child: Image.asset(compcamera_icon))
+                      ? Container(margin: EdgeInsets.only(top: size.height * 0.21, left: size.width * 0.17), child: Image.asset(compcamera_icon))
                       : const SizedBox(),
                 ],
               ),
@@ -1616,20 +1265,15 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
   Widget cardUploadView({Size? size, AppProvider? app}) {
     return Column(
       children: [
-        uploadCard == null &&
-                app!.indiviualProfileModel!.profileData!.card == null
+        uploadCard == null && app!.indiviualProfileModel!.profileData!.card == null
             ? Padding(
-                padding: EdgeInsets.only(
-                    left: size!.width * 0.04, right: size.width * 0.0),
+                padding: EdgeInsets.only(left: size!.width * 0.04, right: size.width * 0.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Insert Card',
-                      style: TextStyle(
-                          fontSize: size.height * 0.02,
-                          fontFamily: "Msemibold",
-                          color: uploadCard != null ? Colors.green : infocolor),
+                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Msemibold", color: uploadCard != null ? Colors.green : infocolor),
                     ),
                     InkWell(
                       onTap: () async {
@@ -1640,19 +1284,14 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                         height: size.height * 0.05,
                         width: size.width * 0.2,
                         decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [signupclor_light, signupclor_dark]),
+                            gradient:
+                                LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
                             border: Border.all(color: signupclor_dark),
                             color: bckgrnd,
                             borderRadius: BorderRadius.circular(30)),
                         child: Text(
                           'Upload',
-                          style: TextStyle(
-                              fontFamily: "Mbold",
-                              fontSize: size.height * 0.02,
-                              color: bckgrnd),
+                          style: TextStyle(fontFamily: "Mbold", fontSize: size.height * 0.02, color: bckgrnd),
                         ),
                       ),
                     ),
@@ -1700,26 +1339,30 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
   }
 
   void cardUploadFunction() {
-    getImageType(context, () async {
-      Navigator.pop(context);
-      uploadCard = await ImagePickerMethods().getImage(ImageSource.gallery);
-      if (uploadCard != null) {
-        await ProfileController()
-            .uplaodImage(image: uploadCard!.path, imageType: "1");
-      }
-      if (mounted) {
-        setState(() {});
-      }
-    }, () async {
-      Navigator.pop(context);
-      uploadCard = await ImagePickerMethods().getImage(ImageSource.camera);
-      if (uploadCard != null) {
-        await ProfileController()
-            .uplaodImage(image: uploadCard!.path, imageType: "1");
-      }
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    getImageType(
+      context,
+      () async {
+        Navigator.pop(context);
+        uploadCard = await ImagePickerMethods().getImage(ImageSource.gallery);
+        if (uploadCard != null) {
+          await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
+        }
+        if (mounted) {
+          setState(() {});
+        }
+      },
+      () async {
+        Navigator.pop(context);
+        uploadCard = await ImagePickerMethods().getImage(ImageSource.camera);
+        if (uploadCard != null) {
+          await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
+        }
+        if (mounted) {
+          setState(() {});
+        }
+      },
+      false,
+      () {},
+    );
   }
 }
