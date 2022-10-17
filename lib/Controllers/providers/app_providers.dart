@@ -128,6 +128,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   ProductAndServicesModel? _productAndServices;
+  
   ProductAndServicesModel? get productAndServicesModel => _productAndServices;
 
   getProductAndServices() async {

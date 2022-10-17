@@ -43,6 +43,7 @@ class SingleCardData {
   final String? createdAt;
   final String? updatedAt;
   final List<SocialLinks>? socialLinks;
+  final List<ProductSevices>? productSevices;
   final User? user;
 
   SingleCardData({
@@ -67,6 +68,7 @@ class SingleCardData {
     this.createdAt,
     this.updatedAt,
     this.socialLinks,
+    this.productSevices,
     this.user,
   });
 
@@ -92,6 +94,7 @@ class SingleCardData {
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       socialLinks = (json['social_links'] as List?)?.map((dynamic e) => SocialLinks.fromJson(e as Map<String,dynamic>)).toList(),
+      productSevices = (json['product_sevices'] as List?)?.map((dynamic e) => ProductSevices.fromJson(e as Map<String,dynamic>)).toList(),
       user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
@@ -116,6 +119,7 @@ class SingleCardData {
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'social_links' : socialLinks?.map((e) => e.toJson()).toList(),
+    'product_sevices' : productSevices?.map((e) => e.toJson()).toList(),
     'user' : user?.toJson()
   };
 }
@@ -156,6 +160,41 @@ class SocialLinks {
     'created_at' : createdAt,
     'updated_at' : updatedAt,
     'image' : image
+  };
+}
+
+class ProductSevices {
+  final int? id;
+  final String? userId;
+  final String? name;
+  final String? status;
+  final String? createdAt;
+  final String? updatedAt;
+
+  ProductSevices({
+    this.id,
+    this.userId,
+    this.name,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  ProductSevices.fromJson(Map<String, dynamic> json)
+    : id = json['id'] as int?,
+      userId = json['user_id'] as String?,
+      name = json['name'] as String?,
+      status = json['status'] as String?,
+      createdAt = json['created_at'] as String?,
+      updatedAt = json['updated_at'] as String?;
+
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'user_id' : userId,
+    'name' : name,
+    'status' : status,
+    'created_at' : createdAt,
+    'updated_at' : updatedAt
   };
 }
 
