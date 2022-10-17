@@ -6,7 +6,7 @@ import 'package:concard/Models/Indiviuals/search_teamlist_model.dart';
 import 'package:concard/Models/Indiviuals/team_list_model.dart';
 import 'package:concard/Views/screens/homeScreens/TeamsScreens/createNewTeamScreen.dart';
 import 'package:concard/Views/screens/homeScreens/TeamsScreens/teamsFilterScreen.dart';
-import 'package:concard/Views/screens/homeScreens/TeamsScreens/teamsJoinInvite.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/team_detail_class.dart';
 import 'package:concard/Views/widgets/custom_alert_dialogue.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,7 +55,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       customeAlertDialogue(
         context: context,
         title: "Join Group",
-        content: "Are you sure you want to join this group ?.",
+        content: "Are you sure you want to join this team ?.",
         btn1text: "OK",
         btn2Text: "Cancel",
         onTap1Btn: () async {
@@ -81,7 +81,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       return teamsListModel!.teamDetail;
     } else {
       SearchTeamListModel? searchTeamListModel = await TeamController()
-          .searcTeamhList(searchValue.toString().toLowerCase().trim());
+          .searcTeamList(searchValue.toString().toLowerCase().trim());
       return searchTeamListModel!.teamDetail;
     }
     // :
@@ -298,32 +298,38 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: InkWell(
                                             onTap: () async {
-                                              print(teamDetail[index]
-                                                  .id
-                                                  .toString());
-                                              appPro!.setLoadingTrue();
-                                              Globals.teamDetailModel =
-                                                  await TeamController()
-                                                      .getSingleTeamDetail(
-                                                          teamDetail[index]
-                                                              .id
-                                                              .toString());
-                                              appPro!.setLoadingFalse();
-                                              if (Globals.teamDetailModel !=
-                                                  null) {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            TeamsJoinInviteScreen(
-                                                                teamData:
-                                                                    teamDetail[
-                                                                        index])));
-                                              } else {
-                                                Globals.showToastMethod(
-                                                    msg:
-                                                        "There is something went worng. Please try again later");
+                                              if (!appPro!.isLoading!) {
+                                                print(teamDetail[index]
+                                                    .id
+                                                    .toString());
+                                                setState(() {
+                                                  appPro!.setLoadingTrue();
+                                                });
+                                                Globals.teamDetailModel =
+                                                    await TeamController()
+                                                        .getSingleTeamDetail(
+                                                            teamDetail[index]
+                                                                .id
+                                                                .toString(),'');
+                                                setState(() {
+                                                  appPro!.setLoadingFalse();
+                                                });
+                                                if (Globals.teamDetailModel !=
+                                                    null) {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              TeamDetailViewClass(
+                                                                  teamData:
+                                                                      teamDetail[
+                                                                          index])));
+                                                } else {
+                                                  Globals.showToastMethod(
+                                                      msg:
+                                                          "There is something went worng. Please try again later");
+                                                }
                                               }
                                             },
                                             child: Column(

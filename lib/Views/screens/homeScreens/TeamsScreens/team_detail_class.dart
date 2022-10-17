@@ -3,11 +3,17 @@ import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:concard/Models/Indiviuals/team_list_model.dart';
 import 'package:concard/Views/screens/homeScreens/TeamsScreens/inviteToJoinScreen.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/show_cards_screen.dart';
 import 'package:concard/Views/screens/homeScreens/addCardsToGroupScreen.dart';
 import 'package:concard/Views/screens/homeScreens/addCompanyCards.dart';
 import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/allCards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/cardsBottomBarScreen.dart';
+import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
 import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
+import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
 import 'package:concard/Views/widgets/custom_alert_dialogue.dart';
+import 'package:concard/Views/widgets/custome_profile_view_screen.dart';
 import 'package:concard/Views/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -18,18 +24,31 @@ import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 
-class TeamsJoinInviteScreen extends StatelessWidget {
-  TeamsJoinInviteScreen({Key? key, required this.teamData}) : super(key: key);
+class TeamDetailViewClass extends StatefulWidget {
+  TeamDetailViewClass({Key? key, required this.teamData}) : super(key: key);
   final TeamData? teamData;
 
+  @override
+  State<TeamDetailViewClass> createState() => _TeamDetailViewClassState();
+}
+
+class _TeamDetailViewClassState extends State<TeamDetailViewClass> {
   // getTeamDetails() async {
-  //   Globals.teamDetailModel =
-  //       await TeamController().getSingleTeamDetail(teamData!.id.toString());
-  // }
   List<TeamMembers>? teamMembers;
+  String? searchValue;
+  List<TeamSharedCards>? teamSharedCards;
+  teamMembersSearchApi(String? value) async {
+    Globals.teamDetailModel = await TeamController().getSingleTeamDetail(
+        widget.teamData!.id.toString(), value.toString().trim());
+    setState(() {
+      teamMembers = Globals.teamDetailModel!.teamDetailData!.teamMembers;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     teamMembers = Globals.teamDetailModel!.teamDetailData!.teamMembers;
+    teamSharedCards = Globals.teamDetailModel!.teamDetailData!.teamSharedCards;
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -68,7 +87,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                     //   width: 5,
                     // ),
                     Text(
-                      teamData!.teamName!.toUpperCase(),
+                      widget.teamData!.teamName!.toUpperCase(),
                       style: TextStyle(
                           fontSize: size.height * 0.018,
                           fontFamily: "MBold",
@@ -125,7 +144,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                           width: size.width * 0.03,
                         ),
                         Text(
-                          teamData!.teamName!.toUpperCase(),
+                          widget.teamData!.teamName!.toUpperCase(),
                           style: TextStyle(
                               fontSize: size.height * 0.018,
                               fontFamily: 'MBold',
@@ -143,6 +162,17 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                           height: size.height * 0.09,
                           width: size.width * 0.85,
                           child: TextFormField(
+                            onChanged: (value) async {
+                              if (value.isEmpty) {
+                                searchValue = null;
+                                teamMembersSearchApi(value);
+                                setState(() {});
+                              } else {
+                                searchValue = value;
+                                teamMembersSearchApi(value);
+                              }
+                              setState(() {});
+                            },
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.search,
@@ -166,7 +196,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SvgPicture.asset(sort_icon)
+                        // SvgPicture.asset(sort_icon)
                       ],
                     ),
                     SizedBox(
@@ -176,7 +206,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Team members (${Globals.teamDetailModel!.teamDetailData!.teamMembers!.length.toString()})',
+                          'Team members (${teamMembers!.length.toString()})',
                           style: TextStyle(
                             fontSize: size.height * 0.018,
                             fontFamily: 'MBold',
@@ -239,10 +269,14 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                                             //long press to delete memebers
                                             //if delete card permission is 1 then delete
                                             if (Globals
-                                                    .teamDetailModel!
-                                                    .teamDetailData!
-                                                    .deleteCard ==
-                                                "1" || teamData!.userId == teamMembers![index].id.toString()) {
+                                                        .teamDetailModel!
+                                                        .teamDetailData!
+                                                        .deleteCard ==
+                                                    "1" ||
+                                                widget.teamData!.userId ==
+                                                    teamMembers![index]
+                                                        .id
+                                                        .toString()) {
                                               customeAlertDialogue(
                                                 context: context,
                                                 title: "Delete Memeber?",
@@ -252,22 +286,28 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                                                 btn2Text: "Cancel",
                                                 onTap1Btn: () async {
                                                   Navigator.pop(context);
-                                                  context
-                                                      .read<AppProvider>()
-                                                      .setLoadingTrue();
+                                                  setState(() {
+                                                    context
+                                                        .read<AppProvider>()
+                                                        .setLoadingTrue();
+                                                  });
                                                   loaderWidget(context, size);
                                                   await TeamController()
                                                       .removeMemberFormTeam(
                                                           teamMembers![index]
                                                               .id
                                                               .toString(),
-                                                          teamData!.id
+                                                          widget.teamData!.id
                                                               .toString());
-                                                  teamMembers!.removeAt(index);
+
                                                   Navigator.pop(context);
-                                                  context
-                                                      .read<AppProvider>()
-                                                      .setLoadingFalse();
+                                                  setState(() {
+                                                    teamMembers!
+                                                        .removeAt(index);
+                                                    context
+                                                        .read<AppProvider>()
+                                                        .setLoadingFalse();
+                                                  });
                                                 },
                                                 onTap2Btn: () async {
                                                   Navigator.pop(context);
@@ -281,7 +321,15 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                                           },
                                           onTap: () {
                                             //single click to open profile
-                                            Navigator.push(context, MaterialPageRoute(builder:(context)=>EditMyCardScreen()));
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        CustomProfileViewScreen(
+                                                            teamMembers:
+                                                                teamMembers![
+                                                                    index])));
                                           },
                                           child: CircleAvatar(
                                             radius: 30,
@@ -294,7 +342,7 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                                           height: size.height * 0.01,
                                         ),
                                         Text(
-                                          '${teamMembers![index].firstName} ${teamMembers![index].lastName}',
+                                          '${teamMembers![index].firstName}',
                                           style: TextStyle(
                                               fontSize: size.height * 0.018,
                                               fontFamily: 'MBold'),
@@ -338,11 +386,15 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                         Globals.teamDetailModel!.teamDetailData!.addCard == "1"
                             ? InkWell(
                                 onTap: () {
+                                  print(
+                                      " there add card from list of card is called.");
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              const AddContactCardsScreen()));
+                                              ViewCardsScreen(
+                                                  teamId: widget.teamData!.id
+                                                      .toString())));
                                 },
                                 child: Container(
                                   height: size.height * 0.04,
@@ -366,86 +418,106 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                     ),
 
                     //put delete card permission
-                    SizedBox(
-                      height: size.height * 1.0,
-                      width: size.width,
-                      child: GestureDetector(
-                        onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (BuildContext context) =>
-                          //             TeamsJoinInviteScreen()));
-                        },
-                        child: ListView.builder(
-                            padding: const EdgeInsets.all(0),
-                            itemCount: 1,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        mycard_icon,
-                                        height: size.height * 0.07,
-                                        width: size.width * 0.2,
-                                      ),
-                                      SizedBox(
-                                        width: size.width * 0.08,
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            'Team 1',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.017,
-                                                fontFamily: 'Mbold'),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          Text(
-                                            'Lorem ispum dolor sit amet',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.015,
-                                                fontFamily: 'Stf'),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          Text(
-                                            'Lorem ispum dolor sit amet',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.015,
-                                                fontFamily: 'Stf'),
-                                          ),
-                                        ],
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                          onTap: () {
-                                            _optionsModalBottomSheet(context);
-                                          },
-                                          child: Icon(
-                                            Icons.more_vert,
-                                            color: signupclor_dark,
-                                          ))
-                                    ],
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                  ),
-                                ],
-                              );
-                            }),
-                      ),
-                    ),
+                    teamSharedCards!.isNotEmpty
+                        ? SizedBox(
+                            height: size.height * 1.0,
+                            width: size.width,
+                            child: ListView.builder(
+                                padding: const EdgeInsets.all(0),
+                                itemCount: teamSharedCards!.length,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () async {
+                                      print(
+                                          "this screen will call with card id to get specific carda data");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  ContactProfileViewScreen(
+                                                    id: teamSharedCards![index]
+                                                        .id
+                                                        .toString(),
+                                                  )));
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: size.height * 0.02,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              mycard_icon,
+                                              height: size.height * 0.07,
+                                              width: size.width * 0.2,
+                                            ),
+                                            SizedBox(
+                                              width: size.width * 0.08,
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  '${teamSharedCards![index].sharedCardUser!.firstName} ${teamSharedCards![index].sharedCardUser!.lastName}',
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.017,
+                                                      fontFamily: 'Mbold'),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.01,
+                                                ),
+                                                Text(
+                                                  '${teamSharedCards![index].sharedCardUser!.companyField}',
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.015,
+                                                      fontFamily: 'Stf'),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.01,
+                                                ),
+                                                Text(
+                                                  '${teamSharedCards![index].sharedCardUser!.email}',
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.015,
+                                                      fontFamily: 'Stf'),
+                                                ),
+                                              ],
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                            ),
+                                            const Spacer(),
+                                            InkWell(
+                                                onTap: () {
+                                                  _optionsModalBottomSheet(
+                                                      context,
+                                                      teamSharedCards![index],
+                                                      index);
+                                                },
+                                                child: Icon(
+                                                  Icons.more_vert,
+                                                  color: signupclor_dark,
+                                                ))
+                                          ],
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Center(
+                              child: Text("There is no card added yet"),
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -456,7 +528,8 @@ class TeamsJoinInviteScreen extends StatelessWidget {
     );
   }
 
-  void _optionsModalBottomSheet(context) {
+  void _optionsModalBottomSheet(
+      context, TeamSharedCards? sharedCardData, int? index) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
@@ -633,23 +706,63 @@ class TeamsJoinInviteScreen extends StatelessWidget {
                                 Globals.teamDetailModel!.teamDetailData!
                                             .deleteCard ==
                                         "1"
-                                    ? Column(
-                                        children: [
-                                          SvgPicture.asset(
-                                            recyclebin_icon,
-                                            color: signupclor_dark,
-                                            height: size.height * 0.03,
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.025,
-                                          ),
-                                          Text(
-                                            'Delete',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.015,
-                                                fontFamily: "Stf"),
-                                          ),
-                                        ],
+                                    ? InkWell(
+                                        onTap: () async {
+                                          // Navigator.pop(context);
+                                          customeAlertDialogue(
+                                            context: context,
+                                            title: "Delete Sahred Card?",
+                                            content:
+                                                "Are you sure you want to delete this card ?.",
+                                            btn1text: "Delete?",
+                                            btn2Text: "Cancel",
+                                            onTap1Btn: () async {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                              // setState(() {
+                                              //   context
+                                              //       .read<AppProvider>()
+                                              //       .setLoadingTrue();
+                                              // });
+                                              // loaderWidget(context, size);
+                                              await TeamController()
+                                                  .removeCardFormTeam(
+                                                      sharedCardData!.id
+                                                          .toString(),
+                                                      widget.teamData!.id
+                                                          .toString());
+                                              // Navigator.pop(context);
+                                              setState(() {
+                                                teamSharedCards!
+                                                    .removeAt(index!);
+                                                // context
+                                                //     .read<AppProvider>()
+                                                //     .setLoadingFalse();
+                                              });
+                                            },
+                                            onTap2Btn: () async {
+                                              Navigator.pop(context);
+                                            },
+                                          );
+                                        },
+                                        child: Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                              recyclebin_icon,
+                                              color: signupclor_dark,
+                                              height: size.height * 0.03,
+                                            ),
+                                            SizedBox(
+                                              height: size.height * 0.025,
+                                            ),
+                                            Text(
+                                              'Delete',
+                                              style: TextStyle(
+                                                  fontSize: size.height * 0.015,
+                                                  fontFamily: "Stf"),
+                                            ),
+                                          ],
+                                        ),
                                       )
                                     : const SizedBox(),
                               ],

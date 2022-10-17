@@ -1,4 +1,4 @@
-import 'package:concard/Views/screens/homeScreens/TeamsScreens/teamsJoinInvite.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/team_detail_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -188,7 +188,7 @@ class TeamsFilterScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      TeamsJoinInviteScreen(
+                                      TeamDetailViewClass(
                                         teamData: null,
                                       )));
                         },

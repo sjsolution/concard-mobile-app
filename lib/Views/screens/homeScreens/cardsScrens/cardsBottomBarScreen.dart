@@ -31,7 +31,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   bool? isMore = false;
   bool? isSelctedt = false;
   bool? isRadio = false;
-  bool? isIndexSelected=false;
+  bool? isIndexSelected = false;
 
   @override
   void initState() {
@@ -41,20 +41,15 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   }
 
   getCardList() async {
-    Globals.cardListModal = await CardController().cardList('0','0');
+    Globals.cardListModal = await CardController().cardList('0', '0');
     print('My Card List........\n' + Globals.cardListModal.toString());
     setState(() {});
   }
- 
-
- 
-
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return DefaultTabController(
-      
       length: 4,
       initialIndex: 0,
       child: Scaffold(
@@ -104,8 +99,6 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                 ),
               ),
             ),
-
-           
             Container(
               margin: EdgeInsets.only(top: size.height * 0.13),
               // height: size.height * 1.0,
@@ -116,311 +109,297 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   )),
-              child:  Padding(
+              child: Padding(
                 padding: EdgeInsets.only(
                     left: size.width * 0.02,
                     right: size.width * 0.02,
                     top: size.height * 0.02),
-                child: Globals.cardListModal!= null? Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: size.width*0.65,
-                          child: Column(
+                child: Globals.cardListModal != null
+                    ? Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TabBar(
-                                labelColor: primaryblue,
-                                unselectedLabelColor: Colors.grey,
-                                indicatorColor: btnclr,
-                                
-                                // labelStyle: ,
-                                
-              isScrollable: true,
-              tabs: [
-                
-              Text('All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',style: TextStyle(
-                
-              ),),
-              Text('Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',style: TextStyle(
-              ),),
-              Text('Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',style: TextStyle(
-              ),),
-              Text('Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',style: TextStyle(
-              ),),
+                              Container(
+                                width: size.width * 0.65,
+                                child: Column(
+                                  children: [
+                                    TabBar(
+                                        labelColor: primaryblue,
+                                        unselectedLabelColor: Colors.grey,
+                                        indicatorColor: btnclr,
 
-            ]),
+                                        // labelStyle: ,
 
-            
-                            ],
-                          ),
-                        ),
-
-                        const Spacer(),
-                        Container(
-                          alignment: Alignment.center,
-                          height: size.height * 0.035,
-                          width: size.width * 0.2,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    gradientgreen,
-                                    primarygreen,
-                                  ]),
-                              color: bckgrnd,
-                              borderRadius: BorderRadius.circular(30)),
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => Container(
-                                        margin: EdgeInsets.only(
-                                            bottom: size.height * 0.1),
-                                        child: Dialog(
-                                          alignment:
-                                              AlignmentDirectional.bottomEnd,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          //this right here
-                                          child: Container(
-                                            height: size.height * 0.18,
-                                            width: size.width,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.01,
-                                                  right: size.width * 0.01,
-                                                  top: size.height * 0.02),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Container(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Container(
-                                                          height:
-                                                              size.height * 0.01,
-                                                          width:
-                                                              size.width * 0.03,
-                                                        ),
-                                                        Text(
-                                                          'Manage',
-                                                          style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.02,
-                                                              fontFamily:
-                                                                  'MBold'),
-                                                        ),
-                                                        // Spacer(),
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Icon(
-                                                              Icons.close,
-                                                              size: size.height *
-                                                                  0.025,
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
+                                        isScrollable: true,
+                                        tabs: [
+                                          Text(
+                                            'All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',
+                                            style: TextStyle(),
+                                          ),
+                                          Text(
+                                            'Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',
+                                            style: TextStyle(),
+                                          ),
+                                          Text(
+                                            'Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',
+                                            style: TextStyle(),
+                                          ),
+                                          Text(
+                                            'Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',
+                                            style: TextStyle(),
+                                          ),
+                                        ]),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                alignment: Alignment.center,
+                                height: size.height * 0.035,
+                                width: size.width * 0.2,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          gradientgreen,
+                                          primarygreen,
+                                        ]),
+                                    color: bckgrnd,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder:
+                                            (BuildContext context) => Container(
+                                                  margin: EdgeInsets.only(
+                                                      bottom:
+                                                          size.height * 0.1),
+                                                  child: Dialog(
+                                                    alignment:
+                                                        AlignmentDirectional
+                                                            .bottomEnd,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                    //this right here
+                                                    child: Container(
                                                       height:
-                                                          size.height * 0.015),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      Padding(
+                                                          size.height * 0.18,
+                                                      width: size.width,
+                                                      child: Padding(
                                                         padding: EdgeInsets.only(
-                                                            left:
-                                                                size.width * 0.01,
+                                                            left: size.width *
+                                                                0.01,
                                                             right: size.width *
-                                                                0.01),
-                                                        child: Row(
+                                                                0.01,
+                                                            top: size.height *
+                                                                0.02),
+                                                        child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .spaceBetween,
-                                                          children: [
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (BuildContext
-                                                                                context) =>
-                                                                            GroupsCardsScreen()));
-                                                              },
-                                                              child: Column(
+                                                          children: <Widget>[
+                                                            Container(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
-                                                                  SvgPicture
-                                                                      .asset(
-                                                                    grptwo_icon,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height:
-                                                                        size.height *
-                                                                            0.01,
+                                                                  Container(
+                                                                    height: size
+                                                                            .height *
+                                                                        0.01,
+                                                                    width: size
+                                                                            .width *
+                                                                        0.03,
                                                                   ),
                                                                   Text(
-                                                                    'Groups',
+                                                                    'Manage',
                                                                     style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
                                                                         fontSize:
                                                                             size.height *
-                                                                                0.015,
+                                                                                0.02,
                                                                         fontFamily:
-                                                                            "Stf"),
+                                                                            'MBold'),
                                                                   ),
+                                                                  // Spacer(),
+                                                                  GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .close,
+                                                                        size: size.height *
+                                                                            0.025,
+                                                                      ))
                                                                 ],
                                                               ),
                                                             ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.015),
                                                             Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
-                                                                SvgPicture.asset(
-                                                                  export_icon,
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: size
+                                                                              .width *
                                                                           0.01,
-                                                                ),
-                                                                Text(
-                                                                  'Export',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          size.height *
-                                                                              0.015,
-                                                                      fontFamily:
-                                                                          "Stf"),
+                                                                      right: size
+                                                                              .width *
+                                                                          0.01),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(builder: (BuildContext context) => GroupsCardsScreen()));
+                                                                        },
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            SvgPicture.asset(
+                                                                              grptwo_icon,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: size.height * 0.01,
+                                                                            ),
+                                                                            Text(
+                                                                              'Groups',
+                                                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Column(
+                                                                        children: [
+                                                                          SvgPicture
+                                                                              .asset(
+                                                                            export_icon,
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                size.height * 0.01,
+                                                                          ),
+                                                                          Text(
+                                                                            'Export',
+                                                                            style:
+                                                                                TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              MaterialPageRoute(builder: (BuildContext context) => ImportCardsScreen()));
+                                                                        },
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            SvgPicture.asset(
+                                                                              import_icon,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: size.height * 0.007,
+                                                                            ),
+                                                                            Text(
+                                                                              'Import',
+                                                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Column(
+                                                                        children: [
+                                                                          GestureDetector(
+                                                                              onTap: () {
+                                                                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AddContactCardsScreen()));
+                                                                              },
+                                                                              child: SvgPicture.asset(
+                                                                                addcntct_icon,
+                                                                              )),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                size.height * 0.01,
+                                                                          ),
+                                                                          Text(
+                                                                            'Add Contact',
+                                                                            style:
+                                                                                TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                                          ),
+                                                                        ],
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ],
                                                             ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (BuildContext
-                                                                                context) =>
-                                                                            ImportCardsScreen()));
-                                                              },
-                                                              child: Column(
-                                                                children: [
-                                                                  SvgPicture
-                                                                      .asset(
-                                                                    import_icon,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height:
-                                                                        size.height *
-                                                                            0.007,
-                                                                  ),
-                                                                  Text(
-                                                                    'Import',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            size.height *
-                                                                                0.015,
-                                                                        fontFamily:
-                                                                            "Stf"),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                            SizedBox(
+                                                              height: 10,
                                                             ),
-                                                            Column(
-                                                              children: [
-                                                                GestureDetector(
-                                                                    onTap: () {
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (BuildContext context) =>
-                                                                                  AddContactCardsScreen()));
-                                                                    },
-                                                                    child:
-                                                                        SvgPicture
-                                                                            .asset(
-                                                                      addcntct_icon,
-                                                                    )),
-                                                                SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.01,
-                                                                ),
-                                                                Text(
-                                                                  'Add Contact',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          size.height *
-                                                                              0.015,
-                                                                      fontFamily:
-                                                                          "Stf"),
-                                                                ),
-                                                              ],
-                                                            )
                                                           ],
                                                         ),
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ));
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Manage',
-                                style: TextStyle(
-                                    color: bckgrnd,
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: 'Msemibold'),
-                              ),
-                            ),
+                                                ));
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Manage',
+                                      style: TextStyle(
+                                          color: bckgrnd,
+                                          fontSize: size.height * 0.015,
+                                          fontFamily: 'Msemibold'),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height*0.02,
-                    ),
-                    Container(
-                      height: size.height,
-                      child: TabBarView(children: [
-
-                        AllCards(),
-                        
-                        ReachedCardsScreen(),
-                        
-                        
-                        FavouritesScreen(),
-                        
-                        SavedCards(),
-                      ]),
-                    )
-                  ],
-                ):ShimmerLoadWidget(),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          Container(
+                            height: size.height,
+                            child: TabBarView(children: [
+                              AllCards(),
+                              ReachedCardsScreen(),
+                              FavouritesScreen(),
+                              SavedCards(),
+                            ]),
+                          )
+                        ],
+                      )
+                    : ShimmerLoadWidget(),
               ),
             ),
           ],
@@ -471,7 +450,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                       setState(() {
                                         setSte(() {
                                           isMore = false;
-                                          isRadio=false;
+                                          isRadio = false;
                                         });
                                       });
                                     },
@@ -530,12 +509,11 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                 ],
                               ),
                               InkWell(
-                                onTap: (){
-                                  CardController().favouriteCardList(cards!.id.toString());
+                                onTap: () {
+                                  CardController()
+                                      .favouriteCardList(cards!.id.toString());
                                   setState(() {
-                                    setSte((){
-                                      
-                                    });
+                                    setSte(() {});
                                   });
                                 },
                                 child: Column(
