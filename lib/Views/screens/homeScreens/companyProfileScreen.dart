@@ -614,15 +614,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       SizedBox(
                         height: size.height * 0.02,
                       ),
-                      Container(
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          color: bckgrnd,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.01, vertical: size.height * 0.03),
-                          child: Wrap(
+                      Wrap(
                             children: List.generate(
                               app.productAndServicesModel?.data?.length == null ? 0 : app.productAndServicesModel!.data!.length + 1,
                               (index) {
@@ -665,9 +657,34 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 );
                               },
                             ),
-                          ),
-                        ),
-                      ),
+            ),
+                      // Container(
+                      //   width: size.width,
+                      //   decoration: BoxDecoration(
+                      //     color: bckgrnd,
+                      //     borderRadius: BorderRadius.circular(15),
+                      //   ),
+                      //   child: 
+                      //           }
+                      //           return Padding(
+                      //             padding: const EdgeInsets.all(3),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                      //               height: size.height * 0.04,
+                      //               width: size.width * 0.2,
+                      //               child: Center(
+                      //                 child: Text(
+                      //                   app.productAndServicesModel!.data![index].name.toString(),
+                      //                   style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           );
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: size.height * 0.035,
                       ),
