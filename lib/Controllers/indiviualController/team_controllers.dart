@@ -86,9 +86,10 @@ class TeamController {
     }
   }
 
-  Future<TeamDetailModel?> getSingleTeamDetail(String? id) async {
+  Future<TeamDetailModel?> getSingleTeamDetail(
+      String? teamId, String? text) async {
     try {
-      var formData = FormData.fromMap({"id": id});
+      var formData = FormData.fromMap({"id": teamId, "search": text});
       var response =
           await services.postResponse(url: '/team/show', formData: formData);
       if (response != null) {
@@ -106,7 +107,7 @@ class TeamController {
     }
   }
 
-  Future<SearchTeamListModel?> searcTeamhList(String? search) async {
+  Future<SearchTeamListModel?> searcTeamList(String? search) async {
     try {
       var formData = FormData.fromMap({"search": search});
       var response = await services.postResponse(
@@ -119,6 +120,23 @@ class TeamController {
       return null;
     } catch (e) {
       print("error in search converstion:$e");
+      return null;
+    }
+  }
+
+  Future<SearchTeamListModel?> searcTeamMemberhList(String? search) async {
+    try {
+      var formData = FormData.fromMap({"search": search});
+      var response = await services.postResponse(
+          url: '/team/search/list', formData: formData);
+
+      if (response != null) {
+        var finalList = SearchTeamListModel.fromJson(response);
+        return finalList;
+      }
+      return null;
+    } catch (e) {
+      print("error in search team member converstion:$e");
       return null;
     }
   }
@@ -168,7 +186,54 @@ class TeamController {
         return null;
       }
     } catch (e) {
-      debugPrint("join team exception:" + e.toString());
+      debugPrint("remove member from team exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future removeCardFormTeam(String? cardId, String? teamId) async {
+    try {
+      var formData = FormData.fromMap({
+        "card_id": cardId,
+        "team_id": teamId,
+      });
+      var response = await services.postResponse(
+          url: '/team/remove/card', formData: formData);
+      if (response != null) {
+        Globals.showToastMethod(msg: response['message']);
+
+        return response;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("remove card from team exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future addCardToTeam(String? cardId, String? teamId) async {
+    try {
+      var formData = FormData.fromMap({
+        "card_id": cardId,
+        "team_id": teamId,
+      });
+      var response = await services.postResponse(
+          url: '/team/add/card', formData: formData);
+      if (response != null) {
+        print(response.toString());
+        Globals.showToastMethod(msg: "Card Added Successfully!");
+
+        return response;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("add team card exception:" + e.toString());
       return null;
     }
   }
