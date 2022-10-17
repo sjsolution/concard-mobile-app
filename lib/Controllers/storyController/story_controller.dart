@@ -3,15 +3,32 @@ import '../../Services/network.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
+import 'dart:io';
 
 class StoryController {
   ServicesClass services = ServicesClass();
 
+  Future<void> addStory({String? text, File? file}) async {
+    try {
+      var formData = FormData.fromMap({'text': text, 'image': await MultipartFile.fromFile(file!.path.toString())});
+      var response = await services.postResponse(url: '/story/store', formData: formData);
+      if (response != null) {
+        Globals.showToastMethod(msg: "Status Uploaded");
+        return null;
+      } else {
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("Story exception:" + e.toString());
+      return null;
+    }
+  }
+
   Future<StoryModel?> getStories() async {
     try {
       var formData = FormData.fromMap({});
-      var response =
-          await services.postResponse(url: '/story/list', formData: formData);
+      var response = await services.postResponse(url: '/story/list', formData: formData);
       if (response != null) {
         debugPrint("this is story response");
         print(response.toString());
@@ -19,8 +36,7 @@ class StoryController {
         Globals.storyModel = storyModel;
         return storyModel;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {

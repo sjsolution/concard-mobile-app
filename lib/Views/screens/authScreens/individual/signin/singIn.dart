@@ -45,14 +45,7 @@ class _SignInState extends State<SignIn> {
                       width: size.width,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                            primaryblue,
-                            primarycolor,
-                            prmryblue,
-                            primarygreen
-                          ])),
+                              begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [primaryblue, primarycolor, prmryblue, primarygreen])),
                       child: Container(
                         margin: EdgeInsets.only(top: size.height * 0.07),
                         child: Column(
@@ -66,10 +59,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             Text(
                               'C O N C A R D',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: size.height * 0.02,
-                                  fontFamily: "Mbold"),
+                              style: TextStyle(color: Colors.white, fontSize: size.height * 0.02, fontFamily: "Mbold"),
                             ),
                             Text(
                               "Now You're Connected",
@@ -89,10 +79,7 @@ class _SignInState extends State<SignIn> {
                   // height: size.height * 0.7,
                   width: size.width,
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15))),
+                      color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15))),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -102,10 +89,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         Text(
                           'Sign In',
-                          style: TextStyle(
-                              fontSize: size.height * 0.025,
-                              fontFamily: "Msemibold",
-                              color: txtcolr),
+                          style: TextStyle(fontSize: size.height * 0.025, fontFamily: "Msemibold", color: txtcolr),
                         ),
                         const SizedBox(
                           height: 20,
@@ -129,25 +113,20 @@ class _SignInState extends State<SignIn> {
                             },
                             maxLines: 1,
                             decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(
-                                    top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold",
-                                    color: infocolor),
+                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
                                 prefixIcon: Image.asset(
                                   email_icon,
                                   color: Colors.grey,
                                 ),
                                 hintText: 'Email',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25))),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                           SizedBox(
+                        SizedBox(
                           height: size.height * 0.09,
                           width: size.width * 0.85,
                           child: TextFormField(
@@ -167,32 +146,23 @@ class _SignInState extends State<SignIn> {
                             obscureText: true,
                             maxLines: 1,
                             decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(
-                                    top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold",
-                                    color: infocolor),
+                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
                                 prefixIcon: Image.asset(
                                   paswrd_icon,
                                   color: Colors.grey,
                                 ),
                                 hintText: 'Password',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25))),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
                           ),
                         ),
-                     
                         Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.05,
-                              right: size.width * 0.09),
+                          padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.09),
                           child: Row(
                             children: [
                               Checkbox(
                                 // checkColor: Colors.white,
-                                fillColor:
-                                    MaterialStateProperty.all(signupclor_dark),
+                                fillColor: MaterialStateProperty.all(signupclor_dark),
                                 value: isSelected,
                                 shape: const CircleBorder(),
                                 onChanged: (bool? value) {
@@ -203,24 +173,16 @@ class _SignInState extends State<SignIn> {
                               ),
                               Text(
                                 'Remember me',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    color: infocolor,
-                                    fontFamily: "Msemibold"),
+                                style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
                               ),
                               const Spacer(),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          ForgetPassword()));
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ForgetPassword()));
                                 },
                                 child: Text(
                                   'Forget password?',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      fontFamily: "Msemibold",
-                                      color: txtcolr),
+                                  style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: txtcolr),
                                 ),
                               ),
                             ],
@@ -235,27 +197,23 @@ class _SignInState extends State<SignIn> {
                                 if (formKey.currentState!.validate()) {
                                   context.read<AppProvider>().setLoadingTrue();
                                   loaderWidget(context, size);
-                                  var result = await AuthenticationClass()
-                                      .login(emailControll.text.trim(),
-                                          passwordControll.text.trim());
+                                  var result = await AuthenticationClass().login(emailControll.text.trim(), passwordControll.text.trim());
                                   context.read<AppProvider>().setLoadingFalse();
                                   Navigator.pop(context);
                                   if (result != null) {
                                     emailControll.clear();
                                     passwordControll.clear();
                                     if (result['user_type'] == "1") {
+                                      //Individual Member Screen
                                       Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  const BottomNavigationScreen()),
+                                          MaterialPageRoute(builder: (BuildContext context) => const BottomNavigationScreen()),
                                           (Route<dynamic> route) => false);
                                     } else {
+                                      //Company HomePage
                                       Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  const CompanyProfileScreen()),
+                                          MaterialPageRoute(builder: (BuildContext context) => const CompanyProfileScreen()),
                                           (Route<dynamic> route) => false);
                                     }
                                   }
@@ -263,20 +221,13 @@ class _SignInState extends State<SignIn> {
                               }
                             },
                             child: CustomButton(
-                                text: 'Sign in',
-                                color1: signupclor_light,
-                                color2: signupclor_dark,
-                                textcolor1: bckgrnd,
-                                textcolor2: bckgrnd)),
+                                text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
                         Text(
                           "Now You're Connected !",
-                          style: TextStyle(
-                              fontSize: size.height * 0.015,
-                              color: signupclor_dark,
-                              fontFamily: 'Stf'),
+                          style: TextStyle(fontSize: size.height * 0.015, color: signupclor_dark, fontFamily: 'Stf'),
                         )
                       ],
                     ),

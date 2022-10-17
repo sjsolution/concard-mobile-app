@@ -21,8 +21,7 @@ class StoryViewClass extends StatefulWidget {
   State<StoryViewClass> createState() => _StoryViewClassState();
 }
 
-class _StoryViewClassState extends State<StoryViewClass>
-    with SingleTickerProviderStateMixin {
+class _StoryViewClassState extends State<StoryViewClass> with SingleTickerProviderStateMixin {
   // final story.StoryController controller = story.StoryController();
   final StoryController storyController = StoryController();
 
@@ -73,6 +72,9 @@ class _StoryViewClassState extends State<StoryViewClass>
     super.dispose();
   }
 
+  // String getType = '';
+  var typeOfMedia;
+
   @override
   Widget build(BuildContext context) {
     final Story story = widget.stories[_currentIndex];
@@ -88,31 +90,35 @@ class _StoryViewClassState extends State<StoryViewClass>
               itemCount: widget.stories.length,
               itemBuilder: (context, i) {
                 final Story story = widget.stories[i];
-                print("this is story type");
-                print(story.type);
+                print("this is story type...." + story.type.toString());
+                typeOfMedia = story.file?.split('/');
+                print(typeOfMedia);
                 switch (story.type) {
-                  case "file":
-                    return Image.network(
-                      story.image.toString(),
-                      fit: BoxFit.cover,
-                    );
                   case "text":
                     return Center(
-                      child: Text(story.text.toString(),
-                          style: TextStyle(color: Colors.white)),
+                      child: Text(story.text.toString(), style: TextStyle(color: Colors.white)),
                     );
-                  case "video":
-                    if (_videoController != null &&
-                        _videoController.value.isInitialized) {
-                      return FittedBox(
+                  case "file":
+                    if (typeOfMedia[0] == "image") {
+                      return Image.network(
+                        story.image.toString(),
                         fit: BoxFit.cover,
-                        child: SizedBox(
-                          width: _videoController.value.size.width,
-                          height: _videoController.value.size.height,
-                          child: VideoPlayer(_videoController),
-                        ),
                       );
+                    } else {
+                      if (_videoController != null && _videoController.value.isInitialized) {
+                        return FittedBox(
+                          fit: BoxFit.cover,
+                          child: SizedBox(
+                            width: _videoController.value.size.width,
+                            height: _videoController.value.size.height,
+                            child: VideoPlayer(_videoController),
+                          ),
+                        );
+                      }
                     }
+
+                  // case "video":
+
                 }
                 return const SizedBox.shrink();
               },
@@ -144,10 +150,7 @@ class _StoryViewClassState extends State<StoryViewClass>
                       horizontal: 1.5,
                       vertical: 10.0,
                     ),
-                    child: UserInfo(
-                        user: story,
-                        name: widget.name,
-                        profilePicture: widget.profilePicture),
+                    child: UserInfo(user: story, name: widget.name, profilePicture: widget.profilePicture),
                   ),
                 ],
               ),
@@ -254,9 +257,7 @@ class AnimatedBar extends StatelessWidget {
               children: <Widget>[
                 _buildContainer(
                   double.infinity,
-                  position < currentIndex
-                      ? Colors.white
-                      : Colors.white.withOpacity(0.5),
+                  position < currentIndex ? Colors.white : Colors.white.withOpacity(0.5),
                 ),
                 position == currentIndex
                     ? AnimatedBuilder(

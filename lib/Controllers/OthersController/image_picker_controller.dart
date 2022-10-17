@@ -13,7 +13,7 @@ class ImagePickerMethods {
         return image;
       }
     } catch (e) {
-      // print(e.toString());
+      print(e.toString());
     }
   }
 }
