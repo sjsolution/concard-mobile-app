@@ -1,7 +1,8 @@
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'dart:io';
 
-import 'package:concard/Constants/Colors.dart';
+import 'package:concard/Models/Company/ProductAndServicesModel.dart';
+import 'package:concard/Controllers/compnayControllers/product_and_services_controller.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:flutter/material.dart';
@@ -128,6 +129,15 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  ProductAndServicesModel? _productAndServices;
+  
+  ProductAndServicesModel? get productAndServicesModel => _productAndServices;
+
+  getProductAndServices() async {
+    _productAndServices = await ProductAndServicesController().getProductsAndServices();
+    notifyListeners();
+  }
+
   File? _postImage;
   File? get postImage => _postImage;
   setProfileImage(File? image) {
@@ -180,6 +190,7 @@ class AppProvider extends ChangeNotifier {
     value == 1
         ? commentLikeColor = Colors.blue
         : commentLikeColor = Colors.black;
+
     notifyListeners();
   }
 

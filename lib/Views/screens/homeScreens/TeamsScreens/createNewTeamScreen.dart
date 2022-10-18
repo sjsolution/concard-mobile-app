@@ -40,16 +40,10 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
             Container(
               height: size.height * 0.15,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topCenter,
-                    colors: [signupclor_light, signupclor_dark]),
+                gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
               ),
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.04,
-                    right: size.width * 0.04,
-                    top: size.height * 0.04),
+                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.04),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -71,10 +65,7 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                     // ),
                     Text(
                       'Create new team',
-                      style: TextStyle(
-                          fontSize: size.height * 0.018,
-                          fontFamily: "MBold",
-                          color: bckgrnd),
+                      style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBold", color: bckgrnd),
                     ),
                     // SizedBox(
                     //   width: 110,
@@ -82,16 +73,13 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                     InkWell(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                           context.read<AppProvider>().setLoadingTrue();
+                            context.read<AppProvider>().setLoadingTrue();
                             loaderWidget(context, size);
                             debugPrint(teamNameController.text.toString());
                             debugPrint("Add Memeber:" + switchAdd.toString());
-                            debugPrint(
-                                "Invite Memeber:" + switchInvite.toString());
-                            debugPrint(
-                                "Delete Memeber:" + switchDelete.toString());
-                            debugPrint(
-                                "Remove Memeber:" + switchRemove.toString());
+                            debugPrint("Invite Memeber:" + switchInvite.toString());
+                            debugPrint("Delete Memeber:" + switchDelete.toString());
+                            debugPrint("Remove Memeber:" + switchRemove.toString());
 
                             await TeamController().addTeam(
                               teamIcon: teamIcon != null ? teamIcon!.path : '',
@@ -101,7 +89,7 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                               deleteSharedCard: switchDelete,
                               removeMembers: switchRemove,
                             );
-                              context.read<AppProvider>().setLoadingFalse();
+                            context.read<AppProvider>().setLoadingFalse();
                             Navigator.pop(context);
                           }
                           // Navigator.push(
@@ -130,8 +118,7 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                     topRight: Radius.circular(15),
                   )),
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.04, right: size.width * 0.04),
+                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                 child: ListView(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -153,17 +140,19 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            getImageType(context, () async {
-                              Navigator.pop(context);
-                              app.setProfileImage(teamIcon =
-                                  await ImagePickerMethods()
-                                      .getImage(ImageSource.gallery));
-                            }, () async {
-                              Navigator.pop(context);
-                              app.setProfileImage(teamIcon =
-                                  await ImagePickerMethods()
-                                      .getImage(ImageSource.camera));
-                            });
+                            getImageType(
+                              context,
+                              () async {
+                                Navigator.pop(context);
+                                app.setProfileImage(teamIcon = await ImagePickerMethods().getImage(ImageSource.gallery));
+                              },
+                              () async {
+                                Navigator.pop(context);
+                                app.setProfileImage(teamIcon = await ImagePickerMethods().getImage(ImageSource.camera));
+                              },
+                              false,
+                              () {},
+                            );
                           },
                           child: teamIcon != null
                               ? CircleAvatar(
@@ -200,16 +189,10 @@ class _CreateNewTeamScreenState extends State<CreateNewTeamScreen> {
                             fillColor: Colors.white,
                             focusColor: bckgrnd,
                             hintText: 'Team name',
-                            contentPadding: const EdgeInsets.only(
-                                top: 0.0, left: 22.0, bottom: 2.0),
-                            hintStyle: TextStyle(
-                                fontSize: size.width * 0.04, color: infocolor),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide(color: bckgrnd)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide(color: bckgrnd)),
+                            contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                            hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: bckgrnd)),
+                            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide(color: bckgrnd)),
                           ),
                         ),
                       ),

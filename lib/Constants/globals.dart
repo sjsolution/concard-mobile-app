@@ -30,6 +30,7 @@ String? userType = '';
 String? userId = '';
 String? businessType = '';
 String? id = '1';
+String? profilePic = '';
 PostsListModal? postsListModal;
 CountryCityListModal? countryCityListModal;
 PositionModel? positionModel;

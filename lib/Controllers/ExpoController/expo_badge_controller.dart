@@ -14,7 +14,7 @@ class ExpoController {
     try {
       var formData = FormData.fromMap({'id': id});
       var response = await services.postResponse(
-          url: '/expobadge/detail', formData: formData);
+          url: '/expos/detail', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
         ExpoDetailModel? expoDetailModel =
@@ -39,7 +39,7 @@ class ExpoController {
     try {
       var formData = FormData.fromMap({});
       var response = await services.postResponse(
-          url: '/expobadge/list', formData: formData);
+          url: '/expos/list', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
         ExpoBadgeListModal? expoBadgeListModal =
@@ -64,7 +64,7 @@ class ExpoController {
     try {
       var formData = FormData.fromMap({'filter_by': filter});
       var response = await services.postResponse(
-          url: '/expobadge/filter', formData: formData);
+          url: '/expos/filter', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
         ExpoFilterListModal? expoFilterListModal =

@@ -51,9 +51,11 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
   }
 
   getExpoDetail() async {
+    Globals.expoDetailModel = null;
     Globals.expoDetailModel =
         await ExpoController().getExpoBadgeDetail(widget.id);
-        print('Id.........'+ widget.id.toString());
+    print('Id.........' + widget.id.toString());
+    setState(() {});
   }
 
   @override
@@ -123,24 +125,23 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                     )),
               ],
             ),
-            
-                 Container(
-                    margin: EdgeInsets.only(top: size.height * 0.13),
-                    // height: size.height*0.8,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        color: btnclr,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        )),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
-                      child: Globals.expoDetailModel != null
-                ? Column(
+            Container(
+              margin: EdgeInsets.only(top: size.height * 0.13),
+              // height: size.height*0.8,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: btnclr,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  )),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: size.width * 0.04,
+                    right: size.width * 0.04,
+                    top: size.height * 0.02),
+                child: Globals.expoDetailModel != null
+                    ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
@@ -154,47 +155,58 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                   width: 10,
                                 ),
                                 Column(
-                                  crossAxisAlignment:CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
-                                      radius: size.height * 0.03,
-                                      backgroundImage: NetworkImage(Globals.expoDetailModel!.data!.image.toString()),
-                                                                            backgroundColor: Colors.white,
+                                      radius: size.height * 0.05,
+                                      backgroundImage: NetworkImage(Globals
+                                          .expoDetailModel!.data!.image
+                                          .toString()),
+                                      backgroundColor: Colors.white,
                                     ),
                                     SizedBox(
                                       height: size.height * 0.02,
                                     ),
-                                    Text(
-                                      Globals.expoDetailModel!.data!.badgeName
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.017,
-                                          fontFamily: "Msemibold"),
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.01,
-                                    ),
-                                    Text(
-                                      Globals.expoDetailModel!.data!.location !=
-                                              null
-                                          ? Globals
-                                              .expoDetailModel!.data!.location
-                                              .toString()
-                                          : '',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.014,
-                                          fontFamily: "Stf",
-                                          color: infocolor),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          Globals
+                                              .expoDetailModel!.data!.badgeName
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: size.height * 0.017,
+                                              fontFamily: "Msemibold"),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Text(
+                                          Globals.expoDetailModel!.data!
+                                                      .location !=
+                                                  null
+                                              ? Globals.expoDetailModel!.data!
+                                                  .location
+                                                  .toString()
+                                              : '',
+                                          style: TextStyle(
+                                              fontSize: size.height * 0.014,
+                                              fontFamily: "Stf",
+                                              color: infocolor),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
                                 // SizedBox(
                                 //   width:size.width*0.,
                                 // ),
-                                SvgPicture.asset(
-                                  stylearrw_icon,
-                                  height: size.height * 0.02,
-                                  color: prmryblue,
+                                Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      stylearrw_icon,
+                                      height: size.height * 0.02,
+                                      color: prmryblue,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -268,7 +280,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                           ),
                           Globals.expoDetailModel!.data!.categories != null
                               ? Container(
-                                  height: size.height * 0.15,
+                                  height: size.height,
                                   width: size.width,
                                   decoration: BoxDecoration(
                                     color: bckgrnd,
@@ -276,30 +288,39 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                   ),
                                   child: Globals.expoDetailModel!.data!
                                           .categories!.isNotEmpty
-                                      ? ListView.builder(
+                                      ? GridView.builder(
                                           padding: const EdgeInsets.all(0),
-                                          itemCount: Globals.expoDetailModel!
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 4,
+                                                  crossAxisSpacing: 3,
+                                                  mainAxisSpacing: 3,
+                                                  childAspectRatio: 4/ 4),
+                                                  physics: NeverScrollableScrollPhysics(),
+                                          itemCount:
+                                           
+                                          Globals.expoDetailModel!
                                               .data!.categories!.length,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, catIndex) {
-                                            return Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.02,
-                                                  right: size.width * 0.02,
-                                                  top: size.height * 0.02),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                            color: btnclr,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15)),
-                                                        child: Center(
-                                                            child: Text(
+                                            return Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          color: btnclr,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20)),
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(
+                                                            left:
+                                                                size.width * 0.02,
+                                                            right: size.width *
+                                                                0.02,top: size.height*0.01,bottom: size.width*0.01),
+                                                        child: Text(
+                                                          // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
                                                           Globals
                                                               .expoDetailModel!
                                                               .data!
@@ -311,116 +332,21 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                               fontSize:
                                                                   size.height *
                                                                       0.015,
-                                                              fontFamily:
-                                                                  "Stf"),
-                                                        )),
-                                                        height:
-                                                            size.height * 0.03,
-                                                        width: size.width * 0.2,
+                                                              fontFamily: "Stf"),
+                                                        ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                      // height:
+                                                      //     size.height * 0.03,
+                                                      // width: size.width * 0.2,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             );
                                           })
                                       : const Center(
                                           child: Text('No catogries')),
-                                  // child: Padding(
-                                  //   padding:  EdgeInsets.only(top: size.height*0.02,left: size.width*0.02,right: size.width*0.02),
-                                  //   child: Column(
-                                  //     children: [
-                                  //       Row(
-                                  //         children: [
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //               color: btnclr,
-                                  //               borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('my',style: TextStyle(
-                                  //               fontSize: size.height*0.015,
-                                  //               fontFamily: "Stf"
-                                  //             ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.2,
-                                  //           ),
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //               color: btnclr,
-                                  //               borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('Finance',
-                                  //               style: TextStyle(
-                                  //                   fontSize: size.height*0.015,
-                                  //                   fontFamily: "Stf"
-                                  //               ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.2,
-                                  //           ),
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //               color: btnclr,
-                                  //               borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('Management',
-                                  //               style: TextStyle(
-                                  //                   fontSize: size.height*0.015,
-                                  //                   fontFamily: "Stf"
-                                  //               ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.27,
-                                  //           ),
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //               color: btnclr,
-                                  //               borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('Now',
-                                  //               style: TextStyle(
-                                  //                   fontSize: size.height*0.015,
-                                  //                   fontFamily: "Stf"
-                                  //               ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.15,
-                                  //           ),
-                                  //         ],
-                                  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  //       ),
-                                  //       SizedBox(height: 9,),
-                                  //       Row(
-                                  //         children: [
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //                 color: btnclr,
-                                  //                 borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('Administration',
-                                  //               style: TextStyle(
-                                  //                   fontSize: size.height*0.015,
-                                  //                   fontFamily: "Stf"
-                                  //               ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.3,
-                                  //           ),
-                                  //           SizedBox(width:size.height*0.01,),
-                                  //           Container(
-                                  //             decoration: BoxDecoration(
-                                  //                 color: btnclr,
-                                  //                 borderRadius: BorderRadius.circular(15)
-                                  //             ),
-                                  //             child: Center(child: Text('Now',
-                                  //               style: TextStyle(
-                                  //                   fontSize: size.height*0.015,
-                                  //                   fontFamily: "Stf"
-                                  //               ),)),
-                                  //             height: size.height*0.03,
-                                  //             width: size.width*0.15,
-                                  //           ),
-                                  //         ],
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
+                                 
                                 )
                               : const ShimmerLoadWidget(),
 
@@ -464,23 +390,25 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           width: size.width * 0.02,
                                         ),
                                         Text(
-                                        Globals
-                                                      .expoDetailModel!
-                                                      .data!
-                                                      .dateTime!=null?  DateFormat('EEEE').format(
-                                                  DateTime.parse(Globals
-                                                      .expoDetailModel!
-                                                      .data!
-                                                      .dateTime
-                                                      .toString())) +
-                                              ", " +
-                                              DateFormat.yMMMd()
-                                                  .format(DateTime.parse(Globals
-                                                      .expoDetailModel!
-                                                      .data!
-                                                      .dateTime
-                                                      .toString()))
-                                                  .toString():'',
+                                          Globals.expoDetailModel!.data!
+                                                      .dateTime !=
+                                                  null
+                                              ? DateFormat('EEEE').format(
+                                                      DateTime.parse(Globals
+                                                          .expoDetailModel!
+                                                          .data!
+                                                          .dateTime
+                                                          .toString())) +
+                                                  ", " +
+                                                  DateFormat.yMMMd()
+                                                      .format(DateTime.parse(
+                                                          Globals
+                                                              .expoDetailModel!
+                                                              .data!
+                                                              .dateTime
+                                                              .toString()))
+                                                      .toString()
+                                              : '',
                                           style: TextStyle(
                                               fontSize: size.height * 0.015,
                                               fontFamily: "Msemibold"),
@@ -500,16 +428,17 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           width: size.width * 0.02,
                                         ),
                                         Text(
-                                        Globals
+                                          Globals.expoDetailModel!.data!
+                                                      .dateTime !=
+                                                  null
+                                              ? DateFormat('KK:mm a')
+                                                  .format(DateTime.parse(Globals
                                                       .expoDetailModel!
                                                       .data!
-                                                      .dateTime!=null?  DateFormat('KK:mm a')
-                                              .format(DateTime.parse(Globals
-                                                  .expoDetailModel!
-                                                  .data!
-                                                  .dateTime
-                                                  .toString()))
-                                              .toString():'',
+                                                      .dateTime
+                                                      .toString()))
+                                                  .toString()
+                                              : '',
                                           style: TextStyle(
                                               fontSize: size.height * 0.015,
                                               fontFamily: "Msemibold"),
@@ -570,8 +499,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                             ExpoTopParticipantsScreen(
-                                            )));
+                                            ExpoTopParticipantsScreen()));
                               },
                               child: Row(
                                 children: [
@@ -621,11 +549,18 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                 children: [
                                                   Column(
                                                     children: [
-                                                       CircleAvatar(
+                                                      CircleAvatar(
                                                         radius:
                                                             size.height * 0.02,
-                                     backgroundImage: NetworkImage(Globals.expoDetailModel!.data!.participants![participantsIndex].image.toString())??NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLDP5s2j9u1x86fOb7kNKXanJeMn8zZ30ZQ&usqp=CAU'),
-                                                        
+                                                        backgroundImage: NetworkImage(Globals
+                                                                .expoDetailModel!
+                                                                .data!
+                                                                .participants![
+                                                                    participantsIndex]
+                                                                .image
+                                                                .toString()) ??
+                                                            NetworkImage(
+                                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLDP5s2j9u1x86fOb7kNKXanJeMn8zZ30ZQ&usqp=CAU'),
                                                         backgroundColor:
                                                             infocolor
                                                                 .withOpacity(
@@ -702,10 +637,10 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                             height: 80,
                           )
                         ],
-                      ): const ShimmerLoadWidget(),
-                    ),
-                  )
-                ,
+                      )
+                    : const ShimmerLoadWidget(),
+              ),
+            ),
           ],
         ),
       ),

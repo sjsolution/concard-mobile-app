@@ -17,8 +17,7 @@ class AuthenticationClass {
         'password': password,
       });
 
-      var response =
-          await services.postResponse(url: '/login', formData: formData);
+      var response = await services.postResponse(url: '/login', formData: formData);
       if (response != null) {
         print(response.toString());
         if (response['success']) {
@@ -28,14 +27,13 @@ class AuthenticationClass {
 
           Globals.userId = response['user']['id'].toString();
 
-          localStorageClass.setData(
-              localStorageClass.tokenKey, response['token']);
+          Globals.profilePic = response['user']['profileImage'].toString();
 
-          localStorageClass.setData(
-              localStorageClass.userTypeKey, response['user_type']);
+          localStorageClass.setData(localStorageClass.tokenKey, response['token']);
 
-          localStorageClass.setData(
-              localStorageClass.userIdKey, response['user']['id'].toString());
+          localStorageClass.setData(localStorageClass.userTypeKey, response['user_type']);
+
+          localStorageClass.setData(localStorageClass.userIdKey, response['user']['id'].toString());
 
           Globals.showToastMethod(msg: "${response['message']}");
           return response;
@@ -45,8 +43,7 @@ class AuthenticationClass {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -55,8 +52,7 @@ class AuthenticationClass {
     }
   }
 
-  Future<bool>? registrtion(String? firstName, String? lastName, String? email,
-      String? phoneNumber, String? password, String? userType) async {
+  Future<bool>? registrtion(String? firstName, String? lastName, String? email, String? phoneNumber, String? password, String? userType) async {
     try {
       var formData = FormData.fromMap({
         'first_name': firstName,
@@ -66,8 +62,7 @@ class AuthenticationClass {
         'password': password,
         'user_type': userType,
       });
-      var response =
-          await services.postResponse(url: '/register', formData: formData);
+      var response = await services.postResponse(url: '/register', formData: formData);
       if (response != null) {
         if (response['success']) {
           Globals.token = response['token'];
@@ -76,14 +71,11 @@ class AuthenticationClass {
 
           Globals.userId = response['user']['id'].toString();
 
-          localStorageClass.setData(
-              localStorageClass.tokenKey, response['token']);
+          localStorageClass.setData(localStorageClass.tokenKey, response['token']);
 
-          localStorageClass.setData(
-              localStorageClass.userTypeKey, response['user_type']);
+          localStorageClass.setData(localStorageClass.userTypeKey, response['user_type']);
 
-          localStorageClass.setData(
-              localStorageClass.userIdKey, response['user']['id'].toString());
+          localStorageClass.setData(localStorageClass.userIdKey, response['user']['id'].toString());
 
           Globals.showToastMethod(msg: "${response['message']}");
           return true;
@@ -94,8 +86,7 @@ class AuthenticationClass {
         }
       } else {
         //if server or url not found or something else is happen
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return false;
       }
     } catch (e) {
@@ -136,16 +127,13 @@ class AuthenticationClass {
         'branch_id': branchId,
         'headquater_id': headQuaterId,
       });
-      var response =
-          await services.postResponse(url: '/register', formData: formData);
+      var response = await services.postResponse(url: '/register', formData: formData);
       if (response != null) {
         if (response['success']) {
           Globals.token = response['token'];
           Globals.userType = response['user_type'];
-          localStorageClass.setData(
-              localStorageClass.tokenKey, response['token']);
-          localStorageClass.setData(
-              localStorageClass.userTypeKey, response['user_type']);
+          localStorageClass.setData(localStorageClass.tokenKey, response['token']);
+          localStorageClass.setData(localStorageClass.userTypeKey, response['user_type']);
           Globals.showToastMethod(msg: "${response['message']}");
           return true;
         } else {
@@ -155,8 +143,7 @@ class AuthenticationClass {
         }
       } else {
         //if server or url not found or something else is happen
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return false;
       }
     } catch (e) {
@@ -168,8 +155,7 @@ class AuthenticationClass {
   verifyEmailExist(String? email) async {
     try {
       var formData = FormData.fromMap({'email': email});
-      final response =
-          await services.postResponse(formData: formData, url: '/email-exist');
+      final response = await services.postResponse(formData: formData, url: '/email-exist');
       // print( '${globals.baseurl}Customer/VerifyEmailAddress?email=$email');
 
       if (response != null) {
@@ -204,8 +190,7 @@ class AuthenticationClass {
   verifyEmailAndSendOTP(String? email) async {
     try {
       var formData = FormData.fromMap({'email': email});
-      final response =
-          await services.postResponse(formData: formData, url: '/sendotp');
+      final response = await services.postResponse(formData: formData, url: '/sendotp');
       // print( '${globals.baseurl}Customer/VerifyEmailAddress?email=$email');
 
       if (response != null) {
@@ -221,8 +206,7 @@ class AuthenticationClass {
   verifyOTP(String? email, String? otp) async {
     try {
       var formData = FormData.fromMap({'email': email, 'otp': otp});
-      final response =
-          await services.postResponse(formData: formData, url: '/verifyotp');
+      final response = await services.postResponse(formData: formData, url: '/verifyotp');
       // print( '${globals.baseurl}Customer/VerifyEmailAddress?email=$email');
 
       if (response != null) {
@@ -237,11 +221,9 @@ class AuthenticationClass {
 
   createNewPassword(String? email, String? password, String? cPassword) async {
     try {
-      var formData = FormData.fromMap(
-          {'email': email, 'password': password, 'confirm_password': password});
+      var formData = FormData.fromMap({'email': email, 'password': password, 'confirm_password': password});
       print(formData.fields);
-      final response = await services.postResponse(
-          formData: formData, url: '/reset-password');
+      final response = await services.postResponse(formData: formData, url: '/reset-password');
       if (response != null) {
         return response;
       }
