@@ -20,6 +20,7 @@ import 'package:flutter/services.dart';
 import 'package:concard/Views/screens/intialScreens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:concard/Controllers/providers/story_provider.dart';
 // import 'firebase_options.dart';
 
 Future<void> main(List<String> args) async {
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AppProvider()),
+        ChangeNotifierProvider(create: (context) => StoryProvider()),
       ],
       child: MaterialApp(
         title: "Concard",
@@ -51,8 +53,7 @@ class MyApp extends StatelessWidget {
           '/signIn': (context) => const SignIn(),
           '/choiceClass': (context) => const SignupChoiceClass(),
           '/companyBusinessType': (context) => SelectBuisness(),
-          '/compnaySigup': (context) =>
-              CompanyAdminSignup(), //CompanySignUpHomeScreen(),
+          '/compnaySigup': (context) => CompanyAdminSignup(), //CompanySignUpHomeScreen(),
           '/aboutCompany': (context) => AboutCompanySignup(),
           '/companyMobileVeri': (context) => const CompanyMobileVerification(),
           '/intialScreen': (context) => const SignupScreen(),

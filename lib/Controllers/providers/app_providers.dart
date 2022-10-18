@@ -1,8 +1,10 @@
+import 'package:concard/Constants/globals.dart' as Globals;
 import 'dart:io';
 
 import 'package:concard/Models/Company/ProductAndServicesModel.dart';
 import 'package:concard/Controllers/compnayControllers/product_and_services_controller.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
+import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -185,8 +187,12 @@ class AppProvider extends ChangeNotifier {
   Color commentLikeColor = Colors.black;
   setCommentValue(int index, int value) {
     isCommentLikeList![index] = value;
-    value == 1 ? commentLikeColor = Colors.blue : commentLikeColor = Colors.black;
+    value == 1
+        ? commentLikeColor = Colors.blue
+        : commentLikeColor = Colors.black;
+
     notifyListeners();
   }
+
 
 }

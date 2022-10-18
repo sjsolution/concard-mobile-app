@@ -107,11 +107,11 @@ class InviteToJoinScreen extends StatelessWidget {
                   shareTileWidget(size, () async {
                     print(inviteLink!);
                     await GeneralMethodsDart()
-                        .shareData(inviteLink, 'Share this with you friends.');
+                        .shareDataMethod(inviteLink, 'Share this with you friends.');
                   }, sms_icon, 'Invite via SMS'),
                   shareTileWidget(size, () async {
                     await GeneralMethodsDart()
-                        .shareData(inviteLink, 'Share this with you friends.');
+                        .shareDataMethod(inviteLink, 'Share this with you friends.');
                   }, mail_icon, 'Invite via Email'),
                   shareTileWidget(size, () async {
                     await GeneralMethodsDart().copyData(inviteLink);

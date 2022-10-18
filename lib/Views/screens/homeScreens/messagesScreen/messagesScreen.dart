@@ -289,8 +289,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (_) => InboxScreen(
-                                conversation:
-                                    conversationsList.conversations![index],
+                                recipientId: conversationsList
+                                    .conversations![index].recipient!.id
+                                    .toString(),
                               )))
                   // showMenu(context: context, position: , items: <PopupMenuEntry>);
                 },

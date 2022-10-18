@@ -109,12 +109,12 @@ class CardController {
       });
       var response =
           await services.postResponse(url: '/card/favourites', formData: formData);
-      debugPrint(response.toString());
+      // debugPrint(response.toString());
       if (response != null) {
         CardListModal? cardListModal= CardListModal.fromJson(response);
         Globals.cardListModal = cardListModal;
-        print('Favourites Card Added SuccessFully' + cardListModal.toString());
-        print('' + Globals.addCardModal.toString());
+        // print('Favourites Card Added SuccessFully' + cardListModal.toString());
+        // print('' + Globals.addCardModal.toString());
 
         return cardListModal;
       } else {
