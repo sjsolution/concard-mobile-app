@@ -188,4 +188,5 @@ class AppProvider extends ChangeNotifier {
     value == 1 ? commentLikeColor = Colors.blue : commentLikeColor = Colors.black;
     notifyListeners();
   }
+
 }

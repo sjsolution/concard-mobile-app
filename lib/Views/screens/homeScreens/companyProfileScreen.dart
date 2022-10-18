@@ -380,7 +380,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const RatingReviewScreen()));
+                          // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => RatingReviewScreen(userId: '',)));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

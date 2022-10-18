@@ -653,7 +653,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        const RatingReviewScreen()));
+                                       RatingReviewScreen(userId: appPro!.indiviualProfileModel!.profileData!.id.toString(),)));
                           },
                           child: Row(
                             children: [
