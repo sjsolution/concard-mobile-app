@@ -44,7 +44,7 @@ class SingleCardData {
   final String? updatedAt;
   final List<SocialLinks>? socialLinks;
   final List<ProductSevices>? productSevices;
-  final User? user;
+  final SingleCardUser? singleCardUser;
 
   SingleCardData({
     this.id,
@@ -69,7 +69,7 @@ class SingleCardData {
     this.updatedAt,
     this.socialLinks,
     this.productSevices,
-    this.user,
+    this.singleCardUser,
   });
 
   SingleCardData.fromJson(Map<String, dynamic> json)
@@ -95,7 +95,7 @@ class SingleCardData {
       updatedAt = json['updated_at'] as String?,
       socialLinks = (json['social_links'] as List?)?.map((dynamic e) => SocialLinks.fromJson(e as Map<String,dynamic>)).toList(),
       productSevices = (json['product_sevices'] as List?)?.map((dynamic e) => ProductSevices.fromJson(e as Map<String,dynamic>)).toList(),
-      user = (json['user'] as Map<String,dynamic>?) != null ? User.fromJson(json['user'] as Map<String,dynamic>) : null;
+      singleCardUser = (json['user'] as Map<String,dynamic>?) != null ? SingleCardUser.fromJson(json['user'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -120,7 +120,7 @@ class SingleCardData {
     'updated_at' : updatedAt,
     'social_links' : socialLinks?.map((e) => e.toJson()).toList(),
     'product_sevices' : productSevices?.map((e) => e.toJson()).toList(),
-    'user' : user?.toJson()
+    'user' : singleCardUser?.toJson()
   };
 }
 
@@ -198,7 +198,7 @@ class ProductSevices {
   };
 }
 
-class User {
+class SingleCardUser {
   final int? id;
   final String? firstName;
   final String? lastName;
@@ -225,7 +225,7 @@ class User {
   final String? logo;
   final String? profileImage;
 
-  User({
+  SingleCardUser({
     this.id,
     this.firstName,
     this.lastName,
@@ -253,7 +253,7 @@ class User {
     this.profileImage,
   });
 
-  User.fromJson(Map<String, dynamic> json)
+  SingleCardUser.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
       firstName = json['first_name'] as String?,
       lastName = json['last_name'] as String?,

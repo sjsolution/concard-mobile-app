@@ -280,74 +280,53 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                           ),
                           Globals.expoDetailModel!.data!.categories != null
                               ? Container(
-                                  height: size.height,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                    color: bckgrnd,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Globals.expoDetailModel!.data!
-                                          .categories!.isNotEmpty
-                                      ? GridView.builder(
-                                          padding: const EdgeInsets.all(0),
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 4,
-                                                  crossAxisSpacing: 3,
-                                                  mainAxisSpacing: 3,
-                                                  childAspectRatio: 4/ 4),
-                                                  physics: NeverScrollableScrollPhysics(),
-                                          itemCount:
-                                           
-                                          Globals.expoDetailModel!
-                                              .data!.categories!.length,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, catIndex) {
-                                            return Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          color: btnclr,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20)),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.only(
-                                                            left:
-                                                                size.width * 0.02,
-                                                            right: size.width *
-                                                                0.02,top: size.height*0.01,bottom: size.width*0.01),
-                                                        child: Text(
-                                                          // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
-                                                          Globals
-                                                              .expoDetailModel!
-                                                              .data!
-                                                              .categories![
-                                                                  catIndex]
-                                                              .title
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.015,
-                                                              fontFamily: "Stf"),
+                            // height: size.height,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: bckgrnd,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child:Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Wrap(
+                              children: 
+                                List.generate(
+                              Globals.expoDetailModel?.data?.categories?.length == null ? 0:Globals.expoDetailModel!.data!.categories!.length ,(index){
+                                                  return Padding(
+                                                    padding: const EdgeInsets.all(3),
+                                                    child: Container(
+                                                        decoration: BoxDecoration(
+                                                            color: btnclr,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(20)),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  size.width * 0.02,
+                                                              right: size.width *
+                                                                  0.02,top: size.height*0.01,bottom: size.width*0.01),
+                                                          child: Text(
+                                                            // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
+                                                 Globals.expoDetailModel!.data!.categories![index].title
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    size.height *
+                                                                        0.015,
+                                                                fontFamily: "Stf"),
+                                                          ),
                                                         ),
+                                                        // height:
+                                                        //     size.height * 0.03,
+                                                        // width: size.width * 0.2,
                                                       ),
-                                                      // height:
-                                                      //     size.height * 0.03,
-                                                      // width: size.width * 0.2,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            );
-                                          })
-                                      : const Center(
-                                          child: Text('No catogries')),
-                                 
-                                )
+                                                  );
+                                                }
+                          ),
+                              
+                          ),
+                            ), )
                               : const ShimmerLoadWidget(),
 
                           SizedBox(

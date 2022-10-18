@@ -8,6 +8,7 @@ import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:concard/Models/Indiviuals/team_list_model.dart';
+import 'package:concard/Models/RatingsModal/add_user_rating_modal.dart';
 import 'package:concard/Models/country_city_list.dart';
 import 'package:concard/Models/employee_count.dart';
 import 'package:concard/Models/Expo/expo_detail_model.dart';
@@ -22,6 +23,8 @@ import '../Models/Expo/expo_filter_list_modal.dart';
 import '../Models/Expo/expobadge_list_model.dart';
 import '../Models/Indiviuals/story_model.dart';
 import 'package:concard/Models/Company/ProductAndServicesModel.dart';
+
+import '../Models/RatingsModal/rating_list_modal.dart';
 
 // String? baseUrl='http://localhost/sj-solutions/concard/api';
 String? baseUrl = 'https://salloumdesign.com/concard/api';
@@ -54,6 +57,8 @@ TeamDetailModel? teamDetailModel;
 SingleCardDetailModal? singleCardDetailModal;
 StoryModel? storyModel;
 ProductAndServicesModel? productAndServicesModel;
+AddUserRatingModal? addUserRatingModal;
+RatingListModal? ratingListModal;
 
 showToastMethod({
   String? msg,
