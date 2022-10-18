@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
+import 'package:concard/Models/Cards/get_cards_for_team_specifically.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/Indiviuals/search_teamlist_model.dart';
 import 'package:concard/Models/Indiviuals/social_links_model.dart';
@@ -234,6 +235,29 @@ class TeamController {
       }
     } catch (e) {
       debugPrint("add team card exception:" + e.toString());
+      return null;
+    }
+  }
+
+  Future<GetCardsForTeam?> forTeamCardsList(String? text) async {
+    try {
+      var formData = FormData.fromMap({
+        "search":text //company_name, field, country, address
+      });
+      var response = await services.postResponse(
+          url: '/team/list/card', formData: formData);
+      if (response != null) {
+        print(response.toString());
+        // Globals.showToastMethod(msg: "Card Added Successfully!");
+        Globals.getCardListForTeam = GetCardsForTeam.fromJson(response);
+        return Globals.getCardListForTeam;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("get cards for team exception:" + e.toString());
       return null;
     }
   }

@@ -9,6 +9,7 @@ import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/post_list_modal.dart';
+import 'package:concard/Views/screens/homeScreens/comment_screen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
@@ -59,7 +60,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<int>? isPostLikeList = [];
-  List<int>? isCommentLikeList = [];
+
   AppProvider? appPro;
   StoryProvider? storyProvider1;
   @override
@@ -458,49 +459,137 @@ class _HomepageState extends State<Homepage> {
                                                         ),
                                                       ),
 
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.015),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          if (isPostLikeList![index] == 1) {
-                                                            isPostLikeList![index] = 0;
-                                                          } else {
-                                                            isPostLikeList![index] = 1;
-                                                          }
-                                                          setState(() {});
-                                                          var result = await PostController().addPostLike(
-                                                            posts[index].id.toString(),
-                                                            // isLikeList![
-                                                            //         index]
-                                                            //     .toString()
-                                                          );
-                                                          if (result['code'] == 200) {
-                                                            setState(() {});
-                                                          }
-                                                          // setState(() {
-                                                          //   likeIndex = !likeIndex;
-                                                          // });
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Image.asset(like_icon,
-                                                                height: size.height * 0.025,
-                                                                color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
-                                                            SizedBox(
-                                                              width: size.width * 0.02,
-                                                            ),
-                                                            Text(
-                                                              'Like (${posts[index].likeCounts})',
-                                                              style: TextStyle(
-                                                                  fontSize: size.height * 0.015,
-                                                                  fontFamily: "Msemibold",
-                                                                  color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
-                                                            ),
-                                                          ],
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * 0.04,
+                                                  right: size.width * 0.04,
+                                                  top: size.height * 0.015),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      if (isPostLikeList![
+                                                              index] ==
+                                                          1) {
+                                                        isPostLikeList![index] =
+                                                            0;
+                                                      } else {
+                                                        isPostLikeList![index] =
+                                                            1;
+                                                      }
+                                                      setState(() {});
+                                                      var result =
+                                                          await PostController()
+                                                              .addPostLike(
+                                                        posts[index]
+                                                            .id
+                                                            .toString(),
+                                                        // isLikeList![
+                                                        //         index]
+                                                        //     .toString()
+                                                      );
+                                                      if (result['code'] ==
+                                                          200) {
+                                                        setState(() {});
+                                                      }
+                                                      // setState(() {
+                                                      //   likeIndex = !likeIndex;
+                                                      // });
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(like_icon,
+                                                            height:
+                                                                size.height *
+                                                                    0.025,
+                                                            color: isPostLikeList![
+                                                                        index] ==
+                                                                    1
+                                                                ? signupclor_dark
+                                                                : infocolor),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.02,
+                                                        ),
+                                                        Text(
+                                                          'Like (${posts[index].likeCounts})',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.015,
+                                                              fontFamily:
+                                                                  "Msemibold",
+                                                              color: isPostLikeList![
+                                                                          index] ==
+                                                                      1
+                                                                  ? signupclor_dark
+                                                                  : infocolor),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      // Navigator.push(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (BuildContext
+                                                      //                 context) =>
+                                                      //             MyPostCommentScreen(
+                                                      //               context:
+                                                      //                   context,
+                                                      //               singlePost:
+                                                      //                   posts[
+                                                      //                       index],
+                                                      //             )));
+                                                      _commentsModalBottomSheet(
+                                                        context,
+                                                        posts[index],
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(
+                                                          comment_icon,
+                                                          height: size.height *
+                                                              0.025,
+                                                          color: infocolor,
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.02,
+                                                        ),
+                                                        Text(
+                                                          'Comment (${posts[index].comments!.length})',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  size.height *
+                                                                      0.015,
+                                                              fontFamily:
+                                                                  "Msemibold",
+                                                              color: infocolor),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Share.share(
+                                                          'https://www.apple.com/app-store/',
+                                                          subject:
+                                                              'Share this app with you friends.');
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(
+                                                          shareicon,
+                                                          height: size.height *
+                                                              0.025,
+                                                          color: infocolor,
+
                                                         ),
                                                       ),
                                                       InkWell(
@@ -604,7 +693,7 @@ class _HomepageState extends State<Homepage> {
   ) {
     var size = MediaQuery.of(context).size;
     List<Comments>? comments = singlePost!.comments;
-
+    // List<bool>? isCommentLikeList = [];
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -636,26 +725,68 @@ class _HomepageState extends State<Homepage> {
                                     itemCount: comments.length,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, index) {
+                                      // commentsList = comments;
+                                      // parentComments.clear();
+                                      // childReplies.clear();
+                                      // parentCommentsId.clear();
+                                      // childRepliesId.clear();
+                                      // isCommentLikeList.clear();
+                                      // repliesApiList =
+                                      //     commentsList[index].replies;
+                                      // for (var comment in commentsList) {
+                                      //   parentComments.add(Comment(
+                                      //       avatar: comment.user!.image,
+                                      //       userName: comment.user!.firstName,
+                                      //       content: comment.text));
+                                      //   parentCommentsId
+                                      //       .add(comment.id.toString());
+                                      //   isCommentLikeList.add(
+                                      //       comment.userLike == 1
+                                      //           ? true
+                                      //           : false);
+                                      // }
+                                      // for (var subComment in repliesApiList) {
+                                      //   childReplies.add(Comment(
+                                      //       avatar: subComment.user!.image,
+                                      //       userName:
+                                      //           subComment.user!.firstName,
+                                      //       content: subComment.text));
+                                      //   childRepliesId
+                                      //       .add(subComment.id.toString());
+                                      // }
+                                      // like pe kam krna
                                       commentsList = comments;
                                       parentComments.clear();
                                       childReplies.clear();
                                       parentCommentsId.clear();
                                       childRepliesId.clear();
-                                      isCommentLikeList!.clear();
-                                      repliesApiList = commentsList[index].replies;
+
+                                      List<bool>? isCommentLikeList = [];
+                                      isCommentLikeList.clear();
+                                      repliesApiList =
+                                          commentsList[index].replies;
                                       for (var comment in commentsList) {
-                                        parentComments
-                                            .add(Comment(avatar: comment.user!.image, userName: comment.user!.firstName, content: comment.text));
-                                        parentCommentsId.add(comment.id.toString());
-                                        isCommentLikeList!.add(comment.userLike);
+                                        parentComments.add(Comment(
+                                            avatar: comment.user!.image,
+                                            userName: comment.user!.firstName,
+                                            content: comment.text));
+                                        parentCommentsId
+                                            .add(comment.id.toString());
+                                        isCommentLikeList.add(
+                                            comment.userLike == 1
+                                                ? true
+                                                : false);
+
                                       }
                                       for (var subComment in repliesApiList) {
                                         childReplies.add(
                                             Comment(avatar: subComment.user!.image, userName: subComment.user!.firstName, content: subComment.text));
                                         childRepliesId.add(subComment.id.toString());
                                       }
-                                      // like pe kam krna
-                                      return CommentTreeWidget<Comment, Comment>(
+
+                                      return CommentTreeWidget<Comment,
+                                          Comment>(
+
                                         Comment(
                                             avatar: '${parentComments[index].avatar}',
                                             userName: '${parentComments[index].userName}',
@@ -753,45 +884,57 @@ class _HomepageState extends State<Homepage> {
                                                         .caption!
                                                         .copyWith(fontWeight: FontWeight.w600, color: Colors.black),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 4,
-                                                  ),
-                                                  Text(
-                                                    '${data.content}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .caption!
-                                                        .copyWith(fontWeight: FontWeight.w300, color: Colors.black),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            DefaultTextStyle(
-                                              style:
-                                                  Theme.of(context).textTheme.caption!.copyWith(color: Colors.grey[700], fontWeight: FontWeight.bold),
-                                              child: Padding(
-                                                padding: EdgeInsets.only(top: size.height * 0.02),
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: size.width * 0.03,
-                                                    ),
-                                                    Text(
-                                                      '3h',
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: size.height * 0.018,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: size.width * 0.03,
-                                                    ),
-                                                    InkWell(
-                                                        onTap: () async {
-                                                          // debugPrint("Comment ID :" + parentCommentsId[index].toString());
-                                                          // debugPrint("Comment Index :" + index.toString());
-                                                          //
-                                                          // debugPrint("Before :" + isCommentLikeList.toString());
+                                                ),
+                                                DefaultTextStyle(
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .caption!
+                                                      .copyWith(
+                                                          color:
+                                                              Colors.grey[700],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top:
+                                                            size.height * 0.02),
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.03,
+                                                        ),
+                                                        Text(
+                                                          '3h',
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize:
+                                                                size.height *
+                                                                    0.018,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.03,
+                                                        ),
+                                                        InkWell(
+                                                            onTap: () async {
+                                                              debugPrint("Comment ID :" +
+                                                                  parentCommentsId[
+                                                                          index]
+                                                                      .toString());
+                                                              debugPrint(
+                                                                  "Comment Index :" +
+                                                                      index
+                                                                          .toString());
+
+                                                              debugPrint("Before :" +
+                                                                  isCommentLikeList
+                                                                      .toString());
+
+                                                              //change comment like button status on frontend
+                                                              //if 0 (dislike) -> 1(like)
+                                                              //if 1 (like)  ->  0 (dislike)
 
                                                           //change comment like button status on frontend
                                                           //if 0 (dislike) -> 1(like)
@@ -805,35 +948,124 @@ class _HomepageState extends State<Homepage> {
                                                           } else {
                                                             setStats(() {
                                                               setState(() {
-                                                                isCommentLikeList![index] = 0;
+
+                                                                setStats(() {});
+                                                                // isCommentLikeList[
+                                                                //         index] =
+                                                                //     !isCommentLikeList[
+                                                                //         index];
+                                                                bool? val =
+                                                                    isCommentLikeList[
+                                                                        index];
+                                                                isCommentLikeList
+                                                                    .removeAt(
+                                                                  index,
+                                                                );
+                                                                isCommentLikeList
+                                                                    .insert(
+                                                                        index,
+                                                                        !val);
+
                                                               });
                                                             });
                                                           }
 
-                                                          setState(() {
-                                                            setStats(() {});
-                                                          });
 
-                                                          debugPrint("After :" + isCommentLikeList.toString());
-                                                          //change comment like  status on backend
+                                                              debugPrint("After :" +
+                                                                  isCommentLikeList
+                                                                      .toString());
+                                                              //change comment like  status on backend
+                                                              // var result =
+                                                              await PostController()
+                                                                  .addCommentLike(
+                                                                parentCommentsId[
+                                                                    index],
+                                                              );
+                                                              // if (result['code'] ==
+                                                              //     200) {
+                                                              //   print(
+                                                              //       "20000000000-------");
+                                                              //   setState(() {});
+                                                              // }
+                                                              setState(() {
+                                                                setStats(() {});
+                                                              });
+                                                              // debugPrint("Comment ID :" +
+                                                              //     parentCommentsId[
+                                                              //             index]
+                                                              //         .toString());
+                                                              // debugPrint(
+                                                              //     "Comment Index :" +
+                                                              //         index
+                                                              //             .toString());
 
-                                                          var result = await PostController().addCommentLike(
-                                                            parentCommentsId[index],
-                                                            // isLikeList![
-                                                            //         index]
-                                                            //     .toString()
-                                                          );
-                                                          if (result['code'] == 200) {
-                                                            setState(() {
-                                                              setStats(() {});
-                                                            });
-                                                          }
-                                                        },
-                                                        child: Text('Like',
-                                                            style: TextStyle(
-                                                                color: isCommentLikeList![index] == 0 ? Colors.black : Colors.blue))), //changed
-                                                    SizedBox(
-                                                      width: size.width * 0.03,
+                                                              // debugPrint("Before :" +
+                                                              //     isCommentLikeList
+                                                              //         .toString());
+
+                                                              // //change comment like button status on frontend
+                                                              // //if 0 (dislike) -> 1(like)
+                                                              // //if 1 (like)  ->  0 (dislike)
+                                                              // if (isCommentLikeList[
+                                                              //     index]) {
+                                                              //   setState(() {
+                                                              //     setStats(() {
+                                                              //       isCommentLikeList[
+                                                              //               index] =
+                                                              //           false;
+                                                              //     });
+                                                              //   });
+                                                              // } else {
+                                                              //   setState(() {
+                                                              //     setStats(() {
+                                                              //       isCommentLikeList[
+                                                              //               index] =
+                                                              //           true;
+                                                              //     });
+                                                              //   });
+                                                              // }
+
+                                                              // setState(() {
+                                                              //   setStats(() {});
+                                                              // });
+
+                                                              // debugPrint("After :" +
+                                                              //     isCommentLikeList
+                                                              //         .toString());
+                                                              // //change comment like  status on backend
+
+                                                              // var result =
+                                                              //     await PostController()
+                                                              //         .addCommentLike(
+                                                              //   parentCommentsId[
+                                                              //       index],
+                                                              //   // isLikeList![
+                                                              //   //         index]
+                                                              //   //     .toString()
+                                                              // );
+                                                              // if (result[
+                                                              //         'code'] ==
+                                                              //     200) {
+                                                              //   setState(() {
+                                                              //     setStats(
+                                                              //         () {});
+                                                              //   });
+                                                              // }
+                                                            },
+                                                            child: Text('Like',
+                                                                style: TextStyle(
+                                                                    color: !isCommentLikeList[
+                                                                            index]
+                                                                        ? Colors
+                                                                            .black
+                                                                        : Colors
+                                                                            .blue))), //changed
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.03,
+                                                        ),
+                                                        Text('Reply'),
+                                                      ],
                                                     ),
                                                     Text('Reply'),
                                                   ],
