@@ -2,21 +2,15 @@ import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
 import 'package:concard/Controllers/indiviualController/team_controllers.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
-import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
-import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
-import 'package:concard/Views/screens/homeScreens/followingCardScreen.dart';
-import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
-import 'package:concard/Views/screens/homeScreens/importCardsScreen.dart';
-import 'package:concard/Views/widgets/customContainer.dart';
+import 'package:concard/Models/Cards/get_cards_for_team_specifically.dart';
+import 'package:concard/Models/Cards/specific_card_model.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../../Constants/colors.dart';
-import '../../../widgets/customButton.dart';
 
 class ViewCardsScreen extends StatefulWidget {
   ViewCardsScreen({Key? key, required this.teamId}) : super(key: key);
@@ -26,30 +20,14 @@ class ViewCardsScreen extends StatefulWidget {
 }
 
 class _ViewCardsScreenState extends State<ViewCardsScreen> {
-  String? isSelect;
   bool? isMore = false;
-  bool? isSelctedt = false;
-  bool? isRadio = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCardList();
-  }
-
-  getCardList() async {
-    Globals.cardListModal = await CardController().cardList('0', '0');
-    print('My Card List........\n' + Globals.cardListModal.toString());
-    setState(() {});
-  }
-
+  String? searchValue;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-          body: Column(
+          body: ListView(
         children: [
           SizedBox(
             height: 30,
@@ -63,6 +41,19 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                 width: size.width * .9,
                 margin: EdgeInsets.only(left: 12.0, right: 12.0),
                 child: TextFormField(
+                  onChanged: (value) async {
+                    if (value.isEmpty) {
+                      searchValue = null;
+                      setState(() {});
+                    } else {
+                      searchValue = value;
+                      // searchConversationsList = await
+                      // ChatController()
+                      //     .searchConversationsList(
+                      //         value.toString().toLowerCase().trim());
+                      setState(() {});
+                    }
+                  },
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -78,7 +69,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                     ),
                     fillColor: Colors.white,
                     filled: true,
-                    hintText: 'Search cards',
+                    hintText: '(company_name, field, country, address)',
                     contentPadding:
                         EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                     hintStyle: TextStyle(
@@ -99,224 +90,202 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
           SizedBox(
             height: size.height * 0.02,
           ),
-          Globals.cardListModal!.cardListData != null
-              ? GestureDetector(
-                  onLongPress: () {
-                    setState(() {
-                      // isRadio=true;
-                    });
-                  },
-                  child: Container(
-                    height: size.height * 0.8,
-                    width: size.width,
-                    margin: EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: ListView.builder(
+          Container(
+            height: size.height * 0.8,
+            width: size.width,
+            margin: EdgeInsets.only(left: 8.0, right: 8.0),
+            child: FutureBuilder<GetCardsForTeam?>(
+                future: searchValue == null
+                    ? TeamController().forTeamCardsList("")
+                    : TeamController().forTeamCardsList(searchValue),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return ShimmerLoadWidget();
+                  } else if (snapshot.data!.cardsList!.isEmpty) {
+                    return Center(
+                      child: Text("There is no Cards available"),
+                    );
+                  } else {
+                    List<CustomCardsModel?> cardsList =
+                        snapshot.data!.cardsList!;
+                    return ListView.builder(
                       padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.vertical,
-                      itemCount:
-                          Globals.cardListModal!.cardListData!.cards!.length,
+                      itemCount: cardsList.length,
                       itemBuilder: (context, index) {
-                        return Globals.cardListModal!.cardListData!.cards !=
-                                null
-                            ? InkWell(
-                                onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (_) =>
-                                  //             ContactProfileViewScreen(
-                                  //                 id: Globals
-                                  //                     .cardListModal!
-                                  //                     .cardListData!
-                                  //                     .cards![index]
-                                  //                     .id
-                                  //                     .toString())));
-                                },
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Column(
+                        return InkWell(
+                          onTap: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (_) =>
+                            //             ContactProfileViewScreen(
+                            //                 id: Globals
+                            //                     .cardListModal!
+                            //                     .cardListData!
+                            //                     .cards![index]
+                            //                     .id
+                            //                     .toString())));
+                          },
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Container(
+                                            height: size.height * 0.1,
+                                            child: Stack(
                                               children: [
-                                                Container(
-                                                  height: size.height * 0.1,
-                                                  child: Stack(
-                                                    children: [
-                                                      ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                          child: Image.asset(
-                                                            deccard,
-                                                            height:
-                                                                size.height *
-                                                                    0.08,
-                                                            fit: BoxFit.cover,
-                                                          )),
-                                                      Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right:
-                                                                  size.width *
-                                                                      0.01,
-                                                              left: size.width *
-                                                                  0.02,
-                                                              top: size.height *
-                                                                  0.015),
-                                                          child: Column(
-                                                            children: [
-                                                              Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Column(
-                                                                    children: [
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                        con_icon,
-                                                                        height: size.height *
-                                                                            0.02,
-                                                                      ),
-                                                                      const SizedBox(
-                                                                          height:
-                                                                              5 //size.height * 0.015,
-                                                                          ),
-                                                                      Text(
-                                                                        "CONCARD",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              size.height * 0.003,
-                                                                          color:
-                                                                              signupclor_dark,
-                                                                          fontFamily:
-                                                                              "Mbold",
-                                                                          letterSpacing:
-                                                                              2,
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height: size.height *
-                                                                            0.004,
-                                                                      ),
-                                                                      PrettyQr(
-                                                                        typeNumber:
-                                                                            4,
-                                                                        size: size.height *
-                                                                            0.01,
-                                                                        data:
-                                                                            '${Globals.cardListModal!.cardListData!.cards![index].userId.toString() ?? "0"}',
-                                                                        errorCorrectLevel:
-                                                                            QrErrorCorrectLevel.M,
-                                                                        roundEdges:
-                                                                            true,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.01),
-                                                                  Container(
-                                                                    height: size
-                                                                            .height *
-                                                                        0.06,
-                                                                    width: 1,
+                                                ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Image.asset(
+                                                      deccard,
+                                                      height:
+                                                          size.height * 0.08,
+                                                      fit: BoxFit.cover,
+                                                    )),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right:
+                                                            size.width * 0.01,
+                                                        left: size.width * 0.02,
+                                                        top: size.height *
+                                                            0.015),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Column(
+                                                              children: [
+                                                                SvgPicture
+                                                                    .asset(
+                                                                  con_icon,
+                                                                  height:
+                                                                      size.height *
+                                                                          0.02,
+                                                                ),
+                                                                const SizedBox(
+                                                                    height:
+                                                                        5 //size.height * 0.015,
+                                                                    ),
+                                                                Text(
+                                                                  "CONCARD",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.003,
                                                                     color:
-                                                                        cgreen,
+                                                                        signupclor_dark,
+                                                                    fontFamily:
+                                                                        "Mbold",
+                                                                    letterSpacing:
+                                                                        2,
                                                                   ),
-                                                                  SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.02),
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              size.height * 0.007,
-                                                                          color:
-                                                                              signupclor_dark,
-                                                                          fontFamily:
-                                                                              "Mbold",
-                                                                        ),
-                                                                      ),
-                                                                      Text(
-                                                                        "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              size.height * 0.007,
-                                                                          color:
-                                                                              signupclor_dark,
-                                                                          fontFamily:
-                                                                              "Stf",
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                          height:
-                                                                              1 //size.height * 0.01,
-                                                                          ),
-                                                                      Row(
-                                                                        children: [
-                                                                          Column(
-                                                                              children: [
-                                                                                SvgPicture.asset(
-                                                                                  location_icon,
-                                                                                  height: size.height * 0.006,
-                                                                                ),
-                                                                              ]),
-                                                                          const SizedBox(
-                                                                            width:
-                                                                                1, //size.width * 0.015,
-                                                                          ),
-                                                                          Column(
-                                                                              children: [
-                                                                                SizedBox(
-                                                                                  width: size.width * 0.15,
-                                                                                  child: Text(
-                                                                                    "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
-                                                                                    style: TextStyle(
-                                                                                      fontSize: size.height * 0.006,
-                                                                                      color: signupclor_dark,
-                                                                                      fontFamily: "Mbold",
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ]),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height: size.height *
-                                                                            0.001,
-                                                                      ),
-                                                                      Row(
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.004,
+                                                                ),
+                                                                PrettyQr(
+                                                                  typeNumber: 4,
+                                                                  size:
+                                                                      size.height *
+                                                                          0.01,
+                                                                  data:
+                                                                      '${cardsList[index]!.userId.toString()}',
+                                                                  errorCorrectLevel:
+                                                                      QrErrorCorrectLevel
+                                                                          .M,
+                                                                  roundEdges:
+                                                                      true,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.01),
+                                                            Container(
+                                                              height:
+                                                                  size.height *
+                                                                      0.06,
+                                                              width: 1,
+                                                              color: cgreen,
+                                                            ),
+                                                            SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.02),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  "${cardsList[index]!.username.toString()}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.007,
+                                                                    color:
+                                                                        signupclor_dark,
+                                                                    fontFamily:
+                                                                        "Mbold",
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "${cardsList[index]!.jobTitle.toString()}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        size.height *
+                                                                            0.007,
+                                                                    color:
+                                                                        signupclor_dark,
+                                                                    fontFamily:
+                                                                        "Stf",
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    height:
+                                                                        1 //size.height * 0.01,
+                                                                    ),
+                                                                Row(
+                                                                  children: [
+                                                                    Column(
                                                                         children: [
                                                                           SvgPicture
                                                                               .asset(
-                                                                            phonecall_icon,
+                                                                            location_icon,
                                                                             height:
                                                                                 size.height * 0.006,
                                                                           ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                size.width * 0.01,
-                                                                          ),
+                                                                        ]),
+                                                                    const SizedBox(
+                                                                      width:
+                                                                          1, //size.width * 0.015,
+                                                                    ),
+                                                                    Column(
+                                                                        children: [
                                                                           SizedBox(
                                                                             width:
                                                                                 size.width * 0.15,
                                                                             child:
                                                                                 Text(
-                                                                              Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
+                                                                              "${cardsList[index]!.address.toString()}",
                                                                               style: TextStyle(
                                                                                 fontSize: size.height * 0.006,
                                                                                 color: signupclor_dark,
@@ -324,183 +293,218 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ],
+                                                                        ]),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.001,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    SvgPicture
+                                                                        .asset(
+                                                                      phonecall_icon,
+                                                                      height: size
+                                                                              .height *
+                                                                          0.006,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: size
+                                                                              .width *
+                                                                          0.01,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: size
+                                                                              .width *
+                                                                          0.15,
+                                                                      child:
+                                                                          Text(
+                                                                        "${cardsList[index]!.mobileNo}",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              size.height * 0.006,
+                                                                          color:
+                                                                              signupclor_dark,
+                                                                          fontFamily:
+                                                                              "Mbold",
+                                                                        ),
                                                                       ),
-                                                                      SizedBox(
-                                                                        height: size.height *
-                                                                            0.001,
-                                                                      ),
-                                                                      Row(
-                                                                        children: [
-                                                                          Image
-                                                                              .asset(
-                                                                            email_icon,
-                                                                            height:
-                                                                                size.height * 0.005,
-                                                                            color:
-                                                                                signupclor_dark,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.001,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Image.asset(
+                                                                      email_icon,
+                                                                      height: size
+                                                                              .height *
+                                                                          0.005,
+                                                                      color:
+                                                                          signupclor_dark,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: size
+                                                                              .width *
+                                                                          0.01,
+                                                                    ),
+                                                                    Column(
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              size.width * 0.15,
+                                                                          child:
+                                                                              Text(
+                                                                            cardsList[index]!.email.toString(),
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: size.height * 0.004,
+                                                                              color: signupclor_dark,
+                                                                              fontFamily: "Mbold",
+                                                                            ),
                                                                           ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                size.width * 0.01,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      size.height *
+                                                                          0.001,
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    SvgPicture
+                                                                        .asset(
+                                                                      internet_icon,
+                                                                      height: size
+                                                                              .height *
+                                                                          0.005,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: size
+                                                                              .width *
+                                                                          0.01,
+                                                                    ),
+                                                                    Column(
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              size.width * 0.15,
+                                                                          child:
+                                                                              Text(
+                                                                            "${cardsList[index]!.website}",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: size.height * 0.006,
+                                                                              color: signupclor_dark,
+                                                                              fontFamily: "Mbold",
+                                                                            ),
                                                                           ),
-                                                                          Column(
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: size.width * 0.15,
-                                                                                child: Text(
-                                                                                  Globals.cardListModal!.cardListData!.cards![index].email.toString() ?? '',
-                                                                                  style: TextStyle(
-                                                                                    fontSize: size.height * 0.004,
-                                                                                    color: signupclor_dark,
-                                                                                    fontFamily: "Mbold",
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height: size.height *
-                                                                            0.001,
-                                                                      ),
-                                                                      Row(
-                                                                        children: [
-                                                                          SvgPicture
-                                                                              .asset(
-                                                                            internet_icon,
-                                                                            height:
-                                                                                size.height * 0.005,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            width:
-                                                                                size.width * 0.01,
-                                                                          ),
-                                                                          Column(
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: size.width * 0.15,
-                                                                                child: Text(
-                                                                                  "${Globals.cardListModal!.cardListData!.cards![index].website}",
-                                                                                  style: TextStyle(
-                                                                                    fontSize: size.height * 0.006,
-                                                                                    color: signupclor_dark,
-                                                                                    fontFamily: "Mbold",
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ],
-                                                                          )
-                                                                        ],
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          )),
-                                                    ],
-                                                  ),
-                                                ),
+                                                                        )
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )),
                                               ],
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.05,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  Globals
-                                                      .cardListModal!
-                                                      .cardListData!
-                                                      .cards![index]
-                                                      .companyName
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.015,
-                                                      fontFamily: "MBold"),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.02,
-                                                ),
-                                                Text(
-                                                  '${Globals.cardListModal!.cardListData!.cards![index].companyName}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.01,
-                                                      fontFamily: "Msemibold",
-                                                      color: infocolor),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                Text(
-                                                  '${Globals.cardListModal!.cardListData!.cards![index].email}',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.01,
-                                                      fontFamily: "Msemibold",
-                                                      color: infocolor),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Spacer(),
-                                        InkWell(
-                                          onTap: () async {
-                                            await TeamController()
-                                                .addCardToTeam(
-                                                    Globals
-                                                        .cardListModal!
-                                                        .cardListData!
-                                                        .cards![index]
-                                                        .id
-                                                        .toString(),
-                                                    widget.teamId);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: size.height * 0.03,
-                                            width: size.width * 0.15,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: gradientgreen),
-                                                color: btnclr,
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: Container(
-                                              // margin: EdgeInsets.only(left: size.width*0.04),
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                'Add',
-                                                style: TextStyle(
-                                                    color: gradientgreen,
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Msemibold'),
-                                              ),
                                             ),
                                           ),
-                                        )
-                                      ],
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: size.width * 0.05,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${cardsList[index]!.companyName}",
+                                            style: TextStyle(
+                                                fontSize: size.height * 0.015,
+                                                fontFamily: "MBold"),
+                                          ),
+                                          SizedBox(
+                                            height: size.height * 0.02,
+                                          ),
+                                          Text(
+                                            '${cardsList[index]!.companyName}',
+                                            style: TextStyle(
+                                                fontSize: size.height * 0.01,
+                                                fontFamily: "Msemibold",
+                                                color: infocolor),
+                                          ),
+                                          SizedBox(
+                                            height: size.height * 0.01,
+                                          ),
+                                          Text(
+                                            '${cardsList[index]!.email}',
+                                            style: TextStyle(
+                                                fontSize: size.height * 0.01,
+                                                fontFamily: "Msemibold",
+                                                color: infocolor),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                    onTap: () async {
+                                      await TeamController().addCardToTeam(
+                                          cardsList[index]!.id.toString(),
+                                          widget.teamId);
+                                      cardsList.removeAt(index);
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: size.height * 0.03,
+                                      width: size.width * 0.15,
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: gradientgreen),
+                                          color: btnclr,
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                      child: Container(
+                                        // margin: EdgeInsets.only(left: size.width*0.04),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Add',
+                                          style: TextStyle(
+                                              color: gradientgreen,
+                                              fontSize: size.height * 0.015,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Msemibold'),
+                                        ),
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              )
-                            : const Center(
-                                child: Text('There is no card'),
-                              );
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
                       },
-                    ),
-                  ),
-                )
-              : const ShimmerLoadWidget(),
+                    );
+                  }
+                }),
+          )
         ],
       )),
     );
@@ -1139,7 +1143,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                       crossAxisAlignment: CrossAxisAlignment.start,
       //                       children: [
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.firstName ?? ''} ${indiviualProfileModel.profileData!.lastName ?? ''}",
+      //                           "${indiviualProfileModel.profileData!.firstName} ${indiviualProfileModel.profileData!.lastName}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.013,
       //                             color: signupclor_dark,
@@ -1147,7 +1151,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                           ),
       //                         ),
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.jobTitle ?? ''}",
+      //                           "${indiviualProfileModel.profileData!.jobTitle}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.015,
       //                             color: signupclor_dark,

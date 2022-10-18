@@ -92,6 +92,7 @@ Future addCommentLike(String? commentId) async {
       var response = await services.postResponse(
           url: '/like/comment-like', formData: formData);
       if (response != null) {
+        debugPrint(response.toString());
         return response;
       } else {
         Globals.showToastMethod(

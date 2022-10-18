@@ -1,6 +1,7 @@
 library my_prj.globals;
 
 import 'package:concard/Models/Cards/card_list_modal.dart';
+import 'package:concard/Models/Cards/get_cards_for_team_specifically.dart';
 import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Models/Company/positions_model.dart';
 import 'package:concard/Models/Cards/add_card_modal.dart';
@@ -45,6 +46,7 @@ ExpoBadgeListModal? expoBadgeListModal;
 ExpoDetailModel? expoDetailModel;
 ExpoFilterListModal? expoFilterListModal;
 AddCardModal? addCardModal;
+GetCardsForTeam? getCardListForTeam;
 CardListModal? cardListModal;
 TeamsListModel? teamsListModel;
 TeamDetailModel? teamDetailModel;

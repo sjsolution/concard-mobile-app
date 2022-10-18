@@ -6,6 +6,7 @@ import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/post_list_modal.dart';
+import 'package:concard/Views/screens/homeScreens/comment_screen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
@@ -55,7 +56,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<int>? isPostLikeList = [];
-  List<int>? isCommentLikeList = [];
+
   AppProvider? appPro;
   @override
   void initState() {
@@ -542,6 +543,18 @@ class _HomepageState extends State<Homepage> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
+                                                      // Navigator.push(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (BuildContext
+                                                      //                 context) =>
+                                                      //             MyPostCommentScreen(
+                                                      //               context:
+                                                      //                   context,
+                                                      //               singlePost:
+                                                      //                   posts[
+                                                      //                       index],
+                                                      //             )));
                                                       _commentsModalBottomSheet(
                                                         context,
                                                         posts[index],
@@ -657,7 +670,7 @@ class _HomepageState extends State<Homepage> {
   ) {
     var size = MediaQuery.of(context).size;
     List<Comments>? comments = singlePost!.comments;
-
+    // List<bool>? isCommentLikeList = [];
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -692,12 +705,43 @@ class _HomepageState extends State<Homepage> {
                                     itemCount: comments.length,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, index) {
+                                      // commentsList = comments;
+                                      // parentComments.clear();
+                                      // childReplies.clear();
+                                      // parentCommentsId.clear();
+                                      // childRepliesId.clear();
+                                      // isCommentLikeList.clear();
+                                      // repliesApiList =
+                                      //     commentsList[index].replies;
+                                      // for (var comment in commentsList) {
+                                      //   parentComments.add(Comment(
+                                      //       avatar: comment.user!.image,
+                                      //       userName: comment.user!.firstName,
+                                      //       content: comment.text));
+                                      //   parentCommentsId
+                                      //       .add(comment.id.toString());
+                                      //   isCommentLikeList.add(
+                                      //       comment.userLike == 1
+                                      //           ? true
+                                      //           : false);
+                                      // }
+                                      // for (var subComment in repliesApiList) {
+                                      //   childReplies.add(Comment(
+                                      //       avatar: subComment.user!.image,
+                                      //       userName:
+                                      //           subComment.user!.firstName,
+                                      //       content: subComment.text));
+                                      //   childRepliesId
+                                      //       .add(subComment.id.toString());
+                                      // }
+                                      // like pe kam krna
                                       commentsList = comments;
                                       parentComments.clear();
                                       childReplies.clear();
                                       parentCommentsId.clear();
                                       childRepliesId.clear();
-                                      isCommentLikeList!.clear();
+                                      List<bool>? isCommentLikeList = [];
+                                      isCommentLikeList.clear();
                                       repliesApiList =
                                           commentsList[index].replies;
                                       for (var comment in commentsList) {
@@ -707,8 +751,10 @@ class _HomepageState extends State<Homepage> {
                                             content: comment.text));
                                         parentCommentsId
                                             .add(comment.id.toString());
-                                        isCommentLikeList!
-                                            .add(comment.userLike);
+                                        isCommentLikeList.add(
+                                            comment.userLike == 1
+                                                ? true
+                                                : false);
                                       }
                                       for (var subComment in repliesApiList) {
                                         childReplies.add(Comment(
@@ -719,7 +765,6 @@ class _HomepageState extends State<Homepage> {
                                         childRepliesId
                                             .add(subComment.id.toString());
                                       }
-                                      // like pe kam krna
                                       return CommentTreeWidget<Comment,
                                           Comment>(
                                         Comment(
@@ -936,55 +981,111 @@ class _HomepageState extends State<Homepage> {
                                                               //change comment like button status on frontend
                                                               //if 0 (dislike) -> 1(like)
                                                               //if 1 (like)  ->  0 (dislike)
-                                                              if (isCommentLikeList![
-                                                                      index] ==
-                                                                  0) {
-                                                                setStats(() {
-                                                                  setState(() {
-                                                                    isCommentLikeList![
-                                                                        index] = 1;
-                                                                  });
-                                                                });
-                                                              } else {
-                                                                setStats(() {
-                                                                  setState(() {
-                                                                    isCommentLikeList![
-                                                                        index] = 0;
-                                                                  });
-                                                                });
-                                                              }
 
                                                               setState(() {
                                                                 setStats(() {});
+                                                                // isCommentLikeList[
+                                                                //         index] =
+                                                                //     !isCommentLikeList[
+                                                                //         index];
+                                                                bool? val =
+                                                                    isCommentLikeList[
+                                                                        index];
+                                                                isCommentLikeList
+                                                                    .removeAt(
+                                                                  index,
+                                                                );
+                                                                isCommentLikeList
+                                                                    .insert(
+                                                                        index,
+                                                                        !val);
                                                               });
 
                                                               debugPrint("After :" +
                                                                   isCommentLikeList
                                                                       .toString());
                                                               //change comment like  status on backend
-
-                                                              var result =
-                                                                  await PostController()
-                                                                      .addCommentLike(
+                                                              // var result =
+                                                              await PostController()
+                                                                  .addCommentLike(
                                                                 parentCommentsId[
                                                                     index],
-                                                                // isLikeList![
-                                                                //         index]
-                                                                //     .toString()
                                                               );
-                                                              if (result[
-                                                                      'code'] ==
-                                                                  200) {
-                                                                setState(() {
-                                                                  setStats(
-                                                                      () {});
-                                                                });
-                                                              }
+                                                              // if (result['code'] ==
+                                                              //     200) {
+                                                              //   print(
+                                                              //       "20000000000-------");
+                                                              //   setState(() {});
+                                                              // }
+                                                              setState(() {
+                                                                setStats(() {});
+                                                              });
+                                                              // debugPrint("Comment ID :" +
+                                                              //     parentCommentsId[
+                                                              //             index]
+                                                              //         .toString());
+                                                              // debugPrint(
+                                                              //     "Comment Index :" +
+                                                              //         index
+                                                              //             .toString());
+
+                                                              // debugPrint("Before :" +
+                                                              //     isCommentLikeList
+                                                              //         .toString());
+
+                                                              // //change comment like button status on frontend
+                                                              // //if 0 (dislike) -> 1(like)
+                                                              // //if 1 (like)  ->  0 (dislike)
+                                                              // if (isCommentLikeList[
+                                                              //     index]) {
+                                                              //   setState(() {
+                                                              //     setStats(() {
+                                                              //       isCommentLikeList[
+                                                              //               index] =
+                                                              //           false;
+                                                              //     });
+                                                              //   });
+                                                              // } else {
+                                                              //   setState(() {
+                                                              //     setStats(() {
+                                                              //       isCommentLikeList[
+                                                              //               index] =
+                                                              //           true;
+                                                              //     });
+                                                              //   });
+                                                              // }
+
+                                                              // setState(() {
+                                                              //   setStats(() {});
+                                                              // });
+
+                                                              // debugPrint("After :" +
+                                                              //     isCommentLikeList
+                                                              //         .toString());
+                                                              // //change comment like  status on backend
+
+                                                              // var result =
+                                                              //     await PostController()
+                                                              //         .addCommentLike(
+                                                              //   parentCommentsId[
+                                                              //       index],
+                                                              //   // isLikeList![
+                                                              //   //         index]
+                                                              //   //     .toString()
+                                                              // );
+                                                              // if (result[
+                                                              //         'code'] ==
+                                                              //     200) {
+                                                              //   setState(() {
+                                                              //     setStats(
+                                                              //         () {});
+                                                              //   });
+                                                              // }
                                                             },
                                                             child: Text('Like',
                                                                 style: TextStyle(
-                                                                    color: isCommentLikeList![index] ==
-                                                                            0
+                                                                    color: !isCommentLikeList[
+                                                                            index]
                                                                         ? Colors
                                                                             .black
                                                                         : Colors

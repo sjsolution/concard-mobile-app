@@ -17,8 +17,8 @@ import 'package:concard/Controllers/indiviualController/chat_controller.dart';
 import '../../../../Constants/images.dart';
 
 class InboxScreen extends StatefulWidget {
-  InboxScreen({Key? key, required this.conversation}) : super(key: key);
-  Conversations? conversation;
+  InboxScreen({Key? key, required this.recipientId}) : super(key: key);
+  String? recipientId;
 
   @override
   State<InboxScreen> createState() => _InboxScreenState();
@@ -119,7 +119,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             InkWell(
                               onTap: () async {
                                 await URLLauncherClass()
-                                    .launchUrl("+92123456789");
+                                    .launchUrlMethod("+92123456789",'tel');
                               },
                               child: SizedBox(
                                 height: size.height * 0.04,
@@ -171,7 +171,7 @@ class _InboxScreenState extends State<InboxScreen> {
                     Expanded(
                         child: FutureBuilder<ChatListModel?>(
                             future: ChatController().getChatList(
-                                widget.conversation!.recipient!.id.toString()),
+                                widget.recipientId.toString()),
                             builder: (context, snapshot) {
                               ChatListModel? chatsList = snapshot.data;
                               if (snapshot.hasData) {
