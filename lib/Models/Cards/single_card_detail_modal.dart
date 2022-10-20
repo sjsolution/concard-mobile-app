@@ -36,14 +36,17 @@ class SingleCardData {
   final String? postalCode;
   final String? address;
   final String? birthDate;
-  final String? username;
-  final String? meetingDateTime;
-  final dynamic jobTitle;
+  final dynamic username;
+  final dynamic meetingDateTime;
+  final String? jobTitle;
   final String? location;
   final String? createdAt;
   final String? updatedAt;
   final List<SocialLinks>? socialLinks;
   final List<ProductSevices>? productSevices;
+  final Notes? notes;
+  final bool? isFavourite;
+  final bool? isSaved;
   final SingleCardUser? singleCardUser;
 
   SingleCardData({
@@ -69,6 +72,9 @@ class SingleCardData {
     this.updatedAt,
     this.socialLinks,
     this.productSevices,
+    this.notes,
+    this.isFavourite,
+    this.isSaved,
     this.singleCardUser,
   });
 
@@ -87,14 +93,17 @@ class SingleCardData {
       postalCode = json['postal_code'] as String?,
       address = json['address'] as String?,
       birthDate = json['birth_date'] as String?,
-      username = json['username'] as String?,
-      meetingDateTime = json['meeting_date_time'] as String?,
-      jobTitle = json['job_title'],
+      username = json['username'],
+      meetingDateTime = json['meeting_date_time'],
+      jobTitle = json['job_title'] as String?,
       location = json['location'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?,
       socialLinks = (json['social_links'] as List?)?.map((dynamic e) => SocialLinks.fromJson(e as Map<String,dynamic>)).toList(),
       productSevices = (json['product_sevices'] as List?)?.map((dynamic e) => ProductSevices.fromJson(e as Map<String,dynamic>)).toList(),
+      notes = (json['notes'] as Map<String,dynamic>?) != null ? Notes.fromJson(json['notes'] as Map<String,dynamic>) : null,
+      isFavourite = json['is_favourite'] as bool?,
+      isSaved = json['is_saved'] as bool?,
       singleCardUser = (json['user'] as Map<String,dynamic>?) != null ? SingleCardUser.fromJson(json['user'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
@@ -120,6 +129,9 @@ class SingleCardData {
     'updated_at' : updatedAt,
     'social_links' : socialLinks?.map((e) => e.toJson()).toList(),
     'product_sevices' : productSevices?.map((e) => e.toJson()).toList(),
+    'notes' : notes?.toJson(),
+    'is_favourite' : isFavourite,
+    'is_saved' : isSaved,
     'user' : singleCardUser?.toJson()
   };
 }
@@ -198,6 +210,45 @@ class ProductSevices {
   };
 }
 
+class Notes {
+  final int? id;
+  final String? parentId;
+  final String? parentType;
+  final String? userId;
+  final String? text;
+  final String? createdAt;
+  final String? updatedAt;
+
+  Notes({
+    this.id,
+    this.parentId,
+    this.parentType,
+    this.userId,
+    this.text,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Notes.fromJson(Map<String, dynamic> json)
+    : id = json['id'] as int?,
+      parentId = json['parent_id'] as String?,
+      parentType = json['parent_type'] as String?,
+      userId = json['user_id'] as String?,
+      text = json['text'] as String?,
+      createdAt = json['created_at'] as String?,
+      updatedAt = json['updated_at'] as String?;
+
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'parent_id' : parentId,
+    'parent_type' : parentType,
+    'user_id' : userId,
+    'text' : text,
+    'created_at' : createdAt,
+    'updated_at' : updatedAt
+  };
+}
+
 class SingleCardUser {
   final int? id;
   final String? firstName;
@@ -224,6 +275,7 @@ class SingleCardUser {
   final String? card;
   final String? logo;
   final String? profileImage;
+  final double? userRating;
 
   SingleCardUser({
     this.id,
@@ -251,6 +303,7 @@ class SingleCardUser {
     this.card,
     this.logo,
     this.profileImage,
+    this.userRating,
   });
 
   SingleCardUser.fromJson(Map<String, dynamic> json)
@@ -278,7 +331,8 @@ class SingleCardUser {
       image = json['image'] as String?,
       card = json['card'] as String?,
       logo = json['logo'] as String?,
-      profileImage = json['profileImage'] as String?;
+      profileImage = json['profileImage'] as String?,
+      userRating = json['user_rating'] as double?;
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -305,6 +359,7 @@ class SingleCardUser {
     'image' : image,
     'card' : card,
     'logo' : logo,
-    'profileImage' : profileImage
+    'profileImage' : profileImage,
+    'user_rating' : userRating
   };
 }

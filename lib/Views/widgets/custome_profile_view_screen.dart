@@ -658,11 +658,11 @@ class _CustomProfileViewScreenState extends State<CustomProfileViewScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const RatingReviewScreen()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //              RatingReviewScreen()));
                           },
                           child: Row(
                             children: [
