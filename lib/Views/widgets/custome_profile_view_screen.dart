@@ -662,7 +662,6 @@ class _CustomProfileViewScreenState extends State<CustomProfileViewScreen> {
                             //     context,
                             //     MaterialPageRoute(
                             //         builder: (BuildContext context) =>
-                            //              RatingReviewScreen(userId: ,)));
                           },
                           child: Row(
                             children: [

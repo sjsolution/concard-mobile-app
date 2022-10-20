@@ -178,7 +178,7 @@ List? cardType=[
                                   context,
                                   MaterialPageRoute(
                                       builder: (_) =>
-                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListData!.cards![index].id.toString())));
+                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListData!.cards![index].id.toString() ,)));
                             },
                                         child: Column(
                                           children: [

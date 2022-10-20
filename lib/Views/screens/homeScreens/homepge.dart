@@ -551,6 +551,7 @@ class _HomepageState extends State<Homepage> {
                                                                             index],
                                                                             
                                                                   )));
+
                                                       // _commentsModalBottomSheet(
                                                       //   context,
                                                       //   posts[index],
@@ -599,7 +600,6 @@ class _HomepageState extends State<Homepage> {
                                                   //       ),
                                                   //     ]
                                                   //     ),
-                                                  // ),
                                                       InkWell(
                                                         onTap: () {
                                                           Share.share('https://www.apple.com/app-store/',
@@ -623,6 +623,7 @@ class _HomepageState extends State<Homepage> {
                                                           ],
                                                         ),
                                                       ),
+                                                  
                                                     ],
                                                   ),
                                                 ),
@@ -670,5 +671,4 @@ class _HomepageState extends State<Homepage> {
   List<String> childRepliesId = [];
   var commentsList = [];
   var repliesApiList = [];
- 
 }
