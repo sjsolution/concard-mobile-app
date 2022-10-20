@@ -8,7 +8,7 @@ import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
-import 'package:concard/Models/post_list_modal.dart';
+import 'package:concard/Models/post_list_modal.dart'; 
 import 'package:concard/Views/screens/homeScreens/comment_screen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
@@ -206,6 +206,7 @@ class _HomepageState extends State<Homepage> {
                         builder: (context, storyProvider, child) {
                           return Row(
                             children: [
+                              SizedBox(width: 20,),
                               GestureDetector(
                                 onTap: () {
                                   _openBottomSheet();
@@ -435,6 +436,9 @@ class _HomepageState extends State<Homepage> {
                                                         height: 0,
                                                       )
                                                     : Text(posts[index].text.toString()),
+                                                 SizedBox(
+                                                  height: 10,
+                                                ),
                                                 (posts[index].image == null || posts[index].image == "")
                                                     ? const SizedBox(
                                                         height: 0,
@@ -531,20 +535,23 @@ class _HomepageState extends State<Homepage> {
                                                       ],
                                                     ),
                                                   ),
+
                                                   InkWell(
                                                     onTap: () {
-                                                      // Navigator.push(
-                                                      //     context,
-                                                      //     MaterialPageRoute(
-                                                      //         builder: (BuildContext
-                                                      //                 context) =>
-                                                      //             MyPostCommentScreen(
-                                                      //               context:
-                                                      //                   context,
-                                                      //               singlePost:
-                                                      //                   posts[
-                                                      //                       index],
-                                                      //             )));
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  MyPostCommentScreen(
+                                                                    context:
+                                                                        context,
+                                                                    singlePost:
+                                                                        posts[
+                                                                            index],
+                                                                            
+                                                                  )));
+
                                                       // _commentsModalBottomSheet(
                                                       //   context,
                                                       //   posts[index],
@@ -593,33 +600,6 @@ class _HomepageState extends State<Homepage> {
                                                   //       ),
                                                   //     ]
                                                   //     ),
-                                                  //     ),
-
-                                                      // InkWell(
-                                                      //   onTap: () {
-                                                      //     // _commentsModalBottomSheet(
-                                                      //     //   context,
-                                                      //     //   posts[index],
-                                                      //     // );
-                                                      //   },
-                                                      //   child: Row(
-                                                      //     children: [
-                                                      //       Image.asset(
-                                                      //         comment_icon,
-                                                      //         height: size.height * 0.025,
-                                                      //         color: infocolor,
-                                                      //       ),
-                                                      //       SizedBox(
-                                                      //         width: size.width * 0.02,
-                                                      //       ),
-                                                      //       Text(
-                                                      //         'Comment (${posts[index].comments!.length})',
-                                                      //         style:
-                                                      //             TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                                      //       ),
-                                                      //     ],
-                                                      //   ),
-                                                      // ),
                                                       InkWell(
                                                         onTap: () {
                                                           Share.share('https://www.apple.com/app-store/',
@@ -691,5 +671,4 @@ class _HomepageState extends State<Homepage> {
   List<String> childRepliesId = [];
   var commentsList = [];
   var repliesApiList = [];
-  
 }
