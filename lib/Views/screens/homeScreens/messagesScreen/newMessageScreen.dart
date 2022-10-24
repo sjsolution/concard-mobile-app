@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
@@ -122,7 +123,7 @@ class NewMessageScreen extends StatelessWidget {
                               top: 0.0, left: 22.0, bottom: 2.0),
                           fillColor: bckgrnd,
                           filled: true,
-                          prefixIcon: Image.asset(srch_icon, color: infocolor),
+                          prefixIcon:  Icon(Icons.search,size: size.height*0.05,color: infocolor,),
                           hintStyle: TextStyle(
                               fontSize: size.height * 0.015, color: infocolor),
                           focusedBorder: OutlineInputBorder(

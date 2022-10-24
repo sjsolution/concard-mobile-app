@@ -63,10 +63,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide(color: Colors.black),
                     ),
-                    prefixIcon: Image.asset(
-                      srch_icon,
-                      color: signupclor_dark,
-                    ),
+                    prefixIcon:Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,),
                     fillColor: Colors.white,
                     filled: true,
                     hintText: '(company_name, field, country, address)',

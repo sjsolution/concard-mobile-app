@@ -196,20 +196,28 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                     .toString()
                                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpbz6iSjWmkBiY-Dzq7vWazUn16lI4qiS2Dg&usqp=CAU"),
                                           ),
-                                          Text(
-                                            Globals
-                                                        .singleCardDetailModal!
-                                                        .singleCardData!
-                                                        .username !=
-                                                    null
-                                                ? Globals.singleCardDetailModal!
-                                                    .singleCardData!.username
-                                                    .toString()
-                                                : '',
-                                            style: TextStyle(
-                                                fontFamily: 'MBold',
-                                                fontSize: size.height * 0.02,
-                                                color: bckgrnd),
+                                          SizedBox(height: 10,),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                Globals
+                                                            .singleCardDetailModal!
+                                                            .singleCardData!.singleCardUser!.firstName!=
+                                                        null
+                                                    ? Globals.singleCardDetailModal!
+                                                        .singleCardData!.singleCardUser!.firstName
+                                                        .toString() +  Globals.singleCardDetailModal!
+                                                        .singleCardData!.singleCardUser!.firstName
+                                                        .toString()
+                                                    : '',
+                                                style: TextStyle(
+                                                    fontFamily: 'MBold',
+                                                    fontSize: size.height * 0.015,
+                                                    color: bckgrnd),
+                                              ),
+                                              SizedBox(width: 5,),
+                                                  SvgPicture.asset(safesheld_icon)
+                                            ],
                                           ),
                                           Text(
                                             Globals
@@ -228,15 +236,21 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           ),
                                         ],
                                       ),
-                                      Image.asset(
-                                        safesheld_icon,
-                                      ),
+                                     
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                      Image.asset(
-                                        notify_icon,
+                                      Stack(
+                                        children: [
+                                          SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding:  EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                          
+                                        ],
+                                        
                                       ),
                                       SizedBox(width: size.width * 0.02),
                                       InkWell(

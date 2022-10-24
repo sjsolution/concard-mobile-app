@@ -16,7 +16,6 @@ import '../../../Constants/images.dart';
 
 class AddContactCardsScreen extends StatefulWidget {
   const AddContactCardsScreen({Key? key}) : super(key: key);
-
   @override
   State<AddContactCardsScreen> createState() => _AddContactCardsScreenState();
 }
@@ -32,6 +31,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
 TextEditingController selectedDayController = TextEditingController();
 TextEditingController selectedMonthController = TextEditingController();
 TextEditingController selectedYearController = TextEditingController();
+
 
 TextEditingController meetingDatetimeController = TextEditingController();
 
@@ -71,10 +71,11 @@ TextEditingController meetingDatetimeController = TextEditingController();
   }
 
   var formKey = GlobalKey<FormState>();
-
+  var email;
+  int? index;
   @override
   Widget build(BuildContext context) {
-    var controller = TextEditingController();
+    
     var size = MediaQuery.of(context).size;
     return Consumer<AppProvider>(builder: (context, appPro, _) {
       return Scaffold(
@@ -186,7 +187,7 @@ TextEditingController meetingDatetimeController = TextEditingController();
             ),
             Container(
               margin: EdgeInsets.only(top: size.height * 0.3),
-              // height: size.height*0.8,
+              height: size.height*0.8,
               width: size.width,
               decoration: BoxDecoration(
                   color: btnclr,
@@ -194,7 +195,9 @@ TextEditingController meetingDatetimeController = TextEditingController();
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   )),
-              child: Padding(
+              child: ListView(
+                children: [
+                  Padding(
                 padding: EdgeInsets.only(
                     top: size.height * 0.12,
                     left: size.width * 0.04,
@@ -405,14 +408,30 @@ selectedYearController.clear();                          });
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Tel',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                fontFamily: 'MBold'),
-                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Tel',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.018,
+                                    fontFamily: 'MBold'),
+                              )),
+                               Container(
+                              height: size.height * 0.035,
+                              width: size.width * 0.2,
+                              decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                child: Text(
+                                  'Add +',
+                                  style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                       SizedBox(
                         height: size.height * 0.03,
                       ),
@@ -534,20 +553,55 @@ selectedYearController.clear();                          });
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Email',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'MBold'),
-                          )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Email',
+                                style: TextStyle(
+                                    fontSize: size.height * 0.02,
+                                    fontFamily: 'MBold'),
+                              )),
+                               InkWell(
+                                onTap: (){
+                                    email + 1;
+                                    //  for(int i=0; i<emailList.length; i+1){
+                                    //  emailList.add(
+                                    //    appPro.emailControl.text[i]
+                                    //  );
+                                    //  }
+                                    //     print(emailList.length);
+                                       setState(() {
+                                       
+                                     });
+                                    
+                                },
+                                 child: Container(
+                                                             height: size.height * 0.035,
+                                                             width: size.width * 0.2,
+                                                             decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                                                             child: Center(
+                                  child: Text(
+                                    'Add +',
+                                    style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
+                                  ),
+                                                             ),
+                                                           ),
+                               ),
+                        ],
+                      ),
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      SizedBox(
-                        width: size.width,
-                        child: TextFormField(
+                    email!=null? Container(
+                      height: size.height*0.1,
+                       child: ListView.builder(
+                        scrollDirection:Axis.vertical,
+                        itemCount: email!.length,
+                        itemBuilder: (context,index){
+                        return  TextFormField(
                           controller: appPro.emailControl,
                           validator: (String? value) {
                             if (value!.isEmpty) {
@@ -567,8 +621,9 @@ selectedYearController.clear();                          });
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25),
                               )),
-                        ),
-                      ),
+                        );
+                       }),
+                     ):Text('No data'),
                       SizedBox(
                         height: size.height * 0.03,
                       ),
@@ -1098,6 +1153,9 @@ selectedYearController.clear();                          });
                   ),
                 ),
               ),
+            
+                ],
+              )
             ),
             Container(
               margin: EdgeInsets.only(

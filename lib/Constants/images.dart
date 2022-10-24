@@ -19,7 +19,7 @@ var crcle_icon='asset/icons/remembrcircle.png';
 var forgtpsrd_icon='asset/icons/forget.png';
 var viasms_icon='asset/icons/viasms.png';
 var more_icon='asset/icons/more.png';
-var srch_icon='asset/icons/search.png';
+var srchIcon='asset/icons/searchicon.svg';
 var notify_icon='asset/icons/notify.png';
 var unnotify_icon='asset/icons/unnotify.png';
 var crdcrd_icon='asset/icons/crdtcard.png';
@@ -72,7 +72,7 @@ var mycard_icon='asset/images/mycard.png';
 var sms_icon='asset/icons/sms.png';
 var mail_icon='asset/icons/mail.png';
 var link_icon='asset/icons/link.png';
-var safesheld_icon='asset/icons/safeshield.png';
+var safesheld_icon='asset/icons/safeshield.svg';
 var switch_icon='asset/icons/switch.png';
 var planner_icon='asset/icons/planner.png';
 var star_icon='asset/icons/staricon.png';
@@ -158,7 +158,10 @@ var adpec='asset/icons/adpec.png';
 var prfle='asset/images/prfle.jpeg';
 var deccard="asset/images/deccard.png";
 
+//bell icon svg
 
+var bellIcon="asset/icons/bellicon.svg";
+var notifyDot="asset/icons/notificationdot.svg";
 
 
 //social iconassetxs

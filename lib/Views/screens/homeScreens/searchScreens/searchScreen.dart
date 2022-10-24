@@ -52,7 +52,7 @@ class SearchScreen extends StatelessWidget {
                                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SearchResultsScreen()));
                               },
 
-                              child: Image.asset(srch_icon,color: infocolor,)),
+                              child:  SvgPicture.asset(srchIcon,),),
                           fillColor: Colors.white,
                           filled:true,
                           hintText: 'Search concard', contentPadding:

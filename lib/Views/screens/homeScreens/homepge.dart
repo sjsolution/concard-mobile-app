@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
@@ -143,10 +144,7 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SearchScreen()));
                                     },
-                                    child: Image.asset(
-                                      srch_icon,
-                                      height: size.height * 0.04,
-                                    )),
+                                    child:SvgPicture.asset(srchIcon)),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
@@ -154,10 +152,17 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                                     },
-                                    child: Image.asset(
-                                      notify_icon,
-                                      height: size.height * 0.04,
-                                    )),
+                                    child: Stack(
+                                        children: [
+                                          SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding:  EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                          
+                                        ],
+                                        
+                                      ),),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
