@@ -68,10 +68,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide(color: Colors.white),
                             ),
-                            prefixIcon: Image.asset(
-                              srch_icon,
-                              color: signupclor_dark,
-                            ),
+                            prefixIcon:  Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,),
                             fillColor: Colors.white,
                             filled: true,
                             hintText: 'Search cards',

@@ -100,10 +100,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                             ),
                             Row(
                               children: [
-                                Image.asset(
-                                  srch_icon,
-                                  height: 30,
-                                ),
+                                 SvgPicture.asset(srchIcon),
                                 SizedBox(
                                   width: size.width * 0.03,
                                 ),

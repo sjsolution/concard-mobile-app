@@ -43,7 +43,7 @@ class SearchResultsScreen extends StatelessWidget {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SearchScreen()));
                         },
-                        child: Image.asset(srch_icon,height: size.height*0.04,)),
+                        child:  SvgPicture.asset(srchIcon),),
                     SizedBox(width: size.width*0.04,),
                     GestureDetector(
                         onTap: (){
@@ -76,7 +76,7 @@ class SearchResultsScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                      Image.asset(srch_icon,color: cgreen,),
+                       SvgPicture.asset(srchIcon,color: cgreen,),
                         SizedBox(width: 10,),
                         Text(
                           'Search results',

@@ -10,6 +10,7 @@ import 'package:concard/Views/screens/homeScreens/messagesScreen/newMessageScree
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../Constants/colors.dart';
@@ -219,7 +220,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                             fillColor: bckgrnd,
                             filled: true,
                             prefixIcon:
-                                Image.asset(srch_icon, color: infocolor),
+                                 Icon(Icons.search,size: size.height*0.05,color: infocolor,),
                             hintStyle: TextStyle(
                                 fontSize: size.height * 0.015,
                                 color: infocolor),
