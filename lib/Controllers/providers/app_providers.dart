@@ -124,14 +124,6 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  IndiviualProfileModel? _indiviualProfileModel;
-  IndiviualProfileModel? get indiviualProfileModel => _indiviualProfileModel;
-
-  setIndvProfileObj(IndiviualProfileModel? obj) {
-    _indiviualProfileModel = obj;
-    notifyListeners();
-  }
-
   ProductAndServicesModel? _productAndServices;
 
   ProductAndServicesModel? get productAndServicesModel => _productAndServices;
@@ -146,6 +138,14 @@ class AppProvider extends ChangeNotifier {
   List<Comments>? get comments => _comments;
   set commentsSetter(List<Comments>? comment) {
     _comments = comment;
+    notifyListeners();
+  }
+
+  IndiviualProfileModel? _indiviualProfileModel;
+  IndiviualProfileModel? get indiviualProfileModel => _indiviualProfileModel;
+
+  set setIndvProfileObj(IndiviualProfileModel? obj) {
+    _indiviualProfileModel = obj;
     notifyListeners();
   }
 

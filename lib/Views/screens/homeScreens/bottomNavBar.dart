@@ -30,14 +30,13 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   void initState() {
     // TODO: implement initState
     appPro = Provider.of<AppProvider>(context, listen: false);
-    getIntialMethods();
+    getInitialMethods();
     super.initState();
   }
 
-  getIntialMethods() async {
-    IndiviualProfileModel? indiviualProfileModel =
-        await ProfileController().getIndiviualProfile(Globals.userId);
-    appPro!.setIndvProfileObj(indiviualProfileModel);
+  getInitialMethods() async {
+    IndiviualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId);
+    appPro!.setIndvProfileObj = individualProfileModel;
 
     setState(() {});
   }
@@ -68,12 +67,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            bottomItems(size, home_icon, "Home", true,
-                pageIndex == 0 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, home_icon, "Home", true, pageIndex == 0 ? prmryblue : Colors.grey, false, () {
               setPageIndex(0);
             }),
-            bottomItems(size.height, expo_icon, "Expo", true,
-                pageIndex == 1 ? prmryblue : Colors.grey, true, () {
+            bottomItems(size.height, expo_icon, "Expo", true, pageIndex == 1 ? prmryblue : Colors.grey, true, () {
               setPageIndex(1);
             }),
             GestureDetector(
@@ -84,8 +81,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                           margin: EdgeInsets.only(bottom: size.height * 0.1),
                           child: Dialog(
                             alignment: AlignmentDirectional.bottomEnd,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                             //this right here
                             child: Container(
                               height: size.height * 0.2,
@@ -94,13 +90,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                 children: <Widget>[
                                   Container(
                                     child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: size.height * 0.02,
-                                          right: size.width * 0.04,
-                                          left: size.width * 0.04),
+                                      padding: EdgeInsets.only(top: size.height * 0.02, right: size.width * 0.04, left: size.width * 0.04),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             height: size.height * 0.01,
@@ -109,10 +101,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                           // SizedBox(width: 90,),
                                           Text(
                                             'Concard !',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: size.height * 0.02,
-                                                fontFamily: 'MBold'),
+                                            style: TextStyle(color: Colors.black, fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                           ),
                                           // SizedBox(width: 60,),
                                           // Spacer(),
@@ -134,12 +123,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                   Container(
                                     alignment: Alignment.center,
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             GestureDetector(
                                                 onTap: () {
@@ -150,384 +137,460 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                                 onTap: () {
                                                   showDialog(
                                                       context: context,
-                                                      builder:
-                                                          (BuildContext
-                                                                  context) =>
-                                                              Container(
-                                                                margin: EdgeInsets.only(
-                                                                    bottom: size
-                                                                            .height *
-                                                                        0.1),
-                                                                child: Dialog(
-                                                                  alignment:
-                                                                      AlignmentDirectional
-                                                                          .bottomEnd,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              20.0)),
-                                                                  //this right here
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        size.height *
-                                                                            0.3,
-                                                                    width: size
-                                                                        .width,
-                                                                    child:
-                                                                        Column(
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Container(
-                                                                          child:
-                                                                              Padding(
-                                                                            padding: EdgeInsets.only(
-                                                                                right: size.width * 0.04,
-                                                                                top: size.height * 0.02,
-                                                                                left: size.width * 0.04),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Container(
-                                                                                  height: size.height * 0.01,
-                                                                                  width: size.width * 0.03,
-                                                                                ),
-                                                                                // SizedBox(width: 60,),
-                                                                                Text(
-                                                                                  'Connect by NFC',
-                                                                                  style: TextStyle(color: Colors.black, fontSize: size.height * 0.02, fontFamily: 'MBold'),
-                                                                                ),
-                                                                                // SizedBox(width: 50,),
-                                                                                // Spacer(),
-                                                                                GestureDetector(
-                                                                                    onTap: () {
-                                                                                      Navigator.pop(context);
-                                                                                    },
-                                                                                    child: const Icon(
-                                                                                      Icons.close,
-                                                                                      size: 20,
-                                                                                    ))
-                                                                              ],
+                                                      builder: (BuildContext context) => Container(
+                                                            margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                                            child: Dialog(
+                                                              alignment: AlignmentDirectional.bottomEnd,
+                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                                              //this right here
+                                                              child: Container(
+                                                                height: size.height * 0.3,
+                                                                width: size.width,
+                                                                child: Column(
+                                                                  children: <Widget>[
+                                                                    Container(
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                            right: size.width * 0.04,
+                                                                            top: size.height * 0.02,
+                                                                            left: size.width * 0.04),
+                                                                        child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Container(
+                                                                              height: size.height * 0.01,
+                                                                              width: size.width * 0.03,
                                                                             ),
+                                                                            // SizedBox(width: 60,),
+                                                                            Text(
+                                                                              'Connect by NFC',
+                                                                              style: TextStyle(
+                                                                                  color: Colors.black,
+                                                                                  fontSize: size.height * 0.02,
+                                                                                  fontFamily: 'MBold'),
+                                                                            ),
+                                                                            // SizedBox(width: 50,),
+                                                                            // Spacer(),
+                                                                            GestureDetector(
+                                                                                onTap: () {
+                                                                                  Navigator.pop(context);
+                                                                                },
+                                                                                child: const Icon(
+                                                                                  Icons.close,
+                                                                                  size: 20,
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height: 15,
+                                                                    ),
+                                                                    Image.asset(
+                                                                      cnctbynfc_icon,
+                                                                      height: 50,
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height: 15,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 10.0),
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Image.asset(
+                                                                            guidline_icon,
+                                                                            height: 10,
                                                                           ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height:
-                                                                              15,
-                                                                        ),
-                                                                        Image
-                                                                            .asset(
-                                                                          cnctbynfc_icon,
-                                                                          height:
-                                                                              50,
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height:
-                                                                              15,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.only(left: 10.0),
-                                                                          child:
-                                                                              Row(
-                                                                            children: [
-                                                                              Image.asset(
-                                                                                guidline_icon,
-                                                                                height: 10,
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                width: 5,
-                                                                              ),
-                                                                              Text(
-                                                                                'Make sure that both devices are unlocked, close together &\nhave Bluetooth and location turned on. Learn more about\nNearby share.',
-                                                                                style: TextStyle(fontSize: size.height * 0.01, fontFamily: 'Stf', color: signupclor_dark),
-                                                                              ),
-                                                                            ],
+                                                                          const SizedBox(
+                                                                            width: 5,
                                                                           ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height:
-                                                                              15,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.only(
-                                                                              left: 10,
-                                                                              right: 10),
-                                                                          child:
-                                                                              GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              showDialog(
-                                                                                  context: context,
-                                                                                  builder: (BuildContext context) => Container(
-                                                                                        margin: EdgeInsets.only(bottom: size.height * 0.1),
-                                                                                        child: Dialog(
-                                                                                          alignment: AlignmentDirectional.bottomEnd,
-                                                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                                                                          //this right here
-                                                                                          child: Container(
-                                                                                            alignment: Alignment.center,
-                                                                                            height: size.height * 0.3,
-                                                                                            width: size.width,
-                                                                                            child: Padding(
-                                                                                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
-                                                                                              child: Column(
-                                                                                                children: <Widget>[
-                                                                                                  Container(
-                                                                                                    child: Row(
-                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                          Text(
+                                                                            'Make sure that both devices are unlocked, close together &\nhave Bluetooth and location turned on. Learn more about\nNearby share.',
+                                                                            style: TextStyle(
+                                                                                fontSize: size.height * 0.01,
+                                                                                fontFamily: 'Stf',
+                                                                                color: signupclor_dark),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height: 15,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 10, right: 10),
+                                                                      child: GestureDetector(
+                                                                        onTap: () {
+                                                                          showDialog(
+                                                                              context: context,
+                                                                              builder: (BuildContext context) => Container(
+                                                                                    margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                                                                    child: Dialog(
+                                                                                      alignment: AlignmentDirectional.bottomEnd,
+                                                                                      shape: RoundedRectangleBorder(
+                                                                                          borderRadius: BorderRadius.circular(20.0)),
+                                                                                      //this right here
+                                                                                      child: Container(
+                                                                                        alignment: Alignment.center,
+                                                                                        height: size.height * 0.3,
+                                                                                        width: size.width,
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.only(
+                                                                                              left: size.width * 0.04,
+                                                                                              right: size.width * 0.04,
+                                                                                              top: size.height * 0.02),
+                                                                                          child: Column(
+                                                                                            children: <Widget>[
+                                                                                              Container(
+                                                                                                child: Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                  children: [
+                                                                                                    Container(
+                                                                                                      height: size.height * 0.01,
+                                                                                                      width: size.width * 0.03,
+                                                                                                    ),
+                                                                                                    Text(
+                                                                                                      'Exchange Cards',
+                                                                                                      style: TextStyle(
+                                                                                                          color: Colors.black,
+                                                                                                          fontSize: size.height * 0.02,
+                                                                                                          fontFamily: 'MBold'),
+                                                                                                    ),
+                                                                                                    // SizedBox(width: 70,),
+                                                                                                    // Spacer(),
+                                                                                                    GestureDetector(
+                                                                                                        onTap: () {
+                                                                                                          Navigator.pop(context);
+                                                                                                        },
+                                                                                                        child: const Icon(
+                                                                                                          Icons.close,
+                                                                                                          size: 20,
+                                                                                                        ))
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                height: size.height * 0.03,
+                                                                                              ),
+                                                                                              Container(
+                                                                                                width: size.width * 0.6,
+                                                                                                child: Row(
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Column(
                                                                                                       children: [
-                                                                                                        Container(
-                                                                                                          height: size.height * 0.01,
-                                                                                                          width: size.width * 0.03,
+                                                                                                        Image.asset(
+                                                                                                          id_icon,
+                                                                                                        ),
+                                                                                                        SizedBox(
+                                                                                                          height: size.height * 0.02,
                                                                                                         ),
                                                                                                         Text(
-                                                                                                          'Exchange Cards',
-                                                                                                          style: TextStyle(color: Colors.black, fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                                                                                                          'Assem Yamak',
+                                                                                                          style: TextStyle(
+                                                                                                              fontFamily: 'MBold',
+                                                                                                              fontSize: size.height * 0.015),
                                                                                                         ),
-                                                                                                        // SizedBox(width: 70,),
-                                                                                                        // Spacer(),
-                                                                                                        GestureDetector(
-                                                                                                            onTap: () {
-                                                                                                              Navigator.pop(context);
-                                                                                                            },
-                                                                                                            child: const Icon(
-                                                                                                              Icons.close,
-                                                                                                              size: 20,
-                                                                                                            ))
+                                                                                                        Text(
+                                                                                                          '6274239',
+                                                                                                          style: TextStyle(
+                                                                                                              fontFamily: 'Stf',
+                                                                                                              fontSize: size.height * 0.015),
+                                                                                                        ),
                                                                                                       ],
                                                                                                     ),
-                                                                                                  ),
-                                                                                                  SizedBox(
-                                                                                                    height: size.height * 0.03,
-                                                                                                  ),
-                                                                                                  Container(
-                                                                                                    width: size.width * 0.6,
-                                                                                                    child: Row(
-                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                    Container(
+                                                                                                      child: Image.asset(exhngcard_icon),
+                                                                                                      margin: const EdgeInsets.only(top: 10),
+                                                                                                    ),
+                                                                                                    Column(
                                                                                                       children: [
-                                                                                                        Column(
-                                                                                                          children: [
-                                                                                                            Image.asset(
-                                                                                                              id_icon,
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              height: size.height * 0.02,
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              'Assem Yamak',
-                                                                                                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015),
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              '6274239',
-                                                                                                              style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.015),
-                                                                                                            ),
-                                                                                                          ],
+                                                                                                        Image.asset(
+                                                                                                          id_icon,
                                                                                                         ),
-                                                                                                        Container(
-                                                                                                          child: Image.asset(exhngcard_icon),
-                                                                                                          margin: const EdgeInsets.only(top: 10),
+                                                                                                        SizedBox(
+                                                                                                          height: size.height * 0.02,
                                                                                                         ),
-                                                                                                        Column(
-                                                                                                          children: [
-                                                                                                            Image.asset(
-                                                                                                              id_icon,
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              height: size.height * 0.02,
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              'Assem Yamak',
-                                                                                                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015),
-                                                                                                            ),
-                                                                                                            Text(
-                                                                                                              '6274239',
-                                                                                                              style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.015),
-                                                                                                            ),
-                                                                                                          ],
+                                                                                                        Text(
+                                                                                                          'Assem Yamak',
+                                                                                                          style: TextStyle(
+                                                                                                              fontFamily: 'MBold',
+                                                                                                              fontSize: size.height * 0.015),
+                                                                                                        ),
+                                                                                                        Text(
+                                                                                                          '6274239',
+                                                                                                          style: TextStyle(
+                                                                                                              fontFamily: 'Stf',
+                                                                                                              fontSize: size.height * 0.015),
                                                                                                         ),
                                                                                                       ],
                                                                                                     ),
-                                                                                                  ),
-                                                                                                  const SizedBox(
-                                                                                                    height: 30,
-                                                                                                  ),
-                                                                                                  Padding(
-                                                                                                    padding: const EdgeInsets.only(left: 10.0, right: 10),
-                                                                                                    child: GestureDetector(
-                                                                                                      onTap: () {
-                                                                                                        showDialog(
-                                                                                                            context: context,
-                                                                                                            builder: (BuildContext context) => Container(
-                                                                                                                  margin: EdgeInsets.only(bottom: size.height * 0.1),
-                                                                                                                  child: Dialog(
-                                                                                                                    alignment: AlignmentDirectional.bottomEnd,
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                              const SizedBox(
+                                                                                                height: 30,
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                                                                                                child: GestureDetector(
+                                                                                                  onTap: () {
+                                                                                                    showDialog(
+                                                                                                        context: context,
+                                                                                                        builder: (BuildContext context) => Container(
+                                                                                                              margin: EdgeInsets.only(
+                                                                                                                  bottom: size.height * 0.1),
+                                                                                                              child: Dialog(
+                                                                                                                alignment:
+                                                                                                                    AlignmentDirectional.bottomEnd,
 
-                                                                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                                                                                                    //this right here
-                                                                                                                    child: Container(
-                                                                                                                      height: size.height * 0.32,
-                                                                                                                      width: size.width,
-                                                                                                                      child: Padding(
-                                                                                                                        padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
-                                                                                                                        child: Column(
-                                                                                                                          children: <Widget>[
-                                                                                                                            Container(
-                                                                                                                              child: Row(
-                                                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                                                children: [
-                                                                                                                                  Text(
-                                                                                                                                    'Tony is now your contact!',
-                                                                                                                                    style: TextStyle(color: Colors.black, fontSize: size.height * 0.02, fontFamily: 'MBold'),
-                                                                                                                                  ),
-                                                                                                                                  // Spacer(),
-                                                                                                                                  GestureDetector(
-                                                                                                                                      onTap: () {
-                                                                                                                                        Navigator.pop(context);
-                                                                                                                                      },
-                                                                                                                                      child: const Icon(
-                                                                                                                                        Icons.close,
-                                                                                                                                        size: 20,
-                                                                                                                                      ))
-                                                                                                                                ],
+                                                                                                                shape: RoundedRectangleBorder(
+                                                                                                                    borderRadius:
+                                                                                                                        BorderRadius.circular(20.0)),
+                                                                                                                //this right here
+                                                                                                                child: Container(
+                                                                                                                  height: size.height * 0.32,
+                                                                                                                  width: size.width,
+                                                                                                                  child: Padding(
+                                                                                                                    padding: EdgeInsets.only(
+                                                                                                                        left: size.width * 0.04,
+                                                                                                                        right: size.width * 0.04,
+                                                                                                                        top: size.height * 0.02),
+                                                                                                                    child: Column(
+                                                                                                                      children: <Widget>[
+                                                                                                                        Container(
+                                                                                                                          child: Row(
+                                                                                                                            mainAxisAlignment:
+                                                                                                                                MainAxisAlignment
+                                                                                                                                    .spaceBetween,
+                                                                                                                            children: [
+                                                                                                                              Text(
+                                                                                                                                'Tony is now your contact!',
+                                                                                                                                style: TextStyle(
+                                                                                                                                    color:
+                                                                                                                                        Colors.black,
+                                                                                                                                    fontSize:
+                                                                                                                                        size.height *
+                                                                                                                                            0.02,
+                                                                                                                                    fontFamily:
+                                                                                                                                        'MBold'),
                                                                                                                               ),
-                                                                                                                            ),
-                                                                                                                            SizedBox(
-                                                                                                                              height: size.height * 0.02,
-                                                                                                                            ),
-                                                                                                                            Container(
-                                                                                                                              height: size.height * 0.09,
-                                                                                                                              width: size.width * 0.85,
-                                                                                                                              child: TextFormField(
-                                                                                                                                maxLines: 3,
-                                                                                                                                decoration: InputDecoration(
-                                                                                                                                    fillColor: bckgrnd,
-                                                                                                                                    filled: true,
-                                                                                                                                    hintText: 'Write a note',
-                                                                                                                                    hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
-                                                                                                                                    border: OutlineInputBorder(
-                                                                                                                                      borderRadius: BorderRadius.circular(10),
-                                                                                                                                    )),
-                                                                                                                              ),
-                                                                                                                            ),
-                                                                                                                            const SizedBox(
-                                                                                                                              height: 20,
-                                                                                                                            ),
-                                                                                                                            Padding(
-                                                                                                                              padding: const EdgeInsets.only(left: 10, right: 10),
-                                                                                                                              child: Row(
-                                                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                                                children: [
-                                                                                                                                  GestureDetector(
-                                                                                                                                    onTap: () {},
-                                                                                                                                    child: Container(
-                                                                                                                                      alignment: Alignment.center,
-                                                                                                                                      height: size.height * 0.04,
-                                                                                                                                      width: size.width * 0.3,
-                                                                                                                                      decoration: BoxDecoration(
-                                                                                                                                          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                                                                                                                                            bckgrnd,
-                                                                                                                                            bckgrnd,
-                                                                                                                                          ]),
-                                                                                                                                          border: Border.all(color: signupclor_dark),
-                                                                                                                                          color: bckgrnd,
-                                                                                                                                          borderRadius: BorderRadius.circular(30)),
-                                                                                                                                      child: Text(
-                                                                                                                                        'Done',
-                                                                                                                                        style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: signupclor_dark),
-                                                                                                                                      ),
-                                                                                                                                    ),
-                                                                                                                                  ),
-                                                                                                                                  Container(
-                                                                                                                                    alignment: Alignment.center,
-                                                                                                                                    height: size.height * 0.04,
-                                                                                                                                    width: size.width * 0.3,
-                                                                                                                                    decoration: BoxDecoration(
-                                                                                                                                        gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
-                                                                                                                                          bckgrnd,
-                                                                                                                                          bckgrnd,
-                                                                                                                                        ]),
-                                                                                                                                        border: Border.all(color: signupclor_dark),
-                                                                                                                                        color: bckgrnd,
-                                                                                                                                        borderRadius: BorderRadius.circular(30)),
-                                                                                                                                    child: Text(
-                                                                                                                                      'Skip',
-                                                                                                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: signupclor_dark),
-                                                                                                                                    ),
-                                                                                                                                  ),
-                                                                                                                                ],
-                                                                                                                              ),
-                                                                                                                            ),
-                                                                                                                          ],
+                                                                                                                              // Spacer(),
+                                                                                                                              GestureDetector(
+                                                                                                                                  onTap: () {
+                                                                                                                                    Navigator.pop(
+                                                                                                                                        context);
+                                                                                                                                  },
+                                                                                                                                  child: const Icon(
+                                                                                                                                    Icons.close,
+                                                                                                                                    size: 20,
+                                                                                                                                  ))
+                                                                                                                            ],
+                                                                                                                          ),
                                                                                                                         ),
-                                                                                                                      ),
+                                                                                                                        SizedBox(
+                                                                                                                          height: size.height * 0.02,
+                                                                                                                        ),
+                                                                                                                        Container(
+                                                                                                                          height: size.height * 0.09,
+                                                                                                                          width: size.width * 0.85,
+                                                                                                                          child: TextFormField(
+                                                                                                                            maxLines: 3,
+                                                                                                                            decoration:
+                                                                                                                                InputDecoration(
+                                                                                                                                    fillColor:
+                                                                                                                                        bckgrnd,
+                                                                                                                                    filled: true,
+                                                                                                                                    hintText:
+                                                                                                                                        'Write a note',
+                                                                                                                                    hintStyle: TextStyle(
+                                                                                                                                        fontSize:
+                                                                                                                                            size.width *
+                                                                                                                                                0.04,
+                                                                                                                                        color:
+                                                                                                                                            infocolor),
+                                                                                                                                    border:
+                                                                                                                                        OutlineInputBorder(
+                                                                                                                                      borderRadius:
+                                                                                                                                          BorderRadius
+                                                                                                                                              .circular(
+                                                                                                                                                  10),
+                                                                                                                                    )),
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                        const SizedBox(
+                                                                                                                          height: 20,
+                                                                                                                        ),
+                                                                                                                        Padding(
+                                                                                                                          padding:
+                                                                                                                              const EdgeInsets.only(
+                                                                                                                                  left: 10,
+                                                                                                                                  right: 10),
+                                                                                                                          child: Row(
+                                                                                                                            mainAxisAlignment:
+                                                                                                                                MainAxisAlignment
+                                                                                                                                    .spaceBetween,
+                                                                                                                            children: [
+                                                                                                                              GestureDetector(
+                                                                                                                                onTap: () {},
+                                                                                                                                child: Container(
+                                                                                                                                  alignment: Alignment
+                                                                                                                                      .center,
+                                                                                                                                  height:
+                                                                                                                                      size.height *
+                                                                                                                                          0.04,
+                                                                                                                                  width: size.width *
+                                                                                                                                      0.3,
+                                                                                                                                  decoration:
+                                                                                                                                      BoxDecoration(
+                                                                                                                                          gradient: LinearGradient(
+                                                                                                                                              begin: Alignment
+                                                                                                                                                  .topLeft,
+                                                                                                                                              end: Alignment
+                                                                                                                                                  .bottomRight,
+                                                                                                                                              colors: [
+                                                                                                                                                bckgrnd,
+                                                                                                                                                bckgrnd,
+                                                                                                                                              ]),
+                                                                                                                                          border: Border.all(
+                                                                                                                                              color:
+                                                                                                                                                  signupclor_dark),
+                                                                                                                                          color:
+                                                                                                                                              bckgrnd,
+                                                                                                                                          borderRadius:
+                                                                                                                                              BorderRadius.circular(
+                                                                                                                                                  30)),
+                                                                                                                                  child: Text(
+                                                                                                                                    'Done',
+                                                                                                                                    style: TextStyle(
+                                                                                                                                        fontSize:
+                                                                                                                                            size.height *
+                                                                                                                                                0.015,
+                                                                                                                                        fontFamily:
+                                                                                                                                            "Msemibold",
+                                                                                                                                        color:
+                                                                                                                                            signupclor_dark),
+                                                                                                                                  ),
+                                                                                                                                ),
+                                                                                                                              ),
+                                                                                                                              Container(
+                                                                                                                                alignment:
+                                                                                                                                    Alignment.center,
+                                                                                                                                height: size.height *
+                                                                                                                                    0.04,
+                                                                                                                                width:
+                                                                                                                                    size.width * 0.3,
+                                                                                                                                decoration:
+                                                                                                                                    BoxDecoration(
+                                                                                                                                        gradient: LinearGradient(
+                                                                                                                                            begin: Alignment
+                                                                                                                                                .topLeft,
+                                                                                                                                            end: Alignment
+                                                                                                                                                .bottomRight,
+                                                                                                                                            colors: [
+                                                                                                                                              bckgrnd,
+                                                                                                                                              bckgrnd,
+                                                                                                                                            ]),
+                                                                                                                                        border: Border
+                                                                                                                                            .all(
+                                                                                                                                                color:
+                                                                                                                                                    signupclor_dark),
+                                                                                                                                        color:
+                                                                                                                                            bckgrnd,
+                                                                                                                                        borderRadius:
+                                                                                                                                            BorderRadius
+                                                                                                                                                .circular(
+                                                                                                                                                    30)),
+                                                                                                                                child: Text(
+                                                                                                                                  'Skip',
+                                                                                                                                  style: TextStyle(
+                                                                                                                                      fontSize:
+                                                                                                                                          size.height *
+                                                                                                                                              0.015,
+                                                                                                                                      fontFamily:
+                                                                                                                                          "Msemibold",
+                                                                                                                                      color:
+                                                                                                                                          signupclor_dark),
+                                                                                                                                ),
+                                                                                                                              ),
+                                                                                                                            ],
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                      ],
                                                                                                                     ),
                                                                                                                   ),
-                                                                                                                ));
-                                                                                                      },
-                                                                                                      child: Container(
-                                                                                                        alignment: Alignment.center,
-                                                                                                        height: size.height * 0.04,
-                                                                                                        width: size.width,
-                                                                                                        decoration: BoxDecoration(
-                                                                                                            gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ));
+                                                                                                  },
+                                                                                                  child: Container(
+                                                                                                    alignment: Alignment.center,
+                                                                                                    height: size.height * 0.04,
+                                                                                                    width: size.width,
+                                                                                                    decoration: BoxDecoration(
+                                                                                                        gradient: LinearGradient(
+                                                                                                            begin: Alignment.topLeft,
+                                                                                                            end: Alignment.bottomRight,
+                                                                                                            colors: [
                                                                                                               bckgrnd,
                                                                                                               bckgrnd,
                                                                                                             ]),
-                                                                                                            border: Border.all(color: signupclor_dark),
-                                                                                                            color: bckgrnd,
-                                                                                                            borderRadius: BorderRadius.circular(30)),
-                                                                                                        child: Text(
-                                                                                                          'Exchange',
-                                                                                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold', color: signupclor_dark),
-                                                                                                        ),
-                                                                                                      ),
+                                                                                                        border: Border.all(color: signupclor_dark),
+                                                                                                        color: bckgrnd,
+                                                                                                        borderRadius: BorderRadius.circular(30)),
+                                                                                                    child: Text(
+                                                                                                      'Exchange',
+                                                                                                      style: TextStyle(
+                                                                                                          fontSize: size.height * 0.015,
+                                                                                                          fontFamily: 'Msemibold',
+                                                                                                          color: signupclor_dark),
                                                                                                     ),
                                                                                                   ),
-                                                                                                ],
+                                                                                                ),
                                                                                               ),
-                                                                                            ),
+                                                                                            ],
                                                                                           ),
                                                                                         ),
-                                                                                      ));
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              alignment: Alignment.center,
-                                                                              height: size.height * 0.04,
-                                                                              width: size.width * 0.7,
-                                                                              decoration: BoxDecoration(
-                                                                                  gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+                                                                                      ),
+                                                                                    ),
+                                                                                  ));
+                                                                        },
+                                                                        child: Container(
+                                                                          alignment: Alignment.center,
+                                                                          height: size.height * 0.04,
+                                                                          width: size.width * 0.7,
+                                                                          decoration: BoxDecoration(
+                                                                              gradient: LinearGradient(
+                                                                                  begin: Alignment.topLeft,
+                                                                                  end: Alignment.bottomRight,
+                                                                                  colors: [
                                                                                     bckgrnd,
                                                                                     bckgrnd,
                                                                                   ]),
-                                                                                  border: Border.all(color: signupclor_dark),
-                                                                                  color: bckgrnd,
-                                                                                  borderRadius: BorderRadius.circular(30)),
-                                                                              child: Text(
-                                                                                'Connect',
-                                                                                style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015, color: signupclor_dark),
-                                                                              ),
-                                                                            ),
+                                                                              border: Border.all(color: signupclor_dark),
+                                                                              color: bckgrnd,
+                                                                              borderRadius: BorderRadius.circular(30)),
+                                                                          child: Text(
+                                                                            'Connect',
+                                                                            style: TextStyle(
+                                                                                fontFamily: "Msemibold",
+                                                                                fontSize: size.height * 0.015,
+                                                                                color: signupclor_dark),
                                                                           ),
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
-                                                              ));
+                                                              ),
+                                                            ),
+                                                          ));
                                                 },
                                                 child: Image.asset(exchg_icon)),
                                             GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (BuildContext
-                                                                  context) =>
-                                                              NearByScreen()));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => NearByScreen()));
                                                 },
                                                 child: Image.asset(nerby_icon)),
                                           ],
@@ -536,31 +599,23 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                           height: size.height * 0.02,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             Text(
                                               'Scan',
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.015,
-                                                  fontFamily: "Stf"),
+                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                             ),
                                             Text(
                                               'Exchange\n'
                                               '    NFC',
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.015,
-                                                  fontFamily: "Stf"),
+                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                             ),
                                             Text(
                                               'Nearby',
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.015,
-                                                  fontFamily: "Stf"),
+                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                             ),
                                           ],
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                         )
                                       ],
                                     ),
@@ -581,12 +636,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             //      primaryblue, true, () {
             //   setPageIndex(2);
             // }),
-            bottomItems(size, crdcrd_icon, "Card", true,
-                pageIndex == 3 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, crdcrd_icon, "Card", true, pageIndex == 3 ? prmryblue : Colors.grey, false, () {
               setPageIndex(3);
             }),
-            bottomItems(size, msgs_icon, "Messages", true,
-                pageIndex == 4 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, msgs_icon, "Messages", true, pageIndex == 4 ? prmryblue : Colors.grey, false, () {
               setPageIndex(4);
             }),
           ],
@@ -596,8 +649,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     );
   }
 
-  Widget bottomItems(var size, String icon, String title, bool textShow,
-      Color color, bool isSvg, Function() onTap) {
+  Widget bottomItems(var size, String icon, String title, bool textShow, Color color, bool isSvg, Function() onTap) {
     var size = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -614,13 +666,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   color: color,
                 ),
         ),
-        textShow
-            ? Text(title,
-                style: TextStyle(
-                    color: color,
-                    fontSize: size.height * .015,
-                    fontWeight: FontWeight.w600))
-            : const SizedBox(),
+        textShow ? Text(title, style: TextStyle(color: color, fontSize: size.height * .015, fontWeight: FontWeight.w600)) : const SizedBox(),
       ],
     );
   }
