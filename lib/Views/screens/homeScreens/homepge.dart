@@ -607,6 +607,7 @@ class _HomepageState extends State<Homepage> {
   var repliesApiList = [];
 
   ScrollController _scrollController = ScrollController();
+  var commentFocusNode = FocusNode();
 
   void _commentsModalBottomSheet(
     context,
@@ -657,9 +658,9 @@ class _HomepageState extends State<Homepage> {
                                         childRepliesId.clear();
                                         isCommentLikeList!.clear();
                                         repliesApiList = commentsList[index].replies;
-                                        if (_scrollController.hasClients) {
-                                          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-                                        }
+                                        // if (_scrollController.hasClients) {
+                                        //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                        // }
                                         for (var comment in commentsList) {
                                           parentComments
                                               .add(Comment(avatar: comment.user!.image, userName: comment.user!.firstName, content: comment.text));
@@ -885,8 +886,9 @@ class _HomepageState extends State<Homepage> {
                                       child: Container(
                                         child: TextFormField(
                                           controller: commentController,
-
+                                          autofocus: true,
                                           textInputAction: TextInputAction.done,
+                                          focusNode: commentFocusNode,
                                           // onEditingComplete: () {
                                           //   print("on compl");
                                           //   FocusScopeNode? currentFocus =
@@ -912,18 +914,23 @@ class _HomepageState extends State<Homepage> {
 
                                                     // context.read<AppProvider>().getPostData();
                                                     await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
-                                                    commentController.clear();
                                                     // parentComments.add(Comment(
                                                     //     avatar: provider.comments!.last.user!.profileImage,
                                                     //     userName: provider.comments!.last.user!.firstName,
                                                     //     content: provider.comments!.last.text));
+                                                    commentController.clear();
+                                                    commentFocusNode.unfocus();
                                                     PostsListModal? response = await AppProvider().getPostData();
                                                     for (int i = 0; i <= response!.posts!.length; i++) {
                                                       if (response.posts![i].id == singlePost.id) {
                                                         print("Setting Up comments");
                                                         provider.commentsSetter = response.posts![i].comments;
+                                                        if (_scrollController.hasClients) {
+                                                          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                                        }
                                                       }
                                                     }
+                                                    print("going to max intent");
                                                     // provider.commentsSetter = await PostController().
                                                     //     .addPostComment(singlePost.id.toString(), commentController.text.trim());
                                                     setStats(() {});
