@@ -8,6 +8,9 @@ import 'package:concard/Models/Indiviuals/team_detail_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../Models/post_list_modal.dart';
+import '../compnayControllers/postController.dart';
+
 class AppProvider extends ChangeNotifier {
   var fNameControll = TextEditingController();
   var lNameControll = TextEditingController();
@@ -130,12 +133,29 @@ class AppProvider extends ChangeNotifier {
   }
 
   ProductAndServicesModel? _productAndServices;
-  
+
   ProductAndServicesModel? get productAndServicesModel => _productAndServices;
 
   getProductAndServices() async {
     _productAndServices = await ProductAndServicesController().getProductsAndServices();
     notifyListeners();
+  }
+
+  // PostsListModal? _postModel;
+  List<Comments>? _comments;
+  List<Comments>? get comments => _comments;
+  set commentsSetter(List<Comments>? comment) {
+    _comments = comment;
+    notifyListeners();
+  }
+
+  PostsListModal? _postModel;
+  PostsListModal? get postModel => _postModel;
+
+  Future<PostsListModal?> getPostData() async {
+    _postModel = await PostController().getPostList();
+    notifyListeners();
+    return _postModel;
   }
 
   File? _postImage;
@@ -187,12 +207,8 @@ class AppProvider extends ChangeNotifier {
   Color commentLikeColor = Colors.black;
   setCommentValue(int index, int value) {
     isCommentLikeList![index] = value;
-    value == 1
-        ? commentLikeColor = Colors.blue
-        : commentLikeColor = Colors.black;
+    value == 1 ? commentLikeColor = Colors.blue : commentLikeColor = Colors.black;
 
     notifyListeners();
   }
-
-
 }

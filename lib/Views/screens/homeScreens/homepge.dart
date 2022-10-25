@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +8,7 @@ import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
-import 'package:concard/Models/post_list_modal.dart'; 
-import 'package:concard/Views/screens/homeScreens/comment_screen.dart';
+import 'package:concard/Models/post_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
@@ -25,6 +23,7 @@ import '../../../Controllers/OthersController/date_time.dart';
 import '../../../Controllers/OthersController/image_picker_controller.dart';
 import '../../../Controllers/providers/story_provider.dart';
 import '../text_status_add.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -61,13 +60,20 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<int>? isPostLikeList = [];
-
+  List<int>? isCommentLikeList = [];
   AppProvider? appPro;
   StoryProvider? storyProvider1;
   @override
   void initState() {
-    getStoriesList();
+    // getStoriesList();
+    fetchStoriesList();
     super.initState();
+  }
+
+  fetchStoriesList() {
+    Provider.of<StoryProvider>(context, listen: false).getStories();
+    print('model_______________________');
+    print(context.read<StoryProvider>().storyProvider?.data);
   }
 
   File? uploadProfile;
@@ -110,7 +116,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Consumer(
+    return Consumer<AppProvider>(
       builder: (context, provider, _) {
         return Scaffold(
           key: _scaffoldKey,
@@ -144,7 +150,7 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SearchScreen()));
                                     },
-                                    child:SvgPicture.asset(srchIcon)),
+                                    child: SvgPicture.asset(srchIcon)),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
@@ -152,17 +158,10 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                                     },
-                                    child: Stack(
-                                        children: [
-                                          SvgPicture.asset(bellIcon),
-                                      Padding(
-                                        padding:  EdgeInsets.only(left: 10),
-                                        child: SvgPicture.asset(notifyDot),
-                                      ),
-                                          
-                                        ],
-                                        
-                                      ),),
+                                    child: Image.asset(
+                                      notify_icon,
+                                      height: size.height * 0.04,
+                                    )),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
@@ -211,7 +210,6 @@ class _HomepageState extends State<Homepage> {
                         builder: (context, storyProvider, child) {
                           return Row(
                             children: [
-                              SizedBox(width: 20,),
                               GestureDetector(
                                 onTap: () {
                                   _openBottomSheet();
@@ -317,7 +315,7 @@ class _HomepageState extends State<Homepage> {
                                 future: PostController().getPostList(),
                                 builder: (context, snapshot) {
                                   if (snapshot.data != null) {
-                                    var postData = snapshot.data;
+                                    // var postData = snapshot.data;
                                     var posts = snapshot.data!.posts;
 
                                     for (var isLike in posts!) {
@@ -441,9 +439,6 @@ class _HomepageState extends State<Homepage> {
                                                         height: 0,
                                                       )
                                                     : Text(posts[index].text.toString()),
-                                                 SizedBox(
-                                                  height: 10,
-                                                ),
                                                 (posts[index].image == null || posts[index].image == "")
                                                     ? const SizedBox(
                                                         height: 0,
@@ -468,143 +463,78 @@ class _HomepageState extends State<Homepage> {
                                                         ),
                                                       ),
 
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.04,
-                                                  right: size.width * 0.04,
-                                                  top: size.height * 0.015),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      if (isPostLikeList![
-                                                              index] ==
-                                                          1) {
-                                                        isPostLikeList![index] =
-                                                            0;
-                                                      } else {
-                                                        isPostLikeList![index] =
-                                                            1;
-                                                      }
-                                                      setState(() {});
-                                                      var result =
-                                                          await PostController()
-                                                              .addPostLike(
-                                                        posts[index]
-                                                            .id
-                                                            .toString(),
-                                                        // isLikeList![
-                                                        //         index]
-                                                        //     .toString()
-                                                      );
-                                                      if (result['code'] ==
-                                                          200) {
-                                                        setState(() {});
-                                                      }
-                                                      // setState(() {
-                                                      //   likeIndex = !likeIndex;
-                                                      // });
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(like_icon,
-                                                            height:
-                                                                size.height *
-                                                                    0.025,
-                                                            color: isPostLikeList![
-                                                                        index] ==
-                                                                    1
-                                                                ? signupclor_dark
-                                                                : infocolor),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.02,
-                                                        ),
-                                                        Text(
-                                                          'Like (${posts[index].likeCounts})',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.015,
-                                                              fontFamily:
-                                                                  "Msemibold",
-                                                              color: isPostLikeList![
-                                                                          index] ==
-                                                                      1
-                                                                  ? signupclor_dark
-                                                                  : infocolor),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.015),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          if (isPostLikeList![index] == 1) {
+                                                            isPostLikeList![index] = 0;
+                                                          } else {
+                                                            isPostLikeList![index] = 1;
+                                                          }
+                                                          setState(() {});
+                                                          var result = await PostController().addPostLike(
+                                                            posts[index].id.toString(),
+                                                            // isLikeList![
+                                                            //         index]
+                                                            //     .toString()
+                                                          );
 
-                                                  InkWell(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  MyPostCommentScreen(
-                                                                    context:
-                                                                        context,
-                                                                    singlePost:
-                                                                        posts[
-                                                                            index],
-                                                                            
-                                                                  )));
-
-                                                      // _commentsModalBottomSheet(
-                                                      //   context,
-                                                      //   posts[index],
-                                                      // );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          comment_icon,
-                                                          height: size.height *
-                                                              0.025,
-                                                          color: infocolor,
+                                                          if (result['code'] == 200) {
+                                                            setState(() {});
+                                                          }
+                                                          // setState(() {
+                                                          //   likeIndex = !likeIndex;
+                                                          // });
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(like_icon,
+                                                                height: size.height * 0.025,
+                                                                color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
+                                                            SizedBox(
+                                                              width: size.width * 0.02,
+                                                            ),
+                                                            Text(
+                                                              'Like (${posts[index].likeCounts})',
+                                                              style: TextStyle(
+                                                                  fontSize: size.height * 0.015,
+                                                                  fontFamily: "Msemibold",
+                                                                  color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.02,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          provider.commentsSetter = posts[index].comments;
+                                                          _commentsModalBottomSheet(
+                                                            context,
+                                                            posts[index],
+                                                          );
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              comment_icon,
+                                                              height: size.height * 0.025,
+                                                              color: infocolor,
+                                                            ),
+                                                            SizedBox(
+                                                              width: size.width * 0.02,
+                                                            ),
+                                                            Text(
+                                                              'Comment (${posts[index].comments!.length})',
+                                                              style:
+                                                                  TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Text(
-                                                          'Comment (${posts[index].comments!.length})',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.015,
-                                                              fontFamily:
-                                                                  "Msemibold",
-                                                              color: infocolor),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  // InkWell(
-                                                  //   onTap: () {
-                                                  //     Share.share(
-                                                  //         'https://www.apple.com/app-store/',
-                                                  //         subject:
-                                                  //             'Share this app with you friends.');
-                                                  //   },
-                                                  //   child: Row(
-                                                  //     children: [
-                                                  //       Image.asset(
-                                                  //         shareicon,
-                                                  //         height: size.height *
-                                                  //             0.025,
-                                                  //         color: infocolor,
-
-                                                  //       ),
-                                                  //     ]
-                                                  //     ),
+                                                      ),
                                                       InkWell(
                                                         onTap: () {
                                                           Share.share('https://www.apple.com/app-store/',
@@ -628,7 +558,6 @@ class _HomepageState extends State<Homepage> {
                                                           ],
                                                         ),
                                                       ),
-                                                  
                                                     ],
                                                   ),
                                                 ),
@@ -666,7 +595,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  bool? isprofile = false;
+  bool? isProfile = false;
   bool? isSendBtn = false;
   bool? isShow = false;
 
@@ -676,4 +605,353 @@ class _HomepageState extends State<Homepage> {
   List<String> childRepliesId = [];
   var commentsList = [];
   var repliesApiList = [];
+
+  ScrollController _scrollController = ScrollController();
+
+  void _commentsModalBottomSheet(
+    context,
+    Posts? singlePost,
+  ) {
+    var size = MediaQuery.of(context).size;
+    // List<Comments>? comments = singlePost!.comments;
+    // List<Comments>? comments = Provider.of<AppProvider>(context, listen: false).comments;
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return Consumer<AppProvider>(builder: (context, provider, child) {
+            List<Comments>? comments = context.watch<AppProvider>().comments;
+            return Scaffold(body: StatefulBuilder(
+              builder: ((context, StateSetter setStats) {
+                return Container(
+                    // height:size.height*.8,
+                    padding: const EdgeInsets.only(top: 40),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
+                        child: Column(
+                          children: [
+                            comments!.isNotEmpty
+                                ? SizedBox(
+                                    height: size.height * 0.85,
+                                    child: ListView.builder(
+                                      controller: _scrollController,
+                                      padding: const EdgeInsets.all(0),
+                                      itemCount: comments.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        commentsList = comments;
+                                        parentComments.clear();
+                                        childReplies.clear();
+                                        parentCommentsId.clear();
+                                        childRepliesId.clear();
+                                        isCommentLikeList!.clear();
+                                        repliesApiList = commentsList[index].replies;
+                                        if (_scrollController.hasClients) {
+                                          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                        }
+                                        for (var comment in commentsList) {
+                                          parentComments
+                                              .add(Comment(avatar: comment.user!.image, userName: comment.user!.firstName, content: comment.text));
+                                          parentCommentsId.add(comment.id.toString());
+                                          isCommentLikeList!.add(comment.userLike);
+                                        }
+                                        for (var subComment in repliesApiList) {
+                                          childReplies.add(Comment(
+                                              avatar: subComment.user!.image, userName: subComment.user!.firstName, content: subComment.text));
+                                          childRepliesId.add(subComment.id.toString());
+                                        }
+                                        // like pe kam krna
+                                        return CommentTreeWidget<Comment, Comment>(
+                                          Comment(
+                                              avatar: '${parentComments[index].avatar}',
+                                              userName: '${parentComments[index].userName}',
+                                              content: '${parentComments[index].content}'),
+                                          childReplies,
+                                          treeThemeData: const TreeThemeData(lineColor: Colors.grey, lineWidth: 3),
+                                          avatarRoot: (context, data) => PreferredSize(
+                                              child: CircleAvatar(
+                                                radius: 18,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(data.avatar!),
+                                              ),
+                                              preferredSize: const Size.fromRadius(18)),
+                                          avatarChild: (context, data) => PreferredSize(
+                                              child: CircleAvatar(
+                                                radius: 12,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(data.avatar!.toString()),
+                                              ),
+                                              preferredSize: Size.fromRadius(12)),
+                                          contentChild: (context, data) {
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  decoration:
+                                                      BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: size.width * 0.02,
+                                                        top: size.height * 0.01,
+                                                        right: size.width * 0.02,
+                                                        bottom: size.height * 0.02),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          '${data.userName}',
+                                                          style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          '${data.content}',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .caption
+                                                              ?.copyWith(fontWeight: FontWeight.w300, color: Colors.black),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                DefaultTextStyle(
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .caption!
+                                                        .copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(top: 4),
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 8,
+                                                          ),
+                                                          Text(DateTimeManueplate()
+                                                              .giveDifferenceInTime(DateTime.parse(comments[index].createdAt.toString()))
+                                                              .toString()),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          ),
+                                                          Text('Like'),
+                                                          SizedBox(
+                                                            width: 24,
+                                                          ),
+                                                          Text('Reply'),
+                                                        ],
+                                                      ),
+                                                    ))
+                                              ],
+                                            );
+                                          },
+                                          contentRoot: (context, data) {
+                                            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                                decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(12)),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${data.userName}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption!
+                                                          .copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Text(
+                                                      '${data.content}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption!
+                                                          .copyWith(fontWeight: FontWeight.w300, color: Colors.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              DefaultTextStyle(
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption!
+                                                    .copyWith(color: Colors.grey[700], fontWeight: FontWeight.bold),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(top: size.height * 0.02),
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      Text(
+                                                        '3h',
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: size.height * 0.018,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      InkWell(
+                                                          onTap: () async {
+                                                            // debugPrint("Comment ID :" + parentCommentsId[index].toString());
+                                                            // debugPrint("Comment Index :" + index.toString());
+                                                            //
+                                                            // debugPrint("Before :" + isCommentLikeList.toString());
+
+                                                            //change comment like button status on frontend
+                                                            //if 0 (dislike) -> 1(like)
+                                                            //if 1 (like)  ->  0 (dislike)
+                                                            if (isCommentLikeList![index] == 0) {
+                                                              setStats(() {
+                                                                setState(() {
+                                                                  isCommentLikeList![index] = 1;
+                                                                });
+                                                              });
+                                                            } else {
+                                                              setStats(() {
+                                                                setState(() {
+                                                                  isCommentLikeList![index] = 0;
+                                                                });
+                                                              });
+                                                            }
+
+                                                            setState(() {});
+                                                            setStats(() {});
+
+                                                            debugPrint("After :" + isCommentLikeList.toString());
+                                                            //change comment like  status on backend
+
+                                                            var result = await PostController().addCommentLike(
+                                                              parentCommentsId[index],
+                                                              // isLikeList![
+                                                              //         index]
+                                                              //     .toString()
+                                                            );
+                                                            if (result['code'] == 200) {
+                                                              setState(() {});
+                                                              setStats(() {});
+                                                            }
+                                                          },
+                                                          child: Text('Like',
+                                                              style: TextStyle(
+                                                                  color: isCommentLikeList![index] == 0 ? Colors.black : Colors.blue))), //changed
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      Text('Reply'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ]);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : const Center(child: Text("No Comments here")),
+                            // comments.isNotEmpty?const SizedBox(height: 0,):,
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: size.height * 0.03,
+                                      backgroundImage: const NetworkImage(
+                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAsK6oIKzeSCKiqpjv5cuoC4ZC_hJ0FxNkvQ&usqp=CAU"),
+                                    ),
+                                    SizedBox(
+                                      width: size.width * 0.04,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: TextFormField(
+                                          controller: commentController,
+
+                                          textInputAction: TextInputAction.done,
+                                          // onEditingComplete: () {
+                                          //   print("on compl");
+                                          //   FocusScopeNode? currentFocus =
+                                          //       FocusScope.of(context);
+                                          //   if (!currentFocus.hasPrimaryFocus) {
+                                          //     currentFocus.unfocus();
+                                          //     setState(() {
+                                          //       isOpen = false;
+                                          //     });
+                                          //   }
+                                          // },
+                                          // onFieldSubmitted: (String? value){
+                                          //   print("on submitted");
+                                          // },
+                                          decoration: InputDecoration(
+                                              fillColor: Colors.grey.withOpacity(0.2),
+                                              filled: true,
+                                              suffixIcon: InkWell(
+                                                  onTap: () async {
+                                                    // Navigator.pop(context);
+                                                    // parentComments.add(
+                                                    //     Comment(avatar: '', userName: 'Umar', content: commentController.text.trim()));
+
+                                                    // context.read<AppProvider>().getPostData();
+                                                    await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
+                                                    commentController.clear();
+                                                    // parentComments.add(Comment(
+                                                    //     avatar: provider.comments!.last.user!.profileImage,
+                                                    //     userName: provider.comments!.last.user!.firstName,
+                                                    //     content: provider.comments!.last.text));
+                                                    PostsListModal? response = await AppProvider().getPostData();
+                                                    for (int i = 0; i <= response!.posts!.length; i++) {
+                                                      if (response.posts![i].id == singlePost.id) {
+                                                        print("Setting Up comments");
+                                                        provider.commentsSetter = response.posts![i].comments;
+                                                      }
+                                                    }
+                                                    // provider.commentsSetter = await PostController().
+                                                    //     .addPostComment(singlePost.id.toString(), commentController.text.trim());
+                                                    setStats(() {});
+                                                    setState(() {});
+                                                  },
+                                                  child: Icon(
+                                                    Icons.send,
+                                                    size: size.height * 0.03,
+                                                    color: signupclor_light,
+                                                  )),
+                                              hintText: 'Write your comment',
+                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                              hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ));
+              }),
+            ));
+          });
+        });
+  }
 }

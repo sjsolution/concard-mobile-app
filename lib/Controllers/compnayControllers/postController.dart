@@ -14,17 +14,14 @@ class PostController {
   Future<PostsListModal?> getPostList() async {
     try {
       var formData = FormData.fromMap({});
-      var response =
-          await services.postResponse(url: '/posts/list', formData: formData);
+      var response = await services.postResponse(url: '/posts/list', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
-        
         PostsListModal? postsListModal = PostsListModal.fromJson(response);
         Globals.postsListModal = postsListModal;
         return postsListModal;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {
@@ -37,7 +34,7 @@ class PostController {
     try {
       var formData = text == null
           ? FormData.fromMap({
-              "file":await MultipartFile.fromFile(postImage!),
+              "file": await MultipartFile.fromFile(postImage!),
             })
           : postImage == null
               ? FormData.fromMap({
@@ -45,15 +42,13 @@ class PostController {
                 })
               : FormData.fromMap({
                   "text": text,
-                  "file":await MultipartFile.fromFile(postImage),
+                  "file": await MultipartFile.fromFile(postImage),
                 });
-      var response =
-          await services.postResponse(url: '/posts/store', formData: formData);
+      var response = await services.postResponse(url: '/posts/store', formData: formData);
       if (response != null) {
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -68,13 +63,11 @@ class PostController {
         "post_id": postId,
         // "text": isLike,
       });
-      var response = await services.postResponse(
-          url: '/like/post-like', formData: formData);
+      var response = await services.postResponse(url: '/like/post-like', formData: formData);
       if (response != null) {
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -83,20 +76,18 @@ class PostController {
     }
   }
 
-Future addCommentLike(String? commentId) async {
+  Future addCommentLike(String? commentId) async {
     try {
       var formData = FormData.fromMap({
         "comment_id": commentId,
         // "text": isLike,
       });
-      var response = await services.postResponse(
-          url: '/like/comment-like', formData: formData);
+      var response = await services.postResponse(url: '/like/comment-like', formData: formData);
       if (response != null) {
         debugPrint(response.toString());
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -105,19 +96,17 @@ Future addCommentLike(String? commentId) async {
     }
   }
 
-  Future addReplyCommentLike(String? replyCommentId)async {
+  Future addReplyCommentLike(String? replyCommentId) async {
     try {
       var formData = FormData.fromMap({
         "reply_id": replyCommentId,
         // "text": isLike,
       });
-      var response = await services.postResponse(
-          url: '/like/reply-comment-like', formData: formData);
+      var response = await services.postResponse(url: '/like/reply-comment-like', formData: formData);
       if (response != null) {
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -126,20 +115,17 @@ Future addCommentLike(String? commentId) async {
     }
   }
 
-  
   Future addPostComment(String? postId, String? comment) async {
     try {
       var formData = FormData.fromMap({
         "post_id": postId,
         "text": comment!,
       });
-      var response = await services.postResponse(
-          url: '/comment/send-comment', formData: formData);
+      var response = await services.postResponse(url: '/comment/send-comment', formData: formData);
       if (response != null) {
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {
@@ -154,13 +140,11 @@ Future addCommentLike(String? commentId) async {
         "comment_id": commentId,
         "text": comment,
       });
-      var response = await services.postResponse(
-          url: '/comment/reply-comment', formData: formData);
+      var response = await services.postResponse(url: '/comment/reply-comment', formData: formData);
       if (response != null) {
         return response;
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
