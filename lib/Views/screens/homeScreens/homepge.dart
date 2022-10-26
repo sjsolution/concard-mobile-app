@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +8,7 @@ import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
-import 'package:concard/Models/post_list_modal.dart'; 
-import 'package:concard/Views/screens/homeScreens/comment_screen.dart';
+import 'package:concard/Models/post_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
@@ -24,7 +22,9 @@ import 'package:concard/Views/screens/story_view.dart';
 import '../../../Controllers/OthersController/date_time.dart';
 import '../../../Controllers/OthersController/image_picker_controller.dart';
 import '../../../Controllers/providers/story_provider.dart';
+import '../../../Models/Indiviuals/profile_model.dart';
 import '../text_status_add.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -50,24 +50,40 @@ class _HomepageState extends State<Homepage> {
 
   // }
 
-  getStoriesList() async {
-    // Globals.followingListModal =
-    //     await FollowingController().getFollowingRequest(Globals.userId);
-    Globals.storyModel = await StoryController().getStories();
-    appPro = Provider.of<AppProvider>(context, listen: false);
-// print('follow id \n'+Globals.followingListModal!.data![0].firstName.toString());
-    // print('added to followers................\n' +Globals!.uderId.Globals.followingListModal!.data.toString());
-    setState(() {});
-  }
+  IndiviualProfileModel? individualProfileModel;
+
+//   getStoriesList() async {
+//     // Globals.followingListModal =
+//     //     await FollowingController().getFollowingRequest(Globals.userId);
+//     Globals.storyModel = await StoryController().getStories();
+//     appPro = Provider.of<AppProvider>(context, listen: false);
+//     individualProfileModel = appPro!.indiviualProfileModel;
+//     print("indi prof model");
+//     print(individualProfileModel?.profileData?.profileImage);
+// // print('follow id \n'+Globals.followingListModal!.data![0].firstName.toString());
+//     // print('added to followers................\n' +Globals!.uderId.Globals.followingListModal!.data.toString());
+//     setState(() {});
+//   }
 
   List<int>? isPostLikeList = [];
-
+  List<int>? isCommentLikeList = [];
   AppProvider? appPro;
   StoryProvider? storyProvider1;
   @override
   void initState() {
-    getStoriesList();
+    // getStoriesList();
+    fetchStoriesList();
     super.initState();
+  }
+
+  fetchStoriesList() async {
+    Provider.of<StoryProvider>(context, listen: false).getStories();
+    appPro = Provider.of<AppProvider>(context, listen: false);
+    individualProfileModel = appPro!.indiviualProfileModel;
+    print("indie prof model");
+    print(individualProfileModel?.profileData?.profileImage);
+    // print('model_______________________');
+    // print(context.read<StoryProvider>().storyProvider?.data);
   }
 
   File? uploadProfile;
@@ -110,7 +126,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Consumer(
+    return Consumer<AppProvider>(
       builder: (context, provider, _) {
         return Scaffold(
           key: _scaffoldKey,
@@ -132,11 +148,12 @@ class _HomepageState extends State<Homepage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
-                                onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                                child: Image.asset(
-                                  more_icon,
-                                  height: size.height * 0.03,
-                                )),
+                              onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                              child: Image.asset(
+                                more_icon,
+                                height: size.height * 0.03,
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -144,25 +161,19 @@ class _HomepageState extends State<Homepage> {
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SearchScreen()));
                                     },
-                                    child:SvgPicture.asset(srchIcon)),
+                                    child: SvgPicture.asset(srchIcon)),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
                                 GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
-                                    },
-                                    child: Stack(
-                                        children: [
-                                          SvgPicture.asset(bellIcon),
-                                      Padding(
-                                        padding:  EdgeInsets.only(left: 10),
-                                        child: SvgPicture.asset(notifyDot),
-                                      ),
-                                          
-                                        ],
-                                        
-                                      ),),
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
+                                  },
+                                  child: Image.asset(
+                                    notify_icon,
+                                    height: size.height * 0.04,
+                                  ),
+                                ),
                                 SizedBox(
                                   width: size.width * 0.04,
                                 ),
@@ -171,13 +182,15 @@ class _HomepageState extends State<Homepage> {
                                     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PersonalProfileViewScreen()));
                                   },
                                   child: CircleAvatar(
-                                      radius: size.height * 0.02,
-                                      backgroundImage: NetworkImage(
-                                        appPro?.indiviualProfileModel != null
-                                            ? appPro!.indiviualProfileModel!.profileData!.image ??
-                                                "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                            : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                                      )),
+                                    radius: size.height * 0.02,
+                                    backgroundImage: NetworkImage(
+                                      // individualProfileModel!.profileData!.profileImage.toString(),
+                                      appPro?.indiviualProfileModel != null
+                                          ? appPro!.indiviualProfileModel!.profileData!.image ??
+                                              "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                          : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: size.height * 0.01,
@@ -207,17 +220,18 @@ class _HomepageState extends State<Homepage> {
                       //   width: 50,
                       //   color: Colors.black,
                       // ),
+                      // Story Line
                       Consumer<StoryProvider>(
                         builder: (context, storyProvider, child) {
                           return Row(
                             children: [
-                              SizedBox(width: 20,),
                               GestureDetector(
                                 onTap: () {
                                   _openBottomSheet();
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(
+                                    left: size.width * 0.02,
                                     top: size.height * 0.01,
                                   ),
                                   height: size.height * 0.07,
@@ -259,8 +273,6 @@ class _HomepageState extends State<Homepage> {
                                         scrollDirection: Axis.horizontal,
                                         itemCount: Globals.storyModel!.data!.length,
                                         itemBuilder: (context, index) {
-                                          // print("this is index______________________");
-                                          // print(index);
                                           return Container(
                                             child: InkWell(
                                               onTap: () => Navigator.push(
@@ -314,341 +326,265 @@ class _HomepageState extends State<Homepage> {
                             //  postsListModal!.posts!.isNotEmpty
                             //     ?
                             FutureBuilder<PostsListModal?>(
-                                future: PostController().getPostList(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data != null) {
-                                    var postData = snapshot.data;
-                                    var posts = snapshot.data!.posts;
+                          future: PostController().getPostList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.data != null) {
+                              // var postData = snapshot.data;
+                              var posts = snapshot.data!.posts;
 
-                                    for (var isLike in posts!) {
-                                      isPostLikeList!.add(isLike.userLike!);
-                                    }
-                                    return ListView.builder(
-                                        padding: const EdgeInsets.all(0),
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: posts.length,
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                              for (var isLike in posts!) {
+                                isPostLikeList!.add(isLike.userLike!);
+                              }
+                              return ListView.builder(
+                                padding: const EdgeInsets.all(0),
+                                scrollDirection: Axis.vertical,
+                                itemCount: posts.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
 
-                                            // height: size.height * 0.43,
-                                            width: size.width * 0.9,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
-                                                  child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      CircleAvatar(radius: 20, backgroundImage: NetworkImage('${posts[index].user!.image}')),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            '${posts[index].user!.firstName} ${posts[index].user!.lastName}',
-                                                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
-                                                          ),
-                                                          SizedBox(
-                                                            height: size.height * 0.003,
-                                                          ),
-                                                          Text(
-                                                            '${posts[index].user!.email}',
-                                                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const Spacer(),
-                                                      Row(
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                                            children: [
-                                                              Text(
-                                                                DateTimeManueplate()
-                                                                    .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
-                                                                // DateTime.now()
-                                                                //         .difference(
-                                                                //             DateTime.parse(
-                                                                //                 posts[index].createdAt!))
-                                                                //         .inHours
-                                                                //         .toString() +
-                                                                //     " h ago",
-                                                                style: TextStyle(
-                                                                    fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
-                                                              ),
-                                                              SizedBox(
-                                                                height: size.height * 0.02,
-                                                              ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  // FollowController().sendFollowRequest(followRequest['following_id']);
-                                                                  setState(() {
-                                                                    isSelected = !isSelected;
-                                                                  });
-                                                                },
-                                                                child: Container(
-                                                                  height: size.height * 0.03,
-                                                                  width: size.width * 0.23,
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius: BorderRadius.circular(30),
-                                                                      border: Border.all(color: signupclor_dark)),
-                                                                  child: Padding(
-                                                                    padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
-                                                                    child: Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                      children: [
-                                                                        Text(
-                                                                          isSelected ? 'Added' : 'Add',
-                                                                          style: TextStyle(
-                                                                              fontFamily: "Msemibold",
-                                                                              fontSize: size.height * 0.015,
-                                                                              color: signupclor_dark),
-                                                                        ),
-                                                                        Icon(
-                                                                          isSelected ? Icons.check : Icons.add,
-                                                                          size: size.height * 0.02,
-                                                                          color: signupclor_dark,
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-
-                                                SizedBox(
-                                                  height: size.height * 0.01,
-                                                ),
-                                                (posts[index].text == null || posts[index].text == "")
-                                                    ? const SizedBox(
-                                                        height: 0,
-                                                      )
-                                                    : Text(posts[index].text.toString()),
-                                                 SizedBox(
-                                                  height: 10,
-                                                ),
-                                                (posts[index].image == null || posts[index].image == "")
-                                                    ? const SizedBox(
-                                                        height: 0,
-                                                      )
-                                                    : InkWell(
-                                                        onTap: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => ShowFullScreenImage(
-                                                                        images: [posts[index].image!],
-                                                                      )));
-                                                        },
-                                                        child: ClipRRect(
-                                                          child: Image.network(
-                                                            "${posts[index].image}",
-                                                            height: size.height * 0.25,
-                                                            width: size.width * 0.8,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                          borderRadius: BorderRadius.circular(10),
-                                                        ),
-                                                      ),
-
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.04,
-                                                  right: size.width * 0.04,
-                                                  top: size.height * 0.015),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                    // height: size.height * 0.43,
+                                    width: size.width * 0.9,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              CircleAvatar(radius: 20, backgroundImage: NetworkImage('${posts[index].user!.image}')),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  InkWell(
-                                                    onTap: () async {
-                                                      if (isPostLikeList![
-                                                              index] ==
-                                                          1) {
-                                                        isPostLikeList![index] =
-                                                            0;
-                                                      } else {
-                                                        isPostLikeList![index] =
-                                                            1;
-                                                      }
-                                                      setState(() {});
-                                                      var result =
-                                                          await PostController()
-                                                              .addPostLike(
-                                                        posts[index]
-                                                            .id
-                                                            .toString(),
-                                                        // isLikeList![
-                                                        //         index]
-                                                        //     .toString()
-                                                      );
-                                                      if (result['code'] ==
-                                                          200) {
-                                                        setState(() {});
-                                                      }
-                                                      // setState(() {
-                                                      //   likeIndex = !likeIndex;
-                                                      // });
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(like_icon,
-                                                            height:
-                                                                size.height *
-                                                                    0.025,
-                                                            color: isPostLikeList![
-                                                                        index] ==
-                                                                    1
-                                                                ? signupclor_dark
-                                                                : infocolor),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.02,
-                                                        ),
-                                                        Text(
-                                                          'Like (${posts[index].likeCounts})',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.015,
-                                                              fontFamily:
-                                                                  "Msemibold",
-                                                              color: isPostLikeList![
-                                                                          index] ==
-                                                                      1
-                                                                  ? signupclor_dark
-                                                                  : infocolor),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                  Text(
+                                                    '${posts[index].user!.firstName} ${posts[index].user!.lastName}',
+                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                                   ),
-
-                                                  InkWell(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  MyPostCommentScreen(
-                                                                    context:
-                                                                        context,
-                                                                    singlePost:
-                                                                        posts[
-                                                                            index],
-                                                                            
-                                                                  )));
-
-                                                      // _commentsModalBottomSheet(
-                                                      //   context,
-                                                      //   posts[index],
-                                                      // );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          comment_icon,
-                                                          height: size.height *
-                                                              0.025,
-                                                          color: infocolor,
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.02,
-                                                        ),
-                                                        Text(
-                                                          'Comment (${posts[index].comments!.length})',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  size.height *
-                                                                      0.015,
-                                                              fontFamily:
-                                                                  "Msemibold",
-                                                              color: infocolor),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                  SizedBox(
+                                                    height: size.height * 0.003,
                                                   ),
-                                                  // InkWell(
-                                                  //   onTap: () {
-                                                  //     Share.share(
-                                                  //         'https://www.apple.com/app-store/',
-                                                  //         subject:
-                                                  //             'Share this app with you friends.');
-                                                  //   },
-                                                  //   child: Row(
-                                                  //     children: [
-                                                  //       Image.asset(
-                                                  //         shareicon,
-                                                  //         height: size.height *
-                                                  //             0.025,
-                                                  //         color: infocolor,
-
-                                                  //       ),
-                                                  //     ]
-                                                  //     ),
+                                                  Text(
+                                                    '${posts[index].user!.email}',
+                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                  ),
+                                                ],
+                                              ),
+                                              const Spacer(),
+                                              Row(
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        DateTimeManueplate()
+                                                            .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
+                                                        // DateTime.now()
+                                                        //         .difference(
+                                                        //             DateTime.parse(
+                                                        //                 posts[index].createdAt!))
+                                                        //         .inHours
+                                                        //         .toString() +
+                                                        //     " h ago",
+                                                        style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
+                                                      ),
+                                                      SizedBox(
+                                                        height: size.height * 0.02,
+                                                      ),
                                                       InkWell(
                                                         onTap: () {
-                                                          Share.share('https://www.apple.com/app-store/',
-                                                              subject: 'Share this app with you friends.');
+                                                          // FollowController().sendFollowRequest(followRequest['following_id']);
+                                                          setState(() {
+                                                            isSelected = !isSelected;
+                                                          });
                                                         },
-                                                        child: Row(
-                                                          children: [
-                                                            Image.asset(
-                                                              shareicon,
-                                                              height: size.height * 0.025,
-                                                              color: infocolor,
+                                                        child: Container(
+                                                          height: size.height * 0.03,
+                                                          width: size.width * 0.23,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(30), border: Border.all(color: signupclor_dark)),
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  isSelected ? 'Added' : 'Add',
+                                                                  style: TextStyle(
+                                                                      fontFamily: "Msemibold", fontSize: size.height * 0.015, color: signupclor_dark),
+                                                                ),
+                                                                Icon(
+                                                                  isSelected ? Icons.check : Icons.add,
+                                                                  size: size.height * 0.02,
+                                                                  color: signupclor_dark,
+                                                                )
+                                                              ],
                                                             ),
-                                                            SizedBox(
-                                                              width: size.width * 0.02,
-                                                            ),
-                                                            Text(
-                                                              'Share',
-                                                              style:
-                                                                  TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                                            ),
-                                                          ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                  
+                                                      )
                                                     ],
                                                   ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        (posts[index].text == null || posts[index].text == "")
+                                            ? const SizedBox(
+                                                height: 0,
+                                              )
+                                            : Text(posts[index].text.toString()),
+                                        (posts[index].image == null || posts[index].image == "")
+                                            ? const SizedBox(
+                                                height: 0,
+                                              )
+                                            : InkWell(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => ShowFullScreenImage(
+                                                                images: [posts[index].image!],
+                                                              )));
+                                                },
+                                                child: ClipRRect(
+                                                  child: Image.network(
+                                                    "${posts[index].image}",
+                                                    height: size.height * 0.25,
+                                                    width: size.width * 0.8,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
-                                                // Divider(
-                                                //   thickness: 1,
-                                                //   indent: 15,
-                                                //   endIndent: 15,
-                                                // ),
-                                              ],
-                                            ),
-                                            margin: const EdgeInsets.only(bottom: 10),
-                                            padding: const EdgeInsets.all(10),
-                                          );
-                                        });
-                                  } else {
-                                    return Center(
-                                      child: SpinKitChasingDots(color: primarygreen),
-                                    );
-                                  }
-                                }),
+                                              ),
+
+                                        Padding(
+                                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.015),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  if (isPostLikeList![index] == 1) {
+                                                    isPostLikeList![index] = 0;
+                                                  } else {
+                                                    isPostLikeList![index] = 1;
+                                                  }
+                                                  setState(() {});
+                                                  var result = await PostController().addPostLike(
+                                                    posts[index].id.toString(),
+                                                    // isLikeList![
+                                                    //         index]
+                                                    //     .toString()
+                                                  );
+
+                                                  if (result['code'] == 200) {
+                                                    setState(() {});
+                                                  }
+                                                  // setState(() {
+                                                  //   likeIndex = !likeIndex;
+                                                  // });
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(like_icon,
+                                                        height: size.height * 0.025,
+                                                        color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
+                                                    SizedBox(
+                                                      width: size.width * 0.02,
+                                                    ),
+                                                    Text(
+                                                      'Like (${posts[index].likeCounts})',
+                                                      style: TextStyle(
+                                                          fontSize: size.height * 0.015,
+                                                          fontFamily: "Msemibold",
+                                                          color: isPostLikeList![index] == 1 ? signupclor_dark : infocolor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  provider.commentsSetter = posts[index].comments;
+                                                  _commentsModalBottomSheet(
+                                                    context,
+                                                    posts[index],
+                                                  );
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      comment_icon,
+                                                      height: size.height * 0.025,
+                                                      color: infocolor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * 0.02,
+                                                    ),
+                                                    Text(
+                                                      'Comment (${posts[index].comments!.length})',
+                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  Share.share('https://www.apple.com/app-store/', subject: 'Share this app with you friends.');
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      shareicon,
+                                                      height: size.height * 0.025,
+                                                      color: infocolor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * 0.02,
+                                                    ),
+                                                    Text(
+                                                      'Share',
+                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // Divider(
+                                        //   thickness: 1,
+                                        //   indent: 15,
+                                        //   endIndent: 15,
+                                        // ),
+                                      ],
+                                    ),
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    padding: const EdgeInsets.all(10),
+                                  );
+                                },
+                              );
+                            } else {
+                              return Center(
+                                child: SpinKitChasingDots(color: primarygreen),
+                              );
+                            }
+                          },
+                        ),
                         margin: const EdgeInsets.only(
                           top: 5,
                         ),
@@ -666,7 +602,7 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  bool? isprofile = false;
+  bool? isProfile = false;
   bool? isSendBtn = false;
   bool? isShow = false;
 
@@ -674,6 +610,428 @@ class _HomepageState extends State<Homepage> {
   List<Comment> parentComments = [];
   List<String> parentCommentsId = [];
   List<String> childRepliesId = [];
-  var commentsList = [];
-  var repliesApiList = [];
+  List<Comments>? commentsList = [];
+  List<Replies>? repliesApiList = [];
+
+  ScrollController _scrollController = ScrollController();
+  var commentFocusNode = FocusNode();
+
+  void _commentsModalBottomSheet(
+    context,
+    Posts? singlePost,
+  ) {
+    var size = MediaQuery.of(context).size;
+    // List<Comments>? comments = singlePost!.comments;
+    // List<Comments>? comments = Provider.of<AppProvider>(context, listen: false).comments;
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        enableDrag: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return Consumer<AppProvider>(builder: (context, provider, child) {
+            List<Comments>? comments = context.watch<AppProvider>().comments;
+            return Scaffold(body: StatefulBuilder(
+              builder: ((context, StateSetter setStats) {
+                return Container(
+                    padding: const EdgeInsets.only(top: 40),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
+                        child: Column(
+                          children: [
+                            comments!.isNotEmpty
+                                ? SizedBox(
+                                    height: size.height * 0.85,
+                                    child: ListView.builder(
+                                      controller: _scrollController,
+                                      padding: const EdgeInsets.all(0),
+                                      itemCount: comments.length,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        commentsList = comments;
+                                        parentComments.clear();
+                                        childReplies.clear();
+                                        parentCommentsId.clear();
+                                        childRepliesId.clear();
+                                        isCommentLikeList!.clear();
+                                        repliesApiList = commentsList?[index].replies;
+                                        // if (_scrollController.hasClients) {
+                                        //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                        // }
+                                        for (var comment in commentsList!) {
+                                          parentComments.add(
+                                              Comment(avatar: comment.user!.profileImage, userName: comment.user!.firstName, content: comment.text));
+                                          parentCommentsId.add(comment.id.toString());
+                                          isCommentLikeList!.add(comment.userLike!);
+                                        }
+                                        for (var subComment in repliesApiList!) {
+                                          childReplies.add(Comment(
+                                              avatar: subComment.user!.profileImage, userName: subComment.user!.firstName, content: subComment.text));
+                                          childRepliesId.add(subComment.id.toString());
+                                        }
+                                        // like pe kam krna
+                                        return CommentTreeWidget<Comment, Comment>(
+                                          Comment(
+                                              avatar: '${parentComments[index].avatar}',
+                                              userName: '${parentComments[index].userName}',
+                                              content: '${parentComments[index].content}'),
+                                          childReplies,
+                                          treeThemeData: const TreeThemeData(lineColor: Colors.grey, lineWidth: 3),
+                                          avatarRoot: (context, data) => PreferredSize(
+                                              child: CircleAvatar(
+                                                radius: 18,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(data.avatar!),
+                                              ),
+                                              preferredSize: const Size.fromRadius(18)),
+                                          avatarChild: (context, data) => PreferredSize(
+                                              child: CircleAvatar(
+                                                radius: 12,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(data.avatar!.toString()),
+                                              ),
+                                              preferredSize: Size.fromRadius(12)),
+                                          contentRoot: (context, data) {
+                                            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[100],
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${data.userName}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption!
+                                                          .copyWith(fontWeight: FontWeight.w600, color: Colors.black),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Text(
+                                                      '${data.content}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption!
+                                                          .copyWith(fontWeight: FontWeight.w300, color: Colors.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              DefaultTextStyle(
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption!
+                                                    .copyWith(color: Colors.grey[700], fontWeight: FontWeight.bold),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(top: size.height * 0.02),
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      Text(
+                                                        DateTimeManueplate()
+                                                            .giveDifferenceInTime(DateTime.parse(comments[index].createdAt.toString()))
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: size.height * 0.018,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          // debugPrint("Comment ID :" + parentCommentsId[index].toString());
+                                                          // debugPrint("Comment Index :" + index.toString());
+                                                          //
+                                                          // debugPrint("Before :" + isCommentLikeList.toString());
+                                                          //if 0 (dislike) -> 1(like)
+                                                          //if 1 (like)  ->  0 (dislike)
+                                                          if (isCommentLikeList![index] == 0) {
+                                                            setStats(() {
+                                                              isCommentLikeList![index] = 1;
+                                                            });
+                                                          } else {
+                                                            setStats(() {
+                                                              isCommentLikeList![index] = 0;
+                                                            });
+                                                          }
+
+                                                          setState(() {});
+                                                          setStats(() {});
+
+                                                          debugPrint("After :" + isCommentLikeList.toString());
+                                                          //change comment like  status on backend
+
+                                                          var result = await PostController().addCommentLike(
+                                                            parentCommentsId[index],
+                                                          );
+                                                          PostsListModal? response = await AppProvider().getPostData();
+                                                          for (int i = 0; i <= response!.posts!.length; i++) {
+                                                            if (response.posts![i].id == singlePost!.id) {
+                                                              print("Setting Up comments");
+                                                              provider.commentsSetter = response.posts![i].comments;
+                                                            }
+                                                          }
+
+                                                          if (result['code'] == 200) {
+                                                            setState(() {});
+                                                            setStats(() {});
+                                                          }
+                                                        },
+                                                        child: Text(
+                                                          'Like',
+                                                          style: TextStyle(
+                                                            color: isCommentLikeList![index] == 0 ? Colors.black : Colors.blue,
+                                                          ),
+                                                        ),
+                                                      ), //changed
+                                                      SizedBox(
+                                                        width: size.width * 0.03,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          if (commentController.text.isNotEmpty) {
+                                                            await PostController().addReplyComment(
+                                                              parentCommentsId[index],
+                                                              commentController.text,
+                                                            );
+                                                            commentController.clear();
+                                                            PostsListModal? response = await AppProvider().getPostData();
+                                                            for (int i = 0; i <= response!.posts!.length; i++) {
+                                                              if (response.posts![i].id == singlePost!.id) {
+                                                                print("Setting Up comments");
+                                                                provider.commentsSetter = response.posts![i].comments;
+                                                              }
+                                                            }
+                                                          } else {
+                                                            Globals.showToastMethod(msg: "Please write something to post");
+                                                          }
+
+                                                          setStats(() {});
+                                                        },
+                                                        child: Text('Reply'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ]);
+                                          },
+                                          contentChild: (context, data) {
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  decoration:
+                                                      BoxDecoration(color: Colors.grey.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: size.width * 0.02,
+                                                        top: size.height * 0.01,
+                                                        right: size.width * 0.02,
+                                                        bottom: size.height * 0.02),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          '${data.userName}',
+                                                          style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          '${data.content}',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .caption
+                                                              ?.copyWith(fontWeight: FontWeight.w300, color: Colors.black),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                DefaultTextStyle(
+                                                  style:
+                                                      Theme.of(context).textTheme.caption!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top: 4),
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        Text(
+                                                          DateTimeManueplate()
+                                                              .giveDifferenceInTime(
+                                                                DateTime.parse(
+                                                                  comments[index].replies![index].createdAt.toString(),
+                                                                ),
+                                                              )
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: size.height * 0.018,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            // print("reply api list is here");
+                                                            // print(repliesApiList);
+                                                            var result = await PostController().addReplyCommentLike(
+                                                              comments[index].replies![index].id.toString(),
+                                                            );
+                                                            PostsListModal? response = await AppProvider().getPostData();
+                                                            for (int i = 0; i <= response!.posts!.length; i++) {
+                                                              if (response.posts![i].id == singlePost!.id) {
+                                                                print("Setting Up comments");
+                                                                provider.commentsSetter = response.posts![i].comments;
+                                                              }
+                                                            }
+                                                            if (result['code'] == 200) {
+                                                              setState(() {});
+                                                              setStats(() {});
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            'Like',
+                                                            style: TextStyle(
+                                                              color: comments[index].replies![index].userLike == 0 ? Colors.black : Colors.blue,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 24,
+                                                        ),
+                                                        Text('Reply'),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : const Center(child: Text("No Comments here")),
+                            // comments.isNotEmpty?const SizedBox(height: 0,):,
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: size.height * 0.03,
+                                      backgroundImage: NetworkImage(
+                                        appPro?.indiviualProfileModel?.profileData?.profileImage == null
+                                            ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                            : appPro!.indiviualProfileModel!.profileData!.profileImage.toString(),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: size.width * 0.04,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        child: TextFormField(
+                                          controller: commentController,
+                                          autofocus: true,
+                                          textInputAction: TextInputAction.done,
+                                          focusNode: commentFocusNode,
+                                          // onEditingComplete: () {
+                                          //   print("on compl");
+                                          //   FocusScopeNode? currentFocus =
+                                          //       FocusScope.of(context);
+                                          //   if (!currentFocus.hasPrimaryFocus) {
+                                          //     currentFocus.unfocus();
+                                          //     setState(() {
+                                          //       isOpen = false;
+                                          //     });
+                                          //   }
+                                          // },
+                                          // onFieldSubmitted: (String? value){
+                                          //   print("on submitted");
+                                          // },
+                                          decoration: InputDecoration(
+                                              fillColor: Colors.grey.withOpacity(0.2),
+                                              filled: true,
+                                              suffixIcon: InkWell(
+                                                  onTap: () async {
+                                                    // Navigator.pop(context);
+                                                    // parentComments.add(
+                                                    //     Comment(avatar: '', userName: 'Umar', content: commentController.text.trim()));
+
+                                                    // context.read<AppProvider>().getPostData();
+                                                    await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
+                                                    // parentComments.add(Comment(
+                                                    //     avatar: provider.comments!.last.user!.profileImage,
+                                                    //     userName: provider.comments!.last.user!.firstName,
+                                                    //     content: provider.comments!.last.text));
+                                                    commentController.clear();
+                                                    commentFocusNode.unfocus();
+                                                    PostsListModal? response = await AppProvider().getPostData();
+                                                    for (int i = 0; i <= response!.posts!.length; i++) {
+                                                      if (response.posts![i].id == singlePost.id) {
+                                                        print("Setting Up comments");
+                                                        provider.commentsSetter = response.posts![i].comments;
+                                                        if (_scrollController.hasClients) {
+                                                          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                                        }
+                                                      }
+                                                    }
+                                                    print("going to max intent");
+                                                    // provider.commentsSetter = await PostController().
+                                                    //     .addPostComment(singlePost.id.toString(), commentController.text.trim());
+                                                    setStats(() {});
+                                                    setState(() {});
+                                                  },
+                                                  child: Icon(
+                                                    Icons.send,
+                                                    size: size.height * 0.03,
+                                                    color: signupclor_light,
+                                                  )),
+                                              hintText: 'Write your comment',
+                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                              hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ));
+              }),
+            ));
+          });
+        });
+  }
 }

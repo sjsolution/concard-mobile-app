@@ -10,7 +10,7 @@ class StoryProvider extends ChangeNotifier {
 
   getStories() async {
     _storyModel = await StoryController().getStories();
-    Globals.storyModel = _storyModel;
+    // Globals.storyModel = _storyModel;
     notifyListeners();
   }
 }

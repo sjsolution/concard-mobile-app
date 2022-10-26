@@ -3,6 +3,7 @@ import 'dart:io' as Io;
 
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Services/network.dart';
 import 'package:dio/dio.dart';
@@ -18,15 +19,14 @@ class ProfileController {
       var formData = FormData.fromMap({
         'id': id,
       });
-      var response = await services.postResponse(
-          url: '/user/user-profile', formData: formData);
+      var response = await services.postResponse(url: '/user/user-profile', formData: formData);
       // debugPrint(response.toString());
       if (response != null) {
         if (response['data'] != null) {
-          debugPrint(response.toString());
-          IndiviualProfileModel? profileModel =
-              IndiviualProfileModel.fromJson(response);
-          
+          // debugPrint(response.toString());
+          IndiviualProfileModel? profileModel = IndiviualProfileModel.fromJson(response);
+          AppProvider().setIndvProfileObj = profileModel;
+
           return profileModel;
         } else {
           //status false
@@ -34,8 +34,7 @@ class ProfileController {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {
@@ -48,10 +47,9 @@ class ProfileController {
     try {
       var formData = FormData.fromMap({
         'image': await MultipartFile.fromFile(image!),
-        'img_type':imageType   //0=user{photo},1=card,2=logo,3=profile
+        'img_type': imageType //0=user{photo},1=card,2=logo,3=profile
       });
-      var response = await services.postResponse(
-          url: '/user/image-upload', formData: formData);
+      var response = await services.postResponse(url: '/user/image-upload', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
           debugPrint(response.toString());
@@ -65,8 +63,7 @@ class ProfileController {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went wrong. Please try again later");
+        Globals.showToastMethod(msg: "There is something went wrong. Please try again later");
         return null;
       }
     } catch (e) {
@@ -116,15 +113,13 @@ class ProfileController {
         'about': about,
         'user_type': userType,
       });
-      var response = await services.postResponse(
-          url: '/user/update-user', formData: formData);
+      var response = await services.postResponse(url: '/user/update-user', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
           debugPrint(response.toString());
           Globals.showToastMethod(msg: "${response['message']}");
 
-          IndiviualProfileModel? profileModel =
-              IndiviualProfileModel.fromJson(response);
+          IndiviualProfileModel? profileModel = IndiviualProfileModel.fromJson(response);
           return profileModel;
         } else {
           //status false
@@ -132,8 +127,7 @@ class ProfileController {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went wrong. Please try again later");
+        Globals.showToastMethod(msg: "There is something went wrong. Please try again later");
         return null;
       }
     } catch (e) {

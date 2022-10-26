@@ -133,7 +133,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   userType: "1",
                                 );
                                 if (indiviualProfileModel != null) {
-                                  app.setIndvProfileObj(indiviualProfileModel);
+                                  app.setIndvProfileObj = indiviualProfileModel;
                                 }
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
