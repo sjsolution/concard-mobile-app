@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io' as Io;
-
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
@@ -9,12 +6,14 @@ import 'package:concard/Services/network.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileController {
   ServicesClass services = ServicesClass();
   LocalStorageClass localStorageClass = LocalStorageClass();
+  AppProvider? appProvider;
 
-  Future<IndiviualProfileModel?> getIndiviualProfile(String? id) async {
+  Future<IndividualProfileModel?> getIndiviualProfile(String? id, BuildContext context) async {
     try {
       var formData = FormData.fromMap({
         'id': id,
@@ -24,9 +23,8 @@ class ProfileController {
       if (response != null) {
         if (response['data'] != null) {
           // debugPrint(response.toString());
-          IndiviualProfileModel? profileModel = IndiviualProfileModel.fromJson(response);
-          AppProvider().setIndvProfileObj = profileModel;
-
+          IndividualProfileModel? profileModel = IndividualProfileModel.fromJson(response);
+          Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = profileModel;
           return profileModel;
         } else {
           //status false
@@ -54,8 +52,8 @@ class ProfileController {
         if (response['data'] != null) {
           debugPrint(response.toString());
           Globals.showToastMethod(msg: "${response['message']}");
-          // IndiviualProfileModel? profileModel =
-          //     IndiviualProfileModel.fromJson(response);
+          // individualProfileModel? profileModel =
+          //     individualProfileModel.fromJson(response);
           return response;
         } else {
           //status false
@@ -119,7 +117,7 @@ class ProfileController {
           debugPrint(response.toString());
           Globals.showToastMethod(msg: "${response['message']}");
 
-          IndiviualProfileModel? profileModel = IndiviualProfileModel.fromJson(response);
+          IndividualProfileModel? profileModel = IndividualProfileModel.fromJson(response);
           return profileModel;
         } else {
           //status false

@@ -199,6 +199,7 @@ class _SignInState extends State<SignIn> {
                                   loaderWidget(context, size);
                                   var result = await AuthenticationClass().login(emailControll.text.trim(), passwordControll.text.trim());
                                   context.read<AppProvider>().setLoadingFalse();
+                                  context.read<AppProvider>().setIndividualProfileModelProfileObj = result;
                                   Navigator.pop(context);
                                   if (result != null) {
                                     emailControll.clear();

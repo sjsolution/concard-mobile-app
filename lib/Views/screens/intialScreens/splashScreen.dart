@@ -32,11 +32,10 @@ class _SplashScreenState extends State<SplashScreen> {
       // debugPrint("-------- initialLink :" + initialLink.toString());
       // debugPrint("-------- hasQuery :" + initialLink!.hasQuery.toString());
       // debugPrint("-------- team :" +
-          // initialLink.toString().contains("team").toString());
+      // initialLink.toString().contains("team").toString());
       // debugPrint("-------- hasQuery :" +
-          // initialLink.toString().split('=')[1]);
+      // initialLink.toString().split('=')[1]);
 
-          
       if (initialLink != null) {
         // String? type=initialLink.toString().split(pattern)
         if (initialLink.toString().contains("team")) {
@@ -45,7 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>  CreateTeamScreen(type:"link",teamName: teamName,)));
+                  builder: (context) => CreateTeamScreen(
+                        type: "link",
+                        teamName: teamName,
+                      )));
         }
 
         // if(initialLink.toString().contains("team")){
@@ -69,14 +71,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   getLocalValues() async {
-    String? tokenValue =
-        await localStorageClass.getData(localStorageClass.tokenKey);
+    String? tokenValue = await localStorageClass.getData(localStorageClass.tokenKey);
 
-    String? userType =
-        await localStorageClass.getData(localStorageClass.userTypeKey);
+    String? userType = await localStorageClass.getData(localStorageClass.userTypeKey);
 
-    String? userId =
-        await localStorageClass.getData(localStorageClass.userIdKey);
+    String? userId = await localStorageClass.getData(localStorageClass.userIdKey);
 
     if (tokenValue != null || tokenValue != '') {
       Globals.token = tokenValue;
@@ -85,9 +84,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
       Globals.userId = userId;
 
-      log(tokenValue.toString());
-      log(userType.toString());
-      log(userId.toString());
+      // log(tokenValue.toString());
+      // log(userType.toString());
+      // log(userId.toString());
       countDown();
     } else {
       countDown();
@@ -101,26 +100,15 @@ class _SplashScreenState extends State<SplashScreen> {
       if (Globals.userType == "1") {
         initUniLinks();
         Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    const BottomNavigationScreen()),
-            (Route<dynamic> route) => false);
+            context, MaterialPageRoute(builder: (BuildContext context) => const BottomNavigationScreen()), (Route<dynamic> route) => false);
       } else if (Globals.userType == "2") {
         Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    const CompanyProfileScreen()),
-            (Route<dynamic> route) => false);
+            context, MaterialPageRoute(builder: (BuildContext context) => const CompanyProfileScreen()), (Route<dynamic> route) => false);
       }
     } else {
       // print("00000000001212");
       Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => const SignupScreen()),
-          (Route<dynamic> route) => false);
+          context, MaterialPageRoute(builder: (BuildContext context) => const SignupScreen()), (Route<dynamic> route) => false);
     }
     // });
   }
@@ -148,17 +136,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   Text(
                     'C O N C A R D',
-                    style: TextStyle(
-                        fontSize: size.height * 0.03,
-                        fontFamily: "MBold",
-                        color: signupclor_dark),
+                    style: TextStyle(fontSize: size.height * 0.03, fontFamily: "MBold", color: signupclor_dark),
                   ),
                   Text(
                     "Now You're Connected",
-                    style: TextStyle(
-                        fontSize: size.height * 0.018,
-                        fontFamily: "MBold",
-                        color: signupclor_dark),
+                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBold", color: signupclor_dark),
                   ),
                 ],
               ),

@@ -63,14 +63,16 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide(color: Colors.black),
                     ),
-                    prefixIcon:Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: size.height * 0.05,
+                      color: signupclor_dark,
+                    ),
                     fillColor: Colors.white,
                     filled: true,
                     hintText: '(company_name, field, country, address)',
-                    contentPadding:
-                        EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                    hintStyle: TextStyle(
-                        fontSize: size.width * 0.04, color: infocolor),
+                    contentPadding: EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                    hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                   ),
                 ),
               ),
@@ -92,9 +94,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
             width: size.width,
             margin: EdgeInsets.only(left: 8.0, right: 8.0),
             child: FutureBuilder<GetCardsForTeam?>(
-                future: searchValue == null
-                    ? TeamController().forTeamCardsList("")
-                    : TeamController().forTeamCardsList(searchValue),
+                future: searchValue == null ? TeamController().forTeamCardsList("") : TeamController().forTeamCardsList(searchValue),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return ShimmerLoadWidget();
@@ -103,8 +103,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       child: Text("There is no Cards available"),
                     );
                   } else {
-                    List<CustomCardsModel?> cardsList =
-                        snapshot.data!.cardsList!;
+                    List<CustomCardsModel?> cardsList = snapshot.data!.cardsList!;
                     return ListView.builder(
                       padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.vertical,
@@ -129,8 +128,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                               Row(
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Column(
                                         children: [
@@ -139,229 +137,148 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                             child: Stack(
                                               children: [
                                                 ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                                    borderRadius: BorderRadius.circular(20),
                                                     child: Image.asset(
                                                       deccard,
-                                                      height:
-                                                          size.height * 0.08,
+                                                      height: size.height * 0.08,
                                                       fit: BoxFit.cover,
                                                     )),
                                                 Padding(
-                                                    padding: EdgeInsets.only(
-                                                        right:
-                                                            size.width * 0.01,
-                                                        left: size.width * 0.02,
-                                                        top: size.height *
-                                                            0.015),
+                                                    padding:
+                                                        EdgeInsets.only(right: size.width * 0.01, left: size.width * 0.02, top: size.height * 0.015),
                                                     child: Column(
                                                       children: [
                                                         Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Column(
                                                               children: [
-                                                                SvgPicture
-                                                                    .asset(
+                                                                SvgPicture.asset(
                                                                   con_icon,
-                                                                  height:
-                                                                      size.height *
-                                                                          0.02,
+                                                                  height: size.height * 0.02,
                                                                 ),
-                                                                const SizedBox(
-                                                                    height:
-                                                                        5 //size.height * 0.015,
+                                                                const SizedBox(height: 5 //size.height * 0.015,
                                                                     ),
                                                                 Text(
                                                                   "CONCARD",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.003,
-                                                                    color:
-                                                                        signupclor_dark,
-                                                                    fontFamily:
-                                                                        "Mbold",
-                                                                    letterSpacing:
-                                                                        2,
+                                                                  style: TextStyle(
+                                                                    fontSize: size.height * 0.003,
+                                                                    color: signupclor_dark,
+                                                                    fontFamily: "Mbold",
+                                                                    letterSpacing: 2,
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.004,
+                                                                  height: size.height * 0.004,
                                                                 ),
                                                                 PrettyQr(
                                                                   typeNumber: 4,
-                                                                  size:
-                                                                      size.height *
-                                                                          0.01,
-                                                                  data:
-                                                                      '${cardsList[index]!.userId.toString()}',
-                                                                  errorCorrectLevel:
-                                                                      QrErrorCorrectLevel
-                                                                          .M,
-                                                                  roundEdges:
-                                                                      true,
+                                                                  size: size.height * 0.01,
+                                                                  data: '${cardsList[index]!.userId.toString()}',
+                                                                  errorCorrectLevel: QrErrorCorrectLevel.M,
+                                                                  roundEdges: true,
                                                                 ),
                                                               ],
                                                             ),
-                                                            SizedBox(
-                                                                width:
-                                                                    size.width *
-                                                                        0.01),
+                                                            SizedBox(width: size.width * 0.01),
                                                             Container(
-                                                              height:
-                                                                  size.height *
-                                                                      0.06,
+                                                              height: size.height * 0.06,
                                                               width: 1,
                                                               color: cgreen,
                                                             ),
-                                                            SizedBox(
-                                                                width:
-                                                                    size.width *
-                                                                        0.02),
+                                                            SizedBox(width: size.width * 0.02),
                                                             Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Text(
                                                                   "${cardsList[index]!.username.toString()}",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.007,
-                                                                    color:
-                                                                        signupclor_dark,
-                                                                    fontFamily:
-                                                                        "Mbold",
+                                                                  style: TextStyle(
+                                                                    fontSize: size.height * 0.007,
+                                                                    color: signupclor_dark,
+                                                                    fontFamily: "Mbold",
                                                                   ),
                                                                 ),
                                                                 Text(
                                                                   "${cardsList[index]!.jobTitle.toString()}",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        size.height *
-                                                                            0.007,
-                                                                    color:
-                                                                        signupclor_dark,
-                                                                    fontFamily:
-                                                                        "Stf",
+                                                                  style: TextStyle(
+                                                                    fontSize: size.height * 0.007,
+                                                                    color: signupclor_dark,
+                                                                    fontFamily: "Stf",
                                                                   ),
                                                                 ),
-                                                                const SizedBox(
-                                                                    height:
-                                                                        1 //size.height * 0.01,
+                                                                const SizedBox(height: 1 //size.height * 0.01,
                                                                     ),
                                                                 Row(
                                                                   children: [
-                                                                    Column(
-                                                                        children: [
-                                                                          SvgPicture
-                                                                              .asset(
-                                                                            location_icon,
-                                                                            height:
-                                                                                size.height * 0.006,
-                                                                          ),
-                                                                        ]),
+                                                                    Column(children: [
+                                                                      SvgPicture.asset(
+                                                                        location_icon,
+                                                                        height: size.height * 0.006,
+                                                                      ),
+                                                                    ]),
                                                                     const SizedBox(
-                                                                      width:
-                                                                          1, //size.width * 0.015,
+                                                                      width: 1, //size.width * 0.015,
                                                                     ),
-                                                                    Column(
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                size.width * 0.15,
-                                                                            child:
-                                                                                Text(
-                                                                              "${cardsList[index]!.address.toString()}",
-                                                                              style: TextStyle(
-                                                                                fontSize: size.height * 0.006,
-                                                                                color: signupclor_dark,
-                                                                                fontFamily: "Mbold",
-                                                                              ),
-                                                                            ),
+                                                                    Column(children: [
+                                                                      SizedBox(
+                                                                        width: size.width * 0.15,
+                                                                        child: Text(
+                                                                          "${cardsList[index]!.address.toString()}",
+                                                                          style: TextStyle(
+                                                                            fontSize: size.height * 0.006,
+                                                                            color: signupclor_dark,
+                                                                            fontFamily: "Mbold",
                                                                           ),
-                                                                        ]),
+                                                                        ),
+                                                                      ),
+                                                                    ]),
                                                                   ],
                                                                 ),
                                                                 SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.001,
+                                                                  height: size.height * 0.001,
                                                                 ),
                                                                 Row(
                                                                   children: [
-                                                                    SvgPicture
-                                                                        .asset(
+                                                                    SvgPicture.asset(
                                                                       phonecall_icon,
-                                                                      height: size
-                                                                              .height *
-                                                                          0.006,
+                                                                      height: size.height * 0.006,
                                                                     ),
                                                                     SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.01,
+                                                                      width: size.width * 0.01,
                                                                     ),
                                                                     SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.15,
-                                                                      child:
-                                                                          Text(
+                                                                      width: size.width * 0.15,
+                                                                      child: Text(
                                                                         "${cardsList[index]!.mobileNo}",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              size.height * 0.006,
-                                                                          color:
-                                                                              signupclor_dark,
-                                                                          fontFamily:
-                                                                              "Mbold",
+                                                                        style: TextStyle(
+                                                                          fontSize: size.height * 0.006,
+                                                                          color: signupclor_dark,
+                                                                          fontFamily: "Mbold",
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ],
                                                                 ),
                                                                 SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.001,
+                                                                  height: size.height * 0.001,
                                                                 ),
                                                                 Row(
                                                                   children: [
                                                                     Image.asset(
                                                                       email_icon,
-                                                                      height: size
-                                                                              .height *
-                                                                          0.005,
-                                                                      color:
-                                                                          signupclor_dark,
+                                                                      height: size.height * 0.005,
+                                                                      color: signupclor_dark,
                                                                     ),
                                                                     SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.01,
+                                                                      width: size.width * 0.01,
                                                                     ),
                                                                     Column(
                                                                       children: [
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.15,
-                                                                          child:
-                                                                              Text(
+                                                                          width: size.width * 0.15,
+                                                                          child: Text(
                                                                             cardsList[index]!.email.toString(),
-                                                                            style:
-                                                                                TextStyle(
+                                                                            style: TextStyle(
                                                                               fontSize: size.height * 0.004,
                                                                               color: signupclor_dark,
                                                                               fontFamily: "Mbold",
@@ -373,34 +290,24 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                                                   ],
                                                                 ),
                                                                 SizedBox(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.001,
+                                                                  height: size.height * 0.001,
                                                                 ),
                                                                 Row(
                                                                   children: [
-                                                                    SvgPicture
-                                                                        .asset(
+                                                                    SvgPicture.asset(
                                                                       internet_icon,
-                                                                      height: size
-                                                                              .height *
-                                                                          0.005,
+                                                                      height: size.height * 0.005,
                                                                     ),
                                                                     SizedBox(
-                                                                      width: size
-                                                                              .width *
-                                                                          0.01,
+                                                                      width: size.width * 0.01,
                                                                     ),
                                                                     Column(
                                                                       children: [
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.15,
-                                                                          child:
-                                                                              Text(
+                                                                          width: size.width * 0.15,
+                                                                          child: Text(
                                                                             "${cardsList[index]!.website}",
-                                                                            style:
-                                                                                TextStyle(
+                                                                            style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
                                                                               fontFamily: "Mbold",
@@ -426,34 +333,25 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                         width: size.width * 0.05,
                                       ),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "${cardsList[index]!.companyName}",
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.015,
-                                                fontFamily: "MBold"),
+                                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                           ),
                                           SizedBox(
                                             height: size.height * 0.02,
                                           ),
                                           Text(
                                             '${cardsList[index]!.companyName}',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.01,
-                                                fontFamily: "Msemibold",
-                                                color: infocolor),
+                                            style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                           ),
                                           SizedBox(
                                             height: size.height * 0.01,
                                           ),
                                           Text(
                                             '${cardsList[index]!.email}',
-                                            style: TextStyle(
-                                                fontSize: size.height * 0.01,
-                                                fontFamily: "Msemibold",
-                                                color: infocolor),
+                                            style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                           ),
                                         ],
                                       ),
@@ -462,9 +360,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                   Spacer(),
                                   InkWell(
                                     onTap: () async {
-                                      await TeamController().addCardToTeam(
-                                          cardsList[index]!.id.toString(),
-                                          widget.teamId);
+                                      await TeamController().addCardToTeam(cardsList[index]!.id.toString(), widget.teamId);
                                       cardsList.removeAt(index);
                                       setState(() {});
                                     },
@@ -473,11 +369,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                       height: size.height * 0.03,
                                       width: size.width * 0.15,
                                       decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: gradientgreen),
-                                          color: btnclr,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
+                                          border: Border.all(color: gradientgreen), color: btnclr, borderRadius: BorderRadius.circular(30)),
                                       child: Container(
                                         // margin: EdgeInsets.only(left: size.width*0.04),
                                         alignment: Alignment.center,
@@ -510,9 +402,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
   void _optionsModalBottomSheet(context, Cards? cards) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -523,37 +413,32 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: size.width * 0.02,
-                                ),
-                                Text(
-                                  'Options',
-                                  style: TextStyle(
-                                    fontFamily: "MBold",
-                                    fontSize: size.height * 0.018,
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        setSte(() {
-                                          isMore = false;
-                                        });
-                                      });
-                                    },
-                                    child: Icon(Icons.close)),
-                              ]),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Container(
+                              width: size.width * 0.02,
+                            ),
+                            Text(
+                              'Options',
+                              style: TextStyle(
+                                fontFamily: "MBold",
+                                fontSize: size.height * 0.018,
+                              ),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    setSte(() {
+                                      isMore = false;
+                                    });
+                                  });
+                                },
+                                child: Icon(Icons.close)),
+                          ]),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
@@ -570,9 +455,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                   ),
                                   Text(
                                     'Groups',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -585,9 +468,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                   ),
                                   Text(
                                     'Message',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -600,9 +481,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                   ),
                                   Text(
                                     'Email',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -625,9 +504,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     ),
                                     Text(
                                       'Favorites',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -638,9 +515,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                             height: size.height * 0.03,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: size.width * 0.01,
-                                right: size.width * 0.02),
+                            padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.02),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -655,9 +530,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     ),
                                     Text(
                                       'Share',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -672,9 +545,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     ),
                                     Text(
                                       'Reminder',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -689,9 +560,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     ),
                                     Text(
                                       'Meeting',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -707,9 +576,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     ),
                                     Text(
                                       'Delete',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -740,10 +607,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
             child: StatefulBuilder(
               builder: (context, setSte) {
                 return Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.02,
-                      right: size.width * 0.02,
-                      top: size.height * 0.02),
+                  padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -751,16 +615,13 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                         children: <Widget>[
                           Text(
                             'Sort by',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'Mbold'),
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                           ),
                           new ListTile(
                               minLeadingWidth: 5,
                               leading: Checkbox(
                                 checkColor: Colors.white,
-                                overlayColor:
-                                    MaterialStateProperty.all(infocolor),
+                                overlayColor: MaterialStateProperty.all(infocolor),
                                 fillColor: MaterialStateProperty.all(txtcolr),
                                 value: isName,
                                 shape: CircleBorder(),
@@ -774,9 +635,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                               ),
                               title: new Text(
                                 'by Name',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                               ),
                               onTap: () => {}),
                           new ListTile(
@@ -794,9 +653,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                             ),
                             title: new Text(
                               'by Date',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "Msemibold"),
+                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                             ),
                             onTap: () => {},
                           ),
@@ -815,9 +672,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                             ),
                             title: new Text(
                               'by Company name',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "Msemibold"),
+                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                             ),
                             onTap: () => {},
                           ),
@@ -828,8 +683,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       ),
                       Text(
                         'Filter by',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02, fontFamily: 'Mbold'),
+                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                       ),
                       SizedBox(
                         height: size.height * 0.02,
@@ -837,26 +691,18 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [gradientgreen, primarygreen]),
+                          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen]),
                         ),
                         height: size.height * 0.05,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Supplier',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
                               ),
                               Spacer(),
                               Image.asset(
@@ -873,26 +719,18 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [gradientgreen, primarygreen]),
+                          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen]),
                         ),
                         height: size.height * 0.05,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Managment',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
                               ),
                               Spacer(),
                               Image.asset(
@@ -912,26 +750,18 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
+                              colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
                         ),
                         height: size.height * 0.05,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Select Country',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
                               ),
                               Spacer(),
                               Image.asset(
@@ -951,26 +781,18 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
+                              colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
                         ),
                         height: size.height * 0.05,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Select Position',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
                               ),
                               Spacer(),
                               Image.asset(
@@ -990,26 +812,18 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
+                              colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
                         ),
                         height: size.height * 0.05,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 'Selcet Product & Services',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
                               ),
                               Spacer(),
                               Image.asset(
@@ -1029,13 +843,10 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                           height: size.height * 0.05,
                           width: size.width * 0.8,
                           decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    signupclor_light,
-                                    signupclor_dark,
-                                  ]),
+                              gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                signupclor_light,
+                                signupclor_dark,
+                              ]),
                               border: Border.all(color: Colors.grey),
                               color: bckgrnd,
                               borderRadius: BorderRadius.circular(30)),
@@ -1044,11 +855,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                             alignment: Alignment.center,
                             child: Text(
                               'Apply',
-                              style: TextStyle(
-                                  color: bckgrnd,
-                                  fontSize: size.height * 0.02,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Msemibold'),
+                              style: TextStyle(color: bckgrnd, fontSize: size.height * 0.02, fontWeight: FontWeight.bold, fontFamily: 'Msemibold'),
                             ),
                           ),
                         ),
@@ -1140,7 +947,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                       crossAxisAlignment: CrossAxisAlignment.start,
       //                       children: [
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.firstName} ${indiviualProfileModel.profileData!.lastName}",
+      //                           "${individualProfileModel.profileData!.firstName} ${individualProfileModel.profileData!.lastName}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.013,
       //                             color: signupclor_dark,
@@ -1148,7 +955,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                           ),
       //                         ),
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.jobTitle}",
+      //                           "${individualProfileModel.profileData!.jobTitle}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.015,
       //                             color: signupclor_dark,
@@ -1169,7 +976,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                               width: size.width * .35,
       //                               child: Column(children: [
       //                                 Text(
-      //                                   "${indiviualProfileModel.profileData!.address}",
+      //                                   "${individualProfileModel.profileData!.address}",
       //                                   style: TextStyle(
       //                                     fontSize: size.height * 0.015,
       //                                     color: signupclor_dark,
@@ -1190,7 +997,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                               width: size.width * 0.02,
       //                             ),
       //                             Text(
-      //                               indiviualProfileModel
+      //                               individualProfileModel
       //                                       .profileData!.mobileNumber ??
       //                                   '',
       //                               style: TextStyle(
@@ -1218,7 +1025,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                               child: Column(
       //                                 children: [
       //                                   Text(
-      //                                     indiviualProfileModel
+      //                                     individualProfileModel
       //                                             .profileData!.email ??
       //                                         '',
       //                                     style: TextStyle(
@@ -1246,7 +1053,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
       //                               child: Column(
       //                                 children: [
       //                                   Text(
-      //                                     "${indiviualProfileModel.profileData!.website}",
+      //                                     "${individualProfileModel.profileData!.website}",
       //                                     style: TextStyle(
       //                                       fontSize: size.height * 0.015,
       //                                       color: signupclor_dark,

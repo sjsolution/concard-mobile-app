@@ -55,8 +55,8 @@ class CreateNewSocialLink extends StatelessWidget {
                                     CircleAvatar(
                                         radius: size.height * 0.025,
                                         backgroundImage: NetworkImage(
-                                          app.indiviualProfileModel != null
-                                              ? app.indiviualProfileModel!.profileData!.image ??
+                                          app.individualProfileModel != null
+                                              ? app.individualProfileModel!.data!.user!.image ??
                                                   "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         )),
@@ -65,11 +65,11 @@ class CreateNewSocialLink extends StatelessWidget {
                                         Column(
                                           children: [
                                             Text(
-                                              '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
+                                              '${app.individualProfileModel!.data!.user!.firstName} ${app.individualProfileModel!.data!.user!.lastName}',
                                               style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                                             ),
                                             Text(
-                                              '${app.indiviualProfileModel!.profileData!.email}',
+                                              '${app.individualProfileModel!.data!.user!.email}',
                                               style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                             ),
                                           ],

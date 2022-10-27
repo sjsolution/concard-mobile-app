@@ -141,11 +141,11 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  IndiviualProfileModel? _indiviualProfileModel;
-  IndiviualProfileModel? get indiviualProfileModel => _indiviualProfileModel;
+  IndividualProfileModel? _individualProfileModel;
+  IndividualProfileModel? get individualProfileModel => _individualProfileModel;
 
-  set setIndvProfileObj(IndiviualProfileModel? obj) {
-    _indiviualProfileModel = obj;
+  set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
+    _individualProfileModel = obj;
     notifyListeners();
   }
 

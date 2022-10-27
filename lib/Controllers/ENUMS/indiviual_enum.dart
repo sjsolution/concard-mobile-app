@@ -1,3 +1,3 @@
 enum IndiviualEnum {
- indiviualProfileModel,
+  individualProfileModel,
 }

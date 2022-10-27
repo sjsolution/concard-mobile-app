@@ -27,8 +27,7 @@ class PersonalProfileViewScreen extends StatefulWidget {
   const PersonalProfileViewScreen({Key? key}) : super(key: key);
 
   @override
-  State<PersonalProfileViewScreen> createState() =>
-      _PersonalProfileViewScreenState();
+  State<PersonalProfileViewScreen> createState() => _PersonalProfileViewScreenState();
 }
 
 bool? isShareProfile = false;
@@ -57,10 +56,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
             Container(
                 height: size.height * 0.25,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [signupclor_light, signupclor_dark]),
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,10 +74,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => IndividualPremiumScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -91,13 +84,10 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             // width: size.width * 0.3,
                             decoration: BoxDecoration(
                                 color: bckgrnd.withOpacity(0.1),
-                                borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(10),
-                                    bottomRight: Radius.circular(10))),
+                                borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
                             child: Row(children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 3.0, bottom: 09.0),
+                                padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
                                 child: Image.asset(
                                   premium_icon,
                                   // height: size.width * 0.07,
@@ -110,10 +100,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: Text(
                                   'Premium',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      fontFamily: "MBold",
-                                      color: bckgrnd),
+                                  style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                 ),
                               ),
                             ]),
@@ -128,75 +115,53 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         CircleAvatar(
                             radius: size.height * 0.035,
                             backgroundImage: NetworkImage(
-                              appPro!.indiviualProfileModel!.profileData!
-                                      .image ??
+                              appPro!.individualProfileModel!.data!.user!.image ??
                                   "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                             )),
-                              const SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          '${appPro!.indiviualProfileModel!.profileData!.firstName ?? ''} ${appPro!.indiviualProfileModel!.profileData!.lastName ?? ''}',
-                          style: TextStyle(
-                              fontFamily: 'MBold',
-                              fontSize: size.height * 0.02,
-                              color: bckgrnd),
+                          '${appPro!.individualProfileModel!.data!.user!.firstName ?? ''} ${appPro!.individualProfileModel!.data!.user!.lastName ?? ''}',
+                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                         ),
                         const SizedBox(
                           height: 6,
                         ),
                         Row(children: [
                           Text(
-                            appPro!.indiviualProfileModel!.profileData!.email ??
-                                '',
-                            style: TextStyle(
-                                fontFamily: 'Stf',
-                                fontSize: size.height * 0.017,
-                                color: bckgrnd),
+                            appPro!.individualProfileModel!.data!.user!.email ?? '',
+                            style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                           ),
                           const SizedBox(
-                          height: 10,
-                        ),
+                            height: 10,
+                          ),
                           InkWell(
                             onTap: () {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) => Container(
-                                        margin: EdgeInsets.only(
-                                            bottom: size.height * 0.1),
+                                        margin: EdgeInsets.only(bottom: size.height * 0.1),
                                         child: Dialog(
-                                          alignment:
-                                              AlignmentDirectional.bottomCenter,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0)),
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
+                                              borderRadius: BorderRadius.circular(20),
                                               color: btnclr,
                                             ),
                                             height: size.height * 0.25,
                                             width: size.width * 0.9,
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.04,
-                                                  right: size.width * 0.04,
-                                                  top: size.height * 0.02),
+                                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                                               child: Column(
                                                 children: <Widget>[
                                                   Container(
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Container(
-                                                            width: size.width *
-                                                                0.1),
+                                                        Container(width: size.width * 0.1),
                                                         Image.asset(
                                                           secureguard,
                                                           color: infocolor,
@@ -204,8 +169,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                         // Spacer(),
                                                         GestureDetector(
                                                             onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
+                                                              Navigator.pop(context);
                                                             },
                                                             child: const Icon(
                                                               Icons.close,
@@ -220,8 +184,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                   Text(
                                                     'Not Verified',
                                                     style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.015,
+                                                      fontSize: size.height * 0.015,
                                                       fontFamily: "MBold",
                                                     ),
                                                   ),
@@ -231,8 +194,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                   Text(
                                                     'This might discourage clients from contacting you.',
                                                     style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.014,
+                                                      fontSize: size.height * 0.014,
                                                       fontFamily: "Stf",
                                                     ),
                                                   ),
@@ -241,31 +203,19 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      _requirementsModalBottomSheet(
-                                                          context);
+                                                      _requirementsModalBottomSheet(context);
                                                     },
                                                     child: Container(
-                                                      height:
-                                                          size.height * 0.04,
+                                                      height: size.height * 0.04,
                                                       width: size.width * 0.5,
                                                       decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color:
-                                                                  signupclor_dark),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
+                                                          border: Border.all(color: signupclor_dark),
+                                                          borderRadius: BorderRadius.circular(20),
                                                           color: btnclr),
                                                       child: Center(
                                                           child: Text(
                                                         'Check Requirements',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                size.height *
-                                                                    0.018,
-                                                            fontFamily: "MBOld",
-                                                            color:
-                                                                signupclor_dark),
+                                                        style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
                                                       )),
                                                     ),
                                                   ),
@@ -282,7 +232,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             ),
                           ),
                         ]),
-                       const SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         InkWell(
@@ -290,49 +240,35 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) => Container(
-                                      margin: EdgeInsets.only(
-                                          bottom: size.height * 0.1),
+                                      margin: EdgeInsets.only(bottom: size.height * 0.1),
                                       child: Dialog(
-                                        alignment:
-                                            AlignmentDirectional.bottomCenter,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0)),
+                                        alignment: AlignmentDirectional.bottomCenter,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                                         //this right here
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(20),
                                             color: btnclr,
                                           ),
                                           height: size.height * 0.25,
                                           width: size.width * 0.9,
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04,
-                                                top: size.height * 0.02),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                                             child: Column(
                                               children: <Widget>[
                                                 Container(
                                                   child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Container(
-                                                          width:
-                                                              size.width * 0.1),
+                                                      Container(width: size.width * 0.1),
                                                       SvgPicture.asset(
                                                         con_icon,
-                                                        height:
-                                                            size.height * 0.04,
+                                                        height: size.height * 0.04,
                                                       ),
                                                       // Spacer(),
                                                       GestureDetector(
                                                           onTap: () {
-                                                            Navigator.pop(
-                                                                context);
+                                                            Navigator.pop(context);
                                                           },
                                                           child: const Icon(
                                                             Icons.close,
@@ -347,8 +283,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                 Text(
                                                   'Promote your Concard',
                                                   style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
+                                                    fontSize: size.height * 0.015,
                                                     fontFamily: "MBold",
                                                   ),
                                                 ),
@@ -358,16 +293,14 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                 Text(
                                                   'Make your card visible when people search on',
                                                   style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
+                                                    fontSize: size.height * 0.015,
                                                     fontFamily: "Stf",
                                                   ),
                                                 ),
                                                 Text(
                                                   'Concard or Google',
                                                   style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
+                                                    fontSize: size.height * 0.015,
                                                     fontFamily: "Stf",
                                                   ),
                                                 ),
@@ -382,23 +315,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                     height: size.height * 0.05,
                                                     width: size.width * 0.5,
                                                     decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
+                                                        border: Border.all(color: signupclor_dark),
+                                                        borderRadius: BorderRadius.circular(20),
                                                         color: btnclr),
                                                     child: Center(
                                                         child: Text(
                                                       'Go to Settings',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018,
-                                                          fontFamily: "MBOld",
-                                                          color:
-                                                              signupclor_dark),
+                                                      style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
                                                     )),
                                                   ),
                                                 ),
@@ -419,10 +342,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             child: Center(
                               child: Text(
                                 'Promote',
-                                style: TextStyle(
-                                    fontFamily: "Stf",
-                                    fontSize: size.height * 0.015,
-                                    color: bckgrnd),
+                                style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.015, color: bckgrnd),
                               ),
                             ),
                           ),
@@ -431,7 +351,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     ),
                     //notification icon
                     Padding(
-                      padding: const EdgeInsets.only(right:8.0),
+                      padding: const EdgeInsets.only(right: 8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -442,9 +362,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         ],
                       ),
                     ),
-                      // SizedBox(
-                      //     width: 1,
-                      //   ),
+                    // SizedBox(
+                    //     width: 1,
+                    //   ),
                   ],
                 )),
             Container(
@@ -460,10 +380,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(
-                        top: size.height * 0.02,
-                        left: size.width * 0.1,
-                        right: size.width * 0.14),
+                    margin: EdgeInsets.only(top: size.height * 0.02, left: size.width * 0.1, right: size.width * 0.14),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -482,11 +399,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             margin: EdgeInsets.only(right: size.width * 0.03),
                             child: GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              const CalenderScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const CalenderScreen()));
                                 },
                                 child: Image.asset(
                                   planner_icon,
@@ -516,8 +429,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     topRight: const Radius.circular(15),
                   )),
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.02, right: size.width * 0.02),
+                padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -527,42 +439,30 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     Container(
                       height: size.height * 0.376,
                       child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           children: [
                             SizedBox(
                               height: size.height * 0.015,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
-                                  left: size.width * 0.02,
-                                  right: size.width * 0.02),
+                              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     ' My Card',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: 'MBold'),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  EditMyCardScreen()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditMyCardScreen()));
                                     },
                                     child: Row(
                                       children: [
                                         Text(
                                           'Edit Card',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.015,
-                                              fontFamily: 'Msemibold'),
+                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.03,
@@ -585,8 +485,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   _cardInfoPopup(context);
                                 },
                                 //umar changed
-                                child: cardWidget(
-                                    context, appPro!.indiviualProfileModel!))
+                                child: cardWidget(context, appPro!.individualProfileModel!))
                           ],
                         ),
                       ),
@@ -604,16 +503,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           child: Container(
                             height: size.height * 0.04,
                             width: size.width * 0.41,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: signupclor_dark),
-                                borderRadius: BorderRadius.circular(20)),
+                            decoration: BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20)),
                             child: Center(
                               child: Text(
                                 'Company Profile',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.018,
-                                    color: signupclor_dark),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: signupclor_dark),
                               ),
                             ),
                           ),
@@ -625,16 +519,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           child: Container(
                             height: size.height * 0.04,
                             width: size.width * 0.4,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: signupclor_dark),
-                                borderRadius: BorderRadius.circular(20)),
+                            decoration: BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20)),
                             child: Center(
                               child: Text(
                                 'Brochure',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.018,
-                                    color: signupclor_dark),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: signupclor_dark),
                               ),
                             ),
                           ),
@@ -652,17 +541,15 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                       RatingReviewScreen(userId: appPro!.indiviualProfileModel!.profileData!.id.toString(),)));
+                                    builder: (BuildContext context) => RatingReviewScreen(
+                                          userId: appPro!.individualProfileModel!.data!.user!.id.toString(),
+                                        )));
                           },
                           child: Row(
                             children: [
                               Text(
                                 'Rating & Reviews',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.018,
-                                    color: Colors.black,
-                                    fontFamily: 'Msemibold'),
+                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                               ),
                               const Icon(
                                 Icons.arrow_drop_down,
@@ -681,8 +568,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: primarygreen,
@@ -697,10 +583,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             ),
                             Text(
                               '4.5',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.018,
-                                  color: Colors.black,
-                                  fontFamily: 'Msemibold'),
+                              style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                             )
                           ],
                         ),
@@ -711,35 +594,23 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    AnalyticsScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => AnalyticsScreen()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Dashboard',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                color: Colors.black,
-                                fontFamily: 'Msemibold'),
+                            style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                           ),
                           Container(
                             height: size.height * 0.04,
                             width: size.width * 0.2,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: gradientgreen),
-                                borderRadius: BorderRadius.circular(15)),
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'View',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.015,
-                                    color: gradientgreen),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                               ),
                             ),
                           ),
@@ -752,9 +623,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     Container(
                       height: size.height * 0.15,
                       width: size.width,
-                      decoration: BoxDecoration(
-                          color: bckgrnd,
-                          borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(color: bckgrnd, borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -763,24 +632,17 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [prmryblue, darkblue])),
+                                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [prmryblue, darkblue])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '35',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         groupreach_icon,
@@ -788,23 +650,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.02),
+                                  margin: EdgeInsets.only(left: size.width * 0.02),
                                   child: Text(
                                     'Reached\nConcards',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.015),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
                                   ),
                                 ),
                               ],
@@ -815,24 +670,18 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [gradientgreen, primarygreen])),
+                                gradient:
+                                    LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '24',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         downloading_icon,
@@ -840,23 +689,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.017),
+                                  margin: EdgeInsets.only(left: size.width * 0.017),
                                   child: Text(
                                     'Saved\nConcards',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.015),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
                                   ),
                                 ),
                               ],
@@ -868,26 +710,17 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      signupclor_light,
-                                      signupclor_dark
-                                    ])),
+                                    begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark])),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '12',
-                                        style: TextStyle(
-                                            fontFamily: "Msemibold",
-                                            color: bckgrnd,
-                                            fontSize: size.height * 0.03),
+                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                       ),
                                       SvgPicture.asset(
                                         favoutline_icon,
@@ -896,23 +729,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       )
                                     ],
                                   ),
-                                  margin: EdgeInsets.only(
-                                      top: size.height * 0.01,
-                                      right: size.width * 0.02,
-                                      left: size.width * 0.03),
+                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                 ),
                                 SizedBox(
                                   height: size.height * 0.02,
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(left: size.width * 0.03),
+                                  margin: EdgeInsets.only(left: size.width * 0.03),
                                   child: Text(
                                     'Favorites',
-                                    style: TextStyle(
-                                        fontFamily: "Msemibold",
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.015),
+                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
                                   ),
                                 ),
                               ],
@@ -928,10 +754,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       children: [
                         Text(
                           "product & Services",
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              color: Colors.black,
-                              fontFamily: 'MBold'),
+                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                         ),
                         SizedBox(
                           width: size.width * 0.01,
@@ -957,67 +780,48 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: size.width * 0.02,
-                            top: size.height * 0.02,
-                            right: size.width * 0.02),
+                        padding: EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Buisness',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.22,
                                 ),
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Growth',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
                                 ),
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Progress',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
                                 ),
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Now',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.15,
@@ -1031,15 +835,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Row(
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Progress',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
@@ -1048,15 +848,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   width: size.width * 0.02,
                                 ),
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: btnclr,
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                       child: Text(
                                     'Now',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Msemibold"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                   )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.15,
@@ -1067,16 +863,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 Container(
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: gradientgreen),
-                                      borderRadius: BorderRadius.circular(15)),
+                                  decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                     child: Text(
                                       'Add +',
-                                      style: TextStyle(
-                                          fontFamily: 'MBold',
-                                          fontSize: size.height * 0.015,
-                                          color: gradientgreen),
+                                      style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                                     ),
                                   ),
                                 ),
@@ -1094,24 +885,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       children: [
                         Text(
                           "About",
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              color: Colors.black,
-                              fontFamily: 'MBold'),
+                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                         ),
                         Container(
                           height: size.height * 0.04,
                           width: size.width * 0.2,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: gradientgreen),
-                              borderRadius: BorderRadius.circular(15)),
+                          decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text(
                               'Edit',
-                              style: TextStyle(
-                                  fontFamily: 'MBold',
-                                  fontSize: size.height * 0.015,
-                                  color: gradientgreen),
+                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                             ),
                           ),
                         ),
@@ -1128,16 +911,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: size.width * 0.04, top: size.height * 0.02),
+                        padding: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Contrary to popular belief, Lorem Ipsum is not\nsimply random text. It has roots in a piece of\nclassical Latin literature from 45 BC, making it over\n2000 years old.',
-                              style: TextStyle(
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: "Msemibold"),
+                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                             )
                           ],
                         ),
@@ -1151,19 +931,12 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       children: [
                         Text(
                           "Social Media",
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              color: Colors.black,
-                              fontFamily: 'MBold'),
+                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                         ),
                         GestureDetector(
                           onTap: () async {
                             // await ProfileController().uplaodImage(hideeye_icon);
-                             Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            CreateNewSocialLink()));
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreateNewSocialLink()));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -1173,16 +946,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           child: Container(
                             height: size.height * 0.04,
                             width: size.width * 0.2,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: gradientgreen),
-                                borderRadius: BorderRadius.circular(15)),
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Text(
                                 'Add +',
-                                style: TextStyle(
-                                    fontFamily: 'MBold',
-                                    fontSize: size.height * 0.015,
-                                    color: gradientgreen),
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                               ),
                             ),
                           ),
@@ -1201,43 +969,31 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             future: SocialLinksController().getSocialLink(),
                             builder: (context, snapshot) {
                               if (snapshot.data == null) {
-                                return const Text(
-                                    "Something went wrong. Try again later");
-                              } else if (snapshot
-                                  .data!.linksDataList!.isEmpty) {
+                                return const Text("Something went wrong. Try again later");
+                              } else if (snapshot.data!.linksDataList!.isEmpty) {
                                 return const Text("There is no liks added yet");
                               } else {
-                                List<LinksDataList>? linksDataList =
-                                    snapshot.data!.linksDataList;
+                                List<LinksDataList>? linksDataList = snapshot.data!.linksDataList;
                                 return ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: linksDataList!.length,
                                   itemBuilder: ((context, index) {
                                     return Row(
                                       children: [
-                                        Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                radius: size.width * 0.06,
-                                                backgroundColor:
-                                                    signupclor_dark,
-                                                child: CircleAvatar(
-                                                    radius: size.width * 0.055,
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                            linksDataList[index]
-                                                                .image!)),
-                                              ),
-                                              Text(
-                                                  "${linksDataList[index].title}",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ))
-                                            ]),
+                                        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                          CircleAvatar(
+                                            radius: size.width * 0.06,
+                                            backgroundColor: signupclor_dark,
+                                            child: CircleAvatar(
+                                                radius: size.width * 0.055,
+                                                backgroundColor: Colors.white,
+                                                backgroundImage: NetworkImage(linksDataList[index].image!)),
+                                          ),
+                                          Text("${linksDataList[index].title}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ))
+                                        ]),
                                         const SizedBox(width: 15.0),
                                       ],
                                     );
@@ -1273,16 +1029,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         Container(
                           height: size.height * 0.04,
                           width: size.width * 0.2,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: gradientgreen),
-                              borderRadius: BorderRadius.circular(15)),
+                          decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                           child: Center(
                             child: Text(
                               'Add +',
-                              style: TextStyle(
-                                  fontFamily: 'MBold',
-                                  fontSize: size.height * 0.015,
-                                  color: gradientgreen),
+                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
                             ),
                           ),
                         ),
@@ -1308,15 +1059,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   ),
                                   Text(
                                     'Tomy jones',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: 'MBold'),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   ),
                                   Text(
                                     'Lorem ipsum',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.014,
-                                        fontFamily: 'Msemibold'),
+                                    style: TextStyle(fontSize: size.height * 0.014, fontFamily: 'Msemibold'),
                                   ),
                                 ],
                               ),
@@ -1342,8 +1089,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 width: size.width * 1.0,
                 color: Colors.black.withOpacity(0.5),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04, right: size.width * 0.04),
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                   child: Column(
                     children: [
                       SizedBox(
@@ -1364,12 +1110,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       Container(
                         height: size.height * 0.25,
                         width: size.width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: primarygreen),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: primarygreen),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04, top: size.height * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.04),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1411,17 +1154,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           },
                           child: Text(
                             'Got It!',
-                            style: TextStyle(
-                                fontFamily: "Msemibold",
-                                fontSize: size.height * 0.018),
+                            style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.018),
                           ),
                           style: ButtonStyle(
                               shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                               ),
-                              backgroundColor:
-                                  MaterialStateProperty.all(primarygreen)),
+                              backgroundColor: MaterialStateProperty.all(primarygreen)),
                         ),
                       )
                     ],
@@ -1435,7 +1174,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     );
   }
 
-  Widget cardWidget(context, IndiviualProfileModel? indiviualProfileModel) {
+  Widget cardWidget(context, IndividualProfileModel? individualProfileModel) {
     var size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.29,
@@ -1492,8 +1231,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               PrettyQr(
                                 typeNumber: 4,
                                 size: size.height * 0.06,
-                                data:
-                                    '${indiviualProfileModel!.profileData!.id ?? "0"}',
+                                data: '${individualProfileModel!.data!.user!.id ?? "0"}',
                                 errorCorrectLevel: QrErrorCorrectLevel.M,
                                 roundEdges: true,
                               ),
@@ -1510,7 +1248,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${indiviualProfileModel.profileData!.firstName ?? ''} ${indiviualProfileModel.profileData!.lastName ?? ''}",
+                                "${individualProfileModel.data!.user!.firstName ?? ''} ${individualProfileModel.data!.user!.lastName ?? ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.013,
                                   color: signupclor_dark,
@@ -1518,7 +1256,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 ),
                               ),
                               Text(
-                                "${indiviualProfileModel.profileData!.jobTitle ?? ''}",
+                                "${individualProfileModel.data!.user!.jobTitle ?? ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.015,
                                   color: signupclor_dark,
@@ -1539,7 +1277,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * .35,
                                     child: Column(children: [
                                       Text(
-                                        "${indiviualProfileModel.profileData!.address}",
+                                        "${individualProfileModel.data!.user!.address}",
                                         style: TextStyle(
                                           fontSize: size.height * 0.015,
                                           color: signupclor_dark,
@@ -1560,9 +1298,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * 0.02,
                                   ),
                                   Text(
-                                    indiviualProfileModel
-                                            .profileData!.mobileNumber ??
-                                        '',
+                                    individualProfileModel.data!.user!.mobileNumber ?? '',
                                     style: TextStyle(
                                       fontSize: size.height * 0.015,
                                       color: signupclor_dark,
@@ -1588,9 +1324,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          indiviualProfileModel
-                                                  .profileData!.email ??
-                                              '',
+                                          individualProfileModel.data!.user!.email ?? '',
                                           style: TextStyle(
                                             fontSize: size.height * 0.012,
                                             color: signupclor_dark,
@@ -1616,7 +1350,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "${indiviualProfileModel.profileData!.website}",
+                                          "${individualProfileModel.data!.user!.website}",
                                           style: TextStyle(
                                             fontSize: size.height * 0.015,
                                             color: signupclor_dark,
@@ -1657,10 +1391,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
         height: size.height * 0.5,
         width: size.width,
         child: Padding(
-          padding: EdgeInsets.only(
-              left: size.width * 0.04,
-              right: size.width * 0.04,
-              top: size.height * 0.02),
+          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
           child: Column(
             children: <Widget>[
               Row(
@@ -1668,10 +1399,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 children: [
                   Text(
                     'Card Info',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: size.height * 0.018,
-                        fontFamily: 'MBold'),
+                    style: TextStyle(color: Colors.black, fontSize: size.height * 0.018, fontFamily: 'MBold'),
                   ),
                   // SizedBox(width: 70,),
                   // Spacer(),
@@ -1706,8 +1434,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   ),
                   Text(
                     'www.company.com',
-                    style: TextStyle(
-                        fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                    style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
                   ),
                   const Spacer(),
                   Row(
@@ -1716,16 +1443,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         alignment: Alignment.center,
                         height: size.height * 0.035,
                         width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: signupclor_dark),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
+                        decoration:
+                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
                         child: Text(
                           'Visit',
-                          style: TextStyle(
-                              fontFamily: "Msemibold",
-                              color: signupclor_dark,
-                              fontSize: size.height * 0.013),
+                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
                         ),
                       ),
                     ],
@@ -1744,15 +1466,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     children: [
                       Text(
                         'Office 23, Floor 23, building 2, St 7,',
-                        style: TextStyle(
-                            fontFamily: "Msemibold",
-                            fontSize: size.height * 0.011),
+                        style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
                       ),
                       Text(
                         'Al salama, Jeddah, Saudia Arabia ',
-                        style: TextStyle(
-                            fontFamily: "Msemibold",
-                            fontSize: size.height * 0.011),
+                        style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
                       ),
                     ],
                   ),
@@ -1763,10 +1481,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         alignment: Alignment.center,
                         height: size.height * 0.035,
                         width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: signupclor_dark),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
+                        decoration:
+                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
                         child: Padding(
                           padding: const EdgeInsets.only(right: 10, left: 5),
                           child: Row(
@@ -1778,10 +1494,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Locate',
-                                style: TextStyle(
-                                    fontFamily: "Msemibold",
-                                    color: signupclor_dark,
-                                    fontSize: size.height * 0.013),
+                                style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
                               ),
                             ],
                           ),
@@ -1800,8 +1513,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   ),
                   Text(
                     'User.123@company.com',
-                    style: TextStyle(
-                        fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                    style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
                   ),
                   const Spacer(),
                   Row(
@@ -1810,16 +1522,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         alignment: Alignment.center,
                         height: size.height * 0.035,
                         width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: signupclor_dark),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
+                        decoration:
+                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
                         child: Text(
                           'Contact',
-                          style: TextStyle(
-                              fontFamily: "Msemibold",
-                              color: signupclor_dark,
-                              fontSize: size.height * 0.018),
+                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
                         ),
                       ),
                     ],
@@ -1835,8 +1542,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   ),
                   Text(
                     '+966 55 889 0098',
-                    style: TextStyle(
-                        fontFamily: "Stf", fontSize: size.height * 0.018),
+                    style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.018),
                   ),
                   const Spacer(),
                   Row(
@@ -1845,16 +1551,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         alignment: Alignment.center,
                         height: size.height * 0.035,
                         width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: signupclor_dark),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
+                        decoration:
+                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
                         child: Text(
                           'Call',
-                          style: TextStyle(
-                              fontFamily: "Msemibold",
-                              color: signupclor_dark,
-                              fontSize: size.height * 0.018),
+                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
                         ),
                       ),
                     ],
@@ -1866,18 +1567,14 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
         ),
       ),
     );
-    showDialog(
-        context: context, builder: (BuildContext context) => errorDialog);
+    showDialog(context: context, builder: (BuildContext context) => errorDialog);
   }
 
   void _switchaccountModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(10),
-                topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1888,15 +1585,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     height: size.height * 0.4,
                     width: size.width,
                     decoration: BoxDecoration(
-                        color: gradientgreen,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10))),
+                        color: gradientgreen, borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          top: size.height * 0.01,
-                          right: size.width * 0.04,
-                          left: size.width * 0.04),
+                      padding: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.04, left: size.width * 0.04),
                       child: Column(
                         children: [
                           Row(
@@ -1908,18 +1599,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Premium Feature',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.018,
-                                    fontFamily: "Stf",
-                                    color: bckgrnd),
+                                style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Stf", color: bckgrnd),
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              UpgradeToPremiumIndividualScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => UpgradeToPremiumIndividualScreen()));
                                 },
                                 child: Container(
                                   height: size.height * 0.03,
@@ -1931,10 +1615,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   child: Center(
                                     child: Text(
                                       'Upgrade',
-                                      style: TextStyle(
-                                          fontFamily: "MBold",
-                                          fontSize: size.height * 0.015,
-                                          color: bckgrnd),
+                                      style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
                                     ),
                                   ),
                                 ),
@@ -1948,19 +1629,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   Container(
                     margin: EdgeInsets.only(top: size.height * 0.05),
                     decoration: BoxDecoration(
-                        color: bckgrnd,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10))),
+                        color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                     height: size.height * 0.35,
                     width: size.width,
                     child: Wrap(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04,
-                              top: size.height * 0.02),
+                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                           child: Column(
                             children: [
                               Row(
@@ -1987,8 +1662,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                           onTap: () {
                                             Navigator.pop(context);
                                           },
-                                          child: Icon(Icons.close,
-                                              size: size.height * 0.025)),
+                                          child: Icon(Icons.close, size: size.height * 0.025)),
                                     ],
                                   ),
                                 ],
@@ -2006,65 +1680,45 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                         height: size.height * 0.12,
                                         width: size.width * 0.9,
                                         decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: gradientgreen),
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(color: gradientgreen),
                                             color: txtcolr.withOpacity(0.2)),
                                         child: Padding(
-                                          padding: EdgeInsets.only(
-                                              left: size.width * 0.04,
-                                              right: size.width * 0.04,
-                                              top: size.height * 0.02),
+                                          padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                                           child: Column(
                                             children: [
                                               Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                   CircleAvatar(
                                                     radius: size.height * 0.03,
-                                                    backgroundImage:
-                                                        const NetworkImage(
-                                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
+                                                    backgroundImage: const NetworkImage(
+                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
                                                   ),
-                                                  SizedBox(
-                                                      width: size.width * 0.03),
+                                                  SizedBox(width: size.width * 0.03),
                                                   Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Text(
                                                         'Assem Yamak',
                                                         style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018,
+                                                          fontSize: size.height * 0.018,
                                                           fontFamily: "MBold",
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                          height: size.height *
-                                                              0.01),
+                                                      SizedBox(height: size.height * 0.01),
                                                       Text(
                                                         'Operations Manager',
                                                         style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.015,
+                                                          fontSize: size.height * 0.015,
                                                           fontFamily: "Stf",
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                          height: size.height *
-                                                              0.01),
+                                                      SizedBox(height: size.height * 0.01),
                                                       Text(
                                                         'Dynamic Oil Tools',
                                                         style: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.015,
+                                                          fontSize: size.height * 0.015,
                                                           fontFamily: "Stf",
                                                         ),
                                                       ),
@@ -2076,29 +1730,17 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                       Navigator.pop(context);
                                                     },
                                                     child: Container(
-                                                      height:
-                                                          size.height * 0.04,
+                                                      height: size.height * 0.04,
                                                       width: size.width * 0.2,
                                                       decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color:
-                                                                signupclor_dark),
-                                                        color: txtcolr
-                                                            .withOpacity(0.2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
+                                                        border: Border.all(color: signupclor_dark),
+                                                        color: txtcolr.withOpacity(0.2),
+                                                        borderRadius: BorderRadius.circular(20),
                                                       ),
                                                       child: Center(
                                                           child: Text(
                                                         'Currently in use',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                size.height *
-                                                                    0.01,
-                                                            fontFamily: "MBOld",
-                                                            color:
-                                                                signupclor_dark),
+                                                        style: TextStyle(fontSize: size.height * 0.01, fontFamily: "MBOld", color: signupclor_dark),
                                                       )),
                                                     ),
                                                   ),
@@ -2127,9 +1769,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     Center(
                                       child: Text(
                                         '+ Add a new Card',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.018,
-                                            fontFamily: "Stf"),
+                                        style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Stf"),
                                       ),
                                     )
                                   ],
@@ -2152,29 +1792,20 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(10),
-                topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
                 decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: const Radius.circular(10),
-                        topRight: const Radius.circular(10))),
+                    color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: const Radius.circular(10))),
                 height: size.height * 0.28,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -2192,8 +1823,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Icon(Icons.close,
-                                      size: size.height * 0.025)),
+                                  child: Icon(Icons.close, size: size.height * 0.025)),
                             ],
                           ),
                           SizedBox(
@@ -2207,9 +1837,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Upload New Profile',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -2224,9 +1852,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Delete Current Profile',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -2245,28 +1871,20 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
-                decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                decoration:
+                    BoxDecoration(color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                 height: size.height * 0.28,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -2284,8 +1902,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Icon(Icons.close,
-                                      size: size.height * 0.025)),
+                                  child: Icon(Icons.close, size: size.height * 0.025)),
                             ],
                           ),
                           SizedBox(
@@ -2299,9 +1916,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Upload New Brochure',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -2316,9 +1931,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               Text(
                                 'Delete Current Brochure',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Stf"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                               )
                             ],
                           ),
@@ -2337,28 +1950,20 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
                 decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: const Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                    color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
                 height: size.height * 0.34,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -2377,8 +1982,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Icon(Icons.close,
-                                      size: size.height * 0.025)),
+                                  child: Icon(Icons.close, size: size.height * 0.025)),
                             ],
                           ),
                           SizedBox(
@@ -2386,36 +1990,28 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           ),
                           Text(
                             'Phone Number',
-                            style: TextStyle(
-                                fontSize: size.height * 0.015,
-                                fontFamily: "Stf"),
+                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                           ),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
                           Text(
                             'Email Address',
-                            style: TextStyle(
-                                fontSize: size.height * 0.015,
-                                fontFamily: "Stf"),
+                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                           ),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
                           Text(
                             'Identification',
-                            style: TextStyle(
-                                fontSize: size.height * 0.015,
-                                fontFamily: "Stf"),
+                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                           ),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
                           Text(
                             'LinkedIn Profile',
-                            style: TextStyle(
-                                fontSize: size.height * 0.015,
-                                fontFamily: "Stf"),
+                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                           ),
                           SizedBox(
                             height: size.height * 0.03,
@@ -2435,10 +2031,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 child: Center(
                                     child: Text(
                                   'Go to Settings',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.018,
-                                      fontFamily: "MBOld",
-                                      color: signupclor_dark),
+                                  style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
                                 )),
                               ),
                             ),
