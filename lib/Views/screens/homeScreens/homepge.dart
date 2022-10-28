@@ -683,7 +683,7 @@ class _HomepageState extends State<Homepage> {
                                           Comment(
                                               avatar: '${parentComments[index].avatar}',
                                               userName: '${parentComments[index].userName}',
-                                              content: '${parentComments[index].content}'),
+                                              content: '${parentComments[0].content.toString()}'),
                                           childReplies,
                                           treeThemeData: const TreeThemeData(lineColor: Colors.grey, lineWidth: 3),
                                           avatarRoot: (context, data) => PreferredSize(
