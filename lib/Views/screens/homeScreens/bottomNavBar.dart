@@ -25,18 +25,19 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  AppProvider? appPro;
+  late AppProvider appPro;
   @override
   void initState() {
-    // TODO: implement initState
     appPro = Provider.of<AppProvider>(context, listen: false);
     getInitialMethods();
     super.initState();
   }
 
   getInitialMethods() async {
-    IndiviualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId);
-    appPro!.setIndvProfileObj = individualProfileModel;
+    IndividualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId, context);
+    appPro.setIndividualProfileModelProfileObj = individualProfileModel;
+    print("here goes indi profile model");
+    print(individualProfileModel?.data?.user?.profileImage);
 
     setState(() {});
   }

@@ -1,41 +1,28 @@
 class PostsListModal {
-  final int? code;
-  final String? message;
-  final List<Posts>? posts;
-
   PostsListModal({
     this.code,
     this.message,
-    this.posts,
+    this.data,
   });
 
-  PostsListModal.fromJson(Map<String, dynamic> json)
-      : code = json['code'] as int?,
-        message = json['message'] as String?,
-        posts = (json['data'] as List?)
-            ?.map((dynamic e) => Posts.fromJson(e as Map<String, dynamic>))
-            .toList();
+  int? code;
+  String? message;
+  List<Posts>? data;
+
+  factory PostsListModal.fromJson(Map<String, dynamic> json) => PostsListModal(
+        code: json["code"],
+        message: json["message"],
+        data: List<Posts>.from(json["data"].map((x) => Posts.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-        'code': code,
-        'message': message,
-        'data': posts?.map((e) => e.toJson()).toList()
+        "code": code,
+        "message": message,
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
 class Posts {
-  final int? id;
-  final String? userId;
-  final String? text;
-  final String? status;
-  final String? createdAt;
-  final String? updatedAt;
-  final String? image;
-  final int? likeCounts;
-  final int? userLike;
-  final User? user;
-  final List<Comments>? comments;
-
   Posts({
     this.id,
     this.userId,
@@ -45,70 +32,117 @@ class Posts {
     this.updatedAt,
     this.image,
     this.likeCounts,
+    this.commentCounts,
     this.userLike,
+    this.isFollowed,
     this.user,
     this.comments,
   });
 
-  Posts.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int?,
-        userId = json['user_id'] as String?,
-        text = json['text'] as String?,
-        status = json['status'] as String?,
-        createdAt = json['created_at'] as String?,
-        updatedAt = json['updated_at'] as String?,
-        image = json['image'] as String?,
-        likeCounts = json['like_counts'] as int?,
-        userLike = json['user_like'] as int?,
-        user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
-        comments = (json['comments'] as List?)
-            ?.map((dynamic e) => Comments.fromJson(e as Map<String, dynamic>))
-            .toList();
+  int? id;
+  String? userId;
+  String? text;
+  String? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? image;
+  int? likeCounts;
+  int? commentCounts;
+  int? userLike;
+  int? isFollowed;
+  User? user;
+  List<Comments>? comments;
+
+  factory Posts.fromJson(Map<String, dynamic> json) => Posts(
+        id: json["id"],
+        userId: json["user_id"],
+        text: json["text"] == null ? null : json["text"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        image: json["image"],
+        likeCounts: json["like_counts"],
+        commentCounts: json["comment_counts"],
+        userLike: json["user_like"],
+        isFollowed: json["is_followed"],
+        user: User.fromJson(json["user"]),
+        comments: List<Comments>.from(json["comments"].map((x) => Comments.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'user_id': userId,
-        'text': text,
-        'status': status,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'image': image,
-        'like_counts': likeCounts,
-        'user_like': userLike,
-        'user': user?.toJson(),
-        'comments': comments?.map((e) => e.toJson()).toList()
+        "id": id,
+        "user_id": userId,
+        "text": text == null ? null : text,
+        "status": status,
+        "created_at": createdAt.toString(),
+        "updated_at": updatedAt.toString(),
+        "image": image,
+        "like_counts": likeCounts,
+        "comment_counts": commentCounts,
+        "user_like": userLike,
+        "is_followed": isFollowed,
+        "user": user?.toJson(),
+        "comments": List<dynamic>.from(comments!.map((x) => x.toJson())),
+      };
+}
+
+class Comments {
+  Comments({
+    this.id,
+    this.parentId,
+    this.parentType,
+    this.userId,
+    this.text,
+    this.createdAt,
+    this.updatedAt,
+    this.likeCounts,
+    this.userLike,
+    this.user,
+    this.replies,
+  });
+
+  int? id;
+  String? parentId;
+  String? parentType;
+  String? userId;
+  String? text;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? likeCounts;
+  int? userLike;
+  User? user;
+  List<Comments>? replies;
+
+  factory Comments.fromJson(Map<String, dynamic> json) => Comments(
+        id: json["id"],
+        parentId: json["parent_id"],
+        parentType: json["parent_type"],
+        userId: json["user_id"],
+        text: json["text"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        likeCounts: json["like_counts"],
+        userLike: json["user_like"],
+        user: User.fromJson(json["user"]),
+        replies: List<Comments>.from(json["replies"].map((x) => Comments.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "parent_id": parentId,
+        "parent_type": parentType,
+        "user_id": userId,
+        "text": text,
+        "created_at": createdAt.toString(),
+        "updated_at": updatedAt.toString(),
+        "like_counts": likeCounts,
+        "user_like": userLike,
+        "user": user?.toJson(),
+        "replies": List<dynamic>.from(replies!.map((x) => x.toJson())),
       };
 }
 
 class User {
-  final int? id;
-  final String? firstName;
-  final String? lastName;
-  final String? mobileNumber;
-  final String? email;
-  final String? userType;
-  final dynamic emailVerifiedAt;
-  final dynamic jobTitle;
-  final dynamic website;
-  final dynamic companyName;
-  final dynamic companyField;
-  final dynamic about;
-  final dynamic workTel;
-  final dynamic mobileTel;
-  final dynamic city;
-  final dynamic state;
-  final dynamic country;
-  final dynamic postalCode;
-  final dynamic address;
-  final String? createdAt;
-  final String? updatedAt;
-  final String? image;
-  final String? card;
-  final String? logo;
-  final String? profileImage;
-
   User({
     this.id,
     this.firstName,
@@ -135,178 +169,95 @@ class User {
     this.card,
     this.logo,
     this.profileImage,
+    this.userRating,
+    this.ratings,
   });
 
-  User.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int?,
-        firstName = json['first_name'] as String?,
-        lastName = json['last_name'] as String?,
-        mobileNumber = json['mobile_number'] as String?,
-        email = json['email'] as String?,
-        userType = json['user_type'] as String?,
-        emailVerifiedAt = json['email_verified_at'],
-        jobTitle = json['job_title'],
-        website = json['website'],
-        companyName = json['company_name'],
-        companyField = json['company_field'],
-        about = json['about'],
-        workTel = json['work_tel'],
-        mobileTel = json['mobile_tel'],
-        city = json['city'],
-        state = json['state'],
-        country = json['country'],
-        postalCode = json['postal_code'],
-        address = json['address'],
-        createdAt = json['created_at'] as String?,
-        updatedAt = json['updated_at'] as String?,
-        image = json['image'] as String?,
-        card = json['card'] as String?,
-        logo = json['logo'] as String?,
-        profileImage = json['profileImage'] as String?;
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? mobileNumber;
+  String? email;
+  String? userType;
+  String? emailVerifiedAt;
+  String? jobTitle;
+  String? website;
+  String? companyName;
+  String? companyField;
+  String? about;
+  String? workTel;
+  String? mobileTel;
+  String? city;
+  String? state;
+  String? country;
+  String? postalCode;
+  String? address;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? image;
+  String? card;
+  String? logo;
+  String? profileImage;
+  String? userRating;
+  List<dynamic>? ratings;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        mobileNumber: json["mobile_number"],
+        email: json["email"],
+        userType: json["user_type"],
+        emailVerifiedAt: json["email_verified_at"],
+        jobTitle: json["job_title"],
+        website: json["website"],
+        companyName: json["company_name"],
+        companyField: json["company_field"],
+        about: json["about"],
+        workTel: json["work_tel"],
+        mobileTel: json["mobile_tel"],
+        city: json["city"],
+        state: json["state"],
+        country: json["country"],
+        postalCode: json["postal_code"],
+        address: json["address"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        image: json["image"],
+        card: json["card"],
+        logo: json["logo"],
+        profileImage: json["profileImage"],
+        userRating: json["user_rating"].toString(),
+        ratings: json["ratings"],
+      );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'first_name': firstName,
-        'last_name': lastName,
-        'mobile_number': mobileNumber,
-        'email': email,
-        'user_type': userType,
-        'email_verified_at': emailVerifiedAt,
-        'job_title': jobTitle,
-        'website': website,
-        'company_name': companyName,
-        'company_field': companyField,
-        'about': about,
-        'work_tel': workTel,
-        'mobile_tel': mobileTel,
-        'city': city,
-        'state': state,
-        'country': country,
-        'postal_code': postalCode,
-        'address': address,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'image': image,
-        'card': card,
-        'logo': logo,
-        'profileImage': profileImage
-      };
-}
-
-class Comments {
-  final int? id;
-  final String? parentId;
-  final String? parentType;
-  final String? userId;
-  final String? text;
-  final String? createdAt;
-  final String? updatedAt;
-  final int? likeCounts;
-  final int? userLike;
-  final User? user;
-  final List<Replies>? replies;
-
-  Comments({
-    this.id,
-    this.parentId,
-    this.parentType,
-    this.userId,
-    this.text,
-    this.createdAt,
-    this.updatedAt,
-    this.likeCounts,
-    this.userLike,
-    this.user,
-    this.replies,
-  });
-
-  Comments.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int?,
-        parentId = json['parent_id'] as String?,
-        parentType = json['parent_type'] as String?,
-        userId = json['user_id'] as String?,
-        text = json['text'] as String?,
-        createdAt = json['created_at'] as String?,
-        updatedAt = json['updated_at'] as String?,
-        likeCounts = json['like_counts'] as int?,
-        userLike = json['user_like'] as int?,
-        user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
-        replies = (json['replies'] as List?)
-            ?.map((dynamic e) => Replies.fromJson(e as Map<String, dynamic>))
-            .toList();
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'parent_id': parentId,
-        'parent_type': parentType,
-        'user_id': userId,
-        'text': text,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'like_counts': likeCounts,
-        'user_like': userLike,
-        'user': user?.toJson(),
-        'replies': replies?.map((e) => e.toJson()).toList()
-      };
-}
-
-class Replies {
-  final int? id;
-  final String? parentId;
-  final String? parentType;
-  final String? userId;
-  final String? text;
-  final String? createdAt;
-  final String? updatedAt;
-  final int? likeCounts;
-  final int? userLike;
-  final User? user;
-  final List<Replies>? replies;
-
-  Replies({
-    this.id,
-    this.parentId,
-    this.parentType,
-    this.userId,
-    this.text,
-    this.createdAt,
-    this.updatedAt,
-    this.likeCounts,
-    this.userLike,
-    this.user,
-    this.replies,
-  });
-
-  Replies.fromJson(Map<String, dynamic> json)
-      : id = json['id'] as int?,
-        parentId = json['parent_id'] as String?,
-        parentType = json['parent_type'] as String?,
-        userId = json['user_id'] as String?,
-        text = json['text'] as String?,
-        createdAt = json['created_at'] as String?,
-        updatedAt = json['updated_at'] as String?,
-        likeCounts = json['like_counts'] as int?,
-        userLike = json['user_like'] as int?,
-        user = (json['user'] as Map<String, dynamic>?) != null
-            ? User.fromJson(json['user'] as Map<String, dynamic>)
-            : null,
-        replies = (json['replies'] as List?)
-            ?.map((dynamic e) => Replies.fromJson(e as Map<String, dynamic>))
-            .toList();
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'parent_id': parentId,
-        'parent_type': parentType,
-        'user_id': userId,
-        'text': text,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-        'like_counts': likeCounts,
-        'user_like': userLike,
-        'user': user?.toJson(),
-        'replies': replies?.map((e) => e.toJson()).toList()
+        "id": id,
+        "first_name": firstName,
+        "last_name": lastName,
+        "mobile_number": mobileNumber,
+        "email": email,
+        "user_type": userType,
+        "email_verified_at": emailVerifiedAt,
+        "job_title": jobTitle,
+        "website": website,
+        "company_name": companyName,
+        "company_field": companyField,
+        "about": about,
+        "work_tel": workTel,
+        "mobile_tel": mobileTel,
+        "city": city,
+        "state": state,
+        "country": country,
+        "postal_code": postalCode,
+        "address": address,
+        "created_at": createdAt.toString(),
+        "updated_at": updatedAt.toString(),
+        "image": image,
+        "card": card,
+        "logo": logo,
+        "profileImage": profileImage,
+        "user_rating": userRating,
+        "ratings": ratings,
       };
 }

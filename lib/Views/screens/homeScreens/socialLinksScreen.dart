@@ -35,26 +35,16 @@ class SocialLinksScreen extends StatelessWidget {
               Container(
                 height: size.height * 0.25,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [signupclor_light, signupclor_dark]),
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04,
-                      right: size.width * 0.04,
-                      top: size.height * 0.06),
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.06),
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                              onTap: () => Navigator.pop(context),
-                              child: const Icon(
-                                  Icons.arrow_back_ios_new_outlined,
-                                  color: Colors.white)),
+                          InkWell(onTap: () => Navigator.pop(context), child: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white)),
                           // InkWell(
                           //     onTap: () =>
                           //         _scaffoldKey.currentState!.openDrawer(),
@@ -69,9 +59,8 @@ class SocialLinksScreen extends StatelessWidget {
                                 CircleAvatar(
                                     radius: size.height * 0.025,
                                     backgroundImage: NetworkImage(
-                                      app.indiviualProfileModel != null
-                                          ? app.indiviualProfileModel!.profileData!
-                                                  .image ??
+                                      app.individualProfileModel != null
+                                          ? app.individualProfileModel!.data!.user!.image ??
                                               "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     )),
@@ -80,18 +69,12 @@ class SocialLinksScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         Text(
-                                          '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
-                                          style: TextStyle(
-                                              fontFamily: 'MBold',
-                                              fontSize: size.height * 0.02,
-                                              color: bckgrnd),
+                                          '${app.individualProfileModel!.data!.user!.firstName} ${app.individualProfileModel!.data!.user!.lastName}',
+                                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                                         ),
                                         Text(
-                                          '${app.indiviualProfileModel!.profileData!.email}',
-                                          style: TextStyle(
-                                              fontFamily: 'Stf',
-                                              fontSize: size.height * 0.017,
-                                              color: bckgrnd),
+                                          '${app.individualProfileModel!.data!.user!.email}',
+                                          style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                         ),
                                       ],
                                     ),
@@ -108,11 +91,7 @@ class SocialLinksScreen extends StatelessWidget {
                             children: [
                               GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                const NotificationsScreen()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                                   },
                                   child: Image.asset(
                                     notify_icon,
@@ -147,10 +126,7 @@ class SocialLinksScreen extends StatelessWidget {
                       topRight: Radius.circular(15),
                     )),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04,
-                      right: size.width * 0.04,
-                      top: size.height * 0.03),
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.03),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -159,9 +135,7 @@ class SocialLinksScreen extends StatelessWidget {
                         Center(
                           child: Text(
                             'Social Links',
-                            style: TextStyle(
-                                fontSize: size.height * 0.025,
-                                fontFamily: "Msemibold"),
+                            style: TextStyle(fontSize: size.height * 0.025, fontFamily: "Msemibold"),
                           ),
                         ),
                         SizedBox(
@@ -262,7 +236,6 @@ class SocialLinksScreen extends StatelessWidget {
                         const Divider(
                           thickness: 1,
                         ),
-                        
                         SizedBox(
                           height: size.height * 0.025,
                         ),
@@ -271,47 +244,32 @@ class SocialLinksScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            CreateNewSocialLink()));
+                                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreateNewSocialLink()));
                               },
                               child: Container(
                                 height: size.height * 0.05,
                                 width: size.width * 0.4,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
                                 child: Center(
                                   child: Text(
                                     'Add New',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.025,
-                                        fontFamily: "Msemibold",
-                                        color: Colors.white),
+                                    style: TextStyle(fontSize: size.height * 0.025, fontFamily: "Msemibold", color: Colors.white),
                                   ),
                                 ),
                               ),
                             ),
                             InkWell(
                               onTap: () {
-                                   
                                 // if (formKey.currentState!.validate()) {}
                               },
                               child: Container(
                                 height: size.height * 0.05,
                                 width: size.width * 0.4,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: primarygreen),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: primarygreen),
                                 child: Center(
                                   child: Text(
                                     'Save',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.025,
-                                        fontFamily: "Msemibold",
-                                        color: Colors.white),
+                                    style: TextStyle(fontSize: size.height * 0.025, fontFamily: "Msemibold", color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -336,10 +294,7 @@ class SocialLinksScreen extends StatelessWidget {
   void _settingModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(10),
-                topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -350,15 +305,12 @@ class SocialLinksScreen extends StatelessWidget {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
                       child: Row(
                         children: [
                           Text(
                             'More options',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'Mbold'),
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -376,18 +328,14 @@ class SocialLinksScreen extends StatelessWidget {
                         ),
                         title: Text(
                           'Groups',
-                          style: TextStyle(
-                              fontFamily: 'Msemibold',
-                              fontSize: size.height * 0.015),
+                          style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                         ),
                         onTap: () => {}),
                     ListTile(
                       leading: SvgPicture.asset(emailtwo_icon),
                       title: Text(
                         'Turn off notification',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -395,9 +343,7 @@ class SocialLinksScreen extends StatelessWidget {
                       leading: SvgPicture.asset(newcntct_icon),
                       title: Text(
                         'Add to Contacts',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -405,9 +351,7 @@ class SocialLinksScreen extends StatelessWidget {
                       leading: SvgPicture.asset(notfications_icon),
                       title: Text(
                         'Reminder',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -415,9 +359,7 @@ class SocialLinksScreen extends StatelessWidget {
                       leading: SvgPicture.asset(favourite_icon),
                       title: Text(
                         'Add to Favorite',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),

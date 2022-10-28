@@ -53,26 +53,27 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     setEditValue();
     super.initState();
   }
 
+  var data;
+
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    emailControl.text = app.indiviualProfileModel!.profileData!.email != null ? app.indiviualProfileModel!.profileData!.email! : '';
-    telMobileControl.text = app.indiviualProfileModel!.profileData!.mobileNumber != null ? app.indiviualProfileModel!.profileData!.mobileNumber! : '';
-    companyNameControl.text = app.indiviualProfileModel!.profileData!.companyName != null ? app.indiviualProfileModel!.profileData!.companyName! : "";
-    companyWebsiteControl.text = app.indiviualProfileModel!.profileData!.website != null ? app.indiviualProfileModel!.profileData!.website! : '';
-    companyFieldControl.text =
-        app.indiviualProfileModel!.profileData!.companyField != null ? app.indiviualProfileModel!.profileData!.companyField! : '';
-    telWokeControl.text = app.indiviualProfileModel!.profileData!.workTel != null ? app.indiviualProfileModel!.profileData!.workTel! : '';
-    provinceControl.text = app.indiviualProfileModel!.profileData!.state != null ? app.indiviualProfileModel!.profileData!.state! : '';
-    cityControl.text = app.indiviualProfileModel!.profileData!.city != null ? app.indiviualProfileModel!.profileData!.city! : '';
-    countryControl.text = app.indiviualProfileModel!.profileData!.country != null ? app.indiviualProfileModel!.profileData!.country! : '';
-    postalCodeControl.text = app.indiviualProfileModel!.profileData!.postalCode != null ? app.indiviualProfileModel!.profileData!.postalCode! : '';
-    addressControl.text = app.indiviualProfileModel!.profileData!.address != null ? app.indiviualProfileModel!.profileData!.address! : '';
-    aboutControl.text = app.indiviualProfileModel!.profileData!.about != null ? app.indiviualProfileModel!.profileData!.about! : '';
+    data = app.individualProfileModel!.data!.user!;
+    emailControl.text = data.email != null ? data.email! : '';
+    telMobileControl.text = data.mobileNumber != null ? data.mobileNumber! : '';
+    companyNameControl.text = data.companyName != null ? data.companyName! : "";
+    companyWebsiteControl.text = data.website != null ? data.website! : '';
+    companyFieldControl.text = data.companyField != null ? data.companyField! : '';
+    telWokeControl.text = data.workTel != null ? data.workTel! : '';
+    provinceControl.text = data.state != null ? data.state! : '';
+    cityControl.text = data.city != null ? data.city! : '';
+    countryControl.text = data.country != null ? data.country! : '';
+    postalCodeControl.text = data.postalCode != null ? data.postalCode! : '';
+    addressControl.text = data.address != null ? data.address! : '';
+    aboutControl.text = data.about != null ? data.about! : '';
 
     setState(() {});
   }
@@ -112,14 +113,12 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 // if(formKey.currentState!.validate()){
                                 app.setLoadingTrue();
                                 loaderWidget(context, size);
-                                IndiviualProfileModel? indiviualProfileModel = await ProfileController().updateProfile(
-                                  fName: app.indiviualProfileModel!.profileData!.firstName,
-                                  lName: app.indiviualProfileModel!.profileData!.lastName,
-                                  email: emailControl.text.isNotEmpty ? emailControl.text.trim() : app.indiviualProfileModel!.profileData!.email,
-                                  jobTitle: app.indiviualProfileModel!.profileData!.jobTitle,
-                                  mobileNumber: telMobileControl.text.isNotEmpty
-                                      ? telMobileControl.text.trim()
-                                      : app.indiviualProfileModel!.profileData!.mobileNumber,
+                                IndividualProfileModel? individualProfileModel = await ProfileController().updateProfile(
+                                  fName: data.firstName,
+                                  lName: data.lastName,
+                                  email: emailControl.text.isNotEmpty ? emailControl.text.trim() : data.email,
+                                  jobTitle: data.jobTitle,
+                                  mobileNumber: telMobileControl.text.isNotEmpty ? telMobileControl.text.trim() : data.mobileNumber,
                                   compName: companyNameControl.text.isNotEmpty ? companyNameControl.text.trim() : '',
                                   comWebsite: companyWebsiteControl.text.isNotEmpty ? companyWebsiteControl.text.trim() : '',
                                   comField: companyFieldControl.text.isNotEmpty ? companyFieldControl.text.trim() : '',
@@ -132,8 +131,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   about: aboutControl.text.isNotEmpty ? aboutControl.text.trim() : '',
                                   userType: "1",
                                 );
-                                if (indiviualProfileModel != null) {
-                                  app.setIndvProfileObj = indiviualProfileModel;
+                                if (individualProfileModel != null) {
+                                  app.setIndividualProfileModelProfileObj = individualProfileModel;
                                 }
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
@@ -221,14 +220,14 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${app.indiviualProfileModel!.profileData!.firstName} ${app.indiviualProfileModel!.profileData!.lastName}',
+                                                    '${data.firstName} ${data.lastName}',
                                                     style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
-                                                    '${app.indiviualProfileModel!.profileData!.jobTitle}',
+                                                    '${data.jobTitle}',
                                                     style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
@@ -258,21 +257,21 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    '${app.indiviualProfileModel!.profileData!.email}',
+                                                    '${data.email}',
                                                     style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
-                                                    '${app.indiviualProfileModel!.profileData!.website}',
+                                                    '${data.website}',
                                                     style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
                                                   Text(
-                                                    '${app.indiviualProfileModel!.profileData!.mobileNumber}',
+                                                    '${data.mobileNumber}',
                                                     style: TextStyle(fontSize: size.height * 0.016, fontFamily: "Stf"),
                                                   ),
                                                 ],
@@ -349,7 +348,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           () {},
                                         );
                                       },
-                                      child: uploadPhoto == null && app.indiviualProfileModel!.profileData!.image == null
+                                      child: uploadPhoto == null && data.image == null
                                           ? Container(
                                               height: size.height * 0.15,
                                               width: size.width * 0.3,
@@ -443,7 +442,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                           image: NetworkImage(
-                                                            app.indiviualProfileModel!.profileData!.image ??
+                                                            data.image ??
                                                                 "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                           ),
                                                           fit: BoxFit.cover),
@@ -501,7 +500,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                           () {},
                                         );
                                       },
-                                      child: uploadLogo == null && app.indiviualProfileModel!.profileData!.logo == null
+                                      child: uploadLogo == null && data.logo == null
                                           ? Container(
                                               height: size.height * 0.15,
                                               width: size.width * 0.3,
@@ -595,7 +594,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                           image: NetworkImage(
-                                                            app.indiviualProfileModel!.profileData!.logo ??
+                                                            data.logo ??
                                                                 "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                           ),
                                                           fit: BoxFit.cover),
@@ -1222,7 +1221,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                         () {},
                       );
                     },
-                    child: uploadProfile == null && app.indiviualProfileModel!.profileData!.profileImage == null
+                    child: uploadProfile == null && data.profileImage == null
                         ? Container(
                             height: size.height * 0.10,
                             width: size.width * 0.2,
@@ -1246,7 +1245,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
                                 margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
                                 child: Image.network(
-                                  app.indiviualProfileModel!.profileData!.profileImage ??
+                                  data.profileImage ??
                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                 )
                                 // SvgPicture.asset(con_icon),
@@ -1265,7 +1264,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
   Widget cardUploadView({Size? size, AppProvider? app}) {
     return Column(
       children: [
-        uploadCard == null && app!.indiviualProfileModel!.profileData!.card == null
+        uploadCard == null && data.card == null
             ? Padding(
                 padding: EdgeInsets.only(left: size!.width * 0.04, right: size.width * 0.0),
                 child: Row(
@@ -1303,8 +1302,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                 : cardUpload(
                     size: size,
                     image: NetworkImage(
-                      app!.indiviualProfileModel!.profileData!.card ??
-                          "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                      data.card ?? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                     ))
       ],
     );

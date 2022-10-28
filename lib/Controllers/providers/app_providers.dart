@@ -1,6 +1,6 @@
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'dart:io';
-
+import 'package:concard/Controllers/indiviualController/follow_controller.dart';
 import 'package:concard/Models/Company/ProductAndServicesModel.dart';
 import 'package:concard/Controllers/compnayControllers/product_and_services_controller.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
@@ -124,6 +124,16 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int? _isFollowing;
+
+  get isFollowing => _isFollowing;
+
+  sendFollowRequest({String? id}) async {
+    print("_isFollowing = " + _isFollowing.toString());
+    _isFollowing = await FollowController().sendFollowRequest(id: id.toString());
+    notifyListeners();
+  }
+
   ProductAndServicesModel? _productAndServices;
 
   ProductAndServicesModel? get productAndServicesModel => _productAndServices;
@@ -141,11 +151,11 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  IndiviualProfileModel? _indiviualProfileModel;
-  IndiviualProfileModel? get indiviualProfileModel => _indiviualProfileModel;
+  IndividualProfileModel? _individualProfileModel;
+  IndividualProfileModel? get individualProfileModel => _individualProfileModel;
 
-  set setIndvProfileObj(IndiviualProfileModel? obj) {
-    _indiviualProfileModel = obj;
+  set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
+    _individualProfileModel = obj;
     notifyListeners();
   }
 

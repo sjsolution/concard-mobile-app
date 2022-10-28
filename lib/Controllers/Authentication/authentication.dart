@@ -27,8 +27,6 @@ class AuthenticationClass {
 
           Globals.userId = response['user']['id'].toString();
 
-          Globals.profilePic = response['user']['profileImage'].toString();
-
           localStorageClass.setData(localStorageClass.tokenKey, response['token']);
 
           localStorageClass.setData(localStorageClass.userTypeKey, response['user_type']);

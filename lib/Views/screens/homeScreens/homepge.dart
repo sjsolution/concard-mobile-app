@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
+import 'package:concard/Controllers/indiviualController/follow_controller.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
 import 'package:concard/Controllers/storyController/story_controller.dart';
 import 'package:concard/Constants/colors.dart';
@@ -25,6 +26,7 @@ import '../../../Controllers/providers/story_provider.dart';
 import '../../../Models/Indiviuals/profile_model.dart';
 import '../text_status_add.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:concard/Controllers/indiviualController/profile_controller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -50,14 +52,14 @@ class _HomepageState extends State<Homepage> {
 
   // }
 
-  IndiviualProfileModel? individualProfileModel;
+  IndividualProfileModel? individualProfileModel;
 
 //   getStoriesList() async {
 //     // Globals.followingListModal =
 //     //     await FollowingController().getFollowingRequest(Globals.userId);
 //     Globals.storyModel = await StoryController().getStories();
 //     appPro = Provider.of<AppProvider>(context, listen: false);
-//     individualProfileModel = appPro!.indiviualProfileModel;
+//     individualProfileModel = appPro!.individualProfileModel;
 //     print("indi prof model");
 //     print(individualProfileModel?.profileData?.profileImage);
 // // print('follow id \n'+Globals.followingListModal!.data![0].firstName.toString());
@@ -66,6 +68,7 @@ class _HomepageState extends State<Homepage> {
 //   }
 
   List<int>? isPostLikeList = [];
+  // List<int>? = [];
   List<int>? isCommentLikeList = [];
   AppProvider? appPro;
   StoryProvider? storyProvider1;
@@ -78,12 +81,13 @@ class _HomepageState extends State<Homepage> {
 
   fetchStoriesList() async {
     Provider.of<StoryProvider>(context, listen: false).getStories();
+    individualProfileModel = await ProfileController().getIndiviualProfile(Globals.id, context);
+    Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
     appPro = Provider.of<AppProvider>(context, listen: false);
-    individualProfileModel = appPro!.indiviualProfileModel;
-    print("indie prof model");
-    print(individualProfileModel?.profileData?.profileImage);
+    // debugPrint(individualProfileModel?.data?.user?.profileImage);
     // print('model_______________________');
     // print(context.read<StoryProvider>().storyProvider?.data);
+    // print(individualProfileModel?.profileData?.profileImage);
   }
 
   File? uploadProfile;
@@ -95,7 +99,7 @@ class _HomepageState extends State<Homepage> {
         Navigator.pop(context);
         uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
         if (uploadProfile != null) {
-          print(uploadProfile);
+          debugPrint(uploadProfile.toString());
           await StoryController().addStory(file: uploadProfile);
         }
         if (mounted) {
@@ -106,7 +110,7 @@ class _HomepageState extends State<Homepage> {
         Navigator.pop(context);
         uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
         if (uploadProfile != null) {
-          print(uploadProfile);
+          debugPrint(uploadProfile.toString());
           await StoryController().addStory(file: uploadProfile);
           StoryProvider().getStories();
         }
@@ -116,7 +120,7 @@ class _HomepageState extends State<Homepage> {
       },
       true,
       () {
-        print("1");
+        debugPrint("1");
         Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) => TextStatusAdd()));
       },
@@ -185,9 +189,8 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.indiviualProfileModel != null
-                                          ? appPro!.indiviualProfileModel!.profileData!.image ??
-                                              "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                      appPro?.individualProfileModel?.data?.user?.profileImage != null
+                                          ? appPro!.individualProfileModel!.data!.user!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
                                   ),
@@ -240,9 +243,8 @@ class _HomepageState extends State<Homepage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                          appPro?.indiviualProfileModel != null
-                                              ? appPro?.indiviualProfileModel!.profileData!.image ??
-                                                  "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                          appPro?.individualProfileModel?.data?.user?.profileImage != null
+                                              ? appPro!.individualProfileModel!.data!.user!.profileImage.toString()
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         ),
                                         radius: 28,
@@ -309,7 +311,7 @@ class _HomepageState extends State<Homepage> {
                                       height: size.height * 0.1,
                                       // width: size.width * 0.9,
                                     )
-                                  : Text('No data Found'),
+                                  : const SizedBox(),
                             ],
                           );
                         },
@@ -326,11 +328,14 @@ class _HomepageState extends State<Homepage> {
                             //  postsListModal!.posts!.isNotEmpty
                             //     ?
                             FutureBuilder<PostsListModal?>(
-                          future: PostController().getPostList(),
+                          future: Future.delayed(
+                            Duration(seconds: 1),
+                            () => PostController().getPostList(),
+                          ),
                           builder: (context, snapshot) {
                             if (snapshot.data != null) {
                               // var postData = snapshot.data;
-                              var posts = snapshot.data!.posts;
+                              var posts = snapshot.data!.data;
 
                               for (var isLike in posts!) {
                                 isPostLikeList!.add(isLike.userLike!);
@@ -353,7 +358,10 @@ class _HomepageState extends State<Homepage> {
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              CircleAvatar(radius: 20, backgroundImage: NetworkImage('${posts[index].user!.image}')),
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage: NetworkImage('${posts[index].user!.logo.toString()}'),
+                                              ),
                                               const SizedBox(
                                                 width: 10,
                                               ),
@@ -382,50 +390,55 @@ class _HomepageState extends State<Homepage> {
                                                       Text(
                                                         DateTimeManueplate()
                                                             .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
-                                                        // DateTime.now()
-                                                        //         .difference(
-                                                        //             DateTime.parse(
-                                                        //                 posts[index].createdAt!))
-                                                        //         .inHours
-                                                        //         .toString() +
-                                                        //     " h ago",
                                                         style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
                                                       ),
                                                       SizedBox(
                                                         height: size.height * 0.02,
                                                       ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          // FollowController().sendFollowRequest(followRequest['following_id']);
-                                                          setState(() {
-                                                            isSelected = !isSelected;
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height: size.height * 0.03,
-                                                          width: size.width * 0.23,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(30), border: Border.all(color: signupclor_dark)),
-                                                          child: Padding(
-                                                            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  isSelected ? 'Added' : 'Add',
-                                                                  style: TextStyle(
-                                                                      fontFamily: "Msemibold", fontSize: size.height * 0.015, color: signupclor_dark),
+                                                      Globals.userId == posts[index].userId
+                                                          ? SizedBox()
+                                                          : InkWell(
+                                                              onTap: () {
+                                                                // print();
+                                                                // FollowController().sendFollowRequest(followRequest['following_id']);
+                                                                // appPro!.sendFollowRequest(id: posts[index].userId.toString());
+                                                                // if (appPro!.isFollowing == 0) {
+                                                                //   posts[index].isFollowed = 1;
+                                                                // } else if (posts[index].isFollowed == 1) {
+                                                                //   posts[index].isFollowed = 0;
+                                                                // }
+                                                                // setState(() {});
+                                                                FollowController().sendFollowRequest(id: posts[index].userId.toString());
+                                                                setState((){});
+                                                              },
+                                                              child: Container(
+                                                                height: size.height * 0.03,
+                                                                width: size.width * 0.23,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(30),
+                                                                    border: Border.all(color: signupclor_dark)),
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Text(
+                                                                        posts[index].isFollowed == 1 ? 'Added' : 'Add',
+                                                                        style: TextStyle(
+                                                                            fontFamily: "Msemibold",
+                                                                            fontSize: size.height * 0.015,
+                                                                            color: signupclor_dark),
+                                                                      ),
+                                                                      Icon(
+                                                                        posts[index].isFollowed == 1 ? Icons.check : Icons.add,
+                                                                        size: size.height * 0.02,
+                                                                        color: signupclor_dark,
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                                Icon(
-                                                                  isSelected ? Icons.check : Icons.add,
-                                                                  size: size.height * 0.02,
-                                                                  color: signupclor_dark,
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
+                                                              ),
+                                                            )
                                                     ],
                                                   ),
                                                 ],
@@ -605,13 +618,16 @@ class _HomepageState extends State<Homepage> {
   bool? isProfile = false;
   bool? isSendBtn = false;
   bool? isShow = false;
+  bool isReplying = false;
+  String? replyingId;
 
   List<Comment> childReplies = [];
   List<Comment> parentComments = [];
   List<String> parentCommentsId = [];
   List<String> childRepliesId = [];
   List<Comments>? commentsList = [];
-  List<Replies>? repliesApiList = [];
+  List<Comments>? repliesApiList = [];
+  var replyList = [];
 
   ScrollController _scrollController = ScrollController();
   var commentFocusNode = FocusNode();
@@ -625,16 +641,19 @@ class _HomepageState extends State<Homepage> {
     // List<Comments>? comments = Provider.of<AppProvider>(context, listen: false).comments;
 
     showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        enableDrag: true,
-        backgroundColor: Colors.transparent,
-        builder: (context) {
-          return Consumer<AppProvider>(builder: (context, provider, child) {
+      context: context,
+      isScrollControlled: true,
+      enableDrag: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Consumer<AppProvider>(
+          builder: (context, provider, child) {
             List<Comments>? comments = context.watch<AppProvider>().comments;
-            return Scaffold(body: StatefulBuilder(
-              builder: ((context, StateSetter setStats) {
-                return Container(
+            return Scaffold(
+              resizeToAvoidBottomInset: true,
+              body: StatefulBuilder(
+                builder: ((context, StateSetter setStats) {
+                  return Container(
                     padding: const EdgeInsets.only(top: 40),
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -644,6 +663,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                     child: SingleChildScrollView(
+                      reverse: true,
                       child: Padding(
                         padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
                         child: Column(
@@ -655,6 +675,7 @@ class _HomepageState extends State<Homepage> {
                                       controller: _scrollController,
                                       padding: const EdgeInsets.all(0),
                                       itemCount: comments.length,
+                                      shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
                                         commentsList = comments;
@@ -675,8 +696,14 @@ class _HomepageState extends State<Homepage> {
                                         }
                                         for (var subComment in repliesApiList!) {
                                           childReplies.add(Comment(
-                                              avatar: subComment.user!.profileImage, userName: subComment.user!.firstName, content: subComment.text));
-                                          childRepliesId.add(subComment.id.toString());
+                                              avatar: subComment.user!.profileImage,
+                                              userName: subComment.user!.firstName,
+                                              content: subComment.text,
+                                              createdAt: subComment.createdAt.toString(),
+                                              id: subComment.id.toString(),
+                                              isLiked: subComment.userLike));
+                                          // childRepliesId.add(subComment.id.toString());
+                                          // replyList.add(subComment.createdAt);
                                         }
                                         // like pe kam krna
                                         return CommentTreeWidget<Comment, Comment>(
@@ -757,7 +784,7 @@ class _HomepageState extends State<Homepage> {
                                                       ),
                                                       InkWell(
                                                         onTap: () async {
-                                                          // debugPrint("Comment ID :" + parentCommentsId[index].toString());
+                                                          // debugdebugPrint("Comment ID :" + parentCommentsId[index].toString());
                                                           // debugPrint("Comment Index :" + index.toString());
                                                           //
                                                           // debugPrint("Before :" + isCommentLikeList.toString());
@@ -783,10 +810,10 @@ class _HomepageState extends State<Homepage> {
                                                             parentCommentsId[index],
                                                           );
                                                           PostsListModal? response = await AppProvider().getPostData();
-                                                          for (int i = 0; i <= response!.posts!.length; i++) {
-                                                            if (response.posts![i].id == singlePost!.id) {
-                                                              print("Setting Up comments");
-                                                              provider.commentsSetter = response.posts![i].comments;
+                                                          for (int i = 0; i <= response!.data!.length; i++) {
+                                                            if (response.data![i].id == singlePost!.id) {
+                                                              debugPrint("Setting Up comments");
+                                                              provider.commentsSetter = response.data![i].comments;
                                                             }
                                                           }
 
@@ -807,22 +834,24 @@ class _HomepageState extends State<Homepage> {
                                                       ),
                                                       InkWell(
                                                         onTap: () async {
-                                                          if (commentController.text.isNotEmpty) {
-                                                            await PostController().addReplyComment(
-                                                              parentCommentsId[index],
-                                                              commentController.text,
-                                                            );
-                                                            commentController.clear();
-                                                            PostsListModal? response = await AppProvider().getPostData();
-                                                            for (int i = 0; i <= response!.posts!.length; i++) {
-                                                              if (response.posts![i].id == singlePost!.id) {
-                                                                print("Setting Up comments");
-                                                                provider.commentsSetter = response.posts![i].comments;
-                                                              }
-                                                            }
-                                                          } else {
-                                                            Globals.showToastMethod(msg: "Please write something to post");
-                                                          }
+                                                          isReplying = true;
+                                                          replyingId = parentCommentsId[index];
+                                                          // if (commentController.text.isNotEmpty) {
+                                                          //   await PostController().addReplyComment(
+                                                          //     parentCommentsId[index],
+                                                          //     commentController.text,
+                                                          //   );
+                                                          //   commentController.clear();
+                                                          //   PostsListModal? response = await AppProvider().getPostData();
+                                                          //   for (int i = 0; i <= response!.posts!.length; i++) {
+                                                          //     if (response.posts![i].id == singlePost!.id) {
+                                                          //       debugPrint("Setting Up comments");
+                                                          //       provider.commentsSetter = response.posts![i].comments;
+                                                          //     }
+                                                          //   }
+                                                          // } else {
+                                                          //   Globals.showToastMethod(msg: "Please write something to post");
+                                                          // }
 
                                                           setStats(() {});
                                                         },
@@ -879,13 +908,14 @@ class _HomepageState extends State<Homepage> {
                                                     child: Row(
                                                       children: [
                                                         SizedBox(
-                                                          width: 8,
+                                                          width: 5,
                                                         ),
                                                         Text(
+                                                          // '3h',
                                                           DateTimeManueplate()
                                                               .giveDifferenceInTime(
                                                                 DateTime.parse(
-                                                                  comments[index].replies![index].createdAt.toString(),
+                                                                  data.createdAt.toString(),
                                                                 ),
                                                               )
                                                               .toString(),
@@ -899,16 +929,14 @@ class _HomepageState extends State<Homepage> {
                                                         ),
                                                         InkWell(
                                                           onTap: () async {
-                                                            // print("reply api list is here");
-                                                            // print(repliesApiList);
                                                             var result = await PostController().addReplyCommentLike(
-                                                              comments[index].replies![index].id.toString(),
+                                                              data.id.toString(),
                                                             );
                                                             PostsListModal? response = await AppProvider().getPostData();
-                                                            for (int i = 0; i <= response!.posts!.length; i++) {
-                                                              if (response.posts![i].id == singlePost!.id) {
-                                                                print("Setting Up comments");
-                                                                provider.commentsSetter = response.posts![i].comments;
+                                                            for (int i = 0; i <= response!.data!.length; i++) {
+                                                              if (response.data![i].id == singlePost!.id) {
+                                                                debugPrint("Setting Up comments");
+                                                                provider.commentsSetter = response.data![i].comments;
                                                               }
                                                             }
                                                             if (result['code'] == 200) {
@@ -919,14 +947,14 @@ class _HomepageState extends State<Homepage> {
                                                           child: Text(
                                                             'Like',
                                                             style: TextStyle(
-                                                              color: comments[index].replies![index].userLike == 0 ? Colors.black : Colors.blue,
+                                                              color: data.isLiked == 0 ? Colors.black : Colors.blue,
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(
-                                                          width: 24,
-                                                        ),
-                                                        Text('Reply'),
+                                                        // SizedBox(
+                                                        //   width: 24,
+                                                        // ),
+                                                        // Text('Reply'),
                                                       ],
                                                     ),
                                                   ),
@@ -940,98 +968,141 @@ class _HomepageState extends State<Homepage> {
                                   )
                                 : const Center(child: Text("No Comments here")),
                             // comments.isNotEmpty?const SizedBox(height: 0,):,
-                            Column(
+                            isReplying
+                                ? GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isReplying = false;
+                                      });
+                                      setStats(() {
+                                        isReplying = false;
+                                      });
+                                    },
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "Cancel Replying",
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: size.height * 0.03,
-                                      backgroundImage: NetworkImage(
-                                        appPro?.indiviualProfileModel?.profileData?.profileImage == null
-                                            ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                            : appPro!.indiviualProfileModel!.profileData!.profileImage.toString(),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: size.width * 0.04,
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        child: TextFormField(
-                                          controller: commentController,
-                                          autofocus: true,
-                                          textInputAction: TextInputAction.done,
-                                          focusNode: commentFocusNode,
-                                          // onEditingComplete: () {
-                                          //   print("on compl");
-                                          //   FocusScopeNode? currentFocus =
-                                          //       FocusScope.of(context);
-                                          //   if (!currentFocus.hasPrimaryFocus) {
-                                          //     currentFocus.unfocus();
-                                          //     setState(() {
-                                          //       isOpen = false;
-                                          //     });
-                                          //   }
-                                          // },
-                                          // onFieldSubmitted: (String? value){
-                                          //   print("on submitted");
-                                          // },
-                                          decoration: InputDecoration(
-                                              fillColor: Colors.grey.withOpacity(0.2),
-                                              filled: true,
-                                              suffixIcon: InkWell(
-                                                  onTap: () async {
-                                                    // Navigator.pop(context);
-                                                    // parentComments.add(
-                                                    //     Comment(avatar: '', userName: 'Umar', content: commentController.text.trim()));
+                                CircleAvatar(
+                                  radius: size.height * 0.03,
+                                  backgroundImage: NetworkImage(
+                                    appPro?.individualProfileModel?.data?.user?.profileImage == null
+                                        ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                        : appPro!.individualProfileModel!.data!.user!.profileImage.toString(),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.04,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: commentController,
+                                    autofocus: true,
+                                    textInputAction: TextInputAction.done,
+                                    focusNode: commentFocusNode,
+                                    // onEditingComplete: () {
+                                    //   debugPrint("on compl");
+                                    //   FocusScopeNode? currentFocus =
+                                    //       FocusScope.of(context);
+                                    //   if (!currentFocus.hasPrimaryFocus) {
+                                    //     currentFocus.unfocus();
+                                    //     setState(() {
+                                    //       isOpen = false;
+                                    //     });
+                                    //   }
+                                    // },
+                                    // onFieldSubmitted: (String? value){
+                                    //   debugPrint("on submitted");
+                                    // },
+                                    decoration: InputDecoration(
+                                        fillColor: Colors.grey.withOpacity(0.2),
+                                        filled: true,
+                                        suffixIcon: InkWell(
+                                          onTap: () async {
+                                            if (isReplying == true) {
+                                              if (commentController.text.isNotEmpty) {
+                                                await PostController().addReplyComment(
+                                                  replyingId,
+                                                  commentController.text,
+                                                );
+                                                commentController.clear();
+                                                isReplying = false;
+                                                PostsListModal? response = await AppProvider().getPostData();
+                                                for (int i = 0; i <= response!.data!.length; i++) {
+                                                  if (response.data![i].id == singlePost!.id) {
+                                                    debugPrint("Setting Up comments");
+                                                    provider.commentsSetter = response.data![i].comments;
+                                                  }
+                                                }
+                                              } else {
+                                                Globals.showToastMethod(msg: "Please write something to post");
+                                              }
+                                            } else {
+                                              await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
+                                              commentController.clear();
+                                              commentFocusNode.unfocus();
+                                              PostsListModal? response = await AppProvider().getPostData();
+                                              for (int i = 0; i <= response!.data!.length; i++) {
+                                                if (response.data![i].id == singlePost.id) {
+                                                  debugPrint("Setting Up comments");
+                                                  provider.commentsSetter = response.data![i].comments;
+                                                  if (_scrollController.hasClients) {
+                                                    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                                  }
+                                                }
+                                              }
+                                              debugPrint("going to max intent");
+                                              if (_scrollController.hasClients) {
+                                                _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                              }
+                                            }
+                                            // Navigator.pop(context);
+                                            // parentComments.add(
+                                            //     Comment(avatar: '', userName: 'Umar', content: commentController.text.trim()));
 
-                                                    // context.read<AppProvider>().getPostData();
-                                                    await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
-                                                    // parentComments.add(Comment(
-                                                    //     avatar: provider.comments!.last.user!.profileImage,
-                                                    //     userName: provider.comments!.last.user!.firstName,
-                                                    //     content: provider.comments!.last.text));
-                                                    commentController.clear();
-                                                    commentFocusNode.unfocus();
-                                                    PostsListModal? response = await AppProvider().getPostData();
-                                                    for (int i = 0; i <= response!.posts!.length; i++) {
-                                                      if (response.posts![i].id == singlePost.id) {
-                                                        print("Setting Up comments");
-                                                        provider.commentsSetter = response.posts![i].comments;
-                                                        if (_scrollController.hasClients) {
-                                                          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-                                                        }
-                                                      }
-                                                    }
-                                                    print("going to max intent");
-                                                    // provider.commentsSetter = await PostController().
-                                                    //     .addPostComment(singlePost.id.toString(), commentController.text.trim());
-                                                    setStats(() {});
-                                                    setState(() {});
-                                                  },
-                                                  child: Icon(
-                                                    Icons.send,
-                                                    size: size.height * 0.03,
-                                                    color: signupclor_light,
-                                                  )),
-                                              hintText: 'Write your comment',
-                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                              hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
-                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                                            // context.read<AppProvider>().getPostData();
+
+                                            // parentComments.add(Comment(
+                                            //     avatar: provider.comments!.last.user!.profileImage,
+                                            //     userName: provider.comments!.last.user!.firstName,
+                                            //     content: provider.comments!.last.text));
+
+                                            // provider.commentsSetter = await PostController().
+                                            //     .addPostComment(singlePost.id.toString(), commentController.text.trim());
+                                            setStats(() {});
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.send,
+                                            size: size.height * 0.03,
+                                            color: signupclor_light,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
+                                        hintText: isReplying == false ? 'Write your comment' : "Write Your Reply",
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                                  ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
-                    ));
-              }),
-            ));
-          });
-        });
+                    ),
+                  );
+                }),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

@@ -36,10 +36,10 @@ class _AllCardsState extends State<AllCards> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCardList('0','0');
+    getCardList('0', '0');
   }
 
-  getCardList(String? filterBy,String? sortType) async {
+  getCardList(String? filterBy, String? sortType) async {
     Globals.cardListModal = await CardController().cardList(filterBy, sortType);
     print('My Card List........\n' + Globals.cardListModal.toString());
     setState(() {});
@@ -68,16 +68,18 @@ class _AllCardsState extends State<AllCards> {
                     borderSide: BorderSide(color: Colors.white),
                   ),
                   prefixIcon: Container(
-                    height: size.height*0.04,
-                    width: size.width*0.05,
-                    child: Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,)),
+                      height: size.height * 0.04,
+                      width: size.width * 0.05,
+                      child: Icon(
+                        Icons.search,
+                        size: size.height * 0.05,
+                        color: signupclor_dark,
+                      )),
                   fillColor: Colors.white,
                   filled: true,
                   hintText: 'Search cards',
-                  contentPadding:
-                      EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                  hintStyle:
-                      TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                  contentPadding: EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                  hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                 ),
               ),
             ),
@@ -108,8 +110,7 @@ class _AllCardsState extends State<AllCards> {
               ),
               Text(
                 '(1) Card Selected',
-                style: TextStyle(
-                    fontSize: size.height * 0.018, fontFamily: "MBOld"),
+                style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld"),
               ),
               Spacer(),
               Container(
@@ -117,13 +118,10 @@ class _AllCardsState extends State<AllCards> {
                 height: size.height * 0.035,
                 width: size.width * 0.2,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          signupclor_light,
-                          signupclor_dark,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                      signupclor_light,
+                      signupclor_dark,
+                    ]),
                     color: bckgrnd,
                     borderRadius: BorderRadius.circular(30)),
                 child: GestureDetector(
@@ -132,10 +130,7 @@ class _AllCardsState extends State<AllCards> {
                     alignment: Alignment.center,
                     child: Text(
                       'Select all',
-                      style: TextStyle(
-                          color: bckgrnd,
-                          fontSize: size.height * 0.015,
-                          fontFamily: 'Msemibold'),
+                      style: TextStyle(color: bckgrnd, fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
                     ),
                   ),
                 ),
@@ -159,8 +154,7 @@ class _AllCardsState extends State<AllCards> {
                   child: ListView.builder(
                     padding: const EdgeInsets.all(0),
                     scrollDirection: Axis.vertical,
-                    itemCount:
-                        Globals.cardListModal!.cardListData!.cards!.length,
+                    itemCount: Globals.cardListModal!.cardListData!.cards!.length,
                     itemBuilder: (context, index) {
                       return Globals.cardListModal!.cardListData!.cards != null
                           ? InkWell(
@@ -168,14 +162,8 @@ class _AllCardsState extends State<AllCards> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) =>
-                                            ContactProfileViewScreen(
-                                              id: Globals
-                                                  .cardListModal!
-                                                  .cardListData!
-                                                  .cards![index]
-                                                  .id
-                                                  .toString(),
+                                        builder: (_) => ContactProfileViewScreen(
+                                              id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
                                             )));
                               },
                               child: Column(
@@ -183,8 +171,7 @@ class _AllCardsState extends State<AllCards> {
                                   Row(
                                     children: [
                                       Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Visibility(
                                             visible: isRadio!,
@@ -196,13 +183,8 @@ class _AllCardsState extends State<AllCards> {
                                                     toggleable: false,
                                                     value: index.toString(),
                                                     groupValue: isSelect,
-                                                    onChanged:
-                                                        (dynamic newValue) =>
-                                                            setState(() =>
-                                                                isSelect =
-                                                                    newValue),
-                                                    activeColor:
-                                                        signupclor_light,
+                                                    onChanged: (dynamic newValue) => setState(() => isSelect = newValue),
+                                                    activeColor: signupclor_light,
                                                     // selected: false,
                                                   ),
                                                 ),
@@ -219,184 +201,121 @@ class _AllCardsState extends State<AllCards> {
                                                 child: Stack(
                                                   children: [
                                                     ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
+                                                        borderRadius: BorderRadius.circular(20),
                                                         child: Image.asset(
                                                           deccard,
-                                                          height: size.height *
-                                                              0.08,
+                                                          height: size.height * 0.08,
                                                           fit: BoxFit.cover,
                                                         )),
                                                     Padding(
                                                         padding: EdgeInsets.only(
-                                                            right: size.width *
-                                                                0.01,
-                                                            left: size.width *
-                                                                0.02,
-                                                            top: size.height *
-                                                                0.015),
+                                                            right: size.width * 0.01, left: size.width * 0.02, top: size.height * 0.015),
                                                         child: Column(
                                                           children: [
                                                             Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Column(
                                                                   children: [
-                                                                    SvgPicture
-                                                                        .asset(
+                                                                    SvgPicture.asset(
                                                                       con_icon,
-                                                                      height: size
-                                                                              .height *
-                                                                          0.02,
+                                                                      height: size.height * 0.02,
                                                                     ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            5 //size.height * 0.015,
+                                                                    const SizedBox(height: 5 //size.height * 0.015,
                                                                         ),
                                                                     Text(
                                                                       "CONCARD",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            size.height *
-                                                                                0.003,
-                                                                        color:
-                                                                            signupclor_dark,
-                                                                        fontFamily:
-                                                                            "Mbold",
-                                                                        letterSpacing:
-                                                                            2,
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.003,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Mbold",
+                                                                        letterSpacing: 2,
                                                                       ),
                                                                     ),
                                                                     SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.004,
+                                                                      height: size.height * 0.004,
                                                                     ),
                                                                     PrettyQr(
-                                                                      typeNumber:
-                                                                          4,
-                                                                      size: size
-                                                                              .height *
-                                                                          0.01,
+                                                                      typeNumber: 4,
+                                                                      size: size.height * 0.01,
                                                                       data:
                                                                           '${Globals.cardListModal!.cardListData!.cards![index].user!.id.toString() ?? "0"}',
-                                                                      errorCorrectLevel:
-                                                                          QrErrorCorrectLevel
-                                                                              .M,
-                                                                      roundEdges:
-                                                                          true,
+                                                                      errorCorrectLevel: QrErrorCorrectLevel.M,
+                                                                      roundEdges: true,
                                                                     ),
                                                                   ],
                                                                 ),
-                                                                SizedBox(
-                                                                    width: size
-                                                                            .width *
-                                                                        0.01),
+                                                                SizedBox(width: size.width * 0.01),
                                                                 Container(
-                                                                  height:
-                                                                      size.height *
-                                                                          0.06,
+                                                                  height: size.height * 0.06,
                                                                   width: 1,
                                                                   color: cgreen,
                                                                 ),
-                                                                SizedBox(
-                                                                    width: size
-                                                                            .width *
-                                                                        0.02),
+                                                                SizedBox(width: size.width * 0.02),
                                                                 Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(
                                                                       "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            size.height *
-                                                                                0.007,
-                                                                        color:
-                                                                            signupclor_dark,
-                                                                        fontFamily:
-                                                                            "Mbold",
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.007,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Mbold",
                                                                       ),
                                                                     ),
                                                                     Text(
                                                                       "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            size.height *
-                                                                                0.007,
-                                                                        color:
-                                                                            signupclor_dark,
-                                                                        fontFamily:
-                                                                            "Stf",
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.007,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Stf",
                                                                       ),
                                                                     ),
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            1 //size.height * 0.01,
+                                                                    const SizedBox(height: 1 //size.height * 0.01,
                                                                         ),
                                                                     Row(
                                                                       children: [
-                                                                        Column(
-                                                                            children: [
-                                                                              SvgPicture.asset(
-                                                                                location_icon,
-                                                                                height: size.height * 0.006,
-                                                                              ),
-                                                                            ]),
+                                                                        Column(children: [
+                                                                          SvgPicture.asset(
+                                                                            location_icon,
+                                                                            height: size.height * 0.006,
+                                                                          ),
+                                                                        ]),
                                                                         const SizedBox(
-                                                                          width:
-                                                                              1, //size.width * 0.015,
+                                                                          width: 1, //size.width * 0.015,
                                                                         ),
-                                                                        Column(
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: size.width * 0.15,
-                                                                                child: Text(
-                                                                                  "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
-                                                                                  style: TextStyle(
-                                                                                    fontSize: size.height * 0.006,
-                                                                                    color: signupclor_dark,
-                                                                                    fontFamily: "Mbold",
-                                                                                  ),
-                                                                                ),
+                                                                        Column(children: [
+                                                                          SizedBox(
+                                                                            width: size.width * 0.15,
+                                                                            child: Text(
+                                                                              "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
+                                                                              style: TextStyle(
+                                                                                fontSize: size.height * 0.006,
+                                                                                color: signupclor_dark,
+                                                                                fontFamily: "Mbold",
                                                                               ),
-                                                                            ]),
+                                                                            ),
+                                                                          ),
+                                                                        ]),
                                                                       ],
                                                                     ),
                                                                     SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.001,
+                                                                      height: size.height * 0.001,
                                                                     ),
                                                                     Row(
                                                                       children: [
-                                                                        SvgPicture
-                                                                            .asset(
+                                                                        SvgPicture.asset(
                                                                           phonecall_icon,
-                                                                          height:
-                                                                              size.height * 0.006,
+                                                                          height: size.height * 0.006,
                                                                         ),
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.01,
+                                                                          width: size.width * 0.01,
                                                                         ),
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.15,
-                                                                          child:
-                                                                              Text(
-                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo ??
-                                                                                '',
-                                                                            style:
-                                                                                TextStyle(
+                                                                          width: size.width * 0.15,
+                                                                          child: Text(
+                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
+                                                                            style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
                                                                               fontFamily: "Mbold",
@@ -406,30 +325,25 @@ class _AllCardsState extends State<AllCards> {
                                                                       ],
                                                                     ),
                                                                     SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.001,
+                                                                      height: size.height * 0.001,
                                                                     ),
                                                                     Row(
                                                                       children: [
-                                                                        Image
-                                                                            .asset(
+                                                                        Image.asset(
                                                                           email_icon,
-                                                                          height:
-                                                                              size.height * 0.005,
-                                                                          color:
-                                                                              signupclor_dark,
+                                                                          height: size.height * 0.005,
+                                                                          color: signupclor_dark,
                                                                         ),
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.01,
+                                                                          width: size.width * 0.01,
                                                                         ),
                                                                         Column(
                                                                           children: [
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                                Globals.cardListModal!.cardListData!.cards![index].email.toString() ?? '',
+                                                                                Globals.cardListModal!.cardListData!.cards![index].email.toString() ??
+                                                                                    '',
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.004,
                                                                                   color: signupclor_dark,
@@ -442,21 +356,16 @@ class _AllCardsState extends State<AllCards> {
                                                                       ],
                                                                     ),
                                                                     SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.001,
+                                                                      height: size.height * 0.001,
                                                                     ),
                                                                     Row(
                                                                       children: [
-                                                                        SvgPicture
-                                                                            .asset(
+                                                                        SvgPicture.asset(
                                                                           internet_icon,
-                                                                          height:
-                                                                              size.height * 0.005,
+                                                                          height: size.height * 0.005,
                                                                         ),
                                                                         SizedBox(
-                                                                          width:
-                                                                              size.width * 0.01,
+                                                                          width: size.width * 0.01,
                                                                         ),
                                                                         Column(
                                                                           children: [
@@ -490,42 +399,25 @@ class _AllCardsState extends State<AllCards> {
                                             width: size.width * 0.05,
                                           ),
                                           Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                Globals
-                                                    .cardListModal!
-                                                    .cardListData!
-                                                    .cards![index]
-                                                    .companyName
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontFamily: "MBold"),
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString(),
+                                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.02,
                                               ),
                                               Text(
                                                 'Lorem ipsum dolor sit amet',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.01,
-                                                    fontFamily: "Msemibold",
-                                                    color: infocolor),
+                                                style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.01,
                                               ),
                                               Text(
                                                 'Concsectetuer adipiscing elit, sed fiam',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.01,
-                                                    fontFamily: "Msemibold",
-                                                    color: infocolor),
+                                                style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                               ),
                                             ],
                                           ),
@@ -534,12 +426,7 @@ class _AllCardsState extends State<AllCards> {
                                       Spacer(),
                                       InkWell(
                                           onTap: () {
-                                            _optionsModalBottomSheet(
-                                                context,
-                                                Globals
-                                                    .cardListModal!
-                                                    .cardListData!
-                                                    .cards![index]);
+                                            _optionsModalBottomSheet(context, Globals.cardListModal!.cardListData!.cards![index]);
                                             setState(() {
                                               isMore = true;
                                             });
@@ -570,9 +457,7 @@ class _AllCardsState extends State<AllCards> {
   void _optionsModalBottomSheet(context, Cards? cards) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -583,37 +468,32 @@ class _AllCardsState extends State<AllCards> {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: size.width * 0.02,
-                                ),
-                                Text(
-                                  'Options',
-                                  style: TextStyle(
-                                    fontFamily: "MBold",
-                                    fontSize: size.height * 0.018,
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      setState(() {
-                                        setSte(() {
-                                          isMore = false;
-                                        });
-                                      });
-                                    },
-                                    child: Icon(Icons.close)),
-                              ]),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Container(
+                              width: size.width * 0.02,
+                            ),
+                            Text(
+                              'Options',
+                              style: TextStyle(
+                                fontFamily: "MBold",
+                                fontSize: size.height * 0.018,
+                              ),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    setSte(() {
+                                      isMore = false;
+                                    });
+                                  });
+                                },
+                                child: Icon(Icons.close)),
+                          ]),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
@@ -630,9 +510,7 @@ class _AllCardsState extends State<AllCards> {
                                   ),
                                   Text(
                                     'Groups',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -645,9 +523,7 @@ class _AllCardsState extends State<AllCards> {
                                   ),
                                   Text(
                                     'Message',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -660,9 +536,7 @@ class _AllCardsState extends State<AllCards> {
                                   ),
                                   Text(
                                     'Email',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                   ),
                                 ],
                               ),
@@ -685,9 +559,7 @@ class _AllCardsState extends State<AllCards> {
                                     ),
                                     Text(
                                       'Favorites',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -698,9 +570,7 @@ class _AllCardsState extends State<AllCards> {
                             height: size.height * 0.03,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                                left: size.width * 0.01,
-                                right: size.width * 0.02),
+                            padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.02),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -715,9 +585,7 @@ class _AllCardsState extends State<AllCards> {
                                     ),
                                     Text(
                                       'Share',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -732,9 +600,7 @@ class _AllCardsState extends State<AllCards> {
                                     ),
                                     Text(
                                       'Reminder',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -749,9 +615,7 @@ class _AllCardsState extends State<AllCards> {
                                     ),
                                     Text(
                                       'Meeting',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -767,9 +631,7 @@ class _AllCardsState extends State<AllCards> {
                                     ),
                                     Text(
                                       'Delete',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "Stf"),
+                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                     ),
                                   ],
                                 ),
@@ -788,8 +650,7 @@ class _AllCardsState extends State<AllCards> {
   }
 
   void _settingModalBottomSheet(context) {
-    
-    var sortType ='0';
+    var sortType = '0';
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -799,340 +660,277 @@ class _AllCardsState extends State<AllCards> {
             child: StatefulBuilder(
               builder: (context, setSte) {
                 return Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.02,
-                      right: size.width * 0.02,
-                      top: size.height * 0.02),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Wrap(
                         children: <Widget>[
                           Text(
                             'Sort by',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'Mbold'),
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                           ),
                           Row(
                             children: [
-                               Radio(
+                              Radio(
                                   activeColor: primarygreen,
                                   value: '0',
-                                   groupValue: sortType,
-                                    onChanged:(dynamic value){
-                                     setSte((){
-                                       setState(() {
-                                        sortType=value;
+                                  groupValue: sortType,
+                                  onChanged: (dynamic value) {
+                                    setSte(() {
+                                      setState(() {
+                                        sortType = value;
                                         print(value);
                                       });
-                                     });
-                                    }
-                                    ),
-                                     Text(
+                                    });
+                                  }),
+                              Text(
                                 'by Name',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                               Radio(
+                              Radio(
                                   activeColor: primarygreen,
                                   value: '1',
-                                   groupValue: sortType,
-                                    onChanged:(dynamic value){
-                                     setSte((){
-                                       setState(() {
-                                        sortType=value;
+                                  groupValue: sortType,
+                                  onChanged: (dynamic value) {
+                                    setSte(() {
+                                      setState(() {
+                                        sortType = value;
                                         print(value);
                                       });
-                                     });
-                                    }
-                                    ),
-                                     Text(
+                                    });
+                                  }),
+                              Text(
                                 'by Date',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                               Radio(
+                              Radio(
                                   activeColor: primarygreen,
                                   value: '2',
-                                   groupValue: sortType,
-                                    onChanged:(dynamic value){
-                                     setSte((){
-                                       setState(() {
-                                        sortType=value;
+                                  groupValue: sortType,
+                                  onChanged: (dynamic value) {
+                                    setSte(() {
+                                      setState(() {
+                                        sortType = value;
                                         print(value);
                                       });
-                                     });
-                                    }
-                                    ),
-                                     Text(
+                                    });
+                                  }),
+                              Text(
                                 'by Company Name',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "Msemibold"),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                               ),
                             ],
                           ),
-                         
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Text(
-                        'Filter by',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02, fontFamily: 'Mbold'),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [gradientgreen, primarygreen]),
-                        ),
-                        height: size.height * 0.05,
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Supplier',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                downarrow_icon,
-                                color: bckgrnd,
-                              )
-                            ],
+                          SizedBox(
+                            height: size.height * 0.02,
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [gradientgreen, primarygreen]),
-                        ),
-                        height: size.height * 0.05,
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Managment',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                downarrow_icon,
-                                color: bckgrnd,
-                              )
-                            ],
+                          Text(
+                            'Filter by',
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
-                        ),
-                        height: size.height * 0.05,
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Select Country',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                downarrow_icon,
-                                color: bckgrnd,
-                              )
-                            ],
+                          SizedBox(
+                            height: size.height * 0.02,
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
-                        ),
-                        height: size.height * 0.05,
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Select Position',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                downarrow_icon,
-                                color: bckgrnd,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                infocolor.withOpacity(0.3),
-                                infocolor.withOpacity(0.3)
-                              ]),
-                        ),
-                        height: size.height * 0.05,
-                        width: size.width,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.04,
-                              right: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Selcet Product & Services',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: Colors.white),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                downarrow_icon,
-                                color: bckgrnd,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.03,
-                      ),
-                      Center(
-                        child: InkWell(
-                          onTap: () async {
-                            //sort by filters api => by name
-                            // Globals.cardListModal =
-                            //     await CardController().cardList('0', '0');
-                            getCardList('0', sortType);
-                            Navigator.pop(context);
-                            setSte(() {
-                              setState(() {});
-                            });
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: size.height * 0.05,
-                            width: size.width * 0.8,
+                          Container(
                             decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      signupclor_light,
-                                      signupclor_dark,
-                                    ]),
-                                border: Border.all(color: Colors.grey),
-                                color: bckgrnd,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Container(
-                              // margin: EdgeInsets.only(left: size.width*0.04),
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Apply',
-                                style: TextStyle(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient:
+                                  LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen]),
+                            ),
+                            height: size.height * 0.05,
+                            width: size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Supplier',
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    downarrow_icon,
                                     color: bckgrnd,
-                                    fontSize: size.height * 0.02,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Msemibold'),
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient:
+                                  LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen]),
+                            ),
+                            height: size.height * 0.05,
+                            width: size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Managment',
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    downarrow_icon,
+                                    color: bckgrnd,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
+                            ),
+                            height: size.height * 0.05,
+                            width: size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Select Country',
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    downarrow_icon,
+                                    color: bckgrnd,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
+                            ),
+                            height: size.height * 0.05,
+                            width: size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Select Position',
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    downarrow_icon,
+                                    color: bckgrnd,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [infocolor.withOpacity(0.3), infocolor.withOpacity(0.3)]),
+                            ),
+                            height: size.height * 0.05,
+                            width: size.width,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Selcet Product & Services',
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: Colors.white),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    downarrow_icon,
+                                    color: bckgrnd,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          Center(
+                            child: InkWell(
+                              onTap: () async {
+                                //sort by filters api => by name
+                                // Globals.cardListModal =
+                                //     await CardController().cardList('0', '0');
+                                getCardList('0', sortType);
+                                Navigator.pop(context);
+                                setSte(() {
+                                  setState(() {});
+                                });
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: size.height * 0.05,
+                                width: size.width * 0.8,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                      signupclor_light,
+                                      signupclor_dark,
+                                    ]),
+                                    border: Border.all(color: Colors.grey),
+                                    color: bckgrnd,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Container(
+                                  // margin: EdgeInsets.only(left: size.width*0.04),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Apply',
+                                    style:
+                                        TextStyle(color: bckgrnd, fontSize: size.height * 0.02, fontWeight: FontWeight.bold, fontFamily: 'Msemibold'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.1,
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.1,
-                      )
-                    ],
-                  ),
-                    ])
-                );
+                    ]));
               },
             ),
           );
@@ -1214,7 +1012,7 @@ class _AllCardsState extends State<AllCards> {
       //                       crossAxisAlignment: CrossAxisAlignment.start,
       //                       children: [
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.firstName ?? ''} ${indiviualProfileModel.profileData!.lastName ?? ''}",
+      //                           "${individualProfileModel.profileData!.firstName ?? ''} ${individualProfileModel.profileData!.lastName ?? ''}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.013,
       //                             color: signupclor_dark,
@@ -1222,7 +1020,7 @@ class _AllCardsState extends State<AllCards> {
       //                           ),
       //                         ),
       //                         Text(
-      //                           "${indiviualProfileModel.profileData!.jobTitle ?? ''}",
+      //                           "${individualProfileModel.profileData!.jobTitle ?? ''}",
       //                           style: TextStyle(
       //                             fontSize: size.height * 0.015,
       //                             color: signupclor_dark,
@@ -1243,7 +1041,7 @@ class _AllCardsState extends State<AllCards> {
       //                               width: size.width * .35,
       //                               child: Column(children: [
       //                                 Text(
-      //                                   "${indiviualProfileModel.profileData!.address}",
+      //                                   "${individualProfileModel.profileData!.address}",
       //                                   style: TextStyle(
       //                                     fontSize: size.height * 0.015,
       //                                     color: signupclor_dark,
@@ -1264,7 +1062,7 @@ class _AllCardsState extends State<AllCards> {
       //                               width: size.width * 0.02,
       //                             ),
       //                             Text(
-      //                               indiviualProfileModel
+      //                               individualProfileModel
       //                                       .profileData!.mobileNumber ??
       //                                   '',
       //                               style: TextStyle(
@@ -1292,7 +1090,7 @@ class _AllCardsState extends State<AllCards> {
       //                               child: Column(
       //                                 children: [
       //                                   Text(
-      //                                     indiviualProfileModel
+      //                                     individualProfileModel
       //                                             .profileData!.email ??
       //                                         '',
       //                                     style: TextStyle(
@@ -1320,7 +1118,7 @@ class _AllCardsState extends State<AllCards> {
       //                               child: Column(
       //                                 children: [
       //                                   Text(
-      //                                     "${indiviualProfileModel.profileData!.website}",
+      //                                     "${individualProfileModel.profileData!.website}",
       //                                     style: TextStyle(
       //                                       fontSize: size.height * 0.015,
       //                                       color: signupclor_dark,
