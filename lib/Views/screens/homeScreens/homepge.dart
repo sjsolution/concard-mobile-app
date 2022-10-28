@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
+import 'package:concard/Controllers/indiviualController/follow_controller.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
 import 'package:concard/Controllers/storyController/story_controller.dart';
 import 'package:concard/Constants/colors.dart';
@@ -67,6 +68,7 @@ class _HomepageState extends State<Homepage> {
 //   }
 
   List<int>? isPostLikeList = [];
+  // List<int>? = [];
   List<int>? isCommentLikeList = [];
   AppProvider? appPro;
   StoryProvider? storyProvider1;
@@ -82,7 +84,7 @@ class _HomepageState extends State<Homepage> {
     individualProfileModel = await ProfileController().getIndiviualProfile(Globals.id, context);
     Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
     appPro = Provider.of<AppProvider>(context, listen: false);
-    debugPrint(individualProfileModel?.data?.user?.profileImage);
+    // debugPrint(individualProfileModel?.data?.user?.profileImage);
     // print('model_______________________');
     // print(context.read<StoryProvider>().storyProvider?.data);
     // print(individualProfileModel?.profileData?.profileImage);
@@ -326,11 +328,14 @@ class _HomepageState extends State<Homepage> {
                             //  postsListModal!.posts!.isNotEmpty
                             //     ?
                             FutureBuilder<PostsListModal?>(
-                          future: PostController().getPostList(),
+                          future: Future.delayed(
+                            Duration(seconds: 1),
+                            () => PostController().getPostList(),
+                          ),
                           builder: (context, snapshot) {
                             if (snapshot.data != null) {
                               // var postData = snapshot.data;
-                              var posts = snapshot.data!.posts;
+                              var posts = snapshot.data!.data;
 
                               for (var isLike in posts!) {
                                 isPostLikeList!.add(isLike.userLike!);
@@ -390,38 +395,50 @@ class _HomepageState extends State<Homepage> {
                                                       SizedBox(
                                                         height: size.height * 0.02,
                                                       ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          // FollowController().sendFollowRequest(followRequest['following_id']);
-                                                          setState(() {
-                                                            isSelected = !isSelected;
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          height: size.height * 0.03,
-                                                          width: size.width * 0.23,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(30), border: Border.all(color: signupclor_dark)),
-                                                          child: Padding(
-                                                            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  isSelected ? 'Added' : 'Add',
-                                                                  style: TextStyle(
-                                                                      fontFamily: "Msemibold", fontSize: size.height * 0.015, color: signupclor_dark),
+                                                      Globals.userId == posts[index].userId
+                                                          ? SizedBox()
+                                                          : InkWell(
+                                                              onTap: () {
+                                                                // print();
+                                                                // FollowController().sendFollowRequest(followRequest['following_id']);
+                                                                // appPro!.sendFollowRequest(id: posts[index].userId.toString());
+                                                                // if (appPro!.isFollowing == 0) {
+                                                                //   posts[index].isFollowed = 1;
+                                                                // } else if (posts[index].isFollowed == 1) {
+                                                                //   posts[index].isFollowed = 0;
+                                                                // }
+                                                                // setState(() {});
+                                                                FollowController().sendFollowRequest(id: posts[index].userId.toString());
+                                                                setState((){});
+                                                              },
+                                                              child: Container(
+                                                                height: size.height * 0.03,
+                                                                width: size.width * 0.23,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(30),
+                                                                    border: Border.all(color: signupclor_dark)),
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Text(
+                                                                        posts[index].isFollowed == 1 ? 'Added' : 'Add',
+                                                                        style: TextStyle(
+                                                                            fontFamily: "Msemibold",
+                                                                            fontSize: size.height * 0.015,
+                                                                            color: signupclor_dark),
+                                                                      ),
+                                                                      Icon(
+                                                                        posts[index].isFollowed == 1 ? Icons.check : Icons.add,
+                                                                        size: size.height * 0.02,
+                                                                        color: signupclor_dark,
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                                Icon(
-                                                                  isSelected ? Icons.check : Icons.add,
-                                                                  size: size.height * 0.02,
-                                                                  color: signupclor_dark,
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
+                                                              ),
+                                                            )
                                                     ],
                                                   ),
                                                 ],
@@ -609,7 +626,7 @@ class _HomepageState extends State<Homepage> {
   List<String> parentCommentsId = [];
   List<String> childRepliesId = [];
   List<Comments>? commentsList = [];
-  List<Replies>? repliesApiList = [];
+  List<Comments>? repliesApiList = [];
   var replyList = [];
 
   ScrollController _scrollController = ScrollController();
@@ -682,7 +699,7 @@ class _HomepageState extends State<Homepage> {
                                               avatar: subComment.user!.profileImage,
                                               userName: subComment.user!.firstName,
                                               content: subComment.text,
-                                              createdAt: subComment.createdAt,
+                                              createdAt: subComment.createdAt.toString(),
                                               id: subComment.id.toString(),
                                               isLiked: subComment.userLike));
                                           // childRepliesId.add(subComment.id.toString());
@@ -793,10 +810,10 @@ class _HomepageState extends State<Homepage> {
                                                             parentCommentsId[index],
                                                           );
                                                           PostsListModal? response = await AppProvider().getPostData();
-                                                          for (int i = 0; i <= response!.posts!.length; i++) {
-                                                            if (response.posts![i].id == singlePost!.id) {
+                                                          for (int i = 0; i <= response!.data!.length; i++) {
+                                                            if (response.data![i].id == singlePost!.id) {
                                                               debugPrint("Setting Up comments");
-                                                              provider.commentsSetter = response.posts![i].comments;
+                                                              provider.commentsSetter = response.data![i].comments;
                                                             }
                                                           }
 
@@ -916,10 +933,10 @@ class _HomepageState extends State<Homepage> {
                                                               data.id.toString(),
                                                             );
                                                             PostsListModal? response = await AppProvider().getPostData();
-                                                            for (int i = 0; i <= response!.posts!.length; i++) {
-                                                              if (response.posts![i].id == singlePost!.id) {
+                                                            for (int i = 0; i <= response!.data!.length; i++) {
+                                                              if (response.data![i].id == singlePost!.id) {
                                                                 debugPrint("Setting Up comments");
-                                                                provider.commentsSetter = response.posts![i].comments;
+                                                                provider.commentsSetter = response.data![i].comments;
                                                               }
                                                             }
                                                             if (result['code'] == 200) {
@@ -1017,10 +1034,10 @@ class _HomepageState extends State<Homepage> {
                                                 commentController.clear();
                                                 isReplying = false;
                                                 PostsListModal? response = await AppProvider().getPostData();
-                                                for (int i = 0; i <= response!.posts!.length; i++) {
-                                                  if (response.posts![i].id == singlePost!.id) {
+                                                for (int i = 0; i <= response!.data!.length; i++) {
+                                                  if (response.data![i].id == singlePost!.id) {
                                                     debugPrint("Setting Up comments");
-                                                    provider.commentsSetter = response.posts![i].comments;
+                                                    provider.commentsSetter = response.data![i].comments;
                                                   }
                                                 }
                                               } else {
@@ -1031,10 +1048,10 @@ class _HomepageState extends State<Homepage> {
                                               commentController.clear();
                                               commentFocusNode.unfocus();
                                               PostsListModal? response = await AppProvider().getPostData();
-                                              for (int i = 0; i <= response!.posts!.length; i++) {
-                                                if (response.posts![i].id == singlePost.id) {
+                                              for (int i = 0; i <= response!.data!.length; i++) {
+                                                if (response.data![i].id == singlePost.id) {
                                                   debugPrint("Setting Up comments");
-                                                  provider.commentsSetter = response.posts![i].comments;
+                                                  provider.commentsSetter = response.data![i].comments;
                                                   if (_scrollController.hasClients) {
                                                     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
                                                   }
