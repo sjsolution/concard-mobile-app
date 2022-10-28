@@ -10,6 +10,7 @@ import 'package:concard/Views/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../Constants/colors.dart';
 import '../../../../../Constants/images.dart';
@@ -23,11 +24,17 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  bool? isSelected = false;
+  bool? isSelected ;
   RegExp? regex;
   var emailControll = TextEditingController();
   var passwordControll = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+_loadUserEmailPassword();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -94,82 +101,53 @@ class _SignInState extends State<SignIn> {
                         const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
-                          height: size.height * 0.09,
-                          width: size.width * 0.85,
-                          child: TextFormField(
-                            controller: emailControll,
-                            validator: (String? value) {
-                              // String pattern = r'^[A-Za-z0-9]*$';
-                              // regex = RegExp(pattern);
-                              if (value!.isEmpty) {
-                                return "Enter email";
-                              }
-                              // else if (!value.contains("@gmail.com")) {
-                              //   return 'Enter Valid email';
-                              // }
-
-                              return null;
-                            },
-                            maxLines: 1,
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                prefixIcon: Image.asset(
-                                  email_icon,
-                                  color: Colors.grey,
-                                ),
-                                hintText: 'Email',
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-                          ),
-                        ),
+                        field(emailControll, Image.asset(email_icon), 'Email'),
                         const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
-                          height: size.height * 0.09,
-                          width: size.width * 0.85,
-                          child: TextFormField(
-                            controller: passwordControll,
-                            validator: (String? value) {
-                              // String pattern = r'^[A-Za-z0-9]*$';
-                              // regex = RegExp(pattern);
-                              if (value!.isEmpty) {
-                                return "Enter password";
-                              }
-                              // else if (!value.contains("@gmail.com")) {
-                              //   return 'Enter Valid email';
-                              // }
+                        field(passwordControll, Image.asset(paswrd_icon,height: size.height*0.02,), 'Password'),
 
-                              return null;
-                            },
-                            obscureText: true,
-                            maxLines: 1,
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                prefixIcon: Image.asset(
-                                  paswrd_icon,
-                                  color: Colors.grey,
-                                ),
-                                hintText: 'Password',
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: size.height * 0.09,
+                        //   width: size.width * 0.85,
+                        //   child: TextFormField(
+                        //     controller: passwordControll,
+                        //     validator: (String? value) {
+                        //       // String pattern = r'^[A-Za-z0-9]*$';
+                        //       // regex = RegExp(pattern);
+                        //       if (value!.isEmpty) {
+                        //         return "Enter password";
+                        //       }
+                        //       // else if (!value.contains("@gmail.com")) {
+                        //       //   return 'Enter Valid email';
+                        //       // }
+
+                        //       return null;
+                        //     },
+                        //     obscureText: true,
+                        //     maxLines: 1,
+                        //     decoration: InputDecoration(
+                        //         contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                        //         hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                        //         prefixIcon: Image.asset(
+                        //           paswrd_icon,
+                        //           color: Colors.grey,
+                        //         ),
+                        //         hintText: 'Password',
+                        //         border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.09),
                           child: Row(
                             children: [
                               Checkbox(
                                 // checkColor: Colors.white,
+                                tristate: true,
                                 fillColor: MaterialStateProperty.all(signupclor_dark),
                                 value: isSelected,
                                 shape: const CircleBorder(),
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isSelected = value!;
-                                  });
-                                },
+                                onChanged: _handleRemeberme
                               ),
                               Text(
                                 'Remember me',
@@ -202,8 +180,8 @@ class _SignInState extends State<SignIn> {
                                   context.read<AppProvider>().setIndividualProfileModelProfileObj = result;
                                   Navigator.pop(context);
                                   if (result != null) {
-                                    emailControll.clear();
-                                    passwordControll.clear();
+                                    // emailControll.clear();
+                                    // passwordControll.clear();
                                     if (result['user_type'] == "1") {
                                       //Individual Member Screen
                                       Navigator.pushAndRemoveUntil(
@@ -220,6 +198,8 @@ class _SignInState extends State<SignIn> {
                                   }
                                 }
                               }
+    _loadUserEmailPassword();
+
                             },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
@@ -247,4 +227,74 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
+  field(TextEditingController controller,Image image, String? label){
+    var size =MediaQuery.of(context).size;
+    return SizedBox(
+                          height: size.height * 0.09,
+                          width: size.width * 0.85,
+                          child: TextFormField(
+                            controller: controller,
+                            validator: (String? value) {
+                              // String pattern = r'^[A-Za-z0-9]*$';
+                              // regex = RegExp(pattern);
+                              if (value!.isEmpty) {
+                                return "Enter email";
+                              }
+                              // else if (!value.contains("@gmail.com")) {
+                              //   return 'Enter Valid email';
+                              // }
+
+                              return null;
+                            },
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                                prefixIcon: image,
+                                hintText: label,
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+                          ),
+                        );
+  }
+   void _handleRemeberme(bool? value) {
+    print("Handle Rember Me");
+    isSelected = value;
+    SharedPreferences.getInstance().then(
+      (prefs) {
+        prefs.setBool("remember_me", value!);
+        prefs.setString('email', emailControll.text);
+        prefs.setString('password', passwordControll.text);
+      },
+    );
+    setState(() {
+      isSelected = value;
+       print('..........'+value.toString());
+      print('email...............'+emailControll.text);
+      print('pswrd============'+ passwordControll.text);
+
+    });
+  }
+   void _loadUserEmailPassword() async {
+    print("Load Email");
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var email = prefs.getString("email")  ;
+      var password = prefs.getString("password");
+      var remeberMe = prefs.getBool("remember_me") ?? false;
+
+      // print('..........'+remeberMe.toString());
+      // print('email...............'+email);
+      // print('pswrd============'+password);
+      if (remeberMe) {
+        setState(() {
+          isSelected = true;
+        });
+        emailControll.text = email! ;
+        passwordControll.text = password! ;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
+

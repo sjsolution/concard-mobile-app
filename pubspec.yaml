@@ -64,6 +64,7 @@ dependencies:
   comment_tree:
     git:
       url: https://github.com/Muzammil56/comment_tree
+  shared_preferences: ^2.0.15
   # date_time_picker: ^2.1.0
   # flutter_calendar_widget: ^0.0.2
 
