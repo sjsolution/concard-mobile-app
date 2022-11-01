@@ -15,6 +15,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../widgets/loader_widget.dart';
+
 class CreateNewSocialLink extends StatelessWidget {
   CreateNewSocialLink({Key? key}) : super(key: key);
 
@@ -338,7 +340,7 @@ class CreateNewSocialLink extends StatelessWidget {
             ),
             app.isLoading!
                 ? Center(
-                    child: SpinKitDualRing(color: primarygreen),
+                    child: loaderWidget(context, size),
                   )
                 : const SizedBox(height: 0, width: 0)
           ],

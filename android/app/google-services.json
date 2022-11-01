@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "729567542424-pid0feh7d7bt6ljm1jqbqflvnh88bhp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sj.concard",
+            "certificate_hash": "1b1d32674b7229a3aed2e1ba50078b0287c90241"
+          }
+        },
+        {
           "client_id": "729567542424-vjorkdkl0e32i04mci2vm7uktjd84o8m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

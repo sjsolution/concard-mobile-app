@@ -21,16 +21,10 @@ class InviteToJoinScreen extends StatelessWidget {
           Container(
             height: size.height * 0.15,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topCenter,
-                  colors: [signupclor_light, signupclor_dark]),
+              gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
             ),
             child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.04,
-                  top: size.height * 0.04),
+              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.04),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -52,10 +46,7 @@ class InviteToJoinScreen extends StatelessWidget {
                   // ),
                   Text(
                     'Invite to Join',
-                    style: TextStyle(
-                        fontSize: size.height * 0.025,
-                        fontFamily: 'Msemibold',
-                        color: bckgrnd),
+                    style: TextStyle(fontSize: size.height * 0.025, fontFamily: 'Msemibold', color: bckgrnd),
                   ),
                   // SizedBox(
                   //   width: 110,
@@ -73,14 +64,14 @@ class InviteToJoinScreen extends StatelessWidget {
             // height: size.height*0.8,
             width: size.width,
             decoration: BoxDecoration(
-                color: btnclr,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                )),
+              color: btnclr,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+            ),
             child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04, right: size.width * 0.04),
+              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -106,12 +97,10 @@ class InviteToJoinScreen extends StatelessWidget {
                   ),
                   shareTileWidget(size, () async {
                     print(inviteLink!);
-                    await GeneralMethodsDart()
-                        .shareDataMethod(inviteLink, 'Share this with you friends.');
+                    await GeneralMethodsDart().shareDataMethod(inviteLink, 'Share this with you friends.');
                   }, sms_icon, 'Invite via SMS'),
                   shareTileWidget(size, () async {
-                    await GeneralMethodsDart()
-                        .shareDataMethod(inviteLink, 'Share this with you friends.');
+                    await GeneralMethodsDart().shareDataMethod(inviteLink, 'Share this with you friends.');
                   }, mail_icon, 'Invite via Email'),
                   shareTileWidget(size, () async {
                     await GeneralMethodsDart().copyData(inviteLink);
