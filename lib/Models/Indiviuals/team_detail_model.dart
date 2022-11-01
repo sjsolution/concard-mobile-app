@@ -10,13 +10,10 @@ class TeamDetailModel {
   });
 
   TeamDetailModel.fromJson(Map<String, dynamic> json)
-      : teamDetailData = (json['team'] as Map<String, dynamic>?) != null
-            ? TeamDetailData.fromJson(json['team'] as Map<String, dynamic>)
-            : null,
+      : teamDetailData = (json['team'] as Map<String, dynamic>?) != null ? TeamDetailData.fromJson(json['team'] as Map<String, dynamic>) : null,
         teamInviteLink = json['invite_link'] as String?;
 
-  Map<String, dynamic> toJson() =>
-      {'team': teamDetailData?.toJson(), 'invite_link': teamInviteLink};
+  Map<String, dynamic> toJson() => {'team': teamDetailData?.toJson(), 'invite_link': teamInviteLink};
 }
 
 class TeamDetailData {
@@ -62,14 +59,8 @@ class TeamDetailData {
         createdAt = json['created_at'] as String?,
         updatedAt = json['updated_at'] as String?,
         image = json['image'] as String?,
-        teamMembers = (json['members'] as List?)
-            ?.map(
-                (dynamic e) => TeamMembers.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        teamSharedCards = (json['shared_cards'] as List?)
-            ?.map((dynamic e) =>
-                CustomCardsModel.fromJson(e as Map<String, dynamic>))
-            .toList();
+        teamMembers = (json['members'] as List?)?.map((dynamic e) => TeamMembers.fromJson(e as Map<String, dynamic>)).toList(),
+        teamSharedCards = (json['shared_cards'] as List?)?.map((dynamic e) => CustomCardsModel.fromJson(e as Map<String, dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -171,9 +162,7 @@ class TeamMembers {
         card = json['card'] as String?,
         logo = json['logo'] as String?,
         profileImage = json['profileImage'] as String?,
-        userPivot = (json['pivot'] as Map<String, dynamic>?) != null
-            ? UserPivot.fromJson(json['pivot'] as Map<String, dynamic>)
-            : null;
+        userPivot = (json['pivot'] as Map<String, dynamic>?) != null ? UserPivot.fromJson(json['pivot'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,

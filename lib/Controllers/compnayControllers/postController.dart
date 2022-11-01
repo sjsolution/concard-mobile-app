@@ -1,17 +1,18 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:provider/provider.dart';
 import 'package:concard/Controllers/OthersController/sharedPrefController.dart';
 import 'package:concard/Models/post_list_modal.dart';
 import 'package:concard/Services/network.dart';
 import 'package:dio/dio.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter/cupertino.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 
 class PostController {
   ServicesClass services = ServicesClass();
   LocalStorageClass localStorageClass = LocalStorageClass();
-  Future<PostsListModal?> getPostList() async {
+  Future<PostsListModal?> getPostList(BuildContext context) async {
     try {
       var formData = FormData.fromMap({});
       var response = await services.postResponse(url: '/posts/list', formData: formData);
@@ -19,7 +20,7 @@ class PostController {
       if (response != null) {
         PostsListModal? postsListModal = PostsListModal.fromJson(response);
         Globals.postsListModal = postsListModal;
-
+        context.read<AppProvider>().setLoadingFalse();
         return postsListModal;
       } else {
         Globals.showToastMethod(msg: "Something went wrong. Please try again later");

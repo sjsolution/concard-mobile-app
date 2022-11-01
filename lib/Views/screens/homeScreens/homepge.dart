@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
-import 'package:concard/Controllers/indiviualController/follow_controller.dart';
+import 'package:concard/Views/widgets/loader_widget.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
 import 'package:concard/Controllers/storyController/story_controller.dart';
 import 'package:concard/Constants/colors.dart';
@@ -127,6 +128,32 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+  // FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  //
+  // FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  // Future<void> _createDynamicLink({
+  //   required String docId,
+  // }) async {
+  //   final DynamicLinkParameters parameters = DynamicLinkParameters(
+  //     uriPrefix: 'https://pettownapp.page.link',
+  //     link: Uri.parse('https://salloumdesign.com/$docId/${widget.isSelected}'),
+  //     androidParameters: AndroidParameters(
+  //       packageName: 'com.mkgtechsols.pettownapp',
+  //       minimumVersion: 0,
+  //       // fallbackUrl: Uri.parse("https://play.google.com/store/apps/details?id=com.shaadi.asan.rishta.match.maker.nikah.matrimony"),
+  //     ),
+  //     iosParameters: const IOSParameters(
+  //       bundleId: 'com.mkgtechsols.pettownapp',
+  //       minimumVersion: '0',
+  //     ),
+  //   );
+  //
+  //   Uri url;
+  //   final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(parameters);
+  //   url = shortLink.shortUrl;
+  //   _shareImageFromUrl(url);
+  // }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -173,9 +200,14 @@ class _HomepageState extends State<Homepage> {
                                   onTap: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                                   },
-                                  child: Image.asset(
-                                    notify_icon,
-                                    height: size.height * 0.04,
+                                  child: Stack(
+                                    children: [
+                                      SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 SizedBox(
@@ -328,10 +360,7 @@ class _HomepageState extends State<Homepage> {
                             //  postsListModal!.posts!.isNotEmpty
                             //     ?
                             FutureBuilder<PostsListModal?>(
-                          future: Future.delayed(
-                            Duration(seconds: 1),
-                            () => PostController().getPostList(),
-                          ),
+                          future: PostController().getPostList(context),
                           builder: (context, snapshot) {
                             if (snapshot.data != null) {
                               // var postData = snapshot.data;
@@ -387,29 +416,24 @@ class _HomepageState extends State<Homepage> {
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
-                                                      Text(
-                                                        DateTimeManueplate()
-                                                            .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
-                                                        style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
-                                                      ),
+                                                      MSemiBoldText(
+                                                          text: DateTimeManueplate()
+                                                              .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
+                                                          size: size),
                                                       SizedBox(
-                                                        height: size.height * 0.02,
+                                                        height: size.height * 0.01,
                                                       ),
                                                       Globals.userId == posts[index].userId
                                                           ? SizedBox()
                                                           : InkWell(
                                                               onTap: () {
-                                                                // print();
-                                                                // FollowController().sendFollowRequest(followRequest['following_id']);
-                                                                // appPro!.sendFollowRequest(id: posts[index].userId.toString());
-                                                                // if (appPro!.isFollowing == 0) {
-                                                                //   posts[index].isFollowed = 1;
-                                                                // } else if (posts[index].isFollowed == 1) {
-                                                                //   posts[index].isFollowed = 0;
-                                                                // }
-                                                                // setState(() {});
-                                                                FollowController().sendFollowRequest(id: posts[index].userId.toString());
-                                                                setState((){});
+                                                                appPro!.sendFollowRequest(id: posts[index].userId.toString());
+                                                                if (appPro!.isFollowing == 0) {
+                                                                  posts[index].isFollowed = 1;
+                                                                } else if (posts[index].isFollowed == 1) {
+                                                                  posts[index].isFollowed = 0;
+                                                                }
+                                                                setState(() {});
                                                               },
                                                               child: Container(
                                                                 height: size.height * 0.03,
@@ -422,13 +446,7 @@ class _HomepageState extends State<Homepage> {
                                                                   child: Row(
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                     children: [
-                                                                      Text(
-                                                                        posts[index].isFollowed == 1 ? 'Added' : 'Add',
-                                                                        style: TextStyle(
-                                                                            fontFamily: "Msemibold",
-                                                                            fontSize: size.height * 0.015,
-                                                                            color: signupclor_dark),
-                                                                      ),
+                                                                      MSemiBoldText(text: posts[index].isFollowed == 1 ? 'Added' : 'Add', size: size),
                                                                       Icon(
                                                                         posts[index].isFollowed == 1 ? Icons.check : Icons.add,
                                                                         size: size.height * 0.02,
@@ -450,17 +468,16 @@ class _HomepageState extends State<Homepage> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 15,
+                                          height: 10,
                                         ),
 
                                         SizedBox(
                                           height: size.height * 0.01,
                                         ),
                                         (posts[index].text == null || posts[index].text == "")
-                                            ? const SizedBox(
-                                                height: 0,
-                                              )
+                                            ? const SizedBox(height: 0)
                                             : Text(posts[index].text.toString()),
+                                        SizedBox(height: 10),
                                         (posts[index].image == null || posts[index].image == "")
                                             ? const SizedBox(
                                                 height: 0,
@@ -548,9 +565,9 @@ class _HomepageState extends State<Homepage> {
                                                     SizedBox(
                                                       width: size.width * 0.02,
                                                     ),
-                                                    Text(
-                                                      'Comment (${posts[index].comments!.length})',
-                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+                                                    MSemiBoldText(
+                                                      text: 'Comment (${posts[index].comments!.length})',
+                                                      size: size,
                                                     ),
                                                   ],
                                                 ),
@@ -569,10 +586,7 @@ class _HomepageState extends State<Homepage> {
                                                     SizedBox(
                                                       width: size.width * 0.02,
                                                     ),
-                                                    Text(
-                                                      'Share',
-                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                                    ),
+                                                    MSemiBoldText(text: 'Share', size: size),
                                                   ],
                                                 ),
                                               ),
@@ -592,8 +606,11 @@ class _HomepageState extends State<Homepage> {
                                 },
                               );
                             } else {
+                              context.read<AppProvider>().setLoadingTrue();
                               return Center(
-                                child: SpinKitChasingDots(color: primarygreen),
+                                child: Loader(size: size),
+
+                                // SpinKitChasingDots(color: primarygreen),
                               );
                             }
                           },
@@ -809,7 +826,7 @@ class _HomepageState extends State<Homepage> {
                                                           var result = await PostController().addCommentLike(
                                                             parentCommentsId[index],
                                                           );
-                                                          PostsListModal? response = await AppProvider().getPostData();
+                                                          PostsListModal? response = await AppProvider().getPostData(context);
                                                           for (int i = 0; i <= response!.data!.length; i++) {
                                                             if (response.data![i].id == singlePost!.id) {
                                                               debugPrint("Setting Up comments");
@@ -932,7 +949,7 @@ class _HomepageState extends State<Homepage> {
                                                             var result = await PostController().addReplyCommentLike(
                                                               data.id.toString(),
                                                             );
-                                                            PostsListModal? response = await AppProvider().getPostData();
+                                                            PostsListModal? response = await AppProvider().getPostData(context);
                                                             for (int i = 0; i <= response!.data!.length; i++) {
                                                               if (response.data![i].id == singlePost!.id) {
                                                                 debugPrint("Setting Up comments");
@@ -951,10 +968,6 @@ class _HomepageState extends State<Homepage> {
                                                             ),
                                                           ),
                                                         ),
-                                                        // SizedBox(
-                                                        //   width: 24,
-                                                        // ),
-                                                        // Text('Reply'),
                                                       ],
                                                     ),
                                                   ),
@@ -1033,7 +1046,7 @@ class _HomepageState extends State<Homepage> {
                                                 );
                                                 commentController.clear();
                                                 isReplying = false;
-                                                PostsListModal? response = await AppProvider().getPostData();
+                                                PostsListModal? response = await AppProvider().getPostData(context);
                                                 for (int i = 0; i <= response!.data!.length; i++) {
                                                   if (response.data![i].id == singlePost!.id) {
                                                     debugPrint("Setting Up comments");
@@ -1047,7 +1060,7 @@ class _HomepageState extends State<Homepage> {
                                               await PostController().addPostComment(singlePost!.id.toString(), commentController.text.trim());
                                               commentController.clear();
                                               commentFocusNode.unfocus();
-                                              PostsListModal? response = await AppProvider().getPostData();
+                                              PostsListModal? response = await AppProvider().getPostData(context);
                                               for (int i = 0; i <= response!.data!.length; i++) {
                                                 if (response.data![i].id == singlePost.id) {
                                                   debugPrint("Setting Up comments");
@@ -1105,4 +1118,11 @@ class _HomepageState extends State<Homepage> {
       },
     );
   }
+}
+
+Widget MSemiBoldText({required String text, required Size size}) {
+  return Text(
+    text,
+    style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
+  );
 }

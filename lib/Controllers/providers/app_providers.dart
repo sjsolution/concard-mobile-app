@@ -129,7 +129,6 @@ class AppProvider extends ChangeNotifier {
   get isFollowing => _isFollowing;
 
   sendFollowRequest({String? id}) async {
-    print("_isFollowing = " + _isFollowing.toString());
     _isFollowing = await FollowController().sendFollowRequest(id: id.toString());
     notifyListeners();
   }
@@ -162,8 +161,8 @@ class AppProvider extends ChangeNotifier {
   PostsListModal? _postModel;
   PostsListModal? get postModel => _postModel;
 
-  Future<PostsListModal?> getPostData() async {
-    _postModel = await PostController().getPostList();
+  Future<PostsListModal?> getPostData(BuildContext context) async {
+    _postModel = await PostController().getPostList(context);
     notifyListeners();
     return _postModel;
   }
