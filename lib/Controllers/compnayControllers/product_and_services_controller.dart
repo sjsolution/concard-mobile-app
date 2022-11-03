@@ -20,7 +20,7 @@ class ProductAndServicesController {
         return null;
       }
     } catch (e) {
-      debugPrint("post list exception:" + e.toString());
+      debugPrint("Product and services exception: " + e.toString());
       return null;
     }
   }
@@ -36,7 +36,7 @@ class ProductAndServicesController {
         Globals.showToastMethod(msg: "Something went wrong. Please try again later");
       }
     } catch (e) {
-      debugPrint("post list exception:" + e.toString());
+      debugPrint("Add Product and Services exception:" + e.toString());
     }
   }
 }

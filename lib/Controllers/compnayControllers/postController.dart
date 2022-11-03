@@ -20,7 +20,7 @@ class PostController {
       if (response != null) {
         PostsListModal? postsListModal = PostsListModal.fromJson(response);
         Globals.postsListModal = postsListModal;
-        context.read<AppProvider>().setLoadingFalse();
+        // context.read<AppProvider>().setLoadingFalse();
         return postsListModal;
       } else {
         Globals.showToastMethod(msg: "Something went wrong. Please try again later");

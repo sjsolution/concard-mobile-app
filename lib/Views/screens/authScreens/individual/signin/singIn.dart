@@ -188,7 +188,7 @@ class _SignInState extends State<SignIn> {
                                   if (result != null) {
                                     // emailControll.clear();
                                     // passwordControll.clear();
-                                    if (result['user_type'] == "1") {
+                                    if (result['user_type'].toString() == "1") {
                                       //Individual Member Screen
                                       Navigator.pushAndRemoveUntil(
                                           context,

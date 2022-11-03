@@ -367,7 +367,7 @@ class _HomepageState extends State<Homepage> {
                               var posts = snapshot.data!.data;
 
                               for (var isLike in posts!) {
-                                isPostLikeList!.add(isLike.userLike!);
+                                isPostLikeList!.add(int.parse(isLike.userLike!));
                               }
                               return ListView.builder(
                                 padding: const EdgeInsets.all(0),
@@ -428,10 +428,10 @@ class _HomepageState extends State<Homepage> {
                                                           : InkWell(
                                                               onTap: () {
                                                                 appPro!.sendFollowRequest(id: posts[index].userId.toString());
-                                                                if (appPro!.isFollowing == 0) {
-                                                                  posts[index].isFollowed = 1;
-                                                                } else if (posts[index].isFollowed == 1) {
-                                                                  posts[index].isFollowed = 0;
+                                                                if (appPro!.isFollowing == "0") {
+                                                                  posts[index].isFollowed = "1";
+                                                                } else if (posts[index].isFollowed == "1") {
+                                                                  posts[index].isFollowed = "0";
                                                                 }
                                                                 setState(() {});
                                                               },
@@ -709,16 +709,18 @@ class _HomepageState extends State<Homepage> {
                                           parentComments.add(
                                               Comment(avatar: comment.user!.profileImage, userName: comment.user!.firstName, content: comment.text));
                                           parentCommentsId.add(comment.id.toString());
-                                          isCommentLikeList!.add(comment.userLike!);
+                                          isCommentLikeList!.add(int.parse(comment.userLike!));
                                         }
                                         for (var subComment in repliesApiList!) {
-                                          childReplies.add(Comment(
-                                              avatar: subComment.user!.profileImage,
-                                              userName: subComment.user!.firstName,
-                                              content: subComment.text,
-                                              createdAt: subComment.createdAt.toString(),
-                                              id: subComment.id.toString(),
-                                              isLiked: subComment.userLike));
+                                          childReplies.add(
+                                            Comment(
+                                                avatar: subComment.user!.profileImage,
+                                                userName: subComment.user!.firstName,
+                                                content: subComment.text,
+                                                createdAt: subComment.createdAt.toString(),
+                                                id: subComment.id.toString(),
+                                                isLiked: subComment.userLike),
+                                          );
                                           // childRepliesId.add(subComment.id.toString());
                                           // replyList.add(subComment.createdAt);
                                         }

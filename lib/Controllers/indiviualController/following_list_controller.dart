@@ -23,7 +23,7 @@ class FollowingController {
         return null;
       }
     } catch (e) {
-      debugPrint("post list exception:" + e.toString());
+      debugPrint("Add Following Exception:" + e.toString());
       return null;
     }
   }

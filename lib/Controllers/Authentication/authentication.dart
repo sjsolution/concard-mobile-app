@@ -23,13 +23,13 @@ class AuthenticationClass {
         if (response['success']) {
           Globals.token = response['token'];
 
-          Globals.userType = response['user_type'];
+          Globals.userType = response['user_type'].toString();
 
           Globals.userId = response['user']['id'].toString();
 
           localStorageClass.setData(localStorageClass.tokenKey, response['token']);
 
-          localStorageClass.setData(localStorageClass.userTypeKey, response['user_type']);
+          localStorageClass.setData(localStorageClass.userTypeKey, response['user_type'].toString());
 
           localStorageClass.setData(localStorageClass.userIdKey, response['user']['id'].toString());
 
@@ -41,7 +41,7 @@ class AuthenticationClass {
           return null;
         }
       } else {
-        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {

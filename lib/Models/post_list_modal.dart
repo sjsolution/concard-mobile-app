@@ -5,18 +5,18 @@ class PostsListModal {
     this.data,
   });
 
-  int? code;
+  String? code;
   String? message;
   List<Posts>? data;
 
   factory PostsListModal.fromJson(Map<String, dynamic> json) => PostsListModal(
-        code: json["code"],
+        code: json["code"].toString(),
         message: json["message"],
         data: List<Posts>.from(json["data"].map((x) => Posts.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "code": code,
+        "code": code.toString(),
         "message": message,
         "data": List<dynamic>.from(data!.map((x) => x.toJson())),
       };
@@ -39,39 +39,39 @@ class Posts {
     this.comments,
   });
 
-  int? id;
+  String? id;
   String? userId;
   String? text;
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? image;
-  int? likeCounts;
-  int? commentCounts;
-  int? userLike;
-  int? isFollowed;
+  String? likeCounts;
+  String? commentCounts;
+  String? userLike;
+  String? isFollowed;
   User? user;
   List<Comments>? comments;
 
   factory Posts.fromJson(Map<String, dynamic> json) => Posts(
-        id: json["id"],
-        userId: json["user_id"],
+        id: json["id"].toString(),
+        userId: json["user_id"].toString(),
         text: json["text"] == null ? null : json["text"],
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         image: json["image"],
-        likeCounts: json["like_counts"],
-        commentCounts: json["comment_counts"],
-        userLike: json["user_like"],
-        isFollowed: json["is_followed"],
+        likeCounts: json["like_counts"].toString(),
+        commentCounts: json["comment_counts"].toString(),
+        userLike: json["user_like"].toString(),
+        isFollowed: json["is_followed"].toString(),
         user: User.fromJson(json["user"]),
         comments: List<Comments>.from(json["comments"].map((x) => Comments.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "user_id": userId,
+        "id": id.toString(),
+        "user_id": userId.toString(),
         "text": text == null ? null : text,
         "status": status,
         "created_at": createdAt.toString(),
@@ -101,28 +101,28 @@ class Comments {
     this.replies,
   });
 
-  int? id;
+  String? id;
   String? parentId;
   String? parentType;
   String? userId;
   String? text;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? likeCounts;
-  int? userLike;
+  String? likeCounts;
+  String? userLike;
   User? user;
   List<Comments>? replies;
 
   factory Comments.fromJson(Map<String, dynamic> json) => Comments(
-        id: json["id"],
+        id: json["id"].toString(),
         parentId: json["parent_id"],
         parentType: json["parent_type"],
         userId: json["user_id"],
         text: json["text"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        likeCounts: json["like_counts"],
-        userLike: json["user_like"],
+        likeCounts: json["like_counts"].toString(),
+        userLike: json["user_like"].toString(),
         user: User.fromJson(json["user"]),
         replies: List<Comments>.from(json["replies"].map((x) => Comments.fromJson(x))),
       );
@@ -173,7 +173,7 @@ class User {
     this.ratings,
   });
 
-  int? id;
+  String? id;
   String? firstName;
   String? lastName;
   String? mobileNumber;
@@ -202,12 +202,12 @@ class User {
   List<dynamic>? ratings;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
+        id: json["id"].toString(),
         firstName: json["first_name"],
         lastName: json["last_name"],
         mobileNumber: json["mobile_number"],
         email: json["email"],
-        userType: json["user_type"],
+        userType: json["user_type"].toString(),
         emailVerifiedAt: json["email_verified_at"],
         jobTitle: json["job_title"],
         website: json["website"],
@@ -237,7 +237,7 @@ class User {
         "last_name": lastName,
         "mobile_number": mobileNumber,
         "email": email,
-        "user_type": userType,
+        "user_type": userType.toString(),
         "email_verified_at": emailVerifiedAt,
         "job_title": jobTitle,
         "website": website,
