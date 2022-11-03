@@ -262,9 +262,8 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
-
-  void _handleRemeberme(bool? value) {
-    print("Handle Rember Me");
+   void _handleRemeberme(bool? value) {
+    // print("Handle Rember Me");
     isSelected = value;
     SharedPreferences.getInstance().then(
       (prefs) {
@@ -275,14 +274,15 @@ class _SignInState extends State<SignIn> {
     );
     setState(() {
       isSelected = value;
-      print('..........' + value.toString());
-      print('email...............' + emailControll.text);
-      print('pswrd============' + passwordControll.text);
+      //  print('..........'+value.toString());
+      // print('email...............'+emailControll.text);
+      // print('pswrd============'+ passwordControll.text);
+
     });
   }
+   void _loadUserEmailPassword() async {
+    // print("Load Email");
 
-  void _loadUserEmailPassword() async {
-    print("Load Email");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var email = prefs.getString("email");
@@ -300,7 +300,7 @@ class _SignInState extends State<SignIn> {
         passwordControll.text = password!;
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }
