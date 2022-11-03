@@ -36,9 +36,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   getInitialMethods() async {
     IndividualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId, context);
     appPro.setIndividualProfileModelProfileObj = individualProfileModel;
-    print("here goes indi profile model");
-    print(individualProfileModel?.data?.user?.profileImage);
-
     setState(() {});
   }
 
@@ -637,7 +634,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             //      primaryblue, true, () {
             //   setPageIndex(2);
             // }),
-            bottomItems(size, crdcrd_icon, "Card", true, pageIndex == 3 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, crdcrd_icon, "Cards", true, pageIndex == 3 ? prmryblue : Colors.grey, false, () {
               setPageIndex(3);
             }),
             bottomItems(size, msgs_icon, "Messages", true, pageIndex == 4 ? prmryblue : Colors.grey, false, () {

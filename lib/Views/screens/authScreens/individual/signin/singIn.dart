@@ -24,17 +24,18 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  bool? isSelected ;
+  bool? isSelected;
   RegExp? regex;
   var emailControll = TextEditingController();
   var passwordControll = TextEditingController();
   var formKey = GlobalKey<FormState>();
   @override
   void initState() {
-_loadUserEmailPassword();
+    _loadUserEmailPassword();
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -105,7 +106,13 @@ _loadUserEmailPassword();
                         const SizedBox(
                           height: 20,
                         ),
-                        field(passwordControll, Image.asset(paswrd_icon,height: size.height*0.02,), 'Password'),
+                        field(
+                            passwordControll,
+                            Image.asset(
+                              paswrd_icon,
+                              height: size.height * 0.02,
+                            ),
+                            'Password'),
 
                         // SizedBox(
                         //   height: size.height * 0.09,
@@ -142,13 +149,12 @@ _loadUserEmailPassword();
                           child: Row(
                             children: [
                               Checkbox(
-                                // checkColor: Colors.white,
-                                tristate: true,
-                                fillColor: MaterialStateProperty.all(signupclor_dark),
-                                value: isSelected,
-                                shape: const CircleBorder(),
-                                onChanged: _handleRemeberme
-                              ),
+                                  // checkColor: Colors.white,
+                                  tristate: true,
+                                  fillColor: MaterialStateProperty.all(signupclor_dark),
+                                  value: isSelected,
+                                  shape: const CircleBorder(),
+                                  onChanged: _handleRemeberme),
                               Text(
                                 'Remember me',
                                 style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: "Msemibold"),
@@ -177,7 +183,7 @@ _loadUserEmailPassword();
                                   loaderWidget(context, size);
                                   var result = await AuthenticationClass().login(emailControll.text.trim(), passwordControll.text.trim());
                                   context.read<AppProvider>().setLoadingFalse();
-                                  context.read<AppProvider>().setIndividualProfileModelProfileObj = result;
+                                  // context.read<AppProvider>().setIndividualProfileModelProfileObj = result;
                                   Navigator.pop(context);
                                   if (result != null) {
                                     // emailControll.clear();
@@ -198,6 +204,7 @@ _loadUserEmailPassword();
                                   }
                                 }
                               }
+                              _loadUserEmailPassword();
                             },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
@@ -225,34 +232,35 @@ _loadUserEmailPassword();
       ),
     );
   }
-  field(TextEditingController controller,Image image, String? label){
-    var size =MediaQuery.of(context).size;
-    return SizedBox(
-                          height: size.height * 0.09,
-                          width: size.width * 0.85,
-                          child: TextFormField(
-                            controller: controller,
-                            validator: (String? value) {
-                              // String pattern = r'^[A-Za-z0-9]*$';
-                              // regex = RegExp(pattern);
-                              if (value!.isEmpty) {
-                                return "Enter email";
-                              }
-                              // else if (!value.contains("@gmail.com")) {
-                              //   return 'Enter Valid email';
-                              // }
 
-                              return null;
-                            },
-                            maxLines: 1,
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
-                                prefixIcon: image,
-                                hintText: label,
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
-                          ),
-                        );
+  field(TextEditingController controller, Image image, String? label) {
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height * 0.09,
+      width: size.width * 0.85,
+      child: TextFormField(
+        controller: controller,
+        validator: (String? value) {
+          // String pattern = r'^[A-Za-z0-9]*$';
+          // regex = RegExp(pattern);
+          if (value!.isEmpty) {
+            return "Enter email";
+          }
+          // else if (!value.contains("@gmail.com")) {
+          //   return 'Enter Valid email';
+          // }
+
+          return null;
+        },
+        maxLines: 1,
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+            hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold", color: infocolor),
+            prefixIcon: image,
+            hintText: label,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
+      ),
+    );
   }
    void _handleRemeberme(bool? value) {
     // print("Handle Rember Me");
@@ -274,9 +282,10 @@ _loadUserEmailPassword();
   }
    void _loadUserEmailPassword() async {
     // print("Load Email");
+
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var email = prefs.getString("email")  ;
+      var email = prefs.getString("email");
       var password = prefs.getString("password");
       var remeberMe = prefs.getBool("remember_me") ?? false;
 
@@ -287,12 +296,11 @@ _loadUserEmailPassword();
         setState(() {
           isSelected = true;
         });
-        emailControll.text = email! ;
-        passwordControll.text = password! ;
+        emailControll.text = email!;
+        passwordControll.text = password!;
       }
     } catch (e) {
       // print(e);
     }
   }
 }
-

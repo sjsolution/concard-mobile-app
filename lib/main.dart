@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:concard/Controllers/compnayControllers/about_compnay.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Views/screens/authScreens/company/signup/aboutCompanySignup.dart';
@@ -15,6 +16,7 @@ import 'package:concard/Views/screens/authScreens/signupScreen.dart';
 import 'package:concard/Views/screens/homeScreens/TeamsScreens/createTeamScreen.dart';
 import 'package:concard/Views/screens/homeScreens/companyPremiumPlan/upgradeCompanyPlanScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradeCompanyPremium/upgradeCompanyPremium.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:concard/Views/screens/intialScreens/splashScreen.dart';
@@ -22,10 +24,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:concard/Controllers/providers/story_provider.dart';
 // import 'firebase_options.dart';
+import 'package:dio/adapter.dart';
+
+// Dio dio = Dio();
+// (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+// (HttpClient client) {
+// client.badCertificateCallback =
+// (X509Certificate cert, String host, int port) => true;
+// return client;
+// };
+
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback = ((X509Certificate cert, String host, int port) {
+//         final isValidHost = ["192.168.1.67"].contains(host); // <-- allow only hosts in array
+//         return isValidHost;
+//       });
+//   }
+// }
 
 Future<void> main(List<String> args) async {
+  // HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));

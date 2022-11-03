@@ -19,8 +19,7 @@ import '../../../../Constants/colors.dart';
 import '../../../../Constants/images.dart';
 
 class CreateTeamScreen extends StatefulWidget {
-  CreateTeamScreen({Key? key, required this.type, required this.teamName})
-      : super(key: key);
+  CreateTeamScreen({Key? key, required this.type, required this.teamName}) : super(key: key);
   String? type;
   String? teamName;
   @override
@@ -38,8 +37,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
   void initState() {
     // TODO: implement initState
     appPro = AppProvider();
-    debugPrint(
-        "----------- There is team link : ${widget.teamName} : ${widget.type}");
+    debugPrint("----------- There is team link : ${widget.teamName} : ${widget.type}");
     widget.type == 'link' ? openDialogue() : null;
     super.initState();
   }
@@ -80,8 +78,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       TeamsListModel? teamsListModel = await TeamController().getTeamList();
       return teamsListModel!.teamDetail;
     } else {
-      SearchTeamListModel? searchTeamListModel = await TeamController()
-          .searcTeamList(searchValue.toString().toLowerCase().trim());
+      SearchTeamListModel? searchTeamListModel = await TeamController().searcTeamList(searchValue.toString().toLowerCase().trim());
       return searchTeamListModel!.teamDetail;
     }
     // :
@@ -98,16 +95,10 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
               Container(
                 height: size.height * 0.15,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [signupclor_light, signupclor_dark]),
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04,
-                      right: size.width * 0.04,
-                      top: size.height * 0.04),
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.04),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,10 +123,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                           ),
                           Text(
                             'Teams',
-                            style: TextStyle(
-                                fontSize: size.height * 0.025,
-                                fontWeight: FontWeight.bold,
-                                color: bckgrnd),
+                            style: TextStyle(fontSize: size.height * 0.025, fontWeight: FontWeight.bold, color: bckgrnd),
                           ),
                         ],
                       ),
@@ -153,11 +141,12 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                 // height: size.height*0.8,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: btnclr,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    )),
+                  color: btnclr,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Column(
@@ -170,39 +159,26 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                         children: [
                           Text(
                             'All teams',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                fontFamily: 'MBold',
-                                color: signupclor_dark),
+                            style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold', color: signupclor_dark),
                           ),
                           GestureDetector(
                             onTap: () {
                               // openDialogue();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CreateNewTeamScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreateNewTeamScreen()));
                             },
                             child: Container(
                               height: size.height * 0.04,
                               width: size.width * 0.45,
                               decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        gradientgreen,
-                                        primarygreen,
-                                      ]),
+                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                    gradientgreen,
+                                    primarygreen,
+                                  ]),
                                   borderRadius: BorderRadius.circular(15)),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.width * 0.02,
-                                    right: size.width * 0.02),
+                                padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Icon(
                                       Icons.add,
@@ -211,10 +187,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                     ),
                                     Text(
                                       'Create new Team',
-                                      style: TextStyle(
-                                          fontFamily: 'MBold',
-                                          fontSize: size.height * 0.018,
-                                          color: bckgrnd),
+                                      style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: bckgrnd),
                                     ),
                                   ],
                                 ),
@@ -255,17 +228,12 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                   fillColor: bckgrnd,
                                   focusColor: bckgrnd,
                                   hintText: 'Search Teams',
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 0.0, left: 22.0, bottom: 2.0),
-                                  hintStyle: TextStyle(
-                                      fontSize: size.width * 0.04,
-                                      color: infocolor),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25))),
+                                  contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                  hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(25))),
                             ),
                           ),
-                          GestureDetector(
-                              onTap: () {}, child: SvgPicture.asset(sort_icon))
+                          GestureDetector(onTap: () {}, child: SvgPicture.asset(sort_icon))
                         ],
                       ),
                       const SizedBox(
@@ -286,8 +254,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                   color: primarygreen,
                                   // semanticsLabel: "umar",
                                   // semanticsValue: "value",
-                                  triggerMode:
-                                      RefreshIndicatorTriggerMode.anywhere,
+                                  triggerMode: RefreshIndicatorTriggerMode.anywhere,
                                   backgroundColor: primaryblue,
                                   child: ListView.builder(
                                       padding: const EdgeInsets.all(0),
@@ -299,64 +266,40 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                           child: InkWell(
                                             onTap: () async {
                                               if (!appPro!.isLoading!) {
-                                                print(teamDetail[index]
-                                                    .id
-                                                    .toString());
+                                                print(teamDetail[index].id.toString());
                                                 setState(() {
                                                   appPro!.setLoadingTrue();
                                                 });
                                                 Globals.teamDetailModel =
-                                                    await TeamController()
-                                                        .getSingleTeamDetail(
-                                                            teamDetail[index]
-                                                                .id
-                                                                .toString(),'');
+                                                    await TeamController().getSingleTeamDetail(teamDetail[index].id.toString(), '');
                                                 setState(() {
                                                   appPro!.setLoadingFalse();
                                                 });
-                                                if (Globals.teamDetailModel !=
-                                                    null) {
+                                                if (Globals.teamDetailModel != null) {
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
-                                                          builder: (BuildContext
-                                                                  context) =>
-                                                              TeamDetailViewClass(
-                                                                  teamData:
-                                                                      teamDetail[
-                                                                          index])));
+                                                          builder: (BuildContext context) => TeamDetailViewClass(teamData: teamDetail[index])));
                                                 } else {
-                                                  Globals.showToastMethod(
-                                                      msg:
-                                                          "There is something went worng. Please try again later");
+                                                  Globals.showToastMethod(msg: "There is something went worng. Please try again later");
                                                 }
                                               }
                                             },
                                             child: Column(
                                               children: [
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         Column(
                                                           children: [
                                                             CircleAvatar(
-                                                                radius:
-                                                                    size.height *
-                                                                        .035,
-                                                                backgroundColor:
-                                                                    primaryblue,
-                                                                backgroundImage:
-                                                                    NetworkImage(
-                                                                  teamDetail[index]
-                                                                              .image !=
-                                                                          null
-                                                                      ? teamDetail[
-                                                                              index]
-                                                                          .image!
+                                                                radius: size.height * .035,
+                                                                backgroundColor: primaryblue,
+                                                                backgroundImage: NetworkImage(
+                                                                  teamDetail[index].image != null
+                                                                      ? teamDetail[index].image!
                                                                       : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                                 )),
                                                           ],
@@ -368,53 +311,28 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                                                           children: [
                                                             Text(
                                                               '${teamDetail[index].teamName}',
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.018,
-                                                                  fontFamily:
-                                                                      'Mbold'),
+                                                              style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'Mbold'),
                                                             ),
                                                             SizedBox(
-                                                              height:
-                                                                  size.height *
-                                                                      0.01,
+                                                              height: size.height * 0.01,
                                                             ),
                                                             Text(
-                                                              DateFormat
-                                                                      .yMMMMd()
-                                                                  .format(DateTime.parse(
-                                                                      teamDetail[
-                                                                              index]
-                                                                          .createdAt!))
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      size.height *
-                                                                          0.015,
-                                                                  color:
-                                                                      infocolor,
-                                                                  fontFamily:
-                                                                      'Stf'),
+                                                              DateFormat.yMMMMd().format(DateTime.parse(teamDetail[index].createdAt!)).toString(),
+                                                              style: TextStyle(fontSize: size.height * 0.015, color: infocolor, fontFamily: 'Stf'),
                                                             ),
                                                           ],
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                         ),
                                                       ],
                                                     ),
                                                     Column(
                                                       children: const [
                                                         Icon(
-                                                          Icons
-                                                              .arrow_forward_ios_sharp,
+                                                          Icons.arrow_forward_ios_sharp,
                                                           size: 15,
                                                         )
                                                       ],
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                     ),
                                                   ],
                                                 ),
