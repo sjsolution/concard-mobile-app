@@ -189,7 +189,7 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.data?.user?.profileImage != null
+                                      appPro?.individualProfileModel?.data?.user?.profileImage.toString() != null
                                           ? appPro!.individualProfileModel!.data!.user!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),

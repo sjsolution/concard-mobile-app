@@ -182,7 +182,7 @@ _loadUserEmailPassword();
                                   if (result != null) {
                                     // emailControll.clear();
                                     // passwordControll.clear();
-                                    if (result['user_type'] == "1") {
+                                    if (result['user_type'].toString() == "1") {
                                       //Individual Member Screen
                                       Navigator.pushAndRemoveUntil(
                                           context,
@@ -198,8 +198,6 @@ _loadUserEmailPassword();
                                   }
                                 }
                               }
-    _loadUserEmailPassword();
-
                             },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
@@ -257,7 +255,7 @@ _loadUserEmailPassword();
                         );
   }
    void _handleRemeberme(bool? value) {
-    print("Handle Rember Me");
+    // print("Handle Rember Me");
     isSelected = value;
     SharedPreferences.getInstance().then(
       (prefs) {
@@ -268,14 +266,14 @@ _loadUserEmailPassword();
     );
     setState(() {
       isSelected = value;
-       print('..........'+value.toString());
-      print('email...............'+emailControll.text);
-      print('pswrd============'+ passwordControll.text);
+      //  print('..........'+value.toString());
+      // print('email...............'+emailControll.text);
+      // print('pswrd============'+ passwordControll.text);
 
     });
   }
    void _loadUserEmailPassword() async {
-    print("Load Email");
+    // print("Load Email");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var email = prefs.getString("email")  ;
@@ -293,7 +291,7 @@ _loadUserEmailPassword();
         passwordControll.text = password! ;
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }
