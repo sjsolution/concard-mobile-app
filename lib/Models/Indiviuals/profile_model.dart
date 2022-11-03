@@ -79,7 +79,7 @@ class ProfileCard {
     this.user,
   });
 
-  int? id;
+  String? id;
   String? userId;
   String? companyName;
   String? website;
@@ -106,8 +106,8 @@ class ProfileCard {
   User? user;
 
   factory ProfileCard.fromJson(Map<String, dynamic> json) => ProfileCard(
-        id: json["id"],
-        userId: json["user_id"],
+        id: json["id"].toString(),
+        userId: json["user_id"].toString(),
         companyName: json["company_name"],
         website: json["website"],
         field: json["field"],
@@ -229,7 +229,7 @@ class User {
         lastName: json["last_name"],
         mobileNumber: json["mobile_number"],
         email: json["email"],
-        userType: json["user_type"],
+        userType: json["user_type"].toString(),
         emailVerifiedAt: json["email_verified_at"],
         jobTitle: json["job_title"],
         website: json["website"],

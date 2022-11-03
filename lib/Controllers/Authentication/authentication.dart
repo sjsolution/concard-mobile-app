@@ -41,7 +41,7 @@ class AuthenticationClass {
           return null;
         }
       } else {
-        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
         return null;
       }
     } catch (e) {

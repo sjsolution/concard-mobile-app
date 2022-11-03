@@ -26,14 +26,6 @@ import 'package:concard/Controllers/providers/story_provider.dart';
 // import 'firebase_options.dart';
 import 'package:dio/adapter.dart';
 
-// Dio dio = Dio();
-// (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-// (HttpClient client) {
-// client.badCertificateCallback =
-// (X509Certificate cert, String host, int port) => true;
-// return client;
-// };
-
 // class MyHttpOverrides extends HttpOverrides {
 //   @override
 //   HttpClient createHttpClient(SecurityContext? context) {
