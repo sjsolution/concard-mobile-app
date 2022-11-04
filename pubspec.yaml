@@ -67,6 +67,7 @@ dependencies:
   shared_preferences: ^2.0.15
   firebase_dynamic_links: ^5.0.3
   persistent_bottom_nav_bar: ^5.0.2
+  country_state_city_pro: ^0.0.3
   # date_time_picker: ^2.1.0
   # flutter_calendar_widget: ^0.0.2
 

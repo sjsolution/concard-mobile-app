@@ -9,15 +9,14 @@ import 'package:flutter/cupertino.dart';
 class CardController {
   ServicesClass services = ServicesClass();
 
-  Future<AddCardModal?> addCard(
+  Future<AddCardModel?> addCard(
     String? userName,
     String? jobTitle,
     String? companyName,
     String? website,
     String? positionName,
-    String? workPhone,
-    String? mobileNumber,
-    String? email,
+    List<String>? mobileNumbers,
+    List<String>? emails,
     String? city,
     String? province,
     String? country,
@@ -35,9 +34,8 @@ class CardController {
         'company_name': companyName,
         'website': website,
         'position_name': positionName,
-        'work_phone': workPhone,
-        'mobile_no': mobileNumber,
-        'email': email,
+        'phone_numbers': mobileNumbers,
+        'emails': emails,
         'city': city,
         'province': province,
         'country': country,
@@ -47,13 +45,14 @@ class CardController {
         'month':month,
         'year':year,
         'location':location,
+        'job_title':jobTitle,
         'meeting_date_time':meetingDatetime
       });
       var response =
           await services.postResponse(url: '/card/save', formData: formData);
       debugPrint(response.toString());
       if (response != null) {
-        AddCardModal? addCardModal = AddCardModal.fromJson(response);
+        AddCardModel? addCardModal = AddCardModel.fromJson(response);
         Globals.addCardModal = addCardModal;
         print('Filter By' + addCardModal.toString());
         print('Global var' + Globals.addCardModal.toString());

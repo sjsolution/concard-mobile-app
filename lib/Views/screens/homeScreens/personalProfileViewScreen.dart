@@ -571,7 +571,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    ' My Card',
+                                    ' Card',
                                     style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   ),
                                   GestureDetector(
