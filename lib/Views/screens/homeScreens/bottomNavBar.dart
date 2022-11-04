@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:provider/provider.dart';
-
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'cardsScrens/cardsBottomBarScreen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -39,6 +39,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     setState(() {});
   }
 
+  PersistentTabController _controller = PersistentTabController(initialIndex: 0);
+
   //bottom Navigation bar
   int pageIndex = 0;
 
@@ -47,7 +49,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     setState(() {});
   }
 
-  final bottomPages = [
+  List<Widget> bottomPages = [
     const Homepage(),
     const ExpoBottomBarScreen(),
     CardsBottomBarScreen(),
@@ -58,17 +60,50 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
+    return
+        //   PersistentTabView(
+        //   context,
+        //   controller: _controller,
+        //   screens: bottomPages(),
+        //   items: _navBarsItems(context),
+        //   confineInSafeArea: true,
+        //   backgroundColor: Colors.white, // Default is Colors.white.
+        //   handleAndroidBackButtonPress: true, // Default is true.
+        //   resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+        //   stateManagement: true, // Default is true.
+        //   hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+        //   decoration: NavBarDecoration(
+        //     borderRadius: BorderRadius.circular(10.0),
+        //     colorBehindNavBar: Colors.white,
+        //   ),
+        //   navBarHeight: size.height * 0.12,
+        //   popAllScreensOnTapOfSelectedTab: true,
+        //   popActionScreens: PopActionScreensType.all,
+        //   itemAnimationProperties: ItemAnimationProperties(
+        //     // Navigation Bar's items animation properties.
+        //     duration: Duration(milliseconds: 200),
+        //     curve: Curves.ease,
+        //   ),
+        //   screenTransitionAnimation: ScreenTransitionAnimation(
+        //     // Screen transition animation on change of selected tab.
+        //     animateTabTransition: true,
+        //     curve: Curves.ease,
+        //     duration: Duration(milliseconds: 200),
+        //   ),
+        //   navBarStyle: NavBarStyle.style16, // Choose the nav bar style with this property.
+        // );
+
+        Scaffold(
       bottomNavigationBar: Container(
         height: size.height * 0.12,
         width: size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            bottomItems(size, home_icon, "Home", true, pageIndex == 0 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, bottom_bar_home, "Home", true, pageIndex == 0 ? prmryblue : Colors.grey, true, () {
               setPageIndex(0);
             }),
-            bottomItems(size.height, expo_icon, "Expo", true, pageIndex == 1 ? prmryblue : Colors.grey, true, () {
+            bottomItems(size, bottom_bar_expo, "Expo", true, pageIndex == 1 ? prmryblue : Colors.grey, true, () {
               setPageIndex(1);
             }),
             GestureDetector(
@@ -634,10 +669,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             //      primaryblue, true, () {
             //   setPageIndex(2);
             // }),
-            bottomItems(size, crdcrd_icon, "Cards", true, pageIndex == 3 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, bottom_bar_card, "Cards", true, pageIndex == 3 ? prmryblue : Colors.grey, true, () {
               setPageIndex(3);
             }),
-            bottomItems(size, msgs_icon, "Messages", true, pageIndex == 4 ? prmryblue : Colors.grey, false, () {
+            bottomItems(size, bottom_bar_message, "Messages", true, pageIndex == 4 ? prmryblue : Colors.grey, true, () {
               setPageIndex(4);
             }),
           ],
@@ -647,23 +682,77 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     );
   }
 
-  Widget bottomItems(var size, String icon, String title, bool textShow, Color color, bool isSvg, Function() onTap) {
+  // List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
+  //   Size size = MediaQuery.of(context).size;
+  //   return [
+  //     PersistentBottomNavBarItem(
+  //       icon: SvgPicture.asset(
+  //         bottom_bar_home,
+  //         height: 25,
+  //       ),
+  //       title: ("Home"),
+  //       activeColorPrimary: prmryblue,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: SvgPicture.asset(
+  //         bottom_bar_home,
+  //         height: 25,
+  //       ),
+  //       title: ("Expo"),
+  //       activeColorPrimary: prmryblue,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: SvgPicture.asset(
+  //         con_icon,
+  //         height: size.height * 0.07,
+  //       ),
+  //       // title: ("Home"),
+  //       activeColorPrimary: prmryblue,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: SvgPicture.asset(
+  //         bottom_bar_home,
+  //         height: 25,
+  //       ),
+  //       title: ("Cards"),
+  //       activeColorPrimary: prmryblue,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: SvgPicture.asset(
+  //         bottom_bar_home,
+  //         height: 25,
+  //       ),
+  //       title: ("Messages"),
+  //       activeColorPrimary: prmryblue,
+  //       inactiveColorPrimary: Colors.grey,
+  //     ),
+  //   ];
+  // }
+
+  Widget bottomItems(Size size, String icon, String title, bool textShow, Color color, bool isSvg, Function() onTap) {
     var size = MediaQuery.of(context).size;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: onTap,
-          icon: isSvg
-              ? SvgPicture.asset(
-                  icon,
-                  color: color,
-                )
-              : Image.asset(
-                  icon,
-                  color: color,
-                ),
-        ),
+            onPressed: onTap,
+            icon:
+                // isSvg ?
+                SvgPicture.asset(
+              icon,
+              height: 25,
+              color: color,
+            )
+            // : Image.asset(
+            //     icon,
+            //     height: size.height * 0.04,
+            //     color: color,
+            //   ),
+            ),
         textShow ? Text(title, style: TextStyle(color: color, fontSize: size.height * .015, fontWeight: FontWeight.w600)) : const SizedBox(),
       ],
     );

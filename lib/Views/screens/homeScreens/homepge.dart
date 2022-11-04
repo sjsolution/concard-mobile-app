@@ -44,7 +44,7 @@ class _HomepageState extends State<Homepage> {
   bool isLike = false;
   bool isSelected = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var commentController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
   // PostsListModal? postsListModal;
   // Future<PostsListModal?> getPostsList() async {
   //   postsListModal = await PostController().getPostList();
@@ -164,6 +164,7 @@ class _HomepageState extends State<Homepage> {
           // bottomNavigationBar: BottomNavigationScreen(),
           drawer: DrawerMenuScreen(),
           body: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
             child: Stack(
               children: [
                 Column(

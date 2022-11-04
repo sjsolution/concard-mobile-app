@@ -204,7 +204,7 @@ class _SignInState extends State<SignIn> {
                                   }
                                 }
                               }
-                              _loadUserEmailPassword();
+                              // _loadUserEmailPassword();
                             },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
@@ -262,7 +262,8 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
-   void _handleRemeberme(bool? value) {
+
+  void _handleRemeberme(bool? value) {
     // print("Handle Rember Me");
     isSelected = value;
     SharedPreferences.getInstance().then(
@@ -277,10 +278,10 @@ class _SignInState extends State<SignIn> {
       //  print('..........'+value.toString());
       // print('email...............'+emailControll.text);
       // print('pswrd============'+ passwordControll.text);
-
     });
   }
-   void _loadUserEmailPassword() async {
+
+  void _loadUserEmailPassword() async {
     // print("Load Email");
 
     try {
@@ -300,7 +301,7 @@ class _SignInState extends State<SignIn> {
         passwordControll.text = password!;
       }
     } catch (e) {
-      // print(e);
+      debugPrint(e.toString());
     }
   }
 }

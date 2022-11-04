@@ -12,16 +12,19 @@ import 'package:concard/Views/screens/homeScreens/individualPremium/individualPr
 import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
 import 'package:concard/Views/screens/homeScreens/socialLinksScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradePremiumIndividual/updgratToPremiumIndividual.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:provider/provider.dart';
-
+import 'package:concard/Views/widgets/add_product_and_services.dart';
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
+import '../../../Controllers/compnayControllers/product_and_services_controller.dart';
 import 'calenderScreen.dart';
+import '';
+import 'notifications/notificationsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/bottomNavBar.dart';
 
 class PersonalProfileViewScreen extends StatefulWidget {
   const PersonalProfileViewScreen({Key? key}) : super(key: key);
@@ -36,9 +39,14 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
   AppProvider? appPro;
   @override
   void initState() {
-    // TODO: implement initState
     appPro = Provider.of<AppProvider>(context, listen: false);
+    getProductAndServices();
     super.initState();
+  }
+
+  getProductAndServices() async {
+    appPro!.getProductAndServices();
+    setState(() {});
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -49,334 +57,430 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerMenuScreen(),
+      // bottomNavigationBar: BottomNavigationScreen(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Stack(
           children: [
+            // InkWell(
+            //     onTap: () {
+            //       Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
+            //     },
+            //     child: Padding(
+            //       padding: EdgeInsets.only(top: size.height * 0.1),
+            //       child: Container(
+            //         alignment: Alignment.center,
+            //         // margin: EdgeInsets.only(left: 10.0),
+            //         // padding: EdgeInsets.only(left: 07.0),
+            //         height: size.height * 0.05,
+            //         width: size.width * 0.3,
+            //         decoration: BoxDecoration(
+            //             color: bckgrnd.withOpacity(0.1),
+            //             borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
+            //         child: Row(children: [
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
+            //             child: Image.asset(
+            //               premium_icon,
+            //               // height: size.width * 0.07,
+            //             ),
+            //           ),
+            //           SizedBox(
+            //             width: size.width * 0.01,
+            //           ),
+            //           Padding(
+            //             padding: const EdgeInsets.only(right: 8.0),
+            //             child: Text(
+            //               'Premium',
+            //               style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
+            //             ),
+            //           ),
+            //         ]),
+            //       ),
+            //     )),
             Container(
-                height: size.height * 0.25,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //premium or drawer column
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+              height: size.height * 0.25,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //premium or drawer column
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //drawer opening icon
                         InkWell(
                           onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                          child: Image.asset(
-                            more_icon,
-                            height: 15,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
-                          },
                           child: Container(
-                            alignment: Alignment.center,
-                            // margin: EdgeInsets.only(left: 10.0),
-                            // padding: EdgeInsets.only(left: 07.0),
-                            height: size.height * 0.05,
-                            // width: size.width * 0.3,
-                            decoration: BoxDecoration(
-                                color: bckgrnd.withOpacity(0.1),
-                                borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
-                            child: Row(children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
-                                child: Image.asset(
-                                  premium_icon,
-                                  // height: size.width * 0.07,
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.01,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Text(
-                                  'Premium',
-                                  style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
-                                ),
-                              ),
-                            ]),
+                            // alignment: Alignment.topLeft,
+                            margin: EdgeInsets.only(top: size.height * 0.06, left: 10),
+                            child: Image.asset(
+                              more_icon,
+                              height: 15,
+                            ),
                           ),
                         ),
+                        //Premium Container
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
+                        //   },
+                        //   child: Container(
+                        //     alignment: Alignment.center,
+                        //     // margin: EdgeInsets.only(left: 10.0),
+                        //     // padding: EdgeInsets.only(left: 07.0),
+                        //     height: size.height * 0.05,
+                        //     // width: size.width * 0.3,
+                        //     decoration: BoxDecoration(
+                        //         color: bckgrnd.withOpacity(0.1),
+                        //         borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
+                        //     child: Row(children: [
+                        //       Padding(
+                        //         padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
+                        //         child: Image.asset(
+                        //           premium_icon,
+                        //           // height: size.width * 0.07,
+                        //         ),
+                        //       ),
+                        //       SizedBox(
+                        //         width: size.width * 0.01,
+                        //       ),
+                        //       Padding(
+                        //         padding: const EdgeInsets.only(right: 8.0),
+                        //         child: Text(
+                        //           'Premium',
+                        //           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
+                        //         ),
+                        //       ),
+                        //     ]),
+                        //   ),
+                        // ),
                       ],
                     ),
-                    //profile show Column
-                    Column(
+                  ),
+                  //profile show Column
+                  Expanded(
+                    flex: 2,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                            radius: size.height * 0.035,
-                            backgroundImage: NetworkImage(
-                              appPro!.individualProfileModel!.data!.user!.image ??
-                                  "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                            )),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '${appPro!.individualProfileModel!.data!.user!.firstName ?? ''} ${appPro!.individualProfileModel!.data!.user!.lastName ?? ''}',
-                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(children: [
-                          Text(
-                            appPro!.individualProfileModel!.data!.user!.email ?? '',
-                            style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => Container(
-                                        margin: EdgeInsets.only(bottom: size.height * 0.1),
-                                        child: Dialog(
-                                          alignment: AlignmentDirectional.bottomCenter,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                              color: btnclr,
-                                            ),
-                                            height: size.height * 0.25,
-                                            width: size.width * 0.9,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Container(width: size.width * 0.1),
-                                                        Image.asset(
-                                                          secureguard,
-                                                          color: infocolor,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: size.height * 0.035,
+                              backgroundImage: NetworkImage(
+                                appPro!.individualProfileModel!.data!.user!.image ??
+                                    "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              '${appPro!.individualProfileModel!.data!.user!.firstName ?? ''} ${appPro!.individualProfileModel!.data!.user!.lastName ?? ''}',
+                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  // appPro!.individualProfileModel!.data!.user!.email ?? '',
+                                  appPro!.individualProfileModel!.data!.user!.companyName ?? '',
+                                  style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => Container(
+                                              margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                              child: Dialog(
+                                                alignment: AlignmentDirectional.bottomCenter,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    color: btnclr,
+                                                  ),
+                                                  height: size.height * 0.25,
+                                                  width: size.width * 0.9,
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              SizedBox(width: size.width * 0.1),
+                                                              // SvgPicture.asset(
+                                                              //   verified,
+                                                              //   height: 5,
+                                                              // ),
+                                                              Image.asset(
+                                                                'asset/icons/secureguard.png',
+                                                                color: infocolor,
+                                                                height: 5,
+                                                              ),
+                                                              // Spacer(),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                child: const Icon(
+                                                                  Icons.close,
+                                                                  size: 20,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        // Spacer(),
-                                                        GestureDetector(
+                                                        SizedBox(
+                                                          height: size.height * 0.02,
+                                                        ),
+                                                        Text(
+                                                          'Not Verified',
+                                                          style: TextStyle(
+                                                            fontSize: size.height * 0.015,
+                                                            fontFamily: "MBold",
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: size.height * 0.02,
+                                                        ),
+                                                        Text(
+                                                          'This might discourage clients from contacting you.',
+                                                          style: TextStyle(
+                                                            fontSize: size.height * 0.014,
+                                                            fontFamily: "Stf",
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: size.height * 0.02,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            _requirementsModalBottomSheet(context);
+                                                          },
+                                                          child: Container(
+                                                            height: size.height * 0.04,
+                                                            width: size.width * 0.5,
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(color: signupclor_dark),
+                                                                borderRadius: BorderRadius.circular(20),
+                                                                color: btnclr),
+                                                            child: Center(
+                                                                child: Text(
+                                                              'Check Requirements',
+                                                              style: TextStyle(
+                                                                  fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
+                                                            )),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
+                                  },
+                                  child: SvgPicture.asset(
+                                    verified,
+                                    // height: 5,
+                                    color: infocolor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) => Container(
+                                          margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                          child: Dialog(
+                                            alignment: AlignmentDirectional.bottomCenter,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                            //this right here
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20),
+                                                color: btnclr,
+                                              ),
+                                              height: size.height * 0.25,
+                                              width: size.width * 0.9,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Container(width: size.width * 0.1),
+                                                          SvgPicture.asset(
+                                                            con_icon,
+                                                            height: size.height * 0.04,
+                                                          ),
+                                                          // Spacer(),
+                                                          GestureDetector(
                                                             onTap: () {
                                                               Navigator.pop(context);
                                                             },
                                                             child: const Icon(
                                                               Icons.close,
                                                               size: 20,
-                                                            ))
-                                                      ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: size.height * 0.02,
-                                                  ),
-                                                  Text(
-                                                    'Not Verified',
-                                                    style: TextStyle(
-                                                      fontSize: size.height * 0.015,
-                                                      fontFamily: "MBold",
+                                                    SizedBox(
+                                                      height: size.height * 0.02,
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: size.height * 0.02,
-                                                  ),
-                                                  Text(
-                                                    'This might discourage clients from contacting you.',
-                                                    style: TextStyle(
-                                                      fontSize: size.height * 0.014,
-                                                      fontFamily: "Stf",
+                                                    Text(
+                                                      'Promote your Concard',
+                                                      style: TextStyle(
+                                                        fontSize: size.height * 0.015,
+                                                        fontFamily: "MBold",
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: size.height * 0.02,
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      _requirementsModalBottomSheet(context);
-                                                    },
-                                                    child: Container(
-                                                      height: size.height * 0.04,
-                                                      width: size.width * 0.5,
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(color: signupclor_dark),
-                                                          borderRadius: BorderRadius.circular(20),
-                                                          color: btnclr),
-                                                      child: Center(
-                                                          child: Text(
-                                                        'Check Requirements',
-                                                        style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
-                                                      )),
+                                                    SizedBox(
+                                                      height: size.height * 0.02,
                                                     ),
-                                                  ),
-                                                ],
+                                                    Text(
+                                                      'Make your card visible when people search on',
+                                                      style: TextStyle(
+                                                        fontSize: size.height * 0.015,
+                                                        fontFamily: "Stf",
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Concard or Google',
+                                                      style: TextStyle(
+                                                        fontSize: size.height * 0.015,
+                                                        fontFamily: "Stf",
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: size.height * 0.02,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Container(
+                                                        height: size.height * 0.05,
+                                                        width: size.width * 0.5,
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(color: signupclor_dark),
+                                                            borderRadius: BorderRadius.circular(20),
+                                                            color: btnclr),
+                                                        child: Center(
+                                                            child: Text(
+                                                          'Go to Settings',
+                                                          style:
+                                                              TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ));
-                            },
-                            child: Image.asset(
-                              safesheld_icon,
-                              color: infocolor,
-                            ),
-                          ),
-                        ]),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) => Container(
-                                      margin: EdgeInsets.only(bottom: size.height * 0.1),
-                                      child: Dialog(
-                                        alignment: AlignmentDirectional.bottomCenter,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                                        //this right here
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20),
-                                            color: btnclr,
-                                          ),
-                                          height: size.height * 0.25,
-                                          width: size.width * 0.9,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Container(width: size.width * 0.1),
-                                                      SvgPicture.asset(
-                                                        con_icon,
-                                                        height: size.height * 0.04,
-                                                      ),
-                                                      // Spacer(),
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                          child: const Icon(
-                                                            Icons.close,
-                                                            size: 20,
-                                                          ))
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.02,
-                                                ),
-                                                Text(
-                                                  'Promote your Concard',
-                                                  style: TextStyle(
-                                                    fontSize: size.height * 0.015,
-                                                    fontFamily: "MBold",
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.02,
-                                                ),
-                                                Text(
-                                                  'Make your card visible when people search on',
-                                                  style: TextStyle(
-                                                    fontSize: size.height * 0.015,
-                                                    fontFamily: "Stf",
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Concard or Google',
-                                                  style: TextStyle(
-                                                    fontSize: size.height * 0.015,
-                                                    fontFamily: "Stf",
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: size.height * 0.02,
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Container(
-                                                    height: size.height * 0.05,
-                                                    width: size.width * 0.5,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(color: signupclor_dark),
-                                                        borderRadius: BorderRadius.circular(20),
-                                                        color: btnclr),
-                                                    child: Center(
-                                                        child: Text(
-                                                      'Go to Settings',
-                                                      style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
-                                                    )),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ));
-                          },
-                          child: Container(
-                            height: size.height * 0.025,
-                            width: size.width * 0.18,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: bckgrnd),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Promote',
-                                style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.015, color: bckgrnd),
+                                        ));
+                              },
+                              child: Container(
+                                height: size.height * 0.025,
+                                width: size.width * 0.18,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: bckgrnd),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Promote',
+                                    style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.015, color: bckgrnd),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        )
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                    //notification icon
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  ),
+                  //notification icon
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Image.asset(
-                            notify_icon,
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(top: size.height * 0.06),
+                                  child: Stack(
+                                    children: [
+                                      SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 10,
+                                        ),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          const Text("")
                         ],
                       ),
                     ),
-                    // SizedBox(
-                    //     width: 1,
-                    //   ),
-                  ],
-                )),
+                  ),
+
+                  // SizedBox(
+                  //     width: 1,
+                  //   ),
+                ],
+              ),
+            ),
             Container(
               margin: EdgeInsets.only(top: size.height * 0.23),
               // height: size.height*0.8,
               width: size.width,
               decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  )),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
               child: Column(
                 children: [
                   Container(
@@ -385,31 +489,44 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              _switchaccountModalBottomSheet(context);
-                            },
-                            child: Image.asset(
-                              switch_icon,
-                              height: size.height * 0.03,
-                            )),
+                          onTap: () {
+                            _switchaccountModalBottomSheet(context);
+                          },
+                          child: SvgPicture.asset(
+                            pp_shuffle,
+                            height: size.height * 0.03,
+                          ),
+
+                          //     Image.asset(
+                          //   switch_icon,
+                          //   height: size.height * 0.03,
+                          // ),
+                        ),
                         SizedBox(
                           width: size.width * 0.03,
                         ),
                         Container(
-                            margin: EdgeInsets.only(right: size.width * 0.03),
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const CalenderScreen()));
-                                },
-                                child: Image.asset(
-                                  planner_icon,
-                                  height: size.height * 0.03,
-                                ))),
+                          margin: EdgeInsets.only(right: size.width * 0.03),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const CalenderScreen()));
+                            },
+                            child: SvgPicture.asset(
+                              calender,
+                              height: size.height * 0.03,
+                            ),
+
+                            //   Image.asset(
+                            //   planner_icon,
+                            //   height: size.height * 0.03,
+                            // ),
+                          ),
+                        ),
                         SizedBox(
                           width: size.width * 0.03,
                         ),
                         SvgPicture.asset(
-                          stylearrw_icon,
+                          pp_share,
                           height: size.height * 0.03,
                         ),
                       ],
@@ -423,11 +540,12 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
               // height: size.height*0.8,
               width: size.width,
               decoration: BoxDecoration(
-                  color: btnclr,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: const Radius.circular(15),
-                    topRight: const Radius.circular(15),
-                  )),
+                color: btnclr,
+                borderRadius: const BorderRadius.only(
+                  topLeft: const Radius.circular(15),
+                  topRight: const Radius.circular(15),
+                ),
+              ),
               child: Padding(
                 padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                 child: Column(
@@ -439,7 +557,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     Container(
                       height: size.height * 0.376,
                       child: Card(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: Column(
                           children: [
                             SizedBox(
@@ -481,11 +601,12 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               height: size.height * 0.025,
                             ),
                             GestureDetector(
-                                onTap: () {
-                                  _cardInfoPopup(context);
-                                },
-                                //umar changed
-                                child: cardWidget(context, appPro!.individualProfileModel!))
+                              onTap: () {
+                                _cardInfoPopup(context);
+                              },
+                              //umar changed
+                              child: cardWidget(context, appPro!.individualProfileModel!),
+                            ),
                           ],
                         ),
                       ),
@@ -563,7 +684,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Container(
                               child: RatingBar.builder(
                                 itemSize: size.height * 0.02,
-                                initialRating: 3,
+                                initialRating: appPro!.individualProfileModel!.data!.user!.userRating!,
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -582,7 +703,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               width: size.width * 0.01,
                             ),
                             Text(
-                              '4.5',
+                              '${appPro!.individualProfileModel!.data!.user!.userRating!.toString()}',
                               style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                             )
                           ],
@@ -760,7 +881,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           width: size.width * 0.01,
                         ),
                         Text(
-                          "(12)",
+                          appPro?.productAndServicesModel?.data?.length == null ? "0" : appPro!.productAndServicesModel!.data!.length.toString(),
                           style: TextStyle(
                             fontSize: size.height * 0.018,
                             color: primarygreen,
@@ -773,110 +894,171 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       height: size.height * 0.02,
                     ),
                     Container(
-                      height: size.height * 0.15,
                       width: size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
                         color: bckgrnd,
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
+                        child: Wrap(
+                          children: List.generate(
+                            appPro?.productAndServicesModel?.data?.length == null ? 0 : appPro!.productAndServicesModel!.data!.length + 1,
+                            (index) {
+                              if (index == appPro!.productAndServicesModel!.data!.length) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01, top: size.height * 0.01),
+                                  child: InkWell(
+                                    onTap: () {
+                                      appPro!.setLoadingTrue();
+                                      addProductsAndServices(context);
+                                      appPro!.setLoadingFalse();
+                                    },
+                                    child: Container(
+                                      height: size.height * 0.03,
+                                      width: size.width * 0.15,
+                                      decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                                      child: Center(
+                                        child: Text(
+                                          'Add +',
+                                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: txtcolr),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Container(
                                   decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Buisness',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.22,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Growth',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
                                   height: size.height * 0.04,
                                   width: size.width * 0.2,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Progress',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.2,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Now',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.15,
-                                ),
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.01,
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Progress',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.2,
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.02,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
-                                      child: Text(
-                                    'Now',
-                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
-                                  )),
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.15,
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.02,
-                                ),
-                                Container(
-                                  height: size.height * 0.04,
-                                  width: size.width * 0.2,
-                                  decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                   child: Center(
                                     child: Text(
-                                      'Add +',
-                                      style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
+                                      appPro!.productAndServicesModel!.data![index].name.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
+
+                    // Container(
+                    //   height: size.height * 0.15,
+                    //   width: size.width,
+                    //   decoration: BoxDecoration(
+                    //     color: bckgrnd,
+                    //     borderRadius: BorderRadius.circular(15),
+                    //   ),
+                    //   child: Padding(
+                    //     padding: EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
+                    //     child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Row(
+                    //           children: [
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Buisness',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.22,
+                    //             ),
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Growth',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.2,
+                    //             ),
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Progress',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.2,
+                    //             ),
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Now',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.15,
+                    //             ),
+                    //           ],
+                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         ),
+                    //         SizedBox(
+                    //           height: size.height * 0.01,
+                    //         ),
+                    //         Row(
+                    //           children: [
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Progress',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.2,
+                    //             ),
+                    //             SizedBox(
+                    //               width: size.width * 0.02,
+                    //             ),
+                    //             Container(
+                    //               decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                   child: Text(
+                    //                 'Now',
+                    //                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                    //               )),
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.15,
+                    //             ),
+                    //             SizedBox(
+                    //               width: size.width * 0.02,
+                    //             ),
+                    //             Container(
+                    //               height: size.height * 0.04,
+                    //               width: size.width * 0.2,
+                    //               decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                    //               child: Center(
+                    //                 child: Text(
+                    //                   'Add +',
+                    //                   style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+
                     SizedBox(
                       height: size.height * 0.035,
                     ),
@@ -904,20 +1086,28 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       height: size.height * 0.015,
                     ),
                     Container(
-                      height: size.height * 0.13,
+                      // height: size.height * 0.13,
                       width: size.width,
                       decoration: BoxDecoration(
                         color: bckgrnd,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.02),
+                        padding: EdgeInsets.symmetric(vertical: size.height * 0.02, horizontal: size.width * 0.04),
+
+                        // EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.02),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Contrary to popular belief, Lorem Ipsum is not\nsimply random text. It has roots in a piece of\nclassical Latin literature from 45 BC, making it over\n2000 years old.',
-                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                            Wrap(
+                              children: [
+                                Text(
+                                  appPro?.individualProfileModel?.data?.user?.about == ''
+                                      ? ""
+                                      : appPro!.individualProfileModel!.data!.user!.about.toString(),
+                                  style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
+                                ),
+                              ],
                             )
                           ],
                         ),
@@ -1167,7 +1357,47 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   ),
                 ),
               ),
-            )
+            ),
+            //Premium Text
+            Column(
+              children: [
+                SizedBox(height: size.height * 0.15),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    // margin: EdgeInsets.only(left: 10.0),
+                    // padding: EdgeInsets.only(left: 07.0),
+                    height: size.height * 0.05,
+                    width: size.width * 0.27,
+                    decoration: BoxDecoration(
+                        color: bckgrnd.withOpacity(0.1),
+                        borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
+                    child: Row(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
+                        child: Image.asset(
+                          premium_icon,
+                          // height: size.width * 0.07,
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          'Premium',
+                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

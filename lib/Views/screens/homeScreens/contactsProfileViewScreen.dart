@@ -23,8 +23,7 @@ class ContactProfileViewScreen extends StatefulWidget {
   String? id;
   String? noteId;
   @override
-  State<ContactProfileViewScreen> createState() =>
-      _ContactProfileViewScreenState();
+  State<ContactProfileViewScreen> createState() => _ContactProfileViewScreenState();
 }
 
 class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
@@ -33,7 +32,6 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
   bool? inviteValue = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getSingleCardDetail();
     // addMyNotes();
@@ -60,8 +58,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
   }
 
   addUserReview() async {
-    Globals.addUserRatingModal =
-        await RatingController().addUserRating('', '', '');
+    Globals.addUserRatingModal = await RatingController().addUserRating('', '', '');
 // print('id.....'+widget.id.toString());
 // print('Singl card.........'+Globals.singleCardDetailModal.toString());
     setState(() {});
@@ -92,20 +89,14 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                 Container(
                   height: size.height * 0.25,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topCenter,
-                        colors: [signupclor_light, signupclor_dark]),
+                    gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                   ),
                   child: Stack(
                     children: [
                       //premium code
                       InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => IndividualPremiumScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
                           },
                           child: Padding(
                             padding: EdgeInsets.only(top: size.height * 0.1),
@@ -117,13 +108,10 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               width: size.width * 0.3,
                               decoration: BoxDecoration(
                                   color: bckgrnd.withOpacity(0.1),
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(10),
-                                      bottomRight: Radius.circular(10))),
+                                  borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
                               child: Row(children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 3.0, bottom: 09.0),
+                                  padding: const EdgeInsets.only(left: 3.0, bottom: 09.0),
                                   child: Image.asset(
                                     premium_icon,
                                     // height: size.width * 0.07,
@@ -136,10 +124,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
                                     'Premium',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.015,
-                                        fontFamily: "MBold",
-                                        color: bckgrnd),
+                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                   ),
                                 ),
                               ]),
@@ -150,22 +135,16 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                              padding: EdgeInsets.only(
-                                  left: size.width * 0.04,
-                                  right: size.width * 0.04,
-                                  top: size.height * 0.06),
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.06),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       InkWell(
-                                        onTap: () => _scaffoldKey.currentState!
-                                            .openDrawer(),
+                                        onTap: () => _scaffoldKey.currentState!.openDrawer(),
                                         child: Image.asset(
                                           more_icon,
                                           height: 15,
@@ -182,61 +161,36 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         children: [
                                           CircleAvatar(
                                             radius: 25,
-                                            backgroundImage: NetworkImage(Globals
-                                                        .singleCardDetailModal!
-                                                        .singleCardData!
-                                                        .singleCardUser!
-                                                        .image !=
-                                                    null
-                                                ? Globals
-                                                    .singleCardDetailModal!
-                                                    .singleCardData!
-                                                    .singleCardUser!
-                                                    .image
-                                                    .toString()
+                                            backgroundImage: NetworkImage(Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.image != null
+                                                ? Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.image.toString()
                                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpbz6iSjWmkBiY-Dzq7vWazUn16lI4qiS2Dg&usqp=CAU"),
                                           ),
-                                          SizedBox(height: 10,),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
                                           Row(
                                             children: [
                                               Text(
-                                                Globals
-                                                            .singleCardDetailModal!
-                                                            .singleCardData!.singleCardUser!.firstName!=
-                                                        null
-                                                    ? Globals.singleCardDetailModal!
-                                                        .singleCardData!.singleCardUser!.firstName
-                                                        .toString() +  Globals.singleCardDetailModal!
-                                                        .singleCardData!.singleCardUser!.firstName
-                                                        .toString()
+                                                Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.firstName != null
+                                                    ? Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.firstName.toString() +
+                                                        Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.firstName.toString()
                                                     : '',
-                                                style: TextStyle(
-                                                    fontFamily: 'MBold',
-                                                    fontSize: size.height * 0.015,
-                                                    color: bckgrnd),
+                                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: bckgrnd),
                                               ),
-                                              SizedBox(width: 5,),
-                                                  SvgPicture.asset(safesheld_icon)
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              SvgPicture.asset(safesheld_icon),
                                             ],
                                           ),
                                           Text(
-                                            Globals
-                                                        .singleCardDetailModal!
-                                                        .singleCardData!
-                                                        .jobTitle !=
-                                                    null
-                                                ? Globals.singleCardDetailModal!
-                                                    .singleCardData!.jobTitle
-                                                    .toString()
+                                            Globals.singleCardDetailModal!.singleCardData!.jobTitle != null
+                                                ? Globals.singleCardDetailModal!.singleCardData!.jobTitle.toString()
                                                 : '',
-                                            style: TextStyle(
-                                                fontFamily: 'Stf',
-                                                fontSize: size.height * 0.017,
-                                                color: bckgrnd),
+                                            style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                           ),
                                         ],
                                       ),
-                                     
                                     ],
                                   ),
                                   Row(
@@ -244,13 +198,11 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       Stack(
                                         children: [
                                           SvgPicture.asset(bellIcon),
-                                      Padding(
-                                        padding:  EdgeInsets.only(left: 10),
-                                        child: SvgPicture.asset(notifyDot),
-                                      ),
-                                          
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: SvgPicture.asset(notifyDot),
+                                          ),
                                         ],
-                                        
                                       ),
                                       SizedBox(width: size.width * 0.02),
                                       InkWell(
@@ -273,10 +225,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                 Visibility(
                   visible: addValue!,
                   child: Container(
-                    margin: EdgeInsets.only(
-                        top: size.height * 0.2,
-                        left: size.width * 0.04,
-                        right: size.width * 0.05),
+                    margin: EdgeInsets.only(top: size.height * 0.2, left: size.width * 0.04, right: size.width * 0.05),
                     height: size.height * 0.04,
                     width: size.width,
                     decoration: BoxDecoration(
@@ -284,8 +233,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                       color: primarygreen,
                     ),
                     child: Container(
-                      margin: EdgeInsets.only(
-                          left: size.width * 0.01, right: size.width * 0.015),
+                      margin: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.015),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -295,10 +243,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                           ),
                           Text(
                             'Contrary to popular belief, Lorem Ipsum is not simply random\ntext.',
-                            style: TextStyle(
-                                fontSize: size.height * 0.01,
-                                fontFamily: "Msemibold",
-                                color: bckgrnd),
+                            style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: bckgrnd),
                           ),
                           GestureDetector(
                             child: Container(
@@ -311,10 +256,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               child: Center(
                                 child: Text(
                                   'Add',
-                                  style: TextStyle(
-                                      fontFamily: "MBold",
-                                      fontSize: size.height * 0.015,
-                                      color: bckgrnd),
+                                  style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
                                 ),
                               ),
                             ),
@@ -337,10 +279,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                           topRight: Radius.circular(15),
                         )),
                     child: Container(
-                      margin: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          top: size.height * 0.01,
-                          right: size.width * 0.04),
+                      margin: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.01, right: size.width * 0.04),
                       child: Column(
                         children: [
                           Row(
@@ -352,10 +291,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               ),
                               Text(
                                 'Contrary to popular belief, Lorem Ipsum is not simply random\ntext.',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.009,
-                                    fontFamily: "Msemibold",
-                                    color: bckgrnd),
+                                style: TextStyle(fontSize: size.height * 0.009, fontFamily: "Msemibold", color: bckgrnd),
                               ),
                               Container(
                                 height: size.height * 0.03,
@@ -367,10 +303,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 child: Center(
                                   child: Text(
                                     'invite',
-                                    style: TextStyle(
-                                        fontFamily: "MBold",
-                                        fontSize: size.height * 0.015,
-                                        color: bckgrnd),
+                                    style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
                                   ),
                                 ),
                               ),
@@ -394,10 +327,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
-                            top: size.height * 0.02,
-                            left: size.width * 0.1,
-                            right: size.width * 0.14),
+                        margin: EdgeInsets.only(top: size.height * 0.02, left: size.width * 0.1, right: size.width * 0.14),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -414,8 +344,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               width: size.width * 0.03,
                             ),
                             Container(
-                                margin:
-                                    EdgeInsets.only(right: size.width * 0.03),
+                                margin: EdgeInsets.only(right: size.width * 0.03),
                                 child: Image.asset(
                                   planner_icon,
                                   height: size.height * 0.03,
@@ -448,9 +377,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                           padding: EdgeInsets.all(0),
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(
-                                  left: size.width * 0.04,
-                                  right: size.width * 0.04),
+                              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                               child: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -462,9 +389,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.365,
                                       width: size.width,
                                       child: Card(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                         child: Column(
                                           children: [
                                             SizedBox(
@@ -473,10 +398,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                             SizedBox(
                                               height: size.height * 0.025,
                                             ),
-                                            cardWidget(
-                                                context,
-                                                Globals.singleCardDetailModal!
-                                                    .singleCardData)
+                                            cardWidget(context, Globals.singleCardDetailModal!.singleCardData)
                                           ],
                                         ),
                                       ),
@@ -485,42 +407,29 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.02,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           height: size.height * 0.04,
                                           width: size.width * 0.41,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: signupclor_dark),
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
+                                          decoration:
+                                              BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(15)),
                                           child: Center(
                                             child: Text(
                                               'Company Profile',
-                                              style: TextStyle(
-                                                  fontFamily: 'MBold',
-                                                  fontSize: size.height * 0.018,
-                                                  color: signupclor_dark),
+                                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: signupclor_dark),
                                             ),
                                           ),
                                         ),
                                         Container(
                                           height: size.height * 0.04,
                                           width: size.width * 0.43,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: signupclor_dark),
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
+                                          decoration:
+                                              BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(15)),
                                           child: Center(
                                             child: Text(
                                               'Brochure ',
-                                              style: TextStyle(
-                                                  fontFamily: 'MBold',
-                                                  fontSize: size.height * 0.018,
-                                                  color: signupclor_dark),
+                                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: signupclor_dark),
                                             ),
                                           ),
                                         ),
@@ -531,43 +440,25 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        _reviewModalBottomSheet(
-                                            context,
-                                            Globals
-                                                .singleCardDetailModal!
-                                                .singleCardData!
-                                                .singleCardUser);
+                                        _reviewModalBottomSheet(context, Globals.singleCardDetailModal!.singleCardData!.singleCardUser);
                                       },
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             height: size.height * 0.04,
                                             width: size.width * 0.25,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: gradientgreen),
-                                                borderRadius:
-                                                    BorderRadius.circular(15)),
+                                            decoration:
+                                                BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                             child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.02,
-                                                  right: size.width * 0.01),
+                                              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.01),
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   Center(
                                                     child: Text(
                                                       'Review',
-                                                      style: TextStyle(
-                                                          fontFamily: 'MBold',
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018,
-                                                          color: gradientgreen),
+                                                      style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: gradientgreen),
                                                     ),
                                                   ),
                                                   Image.asset(
@@ -588,11 +479,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   direction: Axis.horizontal,
                                                   allowHalfRating: true,
                                                   itemCount: 5,
-                                                  itemPadding:
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 2.0),
-                                                  itemBuilder: (context, _) =>
-                                                      Icon(
+                                                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                                                  itemBuilder: (context, _) => Icon(
                                                     Icons.star,
                                                     color: primarygreen,
                                                   ),
@@ -607,14 +495,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                rating != null
-                                                    ? rating.toString()
-                                                    : '0',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.018,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Mbold'),
+                                                rating != null ? rating.toString() : '0',
+                                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Mbold'),
                                               )
                                             ],
                                           ),
@@ -625,21 +507,16 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.03,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           'Notes',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              color: Colors.black,
-                                              fontFamily: 'Mbold'),
+                                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Mbold'),
                                         ),
                                         InkWell(
                                           onTap: () async {
                                             //  yaha pr api ka notes sy parmaeter pass krna ha
-                                            editNotesController.text =
-                                                myNotes.toString();
+                                            editNotesController.text = myNotes.toString();
 
                                             _showEditNotesPopUp(
                                               context,
@@ -648,19 +525,12 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           child: Container(
                                             height: size.height * 0.04,
                                             width: size.width * 0.2,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: gradientgreen),
-                                                borderRadius:
-                                                    BorderRadius.circular(15)),
+                                            decoration:
+                                                BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                             child: Center(
                                               child: Text(
                                                 'Edit',
-                                                style: TextStyle(
-                                                    fontFamily: 'MBold',
-                                                    fontSize:
-                                                        size.height * 0.018,
-                                                    color: gradientgreen),
+                                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: gradientgreen),
                                               ),
                                             ),
                                           ),
@@ -671,16 +541,12 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.015,
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          color: bckgrnd),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: bckgrnd),
                                       child: myNotes != null
                                           ? Container(
                                               width: size.width,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(8.0),
                                                 child: Text(myNotes!),
                                               ),
                                             )
@@ -714,10 +580,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       children: [
                                         Text(
                                           "product & Services",
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              color: Colors.black,
-                                              fontFamily: 'Mbold'),
+                                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Mbold'),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.01,
@@ -747,45 +610,23 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Wrap(
                                           children: List.generate(
-                                              Globals
-                                                          .singleCardDetailModal
-                                                          ?.singleCardData
-                                                          ?.productSevices
-                                                          ?.length ==
-                                                      null
+                                              Globals.singleCardDetailModal?.singleCardData?.productSevices?.length == null
                                                   ? 0
-                                                  : Globals
-                                                      .singleCardDetailModal!
-                                                      .singleCardData!
-                                                      .productSevices!
-                                                      .length, (index) {
+                                                  : Globals.singleCardDetailModal!.singleCardData!.productSevices!.length, (index) {
                                             return Padding(
                                               padding: const EdgeInsets.all(3),
                                               child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: btnclr,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
+                                                decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(20)),
                                                 child: Padding(
                                                   padding: EdgeInsets.only(
                                                       left: size.width * 0.02,
                                                       right: size.width * 0.02,
                                                       top: size.height * 0.01,
-                                                      bottom:
-                                                          size.width * 0.01),
+                                                      bottom: size.width * 0.01),
                                                   child: Text(
                                                     // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
-                                                    Globals
-                                                        .singleCardDetailModal!
-                                                        .singleCardData!
-                                                        .productSevices![index]
-                                                        .name
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.015,
-                                                        fontFamily: "Stf"),
+                                                    Globals.singleCardDetailModal!.singleCardData!.productSevices![index].name.toString(),
+                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                                   ),
                                                 ),
                                                 // height:
@@ -802,10 +643,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     Text(
                                       "About",
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          color: Colors.black,
-                                          fontFamily: 'Mbold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Mbold'),
                                     ),
                                     SizedBox(
                                       height: size.height * 0.015,
@@ -818,21 +656,13 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                              Globals
-                                                  .singleCardDetailModal!
-                                                  .singleCardData!
-                                                  .singleCardUser!
-                                                  .about
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  fontSize: size.height * 0.015,
-                                                  fontFamily: "Stf"),
+                                              Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.about.toString(),
+                                              style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
                                             ),
                                           )
                                         ],
@@ -843,10 +673,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     Text(
                                       "Social media",
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          color: Colors.black,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                                     ),
                                     SizedBox(
                                       height: size.height * 0.025,
@@ -855,11 +682,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.1,
                                       child: ListView.builder(
                                           padding: const EdgeInsets.all(0),
-                                          itemCount: Globals
-                                              .singleCardDetailModal!
-                                              .singleCardData!
-                                              .socialLinks!
-                                              .length,
+                                          itemCount: Globals.singleCardDetailModal!.singleCardData!.socialLinks!.length,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Column(
@@ -870,14 +693,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                       width: size.width * 0.03,
                                                     ),
                                                     Image.network(
-                                                      Globals
-                                                          .singleCardDetailModal!
-                                                          .singleCardData!
-                                                          .socialLinks![index]
-                                                          .image
-                                                          .toString(),
-                                                      height:
-                                                          size.height * 0.04,
+                                                      Globals.singleCardDetailModal!.singleCardData!.socialLinks![index].image.toString(),
+                                                      height: size.height * 0.04,
                                                     )
                                                   ],
                                                 )
@@ -890,10 +707,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     Text(
                                       "Added Time & Location",
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          color: Colors.black,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                                     ),
                                     SizedBox(
                                       height: size.height * 0.025,
@@ -909,34 +723,20 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           width: size.width * 0.04,
                                         ),
                                         Text(
-                                          Globals
-                                                      .singleCardDetailModal!
-                                                      .singleCardData!
-                                                      .meetingDateTime !=
-                                                  null
-                                              ? DateFormat('EEE,').format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())) +
+                                          Globals.singleCardDetailModal!.singleCardData!.meetingDateTime != null
+                                              ? DateFormat('EEE,').format(
+                                                      DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())) +
                                                   '' +
                                                   DateFormat(' d').format(
-                                                      DateTime.parse(Globals
-                                                          .singleCardDetailModal!
-                                                          .singleCardData!
-                                                          .meetingDateTime
-                                                          .toString())) +
+                                                      DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())) +
                                                   'th ' +
                                                   DateFormat('MMM y').format(
-                                                      DateTime.parse(Globals
-                                                          .singleCardDetailModal!
-                                                          .singleCardData!
-                                                          .meetingDateTime
-                                                          .toString())) +
+                                                      DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString())) +
                                                   " " +
-                                                  DateFormat('KK:mm a')
-                                                      .format(DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))
+                                                  DateFormat('KK:mm a').format(
+                                                      DateTime.parse(Globals.singleCardDetailModal!.singleCardData!.meetingDateTime.toString()))
                                               : '',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              color: Colors.black,
-                                              fontFamily: 'Stf'),
+                                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Stf'),
                                         ),
                                       ],
                                     ),
@@ -952,19 +752,10 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           width: size.width * 0.04,
                                         ),
                                         Text(
-                                          Globals
-                                                      .singleCardDetailModal!
-                                                      .singleCardData!
-                                                      .location !=
-                                                  null
-                                              ? Globals.singleCardDetailModal!
-                                                  .singleCardData!.location
-                                                  .toString()
+                                          Globals.singleCardDetailModal!.singleCardData!.location != null
+                                              ? Globals.singleCardDetailModal!.singleCardData!.location.toString()
                                               : '',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              color: Colors.black,
-                                              fontFamily: 'Stf'),
+                                          style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Stf'),
                                         ),
                                       ],
                                     ),
@@ -973,10 +764,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     Text(
                                       "Groups",
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          color: Colors.black,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                                     ),
                                     SizedBox(
                                       height: size.height * 0.02,
@@ -986,8 +774,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         //  Navigator.push(context, MaterialPageRoute(builder: (_)=>AddCardsToGroupScreen()));
                                       },
                                       child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           SvgPicture.asset(
                                             grptwo_icon,
@@ -997,27 +784,18 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                             width: size.width * 0.04,
                                           ),
                                           Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Managers,",
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.018,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Stf'),
+                                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Stf'),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.01,
                                               ),
                                               Text(
                                                 "Favorites",
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.018,
-                                                    color: Colors.black,
-                                                    fontFamily: 'Stf'),
+                                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Stf'),
                                               ),
                                             ],
                                           ),
@@ -1029,10 +807,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     ),
                                     Text(
                                       "Conmpany/ Team members",
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          color: Colors.black,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                                     ),
                                     SizedBox(
                                       height: size.height * 0.04,
@@ -1043,31 +818,22 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Container(
-                                              margin: EdgeInsets.only(
-                                                  left: size.width * 0.04),
+                                              margin: EdgeInsets.only(left: size.width * 0.04),
                                               child: Column(
                                                 children: [
                                                   CircleAvatar(
                                                     radius: size.height * 0.03,
-                                                    backgroundImage:
-                                                        NetworkImage(
+                                                    backgroundImage: NetworkImage(
                                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                     ),
                                                   ),
                                                   Text(
                                                     'Tomy jones',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.015,
-                                                        fontFamily: 'MBold'),
+                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'MBold'),
                                                   ),
                                                   Text(
                                                     'Lorem ipsum',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.011,
-                                                        fontFamily: 'Msemibold',
-                                                        color: infocolor),
+                                                    style: TextStyle(fontSize: size.height * 0.011, fontFamily: 'Msemibold', color: infocolor),
                                                   ),
                                                 ],
                                               ),
@@ -1102,14 +868,12 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
 
     showDialog(
         context: context,
-        builder: (BuildContext context) =>
-            StatefulBuilder(builder: (context, setSte) {
+        builder: (BuildContext context) => StatefulBuilder(builder: (context, setSte) {
               return Container(
                 margin: EdgeInsets.only(bottom: size.height * 0.1),
                 child: Dialog(
                   alignment: AlignmentDirectional.bottomCenter,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                   //this right here
                   child: Container(
                     decoration: BoxDecoration(
@@ -1119,10 +883,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                     height: size.height * 0.25,
                     width: size.width * 0.9,
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -1161,12 +922,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               minLines: 6,
                               decoration: InputDecoration(
                                 hintText: 'Write your notes',
-                                contentPadding: EdgeInsets.only(
-                                    top: 0, left: 22, right: 10, bottom: 10),
-                                hintStyle: TextStyle(
-                                    fontFamily: "MBold",
-                                    color: infocolor,
-                                    fontSize: size.height * 0.015),
+                                contentPadding: EdgeInsets.only(top: 0, left: 22, right: 10, bottom: 10),
+                                hintStyle: TextStyle(fontFamily: "MBold", color: infocolor, fontSize: size.height * 0.015),
                                 fillColor: bckgrnd,
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
@@ -1191,35 +948,19 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   height: size.height * 0.05,
                                   width: size.width * 0.3,
                                   decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: signupclor_dark),
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: btnclr),
+                                      border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20), color: btnclr),
                                   child: Center(
                                       child: Text(
                                     'Cancel',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: "MBOld",
-                                        color: signupclor_dark),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
                                   )),
                                 ),
                               ),
                               InkWell(
                                 onTap: () async {
-                                  if (Globals.singleCardDetailModal!
-                                          .singleCardData!.notes!.id ==
-                                      null) {
-                                     await AddNotesController()
-                                        .addNotes(
-                                            editNotesController.text.trim(),
-                                            Globals
-                                                .singleCardDetailModal!
-                                                .singleCardData!
-                                                .singleCardUser!
-                                                .id
-                                                .toString(),
-                                            '');
+                                  if (Globals.singleCardDetailModal!.singleCardData!.notes!.id == null) {
+                                    await AddNotesController().addNotes(editNotesController.text.trim(),
+                                        Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.id.toString(), '');
                                     print(editNotesController.text.trim());
                                     Navigator.pop(context);
 
@@ -1227,23 +968,14 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       setState(() {});
                                     });
                                   } else {
-                                    print(Globals.singleCardDetailModal!
-                                        .singleCardData!.singleCardUser!.id
-                                        .toString());
+                                    print(Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.id.toString());
                                     print(editNotesController.text.trim());
-                                    print(Globals.singleCardDetailModal!
-                                        .singleCardData!.notes!.id);
+                                    print(Globals.singleCardDetailModal!.singleCardData!.notes!.id);
 
                                     await AddNotesController().addNotes(
-                                        editNotesController.text
-                                            .toString()
-                                            .trim(),
-                                        Globals.singleCardDetailModal!
-                                            .singleCardData!.singleCardUser!.id
-                                            .toString(),
-                                        Globals.singleCardDetailModal!
-                                            .singleCardData!.notes!.id
-                                            .toString());
+                                        editNotesController.text.toString().trim(),
+                                        Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.id.toString(),
+                                        Globals.singleCardDetailModal!.singleCardData!.notes!.id.toString());
 
                                     Navigator.pop(context);
                                     setSte(() {
@@ -1258,17 +990,11 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   height: size.height * 0.05,
                                   width: size.width * 0.3,
                                   decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: signupclor_dark),
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: btnclr),
+                                      border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20), color: btnclr),
                                   child: Center(
                                       child: Text(
                                     'Ok',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: "MBOld",
-                                        color: signupclor_dark),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
                                   )),
                                 ),
                               ),
@@ -1286,9 +1012,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
   void _moreModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1299,17 +1023,12 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Row(
                         children: [
                           Text(
                             'More options',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'Mbold'),
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Mbold'),
                           ),
                           Spacer(),
                           GestureDetector(
@@ -1327,18 +1046,14 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                         ),
                         title: new Text(
                           'Groups',
-                          style: TextStyle(
-                              fontFamily: 'Msemibold',
-                              fontSize: size.height * 0.015),
+                          style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                         ),
                         onTap: () => {}),
                     new ListTile(
                       leading: SvgPicture.asset(emailtwo_icon),
                       title: new Text(
                         'Turn off notification',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -1346,9 +1061,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                       leading: SvgPicture.asset(newcntct_icon),
                       title: new Text(
                         'Add to Contacts',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -1356,9 +1069,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                       leading: SvgPicture.asset(notfications_icon),
                       title: new Text(
                         'Reminder',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -1366,9 +1077,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                       leading: SvgPicture.asset(favourite_icon),
                       title: new Text(
                         'Add to Favorite',
-                        style: TextStyle(
-                            fontFamily: 'Msemibold',
-                            fontSize: size.height * 0.015),
+                        style: TextStyle(fontFamily: 'Msemibold', fontSize: size.height * 0.015),
                       ),
                       onTap: () => {},
                     ),
@@ -1388,9 +1097,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
     double? myRating;
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
@@ -1420,9 +1127,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 ),
                                 Text(
                                   'Add Review',
-                                  style: TextStyle(
-                                      fontSize: size.height * 0.018,
-                                      fontFamily: 'Msemibold'),
+                                  style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'Msemibold'),
                                 ),
                               ],
                             ),
@@ -1445,8 +1150,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 4.0),
+                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                                 itemBuilder: (context, _) => Icon(
                                   Icons.star,
                                   color: str_clr,
@@ -1474,36 +1178,26 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.withOpacity(0.1),
                                   filled: true,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.white)),
                                   hintText: 'Describe your review',
-                                  hintStyle: TextStyle(
-                                      fontSize: size.height * 0.015,
-                                      fontFamily: "Msemibold")),
+                                  hintStyle: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold")),
                             ),
                             SizedBox(
                               height: size.height * 0.02,
                             ),
                             InkWell(
                               onTap: () async {
-                                Globals.addUserRatingModal =
-                                    await RatingController().addUserRating(
-                                        addCommentController.text.trim(),
-                                        myRating.toString(),
-                                        user!.id.toString());
+                                Globals.addUserRatingModal = await RatingController()
+                                    .addUserRating(addCommentController.text.trim(), myRating.toString(), user!.id.toString());
                                 // debugPrint('id.............................'+user.id.toString());
                                 setSte(() {
                                   setState(() {});
                                 });
                                 if (Globals.addUserRatingModal!.code == 200) {
-                                  Globals.showToastMethod(
-                                      msg: 'You Rated Successfuly');
+                                  Globals.showToastMethod(msg: 'You Rated Successfuly');
                                   Navigator.pop(context);
                                 } else {
-                                  Globals.showToastMethod(
-                                      msg: 'There is something wromg');
+                                  Globals.showToastMethod(msg: 'There is something wromg');
                                 }
                               },
                               child: Container(
@@ -1512,12 +1206,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 width: size.width,
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        signupclor_light,
-                                        signupclor_dark
-                                      ]),
+                                      begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
                                   border: Border.all(color: Colors.grey),
                                   color: bckgrnd,
                                   borderRadius: BorderRadius.circular(30),
@@ -1527,11 +1216,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     'Add review',
-                                    style: TextStyle(
-                                        color: bckgrnd,
-                                        fontSize: size.height * 0.018,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Stf'),
+                                    style: TextStyle(color: bckgrnd, fontSize: size.height * 0.018, fontWeight: FontWeight.bold, fontFamily: 'Stf'),
                                   ),
                                 ),
                               ),
@@ -1552,28 +1237,20 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (BuildContext bc) {
           return StatefulBuilder(
             builder: (context, setSte) {
               return Container(
-                decoration: BoxDecoration(
-                    color: bckgrnd,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                decoration:
+                    BoxDecoration(color: bckgrnd, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                 height: size.height * 0.37,
                 width: size.width,
                 child: Wrap(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                       child: Column(
                         children: [
                           Row(
@@ -1593,8 +1270,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Icon(Icons.close,
-                                          size: size.height * 0.025)),
+                                      child: Icon(Icons.close, size: size.height * 0.025)),
                                 ],
                               ),
                             ],
@@ -1613,58 +1289,44 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                     width: size.width * 0.9,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        border:
-                                            Border.all(color: gradientgreen),
+                                        border: Border.all(color: gradientgreen),
                                         color: txtcolr.withOpacity(0.2)),
                                     child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: size.width * 0.04,
-                                          right: size.width * 0.04,
-                                          top: size.height * 0.02),
+                                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                                       child: Column(
                                         children: [
                                           Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               CircleAvatar(
                                                 radius: size.height * 0.03,
                                                 backgroundImage: NetworkImage(
                                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIyHJPjCfH88x39naBmI-xAytAcmffu_4lNg&usqp=CAU'),
                                               ),
-                                              SizedBox(
-                                                  width: size.width * 0.03),
+                                              SizedBox(width: size.width * 0.03),
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     'Assem Yamak',
                                                     style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.018,
+                                                      fontSize: size.height * 0.018,
                                                       fontFamily: "MBold",
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                      height:
-                                                          size.height * 0.01),
+                                                  SizedBox(height: size.height * 0.01),
                                                   Text(
                                                     'Operations Manager',
                                                     style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.015,
+                                                      fontSize: size.height * 0.015,
                                                       fontFamily: "Stf",
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                      height:
-                                                          size.height * 0.01),
+                                                  SizedBox(height: size.height * 0.01),
                                                   Text(
                                                     'Dynamic Oil Tools',
                                                     style: TextStyle(
-                                                      fontSize:
-                                                          size.height * 0.015,
+                                                      fontSize: size.height * 0.015,
                                                       fontFamily: "Stf",
                                                     ),
                                                   ),
@@ -1679,22 +1341,14 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   height: size.height * 0.04,
                                                   width: size.width * 0.2,
                                                   decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: signupclor_dark),
-                                                    color: txtcolr
-                                                        .withOpacity(0.2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                                    border: Border.all(color: signupclor_dark),
+                                                    color: txtcolr.withOpacity(0.2),
+                                                    borderRadius: BorderRadius.circular(20),
                                                   ),
                                                   child: Center(
                                                       child: Text(
                                                     'Currently in use',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            size.height * 0.01,
-                                                        fontFamily: "MBOld",
-                                                        color: signupclor_dark),
+                                                    style: TextStyle(fontSize: size.height * 0.01, fontFamily: "MBOld", color: signupclor_dark),
                                                   )),
                                                 ),
                                               ),
@@ -1723,9 +1377,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 Center(
                                   child: Text(
                                     'No other cards available',
-                                    style: TextStyle(
-                                        fontSize: size.height * 0.018,
-                                        fontFamily: "Stf"),
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Stf"),
                                   ),
                                 )
                               ],
