@@ -3,7 +3,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
 import 'package:concard/Views/widgets/loader_widget.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:concard/Views/widgets/imagePickerWidget.dart';
 import 'package:concard/Controllers/storyController/story_controller.dart';
 import 'package:concard/Constants/colors.dart';

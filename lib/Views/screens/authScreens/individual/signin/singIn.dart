@@ -203,9 +203,7 @@ class _SignInState extends State<SignIn> {
                                     }
                                   }
                                 }
-                              }
-                              _loadUserEmailPassword();
-                            },
+                              }                            },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
                         SizedBox(

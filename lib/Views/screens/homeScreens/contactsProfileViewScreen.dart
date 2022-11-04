@@ -164,12 +164,10 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       InkWell(
-                                        onTap: () => _scaffoldKey.currentState!
-                                            .openDrawer(),
-                                        child: Image.asset(
-                                          more_icon,
-                                          height: 15,
-                                        ),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Icon(Icons.arrow_back_ios,size: size.height*0.02,color: bckgrnd,),
                                       ),
                                     ],
                                   ),
@@ -470,6 +468,37 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                             SizedBox(
                                               height: size.height * 0.015,
                                             ),
+                                             Padding(
+                              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    ' Card',
+                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Edit Card',
+                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.03,
+                                        ),
+                                        Image.asset(
+                                          edit_icon,
+                                          color: cgreen,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                                             SizedBox(
                                               height: size.height * 0.025,
                                             ),
