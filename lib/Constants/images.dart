@@ -157,6 +157,7 @@ var remove = 'asset/icons/remove.png';
 var adpec = 'asset/icons/adpec.png';
 var prfle = 'asset/images/prfle.jpeg';
 var deccard = "asset/images/deccard.png";
+var verified = 'asset/icons/verified.svg';
 
 //bell icon svg
 
@@ -170,3 +171,26 @@ var instagram = 'asset/socialIcons/instagram.png';
 var link = 'asset/socialIcons/link.png';
 var linkdin = 'asset/socialIcons/linkdin.png';
 var twiter = 'asset/socialIcons/twiter.png';
+
+// Bottom Navigation Bar Icons
+var bottom_bar_home = 'asset/icons/home.svg';
+var bottom_bar_card = 'asset/icons/card.svg';
+var bottom_bar_message = 'asset/icons/message.svg';
+var bottom_bar_expo = 'asset/icons/expo.svg';
+
+// Individual Drawer Screen Icons
+var drawer_profile = 'asset/icons/profile.svg';
+var drawer_team = 'asset/icons/team.svg';
+var drawer_secretary_mode = 'asset/icons/Secretary.svg';
+var drawer_dashboard = 'asset/icons/dashboard.svg';
+var drawer_groups = 'asset/icons/Groups.svg';
+var drawer_near_me = 'asset/icons/Near_by.svg';
+var drawer_app_settings = 'asset/icons/App_Setting.svg';
+var drawer_talk_to_us = 'asset/icons/Talk_to_us.svg';
+var drawer_my_account = 'asset/icons/my_profile.svg';
+
+// Personal Profile View Icons
+
+var pp_shuffle = 'asset/icons/shuffle.svg';
+var calender = 'asset/icons/calender.svg';
+var pp_share = 'asset/icons/forward.svg';

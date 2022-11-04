@@ -26,10 +26,10 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
   AppProvider? appPro;
   @override
   void initState() {
-    // TODO: implement initState
     appPro = Provider.of<AppProvider>(context, listen: false);
     super.initState();
   }
+
   bool? switchValue = false;
   @override
   Widget build(BuildContext context) {
@@ -43,10 +43,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
           padding: EdgeInsets.only(top: size.height * 0.03),
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.03,
-                  top: size.height * 0.02),
+              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03, top: size.height * 0.02),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -56,28 +53,23 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                       SvgPicture.asset(con_icon),
                       Text(
                         'C O N C A R D',
-                        style: TextStyle(
-                            fontSize: size.height * 0.03,
-                            fontFamily: 'MBold',
-                            color: signupclor_dark),
+                        style: TextStyle(fontSize: size.height * 0.03, fontFamily: 'MBold', color: signupclor_dark),
                       ),
                       Text(
                         "Now You're Connected",
-                        style: TextStyle(
-                            fontSize: size.height * 0.018,
-                            fontFamily: 'Stf',
-                            color: signupclor_dark),
+                        style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'Stf', color: signupclor_dark),
                       ),
                     ],
                   ),
                   SizedBox(
                     width: size.width * 0.1,
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(Icons.close))
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(Icons.close),
+                  ),
                 ],
               ),
             ),
@@ -88,10 +80,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             globals.isAccespremium!
                 ? InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => IndividualPremiumScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => IndividualPremiumScreen()));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(left: size.width * 0.03),
@@ -99,28 +88,22 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                         height: size.height * 0.05,
                         width: size.width * 0.3,
                         decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [signupclor_light, signupclor_dark]),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: const Radius.circular(5),
-                              bottomLeft: Radius.circular(5),
-                            )),
+                          gradient:
+                              LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: const Radius.circular(5),
+                            bottomLeft: Radius.circular(5),
+                          ),
+                        ),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.02,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image.asset(premium_icon),
                               Text(
                                 'Access My Premium',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: bckgrnd),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_sharp,
@@ -135,11 +118,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                   )
                 : InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  UpgradeToPremiumIndividualScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => UpgradeToPremiumIndividualScreen()));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(left: size.width * 0.03),
@@ -147,28 +126,21 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                         height: size.height * 0.05,
                         width: size.width,
                         decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [signupclor_light, signupclor_dark]),
+                            gradient:
+                                LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(5),
                               bottomLeft: Radius.circular(5),
                             )),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              left: size.width * 0.02,
-                              right: size.width * 0.04),
+                          padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.04),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image.asset(premium_icon),
                               Text(
                                 'Upgrade to Premium',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.015,
-                                    fontFamily: "MBold",
-                                    color: bckgrnd),
+                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_sharp,
@@ -194,166 +166,281 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04, right: size.width * 0.03),
-              child: Row(
+            Theme(
+              data: ThemeData(
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  secondary: Colors.black,
+                ),
+              ),
+              child: ExpansionTile(
+                title: Text(
+                  'Profile',
+                  style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf', color: Colors.black),
+                ),
+                leading: SvgAsset(
+                  picture: drawer_profile,
+                  height: size.height * 0.035,
+                ),
+                trailing: Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.black,
+                ),
+                childrenPadding: EdgeInsets.only(bottom: size.height * 0.009),
+                collapsedTextColor: Colors.black,
                 children: [
-                  Image.asset(
-                    drwerprfile_icon,
-                    height: size.height * 0.035,
+                  Column(
+                    children: [
+                      Container(
+                        color: btnclr,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: size.width * 0.15, right: size.width * 0.04),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) => CreateTeamScreen(
+                                                type: "norm",
+                                                teamName: "",
+                                              )));
+                                },
+                                child: Row(
+                                  children: [
+                                    SvgAsset(picture: drawer_team, height: size.height * 0.025, color: infocolor),
+                                    // Image.asset(
+                                    //   drwrteam_icon,
+                                    //   color: infocolor,
+                                    // ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Teams',
+                                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [Image.asset(teamlock_icon)],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SecretaryModeScreen()));
+                                },
+                                child: Row(
+                                  children: [
+                                    SvgAsset(picture: drawer_secretary_mode, height: size.height * 0.025, color: infocolor),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Text(
+                                      'Secretary Mode',
+                                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [Image.asset(teamlock_icon)],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.015,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: size.width * 0.15,
+                          bottom: size.width * 0.015,
+                        ),
+                        child: Row(
+                          children: [
+                            SvgAsset(picture: drawer_dashboard, height: size.height * 0.025, color: infocolor),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Dashboard',
+                              style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.015,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: size.width * 0.15),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              drawer_groups,
+                              height: size.height * 0.025,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Groups',
+                              style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                        fontSize: size.height * 0.02, fontFamily: 'Stf'),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_drop_down,
-                  )
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Column(
-              children: [
-                Container(
-                  color: btnclr,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.15, right: size.width * 0.04),
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                         CreateTeamScreen(type:"norm",teamName: "",)));
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                drwrteam_icon,
-                                color: infocolor,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Teams',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold',
-                                    color: infocolor),
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [Image.asset(teamlock_icon)],
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const SecretaryModeScreen()));
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                drwrsecrtry_icon,
-                                color: infocolor,
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Text(
-                                'Secretary Mode',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold',
-                                    color: infocolor),
-                              ),
-                              const Spacer(),
-                              Row(
-                                children: [Image.asset(teamlock_icon)],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.015,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: size.width * 0.15),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        drwrdashboard_icon,
-                        color: infocolor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Dashboard',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02,
-                            fontFamily: 'Msemibold',
-                            color: infocolor),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.015,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: size.width * 0.15),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        drwrgrp_icon,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Groups',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02,
-                            fontFamily: 'Msemibold',
-                            color: infocolor),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            const Divider(
-              thickness: 1,
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),
+            //   child: Row(
+            //     children: [
+            //       SvgAsset(
+            //         picture: drawer_profile,
+            //         height: size.height * 0.035,
+            //       ),
+            //       const SizedBox(
+            //         width: 20,
+            //       ),
+            //       Text(
+            //         'Profile',
+            //         style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
+            //       ),
+            //       const Spacer(),
+            //       const Icon(
+            //         Icons.arrow_drop_down,
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Column(
+            //   children: [
+            //     Container(
+            //       color: btnclr,
+            //       child: Padding(
+            //         padding: EdgeInsets.only(left: size.width * 0.15, right: size.width * 0.04),
+            //         child: Column(
+            //           children: [
+            //             InkWell(
+            //               onTap: () {
+            //                 Navigator.push(
+            //                     context,
+            //                     MaterialPageRoute(
+            //                         builder: (BuildContext context) => CreateTeamScreen(
+            //                               type: "norm",
+            //                               teamName: "",
+            //                             )));
+            //               },
+            //               child: Row(
+            //                 children: [
+            //                   SvgAsset(picture: drawer_team, height: size.height * 0.025, color: infocolor),
+            //                   // Image.asset(
+            //                   //   drwrteam_icon,
+            //                   //   color: infocolor,
+            //                   // ),
+            //                   const SizedBox(
+            //                     width: 5,
+            //                   ),
+            //                   Text(
+            //                     'Teams',
+            //                     style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+            //                   ),
+            //                   const Spacer(),
+            //                   Row(
+            //                     children: [Image.asset(teamlock_icon)],
+            //                   )
+            //                 ],
+            //               ),
+            //             ),
+            //             const SizedBox(
+            //               height: 10,
+            //             ),
+            //             InkWell(
+            //               onTap: () {
+            //                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const SecretaryModeScreen()));
+            //               },
+            //               child: Row(
+            //                 children: [
+            //                   SvgAsset(picture: drawer_secretary_mode, height: size.height * 0.025, color: infocolor),
+            //                   const SizedBox(
+            //                     width: 7,
+            //                   ),
+            //                   Text(
+            //                     'Secretary Mode',
+            //                     style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+            //                   ),
+            //                   const Spacer(),
+            //                   Row(
+            //                     children: [Image.asset(teamlock_icon)],
+            //                   )
+            //                 ],
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: size.height * 0.015,
+            //     ),
+            //     Padding(
+            //       padding: EdgeInsets.only(left: size.width * 0.15),
+            //       child: Row(
+            //         children: [
+            //           SvgAsset(picture: drawer_dashboard, height: size.height * 0.025, color: infocolor),
+            //           const SizedBox(
+            //             width: 10,
+            //           ),
+            //           Text(
+            //             'Dashboard',
+            //             style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: size.height * 0.015,
+            //     ),
+            //     Padding(
+            //       padding: EdgeInsets.only(left: size.width * 0.15),
+            //       child: Row(
+            //         children: [
+            //           SvgPicture.asset(
+            //             drawer_groups,
+            //             height: size.height * 0.025,
+            //           ),
+            //           const SizedBox(
+            //             width: 10,
+            //           ),
+            //           Text(
+            //             'Groups',
+            //             style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Msemibold', color: infocolor),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
+            // const Divider(
+            //   thickness: 1,
+            // ),
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -367,19 +454,13 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                     children: [
                       Row(
                         children: [
-                          Image.asset(
-                            nerby_icon,
-                            height: size.height * 0.035,
-                            color: Colors.black,
-                          ),
+                          SvgAsset(picture: drawer_near_me, height: size.height * 0.035),
                           SizedBox(
                             width: size.width * 0.03,
                           ),
                           Text(
                             'Near By',
-                            style: TextStyle(
-                                fontSize: size.height * 0.02,
-                                fontFamily: 'Stf'),
+                            style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
                           ),
                         ],
                       ),
@@ -409,10 +490,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                   ),
                   Text(
                     "Now you're discoverable to Near by Contacts",
-                    style: TextStyle(
-                        fontSize: size.height * 0.015,
-                        fontFamily: "Stf",
-                        color: infocolor),
+                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf", color: infocolor),
                   )
                 ],
               ),
@@ -426,30 +504,21 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const AppSettingsScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const AppSettingsScreen()));
               },
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.04, right: size.width * 0.03),
+                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),
                 child: Row(
                   children: [
-                    Image.asset(
-                      drwrappstting_icon,
-                      height: size.height * 0.035,
-                    ),
+                    SvgAsset(picture: drawer_app_settings, height: size.height * 0.035),
                     SizedBox(
                       width: size.width * 0.03,
                     ),
                     Text(
                       'App Settings',
-                      style: TextStyle(
-                          fontSize: size.height * 0.02, fontFamily: 'Stf'),
+                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
                     ),
                     const Spacer(),
                     const Icon(
@@ -469,7 +538,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 showDialog(
                     context: context,
@@ -477,23 +546,18 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                           margin: EdgeInsets.only(bottom: size.height * 0.1),
                           child: Dialog(
                             alignment: AlignmentDirectional.bottomCenter,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                             //this right here
                             child: Container(
                               height: size.height * 0.2,
                               width: size.width * 0.9,
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.width * 0.04,
-                                    right: size.width * 0.04,
-                                    top: size.height * 0.02),
+                                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             height: size.height * 0.01,
@@ -501,13 +565,10 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                           ),
                                           Text(
                                             'Talk to us!',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: size.height * 0.018,
-                                                fontFamily: 'MBold'),
+                                            style: TextStyle(color: Colors.black, fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                           ),
                                           // Spacer(),
-                                          GestureDetector(
+                                          InkWell(
                                               onTap: () {
                                                 Navigator.pop(context);
                                               },
@@ -522,22 +583,15 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                       height: size.height * 0.06,
                                     ),
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        const FAQSScreen()));
+                                            Navigator.push(context, MaterialPageRoute(builder: (_) => const FAQSScreen()));
                                           },
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Image.asset(
                                                 faq_icon,
@@ -545,10 +599,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                               ),
                                               Text(
                                                 'FAQs',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontFamily: "Msemibold"),
+                                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                               )
                                             ],
                                           ),
@@ -557,174 +608,106 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                           onTap: () {
                                             showDialog(
                                                 context: context,
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom:
-                                                                  size.height *
-                                                                      0.1),
-                                                          child: Dialog(
-                                                            alignment:
-                                                                AlignmentDirectional
-                                                                    .bottomCenter,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20.0)),
-                                                            //this right here
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20),
-                                                                color: btnclr,
-                                                              ),
-                                                              height:
-                                                                  size.height *
-                                                                      0.29,
-                                                              width:
-                                                                  size.width *
-                                                                      0.9,
-                                                              child: Padding(
-                                                                padding: EdgeInsets.only(
-                                                                    left: size
-                                                                            .width *
-                                                                        0.04,
-                                                                    right: size
-                                                                            .width *
-                                                                        0.04,
-                                                                    top: size
-                                                                            .height *
-                                                                        0.02),
-                                                                child: Column(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Container(
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Feedback',
-                                                                            style: TextStyle(
-                                                                                color: Colors.black,
-                                                                                fontSize: size.height * 0.018,
-                                                                                fontFamily: 'MBold'),
-                                                                          ),
-                                                                          // Spacer(),
-                                                                          GestureDetector(
-                                                                              onTap: () {
-                                                                                Navigator.pop(context);
-                                                                              },
-                                                                              child: const Icon(
-                                                                                Icons.close,
-                                                                                size: 20,
-                                                                              ))
-                                                                        ],
+                                                builder: (BuildContext context) => Container(
+                                                      margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                                      child: Dialog(
+                                                        alignment: AlignmentDirectional.bottomCenter,
+                                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                                        //this right here
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(20),
+                                                            color: btnclr,
+                                                          ),
+                                                          height: size.height * 0.29,
+                                                          width: size.width * 0.9,
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(
+                                                                left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                                                            child: Column(
+                                                              children: <Widget>[
+                                                                Container(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Feedback',
+                                                                        style: TextStyle(
+                                                                            color: Colors.black, fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.03,
-                                                                    ),
-                                                                    TextFormField(
-                                                                      maxLines:
-                                                                          4,
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        hintText:
-                                                                            'please describe your problem or\nsuggestion',
-                                                                        contentPadding: const EdgeInsets.only(
-                                                                            top:
-                                                                                0,
-                                                                            left:
-                                                                                22,
-                                                                            right:
-                                                                                10,
-                                                                            bottom:
-                                                                                10),
-                                                                        hintStyle:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              "MBold",
-                                                                          color:
-                                                                              infocolor,
-                                                                          fontSize:
-                                                                              size.height * 0.018,
-                                                                        ),
-                                                                        fillColor:
-                                                                            bckgrnd,
-                                                                        filled:
-                                                                            true,
-                                                                        enabledBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(20),
-                                                                          borderSide:
-                                                                              BorderSide(color: bckgrnd),
-                                                                        ),
-                                                                        focusedBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(20),
-                                                                          borderSide:
-                                                                              BorderSide(color: bckgrnd),
+                                                                      // Spacer(),
+                                                                      InkWell(
+                                                                        onTap: () {
+                                                                          Navigator.pop(context);
+                                                                        },
+                                                                        child: const Icon(
+                                                                          Icons.close,
+                                                                          size: 20,
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.02,
-                                                                    ),
-                                                                    Center(
-                                                                      child:
-                                                                          Container(
-                                                                        height: size.height *
-                                                                            0.05,
-                                                                        width: size.width *
-                                                                            0.8,
-                                                                        decoration: BoxDecoration(
-                                                                            border:
-                                                                                Border.all(color: signupclor_dark),
-                                                                            borderRadius: BorderRadius.circular(20),
-                                                                            color: btnclr),
-                                                                        child:
-                                                                            Center(
-                                                                          child:
-                                                                              Text(
-                                                                            'Send',
-                                                                            style: TextStyle(
-                                                                                fontFamily: "MSemibold",
-                                                                                fontSize: size.height * 0.018,
-                                                                                color: signupclor_dark),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    )
-                                                                  ],
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
+                                                                SizedBox(
+                                                                  height: size.height * 0.03,
+                                                                ),
+                                                                TextFormField(
+                                                                  maxLines: 4,
+                                                                  decoration: InputDecoration(
+                                                                    hintText: 'please describe your problem or\nsuggestion',
+                                                                    contentPadding: const EdgeInsets.only(top: 0, left: 22, right: 10, bottom: 10),
+                                                                    hintStyle: TextStyle(
+                                                                      fontFamily: "MBold",
+                                                                      color: infocolor,
+                                                                      fontSize: size.height * 0.018,
+                                                                    ),
+                                                                    fillColor: bckgrnd,
+                                                                    filled: true,
+                                                                    enabledBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(20),
+                                                                      borderSide: BorderSide(color: bckgrnd),
+                                                                    ),
+                                                                    focusedBorder: OutlineInputBorder(
+                                                                      borderRadius: BorderRadius.circular(20),
+                                                                      borderSide: BorderSide(color: bckgrnd),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: size.height * 0.02,
+                                                                ),
+                                                                Center(
+                                                                  child: Container(
+                                                                    height: size.height * 0.05,
+                                                                    width: size.width * 0.8,
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(color: signupclor_dark),
+                                                                        borderRadius: BorderRadius.circular(20),
+                                                                        color: btnclr),
+                                                                    child: Center(
+                                                                      child: Text(
+                                                                        'Send',
+                                                                        style: TextStyle(
+                                                                            fontFamily: "MSemibold",
+                                                                            fontSize: size.height * 0.018,
+                                                                            color: signupclor_dark),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
                                                             ),
                                                           ),
-                                                        ));
+                                                        ),
+                                                      ),
+                                                    ));
                                           },
                                           child: Column(
                                             children: [
-                                              Image.asset(feedback_icon,
-                                                  height: size.height * 0.035),
+                                              Image.asset(feedback_icon, height: size.height * 0.035),
                                               Text(
                                                 'Feedbacks',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontFamily: "Msemibold"),
+                                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                               )
                                             ],
                                           ),
@@ -732,127 +715,81 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                                         InkWell(
                                           onTap: () {
                                             showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        Container(
-                                                          margin: EdgeInsets.only(
-                                                              bottom:
-                                                                  size.height *
-                                                                      0.1),
-                                                          child: Dialog(
-                                                            alignment:
-                                                                AlignmentDirectional
-                                                                    .bottomCenter,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20.0)),
-                                                            //this right here
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20),
-                                                                color: btnclr,
-                                                              ),
-                                                              height:
-                                                                  size.height *
-                                                                      0.2,
-                                                              width:
-                                                                  size.width *
-                                                                      0.9,
-                                                              child: Padding(
-                                                                padding: EdgeInsets.only(
-                                                                    left: size
-                                                                            .width *
-                                                                        0.04,
-                                                                    right: size
-                                                                            .width *
-                                                                        0.04,
-                                                                    top: size
-                                                                            .height *
-                                                                        0.02),
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Container(
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Container(
-                                                                              height: 10,
-                                                                              width: 10),
-                                                                          Text(
-                                                                            'Contact Us!',
-                                                                            style: TextStyle(
-                                                                                color: Colors.black,
-                                                                                fontSize: size.height * 0.018,
-                                                                                fontFamily: 'MBold'),
-                                                                          ),
-                                                                          // Spacer(),
-                                                                          GestureDetector(
-                                                                              onTap: () {
-                                                                                Navigator.pop(context);
-                                                                              },
-                                                                              child: const Icon(
-                                                                                Icons.close,
-                                                                                size: 20,
-                                                                              ))
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: size
-                                                                              .height *
-                                                                          0.05,
-                                                                    ),
-                                                                    Row(
-                                                                      children: [
-                                                                        Text(
-                                                                          'Email:',
-                                                                          style: TextStyle(
-                                                                              fontSize: size.height * 0.018,
-                                                                              fontFamily: "Msemibold"),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              size.width * 0.02,
-                                                                        ),
-                                                                        Text(
-                                                                          'support@concard.io',
-                                                                          style: TextStyle(
-                                                                              fontSize: size.height * 0.018,
-                                                                              fontFamily: "Msemibold",
-                                                                              color: signupclor_dark),
-                                                                        ),
-                                                                      ],
-                                                                    )
-                                                                  ],
+                                              context: context,
+                                              builder: (BuildContext context) => Container(
+                                                margin: EdgeInsets.only(bottom: size.height * 0.1),
+                                                child: Dialog(
+                                                  alignment: AlignmentDirectional.bottomCenter,
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                                                  //this right here
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(20),
+                                                      color: btnclr,
+                                                    ),
+                                                    height: size.height * 0.2,
+                                                    width: size.width * 0.9,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: <Widget>[
+                                                          Container(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                Container(height: 10, width: 10),
+                                                                Text(
+                                                                  'Contact Us!',
+                                                                  style: TextStyle(
+                                                                      color: Colors.black, fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                                                 ),
-                                                              ),
+                                                                // Spacer(),
+                                                                GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    child: const Icon(
+                                                                      Icons.close,
+                                                                      size: 20,
+                                                                    ))
+                                                              ],
                                                             ),
                                                           ),
-                                                        ));
+                                                          SizedBox(
+                                                            height: size.height * 0.05,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'Email:',
+                                                                style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Msemibold"),
+                                                              ),
+                                                              SizedBox(
+                                                                width: size.width * 0.02,
+                                                              ),
+                                                              Text(
+                                                                'support@concard.io',
+                                                                style: TextStyle(
+                                                                    fontSize: size.height * 0.018, fontFamily: "Msemibold", color: signupclor_dark),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: Column(
                                             children: [
-                                              Image.asset(support_icon,
-                                                  height: size.height * 0.035),
+                                              Image.asset(support_icon, height: size.height * 0.035),
                                               Text(
                                                 'Support',
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        size.height * 0.015,
-                                                    fontFamily: "Msemibold"),
+                                                style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                               )
                                             ],
                                           ),
@@ -867,21 +804,16 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                         ));
               },
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.04, right: size.width * 0.03),
+                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),
                 child: Row(
                   children: [
-                    Image.asset(
-                      drwrtalkus_icon,
-                      height: size.height * 0.035,
-                    ),
+                    SvgAsset(picture: drawer_talk_to_us, height: size.height * 0.035),
                     SizedBox(
                       width: size.width * 0.02,
                     ),
                     Text(
                       'Talk to us',
-                      style: TextStyle(
-                          fontSize: size.height * 0.02, fontFamily: 'Stf'),
+                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
                     ),
                     const Spacer(),
                     const Icon(
@@ -898,12 +830,11 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             ),
             SizedBox(height: size.height * 0.01),
             Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04, right: size.width * 0.03),
+              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),
               child: Row(
                 children: [
-                  Image.asset(
-                    drwrmyacunt_icon,
+                  SvgPicture.asset(
+                    drawer_my_account,
                     height: size.height * 0.035,
                   ),
                   SizedBox(
@@ -911,8 +842,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                   ),
                   Text(
                     'My Account',
-                    style: TextStyle(
-                        fontSize: size.height * 0.02, fontFamily: 'Stf'),
+                    style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
                   ),
                   const Spacer(),
                   const Icon(
@@ -930,14 +860,12 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
             ),
             SizedBox(height: size.height * 0.01),
             Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04, right: size.width * 0.03),
+              padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),
               child: InkWell(
                 onTap: () async {
                   LocalStorageClass().removeData(LocalStorageClass().tokenKey);
                   LocalStorageClass().removeData(LocalStorageClass().userIdKey);
-                  LocalStorageClass()
-                      .removeData(LocalStorageClass().userTypeKey);
+                  LocalStorageClass().removeData(LocalStorageClass().userTypeKey);
                   Navigator.pushReplacementNamed(context, '/intialScreen');
                   // Navigator.of(context).push(MaterialPageRoute(
                   //       builder: (BuildContext context) =>const SignupChoiceClass()));
@@ -953,8 +881,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                     ),
                     Text(
                       'Logout',
-                      style: TextStyle(
-                          fontSize: size.height * 0.02, fontFamily: 'Stf'),
+                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'Stf'),
                     ),
                     const Spacer(),
                     const Icon(
@@ -974,6 +901,14 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget SvgAsset({required String picture, required double height, Color? color}) {
+    return SvgPicture.asset(
+      picture,
+      height: height,
+      color: color == null ? Colors.black : color,
     );
   }
 }
