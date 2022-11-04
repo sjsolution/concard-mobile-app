@@ -650,7 +650,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       },
                                       hinttxt: 'Company Name',
                                       textInputType: TextInputType.text,
-                                      controller: companyNameControl),
+                                      controller: companyNameControl, icon: null,),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),
@@ -663,7 +663,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       },
                                       hinttxt: 'Website',
                                       textInputType: TextInputType.text,
-                                      controller: companyWebsiteControl),
+                                      controller: companyWebsiteControl, icon: null,),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),
@@ -676,7 +676,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                       },
                                       hinttxt: 'Field',
                                       textInputType: TextInputType.text,
-                                      controller: companyFieldControl),
+                                      controller: companyFieldControl, icon: null,),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),

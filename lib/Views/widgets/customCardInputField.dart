@@ -7,11 +7,12 @@ class CustomCardInputField extends StatelessWidget {
       {Key? key,
       required this.hinttxt,
       required this.textInputType,required this.validator,
-      required this.controller})
+      required this.controller,required this.icon})
       : super(key: key);
  String? Function(String?)? validator;
   TextEditingController controller;
   String hinttxt;
+  var icon;
   TextInputType textInputType;
 
   @override
@@ -29,6 +30,7 @@ class CustomCardInputField extends StatelessWidget {
             hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
             fillColor: Colors.white,
             filled: true,
+            suffixIcon: icon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
             )),

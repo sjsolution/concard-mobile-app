@@ -176,40 +176,7 @@ class AppProvider extends ChangeNotifier {
 
   ///AddCard
 
-  var userNameControl = TextEditingController();
-  var jobTitleControl = TextEditingController();
-  var compNameControl = TextEditingController();
-  var websiteControll = TextEditingController();
-  var postionNameControl = TextEditingController();
-  var workPhoneControl = TextEditingController();
-  var mobileNumberControl = TextEditingController();
-  var emailControl = TextEditingController();
-  var cityControl = TextEditingController();
-  var provinceControl = TextEditingController();
-  var countryControl = TextEditingController();
-  var postalCodeControl = TextEditingController();
-  var addressControl = TextEditingController();
-  var locationControllor = TextEditingController();
-  var meetingDateTimeControllor = TextEditingController();
-
-  void clearAllController() {
-    userNameControl.clear();
-    jobTitleControl.clear();
-    compNameControl.clear();
-    websiteControll.clear();
-    postionNameControl.clear();
-    workPhoneControl.clear();
-    mobileNumberControl.clear();
-    emailControl.clear();
-    cityControl.clear();
-    provinceControl.clear();
-    countryControl.clear();
-    postalCodeControl.clear();
-    addressControl.clear();
-    locationControllor.clear();
-    meetingDateTimeControllor.clear();
-    notifyListeners();
-  }
+  
 
   List<int>? isCommentLikeList = [];
   // Color commentLikeColor=Colors.blue;

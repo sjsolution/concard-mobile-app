@@ -1,113 +1,112 @@
-class AddCardModal {
-  final int? code;
-  final String? message;
-  final Data? data;
+class AddCardModel {
+  final List<AddCardsData>? addCardsData;
 
-  AddCardModal({
-    this.code,
-    this.message,
-    this.data,
+  AddCardModel({
+    this.addCardsData,
   });
 
-  AddCardModal.fromJson(Map<String, dynamic> json)
-    : code = json['code'] as int?,
-      message = json['message'] as String?,
-      data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null;
+  AddCardModel.fromJson(Map<String, dynamic> json)
+    : addCardsData = (json['cards'] as List?)?.map((dynamic e) => AddCardsData.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
-    'code' : code,
-    'message' : message,
-    'data' : data?.toJson()
+    'cards' : addCardsData?.map((e) => e.toJson()).toList()
   };
 }
 
-class Data {
-  final int? userId;
+class AddCardsData {
   final String? companyName;
   final String? website;
   final String? field;
-  final String? workPhone;
-  final String? mobileNo;
-  final String? email;
-  final String? city;
-  final String? province;
   final String? country;
+  final String? province;
+  final String? city;
   final String? postalCode;
   final String? address;
-  final String? birthDate;
+  final int? day;
+  final int? month;
+  final int? year;
   final String? location;
   final String? username;
   final String? jobTitle;
   final String? meetingDateTime;
-  final String? updatedAt;
-  final String? createdAt;
-  final int? id;
+  final List<String>? emails;
+  final List<PhoneNumbers>? phoneNumbers;
 
-  Data({
-    this.userId,
+  AddCardsData({
     this.companyName,
     this.website,
     this.field,
-    this.workPhone,
-    this.mobileNo,
-    this.email,
-    this.city,
-    this.province,
     this.country,
+    this.province,
+    this.city,
     this.postalCode,
     this.address,
-    this.birthDate,
+    this.day,
+    this.month,
+    this.year,
     this.location,
     this.username,
     this.jobTitle,
     this.meetingDateTime,
-    this.updatedAt,
-    this.createdAt,
-    this.id,
+    this.emails,
+    this.phoneNumbers,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
-    : userId = json['user_id'] as int?,
-      companyName = json['company_name'] as String?,
+  AddCardsData.fromJson(Map<String, dynamic> json)
+    : companyName = json['company_name'] as String?,
       website = json['website'] as String?,
       field = json['field'] as String?,
-      workPhone = json['work_phone'] as String?,
-      mobileNo = json['mobile_no'] as String?,
-      email = json['email'] as String?,
-      city = json['city'] as String?,
-      province = json['province'] as String?,
       country = json['country'] as String?,
+      province = json['province'] as String?,
+      city = json['city'] as String?,
       postalCode = json['postal_code'] as String?,
       address = json['address'] as String?,
-      birthDate = json['birth_date'] as String?,
+      day = json['day'] as int?,
+      month = json['month'] as int?,
+      year = json['year'] as int?,
       location = json['location'] as String?,
       username = json['username'] as String?,
       jobTitle = json['job_title'] as String?,
       meetingDateTime = json['meeting_date_time'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      createdAt = json['created_at'] as String?,
-      id = json['id'] as int?;
+      emails = (json['emails'] as List?)?.map((dynamic e) => e as String).toList(),
+      phoneNumbers = (json['phone_numbers'] as List?)?.map((dynamic e) => PhoneNumbers.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
-    'user_id' : userId,
     'company_name' : companyName,
     'website' : website,
     'field' : field,
-    'work_phone' : workPhone,
-    'mobile_no' : mobileNo,
-    'email' : email,
-    'city' : city,
-    'province' : province,
     'country' : country,
+    'province' : province,
+    'city' : city,
     'postal_code' : postalCode,
     'address' : address,
-    'birth_date' : birthDate,
+    'day' : day,
+    'month' : month,
+    'year' : year,
     'location' : location,
     'username' : username,
     'job_title' : jobTitle,
     'meeting_date_time' : meetingDateTime,
-    'updated_at' : updatedAt,
-    'created_at' : createdAt,
-    'id' : id
+    'emails' : emails,
+    'phone_numbers' : phoneNumbers?.map((e) => e.toJson()).toList()
+  };
+}
+
+class PhoneNumbers {
+  final String? type;
+  final String? phoneNumber;
+
+  PhoneNumbers({
+    this.type,
+    this.phoneNumber,
+  });
+
+  PhoneNumbers.fromJson(Map<String, dynamic> json)
+    : type = json['type'] as String?,
+      phoneNumber = json['phone_number'] as String?;
+
+  Map<String, dynamic> toJson() => {
+    'type' : type,
+    'phone_number' : phoneNumber
   };
 }

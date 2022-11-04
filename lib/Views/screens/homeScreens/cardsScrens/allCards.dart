@@ -52,7 +52,6 @@ class _AllCardsState extends State<AllCards> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               height: size.height * 0.09,
@@ -87,9 +86,12 @@ class _AllCardsState extends State<AllCards> {
                 onTap: () {
                   _settingModalBottomSheet(context);
                 },
-                child: SvgPicture.asset(
-                  sort_icon,
-                  height: 20,
+                child: Padding(
+                  padding:  EdgeInsets.only(bottom: size.height*0.02,right: size.width*0.02),
+                  child: SvgPicture.asset(
+                    sort_icon,
+                    height: 20,
+                  ),
                 )),
           ],
         ),
