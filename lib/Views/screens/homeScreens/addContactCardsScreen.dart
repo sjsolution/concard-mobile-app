@@ -26,7 +26,7 @@ class AddContactCardsScreen extends StatefulWidget {
 class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   @override
   void initState() {
-    // AddMyCard();
+    AddMyCard();
     // TODO: implement initState
     super.initState();
   }
@@ -99,14 +99,15 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
 
   AddMyCard() async {
     Globals.addCardModal = await CardController().addCard(
-        '', '', '', '', '', [], [], '', '', '', '', '', '', '', '', '', '');
+        '', '', '', '', '', mobileControllers, emailControllers, '', '', '', '', '', '', '', '', '', '');
     // print('aadd card' + Globals.addCardModal.toString());
     setState(() {});
   }
 
   List<String> emailControllers = [];
   List<String> mobileControllers = [];
-
+Map<String,dynamic> cardsData={
+};
   var formKey = GlobalKey<FormState>();
   int email = 1;
   int numberField = 1;
@@ -175,6 +176,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                       ),
                       InkWell(
                         onTap: () async {
+                          cardsData.addEntries({'phone_numbers':mobileControllers}.entries);
                           if (formKey.currentState!.validate()) {
                             emailsControl.forEach((element) {
                               emailControllers.add(element.text);
@@ -320,15 +322,15 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                 SizedBox(
                                   height: size.height * 0.03,
                                 ),
-                                ElevatedButton(
-                    onPressed: (){
-                        List bcd = ['1','2','3'];
-                        List def = ['1','2','3'];
-                        List ghi = ['1','2','3'];
-                        abc = bcd.toList() + def.toList() + ghi.toList();
-                        print(abc);
-                    },
-                    child: Text("abc") ),
+                    //             ElevatedButton(
+                    // onPressed: (){
+                    //     List bcd = ['1','2','3'];
+                    //     List def = ['1','2','3'];
+                    //     List ghi = ['1','2','3'];
+                    //     abc = bcd.toList() + def.toList() + ghi.toList();
+                    //     print(abc);
+                    // },
+                    // child: Text("abc") ),
                                 Container(
                                     alignment: Alignment.topLeft,
                                     child: Text(
@@ -1307,13 +1309,16 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                           );
                         }),
                   ),
-                  Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Time & Location',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02, fontFamily: 'MBold'),
-                      )),
+                  Padding(
+                    padding:  EdgeInsets.only(left: size.width*0.02),
+                    child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Time & Location',
+                          style: TextStyle(
+                              fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                        )),
+                  ),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
@@ -1322,29 +1327,71 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                       selectedMeetinDate(context);
                       setState(() {});
                     },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.055,
+                            width: size.width * 0.7,
+                            child: TextFormField(
+                              enabled: false,
+                              controller: meetingDateTimeControllor,
+                              decoration: InputDecoration(
+                                  hintText: meetingDatetime != null
+                                      ? DateFormat('EEEE').format(DateTime.parse(
+                                              meetingDatetime.toString())) +
+                                          ", " +
+                                          DateFormat.yMMMd()
+                                              .format(DateTime.parse(
+                                                  meetingDatetime.toString()))
+                                              .toString()
+                                      : 'Date & Time',
+                                  contentPadding: const EdgeInsets.only(
+                                      top: 0.0, left: 22.0, bottom: 2.0),
+                                  hintStyle: TextStyle(
+                                      fontSize: size.width * 0.04,
+                                      color: Colors.black),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  )),
+                            ),
+                          ),
+                          const Spacer(),
+                          Image.asset(
+                            edit_icon,
+                            color: gradientgreen,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         SizedBox(
-                          height: size.height * 0.055,
                           width: size.width * 0.7,
                           child: TextFormField(
-                            enabled: false,
-                            controller: meetingDateTimeControllor,
+                            controller: locationControllor,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return "Enter Your Loacation";
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
-                                hintText: meetingDatetime != null
-                                    ? DateFormat('EEEE').format(DateTime.parse(
-                                            meetingDatetime.toString())) +
-                                        ", " +
-                                        DateFormat.yMMMd()
-                                            .format(DateTime.parse(
-                                                meetingDatetime.toString()))
-                                            .toString()
-                                    : 'Date & Time',
+                                hintText: 'Location',
                                 contentPadding: const EdgeInsets.only(
                                     top: 0.0, left: 22.0, bottom: 2.0),
                                 hintStyle: TextStyle(
                                     fontSize: size.width * 0.04,
-                                    color: Colors.black),
+                                    color: infocolor),
                                 fillColor: Colors.white,
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -1354,58 +1401,25 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                         ),
                         const Spacer(),
                         Image.asset(
-                          edit_icon,
+                          locationarrow,
                           color: gradientgreen,
                         )
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.7,
-                        child: TextFormField(
-                          controller: locationControllor,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return "Enter Your Loacation";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              hintText: 'Location',
-                              contentPadding: const EdgeInsets.only(
-                                  top: 0.0, left: 22.0, bottom: 2.0),
-                              hintStyle: TextStyle(
-                                  fontSize: size.width * 0.04,
-                                  color: infocolor),
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              )),
-                        ),
-                      ),
-                      const Spacer(),
-                      Image.asset(
-                        locationarrow,
-                        color: gradientgreen,
-                      )
-                    ],
-                  ),
-                  SizedBox(
                     height: size.height * 0.03,
                   ),
-                  Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Group',
-                        style: TextStyle(
-                            fontSize: size.height * 0.02, fontFamily: 'MBold'),
-                      )),
+                  Padding(
+                    padding:  EdgeInsets.only(left: size.width*0.02),
+                    child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Group',
+                          style: TextStyle(
+                              fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                        )),
+                  ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
@@ -1416,21 +1430,25 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                           MaterialPageRoute(
                               builder: (_) => GroupsCardsScreen()));
                     },
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          grptwo_icon,
-                          color: gradientgreen,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Text(
-                          'Ungrouped',
-                          style: TextStyle(
-                              fontSize: size.height * 0.018, fontFamily: "Stf"),
-                        ),
-                      ],
+                    child: Padding(
+                    padding:  EdgeInsets.only(left: size.width*0.02),
+
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            grptwo_icon,
+                            color: gradientgreen,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.03,
+                          ),
+                          Text(
+                            'Ungrouped',
+                            style: TextStyle(
+                                fontSize: size.height * 0.018, fontFamily: "Stf"),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: size.height * 0.04),
