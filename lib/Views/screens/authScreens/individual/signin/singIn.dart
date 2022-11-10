@@ -192,7 +192,7 @@ class _SignInState extends State<SignIn> {
                                       //Individual Member Screen
                                       Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(builder: (BuildContext context) => const BottomNavigationScreen()),
+                                          MaterialPageRoute(builder: (BuildContext context) => BottomNavigationScreen()),
                                           (Route<dynamic> route) => false);
                                     } else {
                                       //Company HomePage
@@ -203,7 +203,8 @@ class _SignInState extends State<SignIn> {
                                     }
                                   }
                                 }
-                              }                            },
+                              }
+                            },
                             child: CustomButton(
                                 text: 'Sign in', color1: signupclor_light, color2: signupclor_dark, textcolor1: bckgrnd, textcolor2: bckgrnd)),
                         SizedBox(

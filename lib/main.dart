@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:concard/Controllers/compnayControllers/about_compnay.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Controllers/providers/about_provider.dart';
 import 'package:concard/Views/screens/authScreens/company/signup/aboutCompanySignup.dart';
 import 'package:concard/Views/screens/authScreens/company/signup/companMobileVerification.dart';
 import 'package:concard/Views/screens/authScreens/company/signup/companyAdminSignup.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AppProvider()),
         ChangeNotifierProvider(create: (context) => StoryProvider()),
+        ChangeNotifierProvider(create: (context) => AboutProvider()),
       ],
       child: MaterialApp(
         title: "Concard",

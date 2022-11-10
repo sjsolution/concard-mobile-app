@@ -1,6 +1,7 @@
 import 'package:concard/Controllers/indiviualController/profile_controller.dart';
 import 'package:concard/Controllers/indiviualController/social_links_controller.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Controllers/providers/about_provider.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/Indiviuals/social_links_model.dart';
 import 'package:concard/Views/screens/authScreens/individual/Social/new_social_link.dart';
@@ -1069,14 +1070,17 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           "About",
                           style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                         ),
-                        Container(
-                          height: size.height * 0.04,
-                          width: size.width * 0.2,
-                          decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
-                          child: Center(
-                            child: Text(
-                              'Edit',
-                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
+                        GestureDetector(
+                          onTap: () => _showEditAboutPopUp(context, ''),
+                          child: Container(
+                            height: size.height * 0.04,
+                            width: size.width * 0.2,
+                            decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                            child: Center(
+                              child: Text(
+                                'Edit',
+                                style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: gradientgreen),
+                              ),
                             ),
                           ),
                         ),
@@ -2180,100 +2184,227 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-        context: context,
-        builder: (BuildContext bc) {
-          return StatefulBuilder(
-            builder: (context, setSte) {
-              return Container(
-                decoration: BoxDecoration(
-                    color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
-                height: size.height * 0.34,
-                width: size.width,
-                child: Wrap(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Requirements',
-                                style: TextStyle(
-                                  fontSize: size.height * 0.018,
-                                  fontFamily: "MBold",
-                                ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+      context: context,
+      builder: (BuildContext bc) {
+        return StatefulBuilder(
+          builder: (context, setSte) {
+            return Container(
+              decoration: BoxDecoration(
+                  color: bckgrnd, borderRadius: const BorderRadius.only(topLeft: const Radius.circular(10), topRight: Radius.circular(10))),
+              height: size.height * 0.34,
+              width: size.width,
+              child: Wrap(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Requirements',
+                              style: TextStyle(
+                                fontSize: size.height * 0.018,
+                                fontFamily: "MBold",
                               ),
-                              const Spacer(),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Icon(Icons.close, size: size.height * 0.025)),
-                            ],
+                            ),
+                            const Spacer(),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(Icons.close, size: size.height * 0.025)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Text(
+                          'Phone Number',
+                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Text(
+                          'Email Address',
+                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Text(
+                          'Identification',
+                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Text(
+                          'LinkedIn Profile',
+                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Center(
+                            child: Container(
+                              height: size.height * 0.05,
+                              width: size.width * 0.8,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: signupclor_dark),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                'Go to Settings',
+                                style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
+                              )),
+                            ),
                           ),
-                          SizedBox(
-                            height: size.height * 0.03,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showEditAboutPopUp(BuildContext context, String? aboutId) {
+    Size size = MediaQuery.of(context).size;
+    TextEditingController _aboutController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => StatefulBuilder(
+        builder: (context, setSte) {
+          return Container(
+            margin: EdgeInsets.only(bottom: size.height * 0.1),
+            child: Dialog(
+              alignment: AlignmentDirectional.bottomCenter,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              //this right here
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: btnclr,
+                ),
+                height: size.height * 0.25,
+                width: size.width * 0.9,
+                child: Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Edit About',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: size.height * 0.018,
+                                fontFamily: 'MBold',
+                              ),
+                            ),
+                            // Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.close,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                      Container(
+                        height: size.height * 0.1,
+                        width: size.width * 0.8,
+                        child: TextFormField(
+                          controller: _aboutController,
+                          maxLines: 8,
+                          minLines: 6,
+                          decoration: InputDecoration(
+                            hintText: 'Write About',
+                            contentPadding: EdgeInsets.only(top: 0, left: 22, right: 10, bottom: 10),
+                            hintStyle: TextStyle(fontFamily: "MBold", color: infocolor, fontSize: size.height * 0.015),
+                            fillColor: bckgrnd,
+                            filled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: bckgrnd),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: bckgrnd),
+                            ),
                           ),
-                          Text(
-                            'Phone Number',
-                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.03,
-                          ),
-                          Text(
-                            'Email Address',
-                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.03,
-                          ),
-                          Text(
-                            'Identification',
-                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.03,
-                          ),
-                          Text(
-                            'LinkedIn Profile',
-                            style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.03,
-                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           InkWell(
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Center(
-                              child: Container(
-                                height: size.height * 0.05,
-                                width: size.width * 0.8,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: signupclor_dark),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                  'Go to Settings',
+                            child: Container(
+                              height: size.height * 0.05,
+                              width: size.width * 0.3,
+                              decoration:
+                                  BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20), color: btnclr),
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
                                   style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
-                                )),
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              AboutProvider().changeAbout(aboutId: '', AboutText: _aboutController.text.trim());
+                            },
+                            child: Container(
+                              height: size.height * 0.05,
+                              width: size.width * 0.3,
+                              decoration:
+                                  BoxDecoration(border: Border.all(color: signupclor_dark), borderRadius: BorderRadius.circular(20), color: btnclr),
+                              child: Center(
+                                child: Text(
+                                  'Ok',
+                                  style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBOld", color: signupclor_dark),
+                                ),
                               ),
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              );
-            },
+              ),
+            ),
           );
-        });
+        },
+      ),
+    );
   }
 }
