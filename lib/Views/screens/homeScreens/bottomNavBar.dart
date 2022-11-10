@@ -25,19 +25,19 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  late AppProvider appPro;
-  @override
-  void initState() {
-    appPro = Provider.of<AppProvider>(context, listen: false);
-    getInitialMethods();
-    super.initState();
-  }
-
-  getInitialMethods() async {
-    IndividualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId, context);
-    appPro.setIndividualProfileModelProfileObj = individualProfileModel;
-    setState(() {});
-  }
+  // late AppProvider appPro;
+  // @override
+  // void initState() {
+  //   appPro = Provider.of<AppProvider>(context, listen: false);
+  //   getInitialMethods();
+  //   super.initState();
+  // }
+  //
+  // getInitialMethods() async {
+  //   IndividualProfileModel? individualProfileModel = await ProfileController().getIndiviualProfile(Globals.userId, context);
+  //   appPro.setIndividualProfileModelProfileObj = individualProfileModel;
+  //   setState(() {});
+  // }
 
   PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
@@ -50,7 +50,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   }
 
   List<Widget> bottomPages = [
-    const Homepage(),
+    Homepage(),
     const ExpoBottomBarScreen(),
     CardsBottomBarScreen(),
     CardsBottomBarScreen(),

@@ -74,16 +74,23 @@ class _HomepageState extends State<Homepage> {
   StoryProvider? storyProvider1;
   @override
   void initState() {
+    appPro = Provider.of<AppProvider>(context, listen: false);
     // getStoriesList();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
     fetchStoriesList();
+    // });
     super.initState();
   }
 
   fetchStoriesList() async {
     Provider.of<StoryProvider>(context, listen: false).getStories();
-    individualProfileModel = await ProfileController().getIndiviualProfile(Globals.id, context);
-    Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
-    appPro = Provider.of<AppProvider>(context, listen: false);
+    print("here is id: " + Globals.id.toString());
+    individualProfileModel = await ProfileController().getIndividualProfileData(id: Globals.id.toString(), context: context);
+    print("here is individual profile response" + appPro!.individualProfileModel.toString());
+    // appPro!.setIndividualProfileModelProfileObj = individualProfileModel;
+    // Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
+
+    // appPro!.setIndividualProfileModelProfileObj = individualProfileModel;
     // debugPrint(individualProfileModel?.data?.user?.profileImage);
     // print('model_______________________');
     // print(context.read<StoryProvider>().storyProvider?.data);
@@ -606,7 +613,7 @@ class _HomepageState extends State<Homepage> {
                                 },
                               );
                             } else {
-                              context.read<AppProvider>().setLoadingTrue();
+                              // context.read<AppProvider>().setLoadingTrue();
                               return Center(
                                 child: Loader(size: size),
 

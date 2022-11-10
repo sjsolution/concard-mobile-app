@@ -11,8 +11,6 @@ class StoryController {
   Future<void> addStory({String? text, File? file}) async {
     try {
       var formData = FormData.fromMap({'text': text, 'image': text == null || text == '' ? await MultipartFile.fromFile(file!.path.toString()) : ''});
-      print("this is text--------------------");
-      print(text);
       var response = await services.postResponse(url: '/story/store', formData: formData);
       if (response != null) {
         print("Story Uploaded");

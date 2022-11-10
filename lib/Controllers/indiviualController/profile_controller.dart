@@ -4,42 +4,73 @@ import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Services/network.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:concard/Constants/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 class ProfileController {
   ServicesClass services = ServicesClass();
   LocalStorageClass localStorageClass = LocalStorageClass();
   AppProvider? appProvider;
 
-  Future<IndividualProfileModel?> getIndiviualProfile(String? id, BuildContext context) async {
+  Future<IndividualProfileModel?> getIndividualProfileData({required String id, required BuildContext context}) async {
+    Dio dio = Dio();
+    var formData = FormData.fromMap({'id': id});
     try {
-      var formData = FormData.fromMap({
-        'id': id,
-      });
-      var response = await services.postResponse(url: '/user/user-profile', formData: formData);
-      // debugPrint(response.toString());
-      if (response != null) {
-        if (response['data'] != null) {
-          // debugPrint(response.toString());
-          IndividualProfileModel? profileModel = IndividualProfileModel.fromJson(response);
-          Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = profileModel;
-          return profileModel;
-        } else {
-          //status false
-          Globals.showToastMethod(msg: "User not exist");
-          return null;
-        }
+      var response = await dio.post(
+        "${baseUrl}/user/user-profile",
+        data: formData,
+        options: Options(headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${Globals.token}',
+        }),
+      );
+      if (response.statusCode == 200) {
+        // var uri = json.decode(response.data);
+        IndividualProfileModel? profModel = IndividualProfileModel.fromJson(response.data);
+        print("returning data");
+        print("this is responce" + profModel.toString());
+        Provider.of<AppProvider>(context, listen: false).individualProfileModel = profModel;
+        return profModel;
       } else {
-        Globals.showToastMethod(msg: "Something went wrong. Please try again later");
+        print("there is a problem here");
         return null;
       }
     } catch (e) {
-      debugPrint("login exception:" + e.toString());
+      print("login Exception: " + e.toString());
       return null;
     }
   }
+
+  // Future<IndividualProfileModel?> getIndiviualProfile(String? id, BuildContext context) async {
+  //   try {
+  //     var formData = FormData.fromMap({
+  //       'id': id,
+  //     });
+  //     var response = await services.postResponse(url: '/user/user-profile', formData: formData);
+  //     debugPrint('userProfile------------' + response.toString());
+  //     if (response != null) {
+  //       if (response['data'] != null) {
+  //         // debugPrint(response.toString());
+  //         // IndividualProfileModel? profileModel = IndividualProfileModel.fromJson(response);
+  //         // Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = profileModel;
+  //         return response;
+  //       } else {
+  //         //status false
+  //         Globals.showToastMethod(msg: "User not exist");
+  //         return null;
+  //       }
+  //     } else {
+  //       Globals.showToastMethod(msg: "Something went wrong. Please try again later");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     debugPrint("login exception login: " + e.toString());
+  //     return null;
+  //   }
+  // }
 
   Future uplaodImage({String? image, String? imageType}) async {
     try {

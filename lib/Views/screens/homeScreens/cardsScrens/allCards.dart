@@ -8,7 +8,6 @@ import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/importCardsScreen.dart';
 import 'package:concard/Views/widgets/customContainer.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter_svg/svg.dart';
@@ -45,6 +44,23 @@ class _AllCardsState extends State<AllCards> {
     setState(() {});
   }
 
+  String? searchValue;
+  CardListModal? cardList;
+
+  // onSearchTextChanged(String text) async {
+  //   _searchResult.clear();
+  //   if (text.isEmpty) {
+  //     setState(() {});
+  //     return;
+  //   }
+  //
+  //   _userDetails.forEach((userDetail) {
+  //     if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text)) _searchResult.add(userDetail);
+  //   });
+  //
+  //   setState(() {});
+  // }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -57,6 +73,19 @@ class _AllCardsState extends State<AllCards> {
               height: size.height * 0.09,
               width: size.width * 0.8,
               child: TextFormField(
+                onChanged: (value) {
+                  cardList?.cardListData?.cards?.clear();
+                  Globals.cardListModal!.cardListData!.cards!.forEach((element) {
+                    if (element.companyName!.toLowerCase().contains(value)) {
+                      print("available");
+                      cardList?.cardListData?.cards?.add(element);
+                    } else {
+                      print("not available");
+                    }
+                    // print(element.companyName.toString());
+                  });
+                  // print("abc___________" + abc.toString());
+                },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -67,13 +96,14 @@ class _AllCardsState extends State<AllCards> {
                     borderSide: BorderSide(color: Colors.white),
                   ),
                   prefixIcon: Container(
-                      height: size.height * 0.04,
-                      width: size.width * 0.05,
-                      child: Icon(
-                        Icons.search,
-                        size: size.height * 0.05,
-                        color: signupclor_dark,
-                      )),
+                    height: size.height * 0.04,
+                    width: size.width * 0.05,
+                    child: Icon(
+                      Icons.search,
+                      size: size.height * 0.05,
+                      color: signupclor_dark,
+                    ),
+                  ),
                   fillColor: Colors.white,
                   filled: true,
                   hintText: 'Search cards',
@@ -87,7 +117,7 @@ class _AllCardsState extends State<AllCards> {
                   _settingModalBottomSheet(context);
                 },
                 child: Padding(
-                  padding:  EdgeInsets.only(bottom: size.height*0.02,right: size.width*0.02),
+                  padding: EdgeInsets.only(bottom: size.height * 0.02, right: size.width * 0.02),
                   child: SvgPicture.asset(
                     sort_icon,
                     height: 20,
@@ -544,7 +574,14 @@ class _AllCardsState extends State<AllCards> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  CardController().favouriteCardList('');
+                                  CardController().favouriteCardList(cards!.id.toString());
+                                  setSte(() {
+                                    if (cards.isFavourite == true) {
+                                      cards.isFavourite = false;
+                                    } else {
+                                      cards.isFavourite = true;
+                                    }
+                                  });
                                   setState(() {
                                     debugPrint('Status updated SuccessFully');
                                   });
@@ -553,7 +590,7 @@ class _AllCardsState extends State<AllCards> {
                                   children: [
                                     SvgPicture.asset(
                                       favoutline_icon,
-                                      color: signupclor_dark,
+                                      color: cards!.isFavourite! == true ? Colors.red : signupclor_dark,
                                       height: size.height * 0.03,
                                     ),
                                     SizedBox(

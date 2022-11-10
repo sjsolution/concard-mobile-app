@@ -61,7 +61,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    data = app.individualProfileModel!.data!.user!;
+    data = app.individualProfileModel!.data!.user;
     emailControl.text = data.email != null ? data.email! : '';
     telMobileControl.text = data.mobileNumber != null ? data.mobileNumber! : '';
     companyNameControl.text = data.companyName != null ? data.companyName! : "";
@@ -132,7 +132,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   userType: "1",
                                 );
                                 if (individualProfileModel != null) {
-                                  app.setIndividualProfileModelProfileObj = individualProfileModel;
+                                  app.individualProfileModel = individualProfileModel;
                                 }
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
@@ -642,41 +642,47 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     height: size.height * 0.03,
                                   ),
                                   CustomCardInputField(
-                                      validator: (String? value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter company name";
-                                        }
-                                        return null;
-                                      },
-                                      hinttxt: 'Company Name',
-                                      textInputType: TextInputType.text,
-                                      controller: companyNameControl, icon: null,),
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter company name";
+                                      }
+                                      return null;
+                                    },
+                                    hinttxt: 'Company Name',
+                                    textInputType: TextInputType.text,
+                                    controller: companyNameControl,
+                                    icon: null,
+                                  ),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),
                                   CustomCardInputField(
-                                      validator: (String? value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter company website";
-                                        }
-                                        return null;
-                                      },
-                                      hinttxt: 'Website',
-                                      textInputType: TextInputType.text,
-                                      controller: companyWebsiteControl, icon: null,),
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter company website";
+                                      }
+                                      return null;
+                                    },
+                                    hinttxt: 'Website',
+                                    textInputType: TextInputType.text,
+                                    controller: companyWebsiteControl,
+                                    icon: null,
+                                  ),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),
                                   CustomCardInputField(
-                                      validator: (String? value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter company field";
-                                        }
-                                        return null;
-                                      },
-                                      hinttxt: 'Field',
-                                      textInputType: TextInputType.text,
-                                      controller: companyFieldControl, icon: null,),
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter company field";
+                                      }
+                                      return null;
+                                    },
+                                    hinttxt: 'Field',
+                                    textInputType: TextInputType.text,
+                                    controller: companyFieldControl,
+                                    icon: null,
+                                  ),
                                   SizedBox(
                                     height: size.height * 0.01,
                                   ),

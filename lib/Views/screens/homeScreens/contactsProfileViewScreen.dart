@@ -9,7 +9,7 @@ import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:intl/intl.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:provider/provider.dart';
-
+import 'package:concard/Controllers/providers/app_providers.dart';
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
 import '../../widgets/shimmer_widgets.dart';
@@ -34,6 +34,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
   void initState() {
     super.initState();
     getSingleCardDetail();
+    getProductAndServices(context);
     // addMyNotes();
   }
 
@@ -56,6 +57,14 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
 
     setState(() {});
   }
+
+  getProductAndServices(BuildContext context) async {
+    appPro = Provider.of<AppProvider>(context, listen: false);
+    appPro!.getProductAndServices();
+    setState(() {});
+  }
+
+  AppProvider? appPro;
 
   addUserReview() async {
     Globals.addUserRatingModal = await RatingController().addUserRating('', '', '');
@@ -147,7 +156,11 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         onTap: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Icon(Icons.arrow_back_ios,size: size.height*0.02,color: bckgrnd,),
+                                        child: Icon(
+                                          Icons.arrow_back_ios,
+                                          size: size.height * 0.02,
+                                          color: bckgrnd,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -394,37 +407,36 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                             SizedBox(
                                               height: size.height * 0.015,
                                             ),
-                                             Padding(
-                              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    ' Card',
-                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Edit Card',
-                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.03,
-                                        ),
-                                        Image.asset(
-                                          edit_icon,
-                                          color: cgreen,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    ' Card',
+                                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'Edit Card',
+                                                          style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
+                                                        ),
+                                                        SizedBox(
+                                                          width: size.width * 0.03,
+                                                        ),
+                                                        Image.asset(
+                                                          edit_icon,
+                                                          color: cgreen,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                             SizedBox(
                                               height: size.height * 0.025,
                                             ),
@@ -616,7 +628,9 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                           width: size.width * 0.01,
                                         ),
                                         Text(
-                                          "(12)",
+                                          appPro?.productAndServicesModel?.data?.length == null
+                                              ? "0"
+                                              : appPro!.productAndServicesModel!.data!.length.toString(),
                                           style: TextStyle(
                                             fontSize: size.height * 0.018,
                                             color: primarygreen,
@@ -629,45 +643,85 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.02,
                                     ),
 
-                                    Container(
-                                      // height: size.height,
-                                      width: size.width,
-                                      decoration: BoxDecoration(
-                                        color: bckgrnd,
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Wrap(
-                                          children: List.generate(
-                                              Globals.singleCardDetailModal?.singleCardData?.productSevices?.length == null
-                                                  ? 0
-                                                  : Globals.singleCardDetailModal!.singleCardData!.productSevices!.length, (index) {
-                                            return Padding(
-                                              padding: const EdgeInsets.all(3),
-                                              child: Container(
-                                                decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(20)),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: size.width * 0.02,
-                                                      right: size.width * 0.02,
-                                                      top: size.height * 0.01,
-                                                      bottom: size.width * 0.01),
-                                                  child: Text(
-                                                    // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
-                                                    Globals.singleCardDetailModal!.singleCardData!.productSevices![index].name.toString(),
-                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                                                  ),
-                                                ),
-                                                // height:
-                                                //     size.height * 0.03,
-                                                // width: size.width * 0.2,
+                                    appPro?.productAndServicesModel?.data?.length == null
+                                        ? Container(
+                                            width: size.width,
+                                            margin: EdgeInsets.symmetric(horizontal: 5),
+                                            decoration: BoxDecoration(
+                                              color: bckgrnd,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 5,
+                                                vertical: 10,
                                               ),
-                                            );
-                                          }),
-                                        ),
-                                      ),
-                                    ),
+                                              child: Text("No Current Product and Services"),
+                                            ),
+                                          )
+                                        : Container(
+                                            width: size.width,
+                                            margin: EdgeInsets.symmetric(horizontal: 5),
+                                            decoration: BoxDecoration(
+                                              color: bckgrnd,
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 5,
+                                                vertical: 10,
+                                              ),
+                                              child: Wrap(
+                                                children: List.generate(
+                                                  appPro?.productAndServicesModel?.data?.length == null
+                                                      ? 0
+                                                      : appPro!.productAndServicesModel!.data!.length,
+                                                  (index) {
+                                                    // if (index == appPro!.productAndServicesModel!.data!.length) {
+                                                    //   return Padding(
+                                                    //     padding:
+                                                    //         EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01, top: size.height * 0.01),
+                                                    //     child: InkWell(
+                                                    //       onTap: () {
+                                                    //         appPro!.setLoadingTrue();
+                                                    //         getProductAndServices(context);
+                                                    //         appPro!.setLoadingFalse();
+                                                    //       },
+                                                    //       child: Container(
+                                                    //         height: size.height * 0.03,
+                                                    //         width: size.width * 0.15,
+                                                    //         decoration: BoxDecoration(
+                                                    //             border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
+                                                    //         child: Center(
+                                                    //           child: Text(
+                                                    //             'Add +',
+                                                    //             style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.015, color: txtcolr),
+                                                    //           ),
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   );
+                                                    // }
+                                                    return Padding(
+                                                      padding: const EdgeInsets.all(3),
+                                                      child: Container(
+                                                        decoration: BoxDecoration(color: btnclr, borderRadius: BorderRadius.circular(15)),
+                                                        height: size.height * 0.04,
+                                                        width: size.width * 0.2,
+                                                        child: Center(
+                                                          child: Text(
+                                                            appPro!.productAndServicesModel!.data![index].name.toString(),
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                     SizedBox(
                                       height: size.height * 0.035,
                                     ),
@@ -836,7 +890,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       height: size.height * 0.02,
                                     ),
                                     Text(
-                                      "Conmpany/ Team members",
+                                      "Company/ Team members",
                                       style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                                     ),
                                     SizedBox(

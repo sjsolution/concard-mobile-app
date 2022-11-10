@@ -150,13 +150,16 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  IndividualProfileModel? _individualProfileModel;
-  IndividualProfileModel? get individualProfileModel => _individualProfileModel;
+  IndividualProfileModel? individualProfileModel;
+  // IndividualProfileModel? individualProfileModel => _individualProfileModel;
 
-  set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
-    _individualProfileModel = obj;
-    notifyListeners();
-  }
+  // set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
+  //   print("this is obj: " + obj.toString());
+  //   _individualProfileModel = obj;
+  //   print("this is obj2: " + obj.toString());
+  //   print("individual Profile is set" + _individualProfileModel.toString());
+  //   notifyListeners();
+  // }
 
   PostsListModal? _postModel;
   PostsListModal? get postModel => _postModel;
@@ -175,8 +178,6 @@ class AppProvider extends ChangeNotifier {
   }
 
   ///AddCard
-
-  
 
   List<int>? isCommentLikeList = [];
   // Color commentLikeColor=Colors.blue;
