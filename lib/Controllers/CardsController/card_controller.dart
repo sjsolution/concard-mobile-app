@@ -84,7 +84,7 @@ class CardController {
         return null;
       }
     } catch (e) {
-      // debugPrint("post list exception:" + e.toString());
+      debugPrint("post list exception:" + e.toString());
       return null;
     }
   }

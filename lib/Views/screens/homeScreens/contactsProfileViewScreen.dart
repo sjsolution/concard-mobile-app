@@ -2,6 +2,7 @@ import 'package:concard/Controllers/CardsController/card_controller.dart';
 import 'package:concard/Controllers/RatingsController/add_rating_controller.dart';
 import 'package:concard/Controllers/notes_controller/notes_controller.dart';
 import 'package:concard/Models/Cards/single_card_detail_modal.dart';
+import 'package:concard/Views/screens/homeScreens/inviteContact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -305,17 +306,22 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 'Contrary to popular belief, Lorem Ipsum is not simply random\ntext.',
                                 style: TextStyle(fontSize: size.height * 0.009, fontFamily: "Msemibold", color: bckgrnd),
                               ),
-                              Container(
-                                height: size.height * 0.03,
-                                width: size.width * 0.15,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.4),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'invite',
-                                    style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
+                              InkWell(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>InviteContactToBecameConcardMember()));
+                                },
+                                child: Container(
+                                  height: size.height * 0.03,
+                                  width: size.width * 0.15,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.4),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'invite',
+                                      style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
+                                    ),
                                   ),
                                 ),
                               ),
