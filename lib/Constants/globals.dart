@@ -27,9 +27,8 @@ import 'package:concard/Models/Company/ProductAndServicesModel.dart';
 import '../Models/RatingsModal/rating_list_modal.dart';
 
 // String? baseUrl='http://localhost/sj-solutions/concard/api';
-String? baseUrl = 'https://salloumdesign.com/concard/api';
-
-String? baseUrl = 'https://salloumdesign.com/concard/api';
+// String? baseUrl = 'https://salloumdesign.com/concard/api';
+String? baseUrl = 'https://sjsolutionz.com/concard/api';
 String? token = '';
 String? userType = '';
 String? userId = '';

@@ -34,7 +34,9 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
   // List<>? badgeList = [];
   getListOfExpoBadge() async {
     Globals.expoBadgeListModal = await ExpoController().getExpoBadgeList();
-    // print('Expo Home'+ Globals.expoBadgeListModal.toString());
+    setState(() {});
+
+    print('Expo Home'+ Globals.expoBadgeListModal.toString());
 
 //     for(int i=0; i< Globals.expoBadgeListModal!.data!.length; i++ ){
 
@@ -48,7 +50,6 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
 // );
 // badgeList!.add(user);
 //     }
-    setState(() {});
   }
 
   @override
@@ -109,7 +110,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   child: CircleAvatar(
                                       radius: size.height * 0.02,
                                       backgroundImage: NetworkImage(
-                                        appPro.individualProfileModel!.data!.user!.image ??
+                                        appPro.individualProfileModel!.data!.user!.image.toString() ??
                                             "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                       )),
                                 ),
