@@ -177,7 +177,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             CircleAvatar(
                               radius: size.height * 0.035,
                               backgroundImage: NetworkImage(
-                                appPro!.individualProfileModel!.data!.user!.image ??
+                                appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage !=null ?appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString():
                                     "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                               ),
                             ),
@@ -185,7 +185,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               height: 10,
                             ),
                             Text(
-                              '${appPro!.individualProfileModel!.data!.user!.firstName ?? ''} ${appPro!.individualProfileModel!.data!.user!.lastName ?? ''}',
+                              '${appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName ?? ''} ${appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName ?? ''}',
                               style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                             ),
                             const SizedBox(
@@ -195,7 +195,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               children: [
                                 Text(
                                   // appPro!.individualProfileModel!.data!.user!.email ?? '',
-                                  appPro!.individualProfileModel!.data!.user!.companyName ?? '',
+                                  appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.companyName ?? '',
                                   style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                 ),
                                 const SizedBox(
@@ -664,7 +664,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) => RatingReviewScreen(
-                                          userId: appPro!.individualProfileModel!.data!.user!.id.toString(),
+                                          userId: appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.id.toString(),
                                         )));
                           },
                           child: Row(
@@ -685,7 +685,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Container(
                               child: RatingBar.builder(
                                 itemSize: size.height * 0.02,
-                                initialRating: appPro!.individualProfileModel!.data!.user!.userRating!,
+                                initialRating: appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.userRating!,
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -704,7 +704,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               width: size.width * 0.01,
                             ),
                             Text(
-                              '${appPro!.individualProfileModel!.data!.user!.userRating!.toString()}',
+                              '${appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.userRating!.toString()}',
                               style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                             )
                           ],
@@ -1106,9 +1106,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Wrap(
                               children: [
                                 Text(
-                                  appPro?.individualProfileModel?.data?.user?.about == ''
+                                  appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.about == ''
                                       ? ""
-                                      : appPro!.individualProfileModel!.data!.user!.about.toString(),
+                                      : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.about.toString(),
                                   style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                 ),
                               ],
@@ -1465,7 +1465,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               PrettyQr(
                                 typeNumber: 4,
                                 size: size.height * 0.06,
-                                data: '${individualProfileModel!.data!.user!.id ?? "0"}',
+                                data: '${individualProfileModel!.indiviusalUserData!.indiviudaluser!.id ?? "0"}',
                                 errorCorrectLevel: QrErrorCorrectLevel.M,
                                 roundEdges: true,
                               ),
@@ -1482,7 +1482,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${individualProfileModel.data!.user!.firstName ?? ''} ${individualProfileModel.data!.user!.lastName ?? ''}",
+                                "${individualProfileModel.indiviusalUserData!.indiviudaluser!.firstName ?? ''} ${individualProfileModel.indiviusalUserData!.indiviudaluser!.lastName ?? ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.013,
                                   color: signupclor_dark,
@@ -1490,7 +1490,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 ),
                               ),
                               Text(
-                                "${individualProfileModel.data!.user!.jobTitle ?? ''}",
+                                "${individualProfileModel.indiviusalUserData!.indiviudaluser!.jobTitle ?? ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.015,
                                   color: signupclor_dark,
@@ -1511,7 +1511,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * .35,
                                     child: Column(children: [
                                       Text(
-                                        "${individualProfileModel.data!.user!.address}",
+                                        "${individualProfileModel.indiviusalUserData!.indiviudaluser!.address}",
                                         style: TextStyle(
                                           fontSize: size.height * 0.015,
                                           color: signupclor_dark,
@@ -1532,7 +1532,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * 0.02,
                                   ),
                                   Text(
-                                    individualProfileModel.data!.user!.mobileNumber ?? '',
+                                    individualProfileModel.indiviusalUserData!.indiviudaluser!.mobileNumber ?? '',
                                     style: TextStyle(
                                       fontSize: size.height * 0.015,
                                       color: signupclor_dark,
@@ -1558,7 +1558,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          individualProfileModel.data!.user!.email ?? '',
+                                          individualProfileModel.indiviusalUserData!.indiviudaluser!.email ?? '',
                                           style: TextStyle(
                                             fontSize: size.height * 0.012,
                                             color: signupclor_dark,
@@ -1584,7 +1584,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "${individualProfileModel.data!.user!.website}",
+                                          "${individualProfileModel.indiviusalUserData!.indiviudaluser!.website}",
                                           style: TextStyle(
                                             fontSize: size.height * 0.015,
                                             color: signupclor_dark,
