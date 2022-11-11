@@ -24,6 +24,7 @@ import '../../../Constants/images.dart';
 import '../../../Controllers/compnayControllers/product_and_services_controller.dart';
 import 'calenderScreen.dart';
 import '';
+import 'cardsScrens/cardsBottomBarScreen.dart';
 import 'notifications/notificationsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/bottomNavBar.dart';
 
@@ -539,7 +540,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
             ),
             Container(
               margin: EdgeInsets.only(top: size.height * 0.3),
-              // height: size.height*0.8,
+              height: size.height*0.8,
               width: size.width,
               decoration: BoxDecoration(
                 color: btnclr,
@@ -548,7 +549,10 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                   topRight: const Radius.circular(15),
                 ),
               ),
-              child: Padding(
+              child: ListView(
+                padding: EdgeInsets.all(0),
+                children: [
+                  Padding(
                 padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -750,121 +754,137 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            height: size.height * 0.11,
-                            width: size.width * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [prmryblue, darkblue])),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '35',
-                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
-                                      ),
-                                      SvgPicture.asset(
-                                        groupreach_icon,
-                                        color: bckgrnd,
-                                      )
-                                    ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=>CardsBottomBarScreen(initialIndex: 1,)));
+                            },
+                            child: Container(
+                              height: size.height * 0.11,
+                              width: size.width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [prmryblue, darkblue])),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          appPro!.individualProfileModel!.indiviusalUserData!.reachedCardsCounts.toString(),
+                                          style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
+                                        ),
+                                        SvgPicture.asset(
+                                          groupreach_icon,
+                                          color: bckgrnd,
+                                        )
+                                      ],
+                                    ),
+                                    margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                   ),
-                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: size.width * 0.02),
-                                  child: Text(
-                                    'Reached\nConcards',
-                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                  SizedBox(
+                                    height: size.height * 0.01,
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    margin: EdgeInsets.only(left: size.width * 0.02),
+                                    child: Text(
+                                      'Reached\nConcards',
+                                      style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Container(
-                            height: size.height * 0.11,
-                            width: size.width * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient:
-                                    LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen])),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '24',
-                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
-                                      ),
-                                      SvgPicture.asset(
-                                        downloading_icon,
-                                        color: bckgrnd,
-                                      )
-                                    ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=>CardsBottomBarScreen(initialIndex: 3,)));
+                            },
+                            child: Container(
+                              height: size.height * 0.11,
+                              width: size.width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient:
+                                      LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen])),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          appPro!.individualProfileModel!.indiviusalUserData!.savedCardsCounts.toString(),
+                                          style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
+                                        ),
+                                        SvgPicture.asset(
+                                          downloading_icon,
+                                          color: bckgrnd,
+                                        )
+                                      ],
+                                    ),
+                                    margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                   ),
-                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: size.width * 0.017),
-                                  child: Text(
-                                    'Saved\nConcards',
-                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                  SizedBox(
+                                    height: size.height * 0.01,
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    margin: EdgeInsets.only(left: size.width * 0.017),
+                                    child: Text(
+                                      'Saved\nConcards',
+                                      style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Container(
-                            height: size.height * 0.11,
-                            width: size.width * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark])),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '12',
-                                        style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
-                                      ),
-                                      SvgPicture.asset(
-                                        favoutline_icon,
-                                        color: bckgrnd,
-                                        height: size.height * 0.04,
-                                      )
-                                    ],
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=>CardsBottomBarScreen(initialIndex: 2,)));
+
+                            },
+                            child: Container(
+                              height: size.height * 0.11,
+                              width: size.width * 0.25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark])),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          appPro!.individualProfileModel!.indiviusalUserData!.favouriteCardsCounts.toString(),
+                                          style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
+                                        ),
+                                        SvgPicture.asset(
+                                          favoutline_icon,
+                                          color: bckgrnd,
+                                          height: size.height * 0.04,
+                                        )
+                                      ],
+                                    ),
+                                    margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
                                   ),
-                                  margin: EdgeInsets.only(top: size.height * 0.01, right: size.width * 0.02, left: size.width * 0.03),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.02,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: size.width * 0.03),
-                                  child: Text(
-                                    'Favorites',
-                                    style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                  SizedBox(
+                                    height: size.height * 0.02,
                                   ),
-                                ),
-                              ],
+                                  Container(
+                                    margin: EdgeInsets.only(left: size.width * 0.03),
+                                    child: Text(
+                                      'Favorites',
+                                      style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.015),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -1276,7 +1296,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     )
                   ],
                 ),
+             
               ),
+            
+                ],
+              )
             ),
             Visibility(
               visible: isShareProfile != true,
@@ -1343,9 +1367,10 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         width: size.width,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                           
                             setState(() {
                               isShareProfile = true;
+
                             });
                           },
                           child: Text(

@@ -405,21 +405,24 @@ class _SavedCardsState extends State<SavedCards> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString(),
+                                                 Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
                                                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.02,
                                               ),
                                               Text(
-                                                'Lorem ipsum dolor sit amet',
+                                                Globals.cardListModal!.cardListData!.cards![index].jobTitle!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString():'',
                                                 style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.01,
                                               ),
                                               Text(
-                                                'Concsectetuer adipiscing elit, sed fiam',
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
                                                 style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
                                               ),
                                             ],

@@ -28,7 +28,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
     Globals.ratingListModal = await RatingController().ratingList(widget.userId);
     
 // print('id.....'+widget.id.toString());
-    // print('Rating Views.........' + Globals.ratingListModal.toString());
+    print('Rating Views.........' + Globals.ratingListModal.toString());
     setState(() {});
   }
 
@@ -144,10 +144,10 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                       width: size.width,
                       child: ListView.builder(
                           padding: EdgeInsets.all(0),
-                          itemCount: Globals.ratingListModal!.ratinListData!.length,
+                          itemCount: Globals.ratingListModal!.ratingListdata!.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
-                            return Globals.ratingListModal!.ratinListData!=null? Container(
+                            return Globals.ratingListModal!.ratingListdata!=null? Container(
                               // height: size.height * 0.22,
                               width: size.width,
                               decoration: BoxDecoration(
@@ -166,7 +166,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                       children: [
                                         CircleAvatar(
                                           radius: 20,
-                                          backgroundImage:NetworkImage(Globals.ratingListModal!.ratinListData![index].user!.profileImage.toString())
+                                          backgroundImage:NetworkImage(Globals.ratingListModal!.ratingListdata![index].user!.profileImage.toString())
                                         ),
                                         SizedBox(
                                           width: size.width * 0.04,
@@ -178,7 +178,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  Globals.ratingListModal!.ratinListData![index].user!.firstName.toString() + Globals.ratingListModal!.ratinListData![index].user!.firstName.toString() ,
+                                                  Globals.ratingListModal!.ratingListdata![index].user!.firstName.toString() + Globals.ratingListModal!.ratingListdata![index].user!.firstName.toString() ,
                                                   style: TextStyle(
                                                       fontSize:
                                                           size.height * 0.018,
@@ -188,7 +188,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                                   child: RatingBar.builder(
                                                     itemSize:
                                                         size.height * 0.02,
-                                                    initialRating: double.parse(Globals.ratingListModal!.ratinListData![index].rate!),
+                                                    initialRating: double.parse(Globals.ratingListModal!.ratingListdata![index].rate.toString()),
                                                     minRating: 0,
                                                     direction: Axis.horizontal,
                                                     allowHalfRating: true,
@@ -217,7 +217,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                           child: Text(
                                              DateTimeManueplate()
                                                                 .giveDifferenceInTime(
-                                                                    DateTime.parse( Globals.ratingListModal!.ratinListData![index].createdAt.toString()))!
+                                                                    DateTime.parse( Globals.ratingListModal!.ratingListdata![index].createdAt.toString()))!
                                            ,
                                             style: TextStyle(
                                                 fontFamily: 'Stf',
@@ -231,7 +231,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                       height: size.height * 0.02,
                                     ),
                                     Text(
-                                      Globals.ratingListModal!.ratinListData![index].text.toString(),
+                                      Globals.ratingListModal!.ratingListdata![index].text.toString(),
                                       style: TextStyle(
                                           fontSize: size.height * 0.015,
                                           fontFamily: "Msemibold"),

@@ -176,8 +176,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                         children: [
                                           CircleAvatar(
                                             radius: 25,
-                                            backgroundImage: NetworkImage(Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.image != null
-                                                ? Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.image.toString()
+                                            backgroundImage: NetworkImage(Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.profileImage != null
+                                                ? Globals.singleCardDetailModal!.singleCardData!.singleCardUser!.profileImage.toString()
                                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpbz6iSjWmkBiY-Dzq7vWazUn16lI4qiS2Dg&usqp=CAU"),
                                           ),
                                           SizedBox(

@@ -52,8 +52,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Widget> bottomPages = [
     Homepage(),
     const ExpoBottomBarScreen(),
-    CardsBottomBarScreen(),
-    CardsBottomBarScreen(),
+    CardsBottomBarScreen(initialIndex: 0,),
+    CardsBottomBarScreen(initialIndex: 0,),
     const MessagesScreen(),
   ];
 

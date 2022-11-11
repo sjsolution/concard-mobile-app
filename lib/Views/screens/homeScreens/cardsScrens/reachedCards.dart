@@ -32,25 +32,35 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Globals.cardListModal!.cardListData != null
-        ? Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: size.height * 0.09,
-                    width: size.width * 0.8,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.white),
+    return Globals.cardListModal!.cardListData!=null?  Column(
+        children: [
+          Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: size.height * 0.09,
+                          width: size.width * 0.8,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              prefixIcon: Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,),
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: 'Search cards',
+                              contentPadding: EdgeInsets.only(
+                                  top: 0.0, left: 22.0, bottom: 2.0),
+                              hintStyle: TextStyle(
+                                  fontSize: size.width * 0.04, color: infocolor),
+                            ),
+                          ),
                         ),
                         prefixIcon: Icon(
                           Icons.search,
@@ -116,41 +126,38 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              Globals.cardListModal!.cardListData != null
-                  ? GestureDetector(
-                      onLongPress: () {
-                        setState(() {
-                          // isRadio=true;
-                        });
-                      },
-                      child: Container(
-                        height: size.height * 0.8,
-                        width: size.width,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(0),
-                          scrollDirection: Axis.vertical,
-                          itemCount: Globals.cardListModal!.cardListData!.cards!.length,
-                          itemBuilder: (context, index) {
-                            return Globals.cardListModal!.cardListData!.cards != null
-                                ? InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => ContactProfileViewScreen(
-                                                    id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
-                                                  )));
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Row(
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Globals.cardListModal!.cardListData != null
+                        ? GestureDetector(
+                          onLongPress: (){
+    
+                            setState(() {
+                              // isRadio=true;
+    
+                            });
+                                                  },
+                           
+                            child: Container(
+                              height: size.height * 0.8,
+                              width: size.width,
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(0),
+                                scrollDirection: Axis.vertical,
+                                itemCount: Globals.cardListModal!.cardListData!.cards!.length,
+                                itemBuilder: (context, index) {
+                                  return Globals.cardListModal!.cardListData!.cards != null
+                                      ? InkWell(
+                                         onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),)));
+                            },
+                                        child: Column(
                                           children: [
                                             Row(
                                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,16 +300,19 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                               SizedBox(
                                                                                 width: size.width * 0.01,
                                                                               ),
-                                                                              SizedBox(
-                                                                                width: size.width * 0.15,
-                                                                                child: Text(
-                                                                                  Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
-                                                                                  style: TextStyle(
-                                                                                    fontSize: size.height * 0.006,
-                                                                                    color: signupclor_dark,
-                                                                                    fontFamily: "Mbold",
-                                                                                  ),
-                                                                                ),
+                                                                              PrettyQr(
+                                                                                typeNumber:
+                                                                                    4,
+                                                                                size: size
+                                                                                        .height *
+                                                                                    0.01,
+                                                                                data:
+                                                                                    '${Globals.cardListModal!.cardListData!.cards![index].userId.toString() ?? "0"}',
+                                                                                errorCorrectLevel:
+                                                                                    QrErrorCorrectLevel
+                                                                                        .M,
+                                                                                roundEdges:
+                                                                                    true,
                                                                               ),
                                                                             ],
                                                                           ),
@@ -311,10 +321,64 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                           ),
                                                                           Row(
                                                                             children: [
-                                                                              Image.asset(
-                                                                                email_icon,
-                                                                                height: size.height * 0.005,
-                                                                                color: signupclor_dark,
+                                                                              Text(
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
+                                                                                style:
+                                                                                    TextStyle(
+                                                                                  fontSize:
+                                                                                      size.height *
+                                                                                          0.007,
+                                                                                  color:
+                                                                                      signupclor_dark,
+                                                                                  fontFamily:
+                                                                                      "Mbold",
+                                                                                ),
+                                                                              ),
+                                                                              Text(
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
+                                                                                style:
+                                                                                    TextStyle(
+                                                                                  fontSize:
+                                                                                      size.height *
+                                                                                          0.007,
+                                                                                  color:
+                                                                                      signupclor_dark,
+                                                                                  fontFamily:
+                                                                                      "Stf",
+                                                                                ),
+                                                                              ),
+                                                                              const SizedBox(
+                                                                                  height:
+                                                                                      1 //size.height * 0.01,
+                                                                                  ),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Column(
+                                                                                      children: [
+                                                                                        SvgPicture.asset(
+                                                                                          location_icon,
+                                                                                          height: size.height * 0.006,
+                                                                                        ),
+                                                                                      ]),
+                                                                                  const SizedBox(
+                                                                                    width:
+                                                                                        1, //size.width * 0.015,
+                                                                                  ),
+                                                                                  Column(
+                                                                                      children: [
+                                                                                        SizedBox(
+                                                                                          width: size.width * 0.15,
+                                                                                          child: Text(
+                                                                                            "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
+                                                                                            style: TextStyle(
+                                                                                              fontSize: size.height * 0.006,
+                                                                                              color: signupclor_dark,
+                                                                                              fontFamily: "Mbold",
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ]),
+                                                                                ],
                                                                               ),
                                                                               SizedBox(
                                                                                 width: size.width * 0.01,
@@ -322,10 +386,11 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                               Column(
                                                                                 children: [
                                                                                   SizedBox(
-                                                                                    width: size.width * 0.15,
-                                                                                    child: Text(
-                                                                                      Globals.cardListModal!.cardListData!.cards![index].email
-                                                                                              .toString() ??
+                                                                                    width: size.width *
+                                                                                        0.15,
+                                                                                    child:
+                                                                                        Text(
+                                                                                      Globals.cardListModal!.cardListData!.cards![index].mobileNo ??
                                                                                           '',
                                                                                       style: TextStyle(
                                                                                         fontSize: size.height * 0.004,
@@ -336,16 +401,43 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                   ),
                                                                                 ],
                                                                               ),
-                                                                            ],
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height: size.height * 0.001,
-                                                                          ),
-                                                                          Row(
-                                                                            children: [
-                                                                              SvgPicture.asset(
-                                                                                internet_icon,
-                                                                                height: size.height * 0.005,
+                                                                              SizedBox(
+                                                                                height: size
+                                                                                        .height *
+                                                                                    0.001,
+                                                                              ),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Image
+                                                                                      .asset(
+                                                                                    email_icon,
+                                                                                    height: size.height *
+                                                                                        0.005,
+                                                                                    color:
+                                                                                        signupclor_dark,
+                                                                                  ),
+                                                                                  SizedBox(
+                                                                                    width: size.width *
+                                                                                        0.01,
+                                                                                  ),
+                                                                                  Column(
+                                                                                    children: [
+                                                                                      SizedBox(
+                                                                                        width:
+                                                                                            size.width * 0.15,
+                                                                                        child:
+                                                                                            Text(
+                                                                                          Globals.cardListModal!.cardListData!.cards![index].email.toString() ?? '',
+                                                                                          style: TextStyle(
+                                                                                            fontSize: size.height * 0.004,
+                                                                                            color: signupclor_dark,
+                                                                                            fontFamily: "Mbold",
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                               SizedBox(
                                                                                 width: size.width * 0.01,
@@ -353,15 +445,25 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                               Column(
                                                                                 children: [
                                                                                   SizedBox(
-                                                                                    width: size.width * 0.15,
-                                                                                    child: Text(
-                                                                                      "${Globals.cardListModal!.cardListData!.cards![index].website}",
-                                                                                      style: TextStyle(
-                                                                                        fontSize: size.height * 0.006,
-                                                                                        color: signupclor_dark,
-                                                                                        fontFamily: "Mbold",
-                                                                                      ),
-                                                                                    ),
+                                                                                    width: size.width *
+                                                                                        0.01,
+                                                                                  ),
+                                                                                  Column(
+                                                                                    children: [
+                                                                                      SizedBox(
+                                                                                        width:
+                                                                                            size.width * 0.15,
+                                                                                        child:
+                                                                                            Text(
+                                                                                          "${Globals.cardListModal!.cardListData!.cards![index].website}",
+                                                                                          style: TextStyle(
+                                                                                            fontSize: size.height * 0.006,
+                                                                                            color: signupclor_dark,
+                                                                                            fontFamily: "Mbold",
+                                                                                          ),
+                                                                                        ),
+                                                                                      )
+                                                                                    ],
                                                                                   )
                                                                                 ],
                                                                               )
@@ -391,19 +493,63 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                     SizedBox(
                                                       height: size.height * 0.02,
                                                     ),
-                                                    Text(
-                                                      'Lorem ipsum dolor sit amet',
-                                                      style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
-                                                    ),
-                                                    SizedBox(
-                                                      height: size.height * 0.01,
-                                                    ),
-                                                    Text(
-                                                      'Concsectetuer adipiscing elit, sed fiam',
-                                                      style: TextStyle(fontSize: size.height * 0.01, fontFamily: "Msemibold", color: infocolor),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                         Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  size.height * 0.015,
+                                                              fontFamily: "MBold"),
+                                                        ),
+                                                        SizedBox(
+                                                          height: size.height * 0.02,
+                                                        ),
+                                                        Text(
+                                                         Globals.cardListModal!.cardListData!.cards![index].jobTitle!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString():'',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  size.height * 0.01,
+                                                              fontFamily: "Msemibold",
+                                                              color: infocolor),
+                                                        ),
+                                                        SizedBox(
+                                                          height: size.height * 0.01,
+                                                        ),
+                                                        Text(
+                                                         Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  size.height * 0.01,
+                                                              fontFamily: "Msemibold",
+                                                              color: infocolor),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
+                                               
+                                               Spacer(),
+                                                InkWell(
+                                                    onTap: () {
+                                                      _optionsModalBottomSheet(
+                                                          context,Globals.cardListModal!.cardListData!.cards![index]);
+                                                      setState(() {
+                                                        isMore = true;
+                                      
+                                                      });
+                                                    },
+                                                    child: Visibility(
+                                                        visible: isMore != true,
+                                                        child: Icon(
+                                                          Icons.more_vert,
+                                                          color: signupclor_dark,
+                                                        )))
                                               ],
                                             ),
                                             Spacer(),
