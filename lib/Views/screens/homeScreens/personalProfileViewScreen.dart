@@ -177,8 +177,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             CircleAvatar(
                               radius: size.height * 0.035,
                               backgroundImage: NetworkImage(
-                                appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage !=null ?appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString():
-                                    "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage != null
+                                    ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
+                                    : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                               ),
                             ),
                             const SizedBox(
@@ -891,9 +892,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
+                    SizedBox(height: size.height * 0.02),
+                    //Product and Services
                     Container(
                       width: size.width,
                       margin: EdgeInsets.symmetric(horizontal: 5),
@@ -1060,9 +1060,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                     //   ),
                     // ),
 
-                    SizedBox(
-                      height: size.height * 0.035,
-                    ),
+                    SizedBox(height: size.height * 0.035),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -1071,7 +1069,11 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'MBold'),
                         ),
                         GestureDetector(
-                          onTap: () => _showEditAboutPopUp(context, ''),
+                          onTap: () => _showEditAboutPopUp(
+                              context,
+                              appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileAbout?.id == null
+                                  ? ''
+                                  : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileAbout!.id.toString()),
                           child: Container(
                             height: size.height * 0.04,
                             width: size.width * 0.2,
@@ -1165,7 +1167,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               if (snapshot.data == null) {
                                 return const Text("Something went wrong. Try again later");
                               } else if (snapshot.data!.linksDataList!.isEmpty) {
-                                return const Text("There is no liks added yet");
+                                return const Text("There are no links added yet");
                               } else {
                                 List<LinksDataList>? linksDataList = snapshot.data!.linksDataList;
                                 return ListView.builder(
@@ -2380,7 +2382,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                           ),
                           InkWell(
                             onTap: () async {
-                              AboutProvider().changeAbout(aboutId: '', AboutText: _aboutController.text.trim());
+                              AboutProvider().changeAbout(aboutId: aboutId, AboutText: _aboutController.text.trim());
+                              Navigator.pop(context);
                             },
                             child: Container(
                               height: size.height * 0.05,

@@ -12,7 +12,7 @@ class AboutController {
       var response = await services.postResponse(url: '/user/about', formData: formData);
       if (response != null) {
         print("About Updated Successfully");
-        Globals.showToastMethod(msg: "Status Uploaded");
+        Globals.showToastMethod(msg: "About Updated Successfully");
       } else {
         Globals.showToastMethod(msg: "Something went wrong. Please try again later");
       }
