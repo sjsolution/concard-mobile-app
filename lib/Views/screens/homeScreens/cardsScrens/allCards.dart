@@ -406,6 +406,7 @@ class _AllCardsState extends State<AllCards> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
+
                                                                                 "${Globals.cardListModal!.cardListData!.cards![index].username}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.006,

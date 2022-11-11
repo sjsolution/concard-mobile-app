@@ -1128,9 +1128,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Wrap(
                               children: [
                                 Text(
-                                  appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.about == ''
-                                      ? ""
-                                      : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.about.toString(),
+                                  appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileAbout?.text == null
+                                      ? ''
+                                      : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileAbout!.text.toString(),
                                   style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                 ),
                               ],
@@ -1491,7 +1491,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               ),
                               PrettyQr(
                                 typeNumber: 4,
-                                size: size.height * 0.06,
+                                size: size.height * 0.08,
                                 data: '${individualProfileModel!.indiviusalUserData!.indiviudaluser!.id ?? "0"}',
                                 errorCorrectLevel: QrErrorCorrectLevel.M,
                                 roundEdges: true,
@@ -1511,7 +1511,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               Text(
                                 "${individualProfileModel.indiviusalUserData!.indiviudaluser!.firstName ?? ''} ${individualProfileModel.indiviusalUserData!.indiviudaluser!.lastName ?? ''}",
                                 style: TextStyle(
-                                  fontSize: size.height * 0.013,
+                                  fontSize: size.height * 0.020,
                                   color: signupclor_dark,
                                   fontFamily: "Mbold",
                                 ),
@@ -2409,6 +2409,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             onTap: () async {
                               AboutProvider().changeAbout(aboutId: aboutId, AboutText: _aboutController.text.trim());
                               Navigator.pop(context);
+                              appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileAbout!.text = _aboutController.text;
                             },
                             child: Container(
                               height: size.height * 0.05,

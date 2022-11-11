@@ -61,36 +61,25 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return
-        //   PersistentTabView(
+        // PersistentTabView.custom(
         //   context,
         //   controller: _controller,
-        //   screens: bottomPages(),
-        //   items: _navBarsItems(context),
+        //   itemCount: items.length, // This is required in case of custom style! Pass the number of items for the nav bar.
+        //   screens: _buildScreens(),
         //   confineInSafeArea: true,
-        //   backgroundColor: Colors.white, // Default is Colors.white.
-        //   handleAndroidBackButtonPress: true, // Default is true.
-        //   resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-        //   stateManagement: true, // Default is true.
-        //   hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-        //   decoration: NavBarDecoration(
-        //     borderRadius: BorderRadius.circular(10.0),
-        //     colorBehindNavBar: Colors.white,
+        //   handleAndroidBackButtonPress: true,
+        //   onItemSelected: (int) {
+        //     setState(() {}); // This is required to update the nav bar if Android back button is pressed
+        //   },
+        //   customWidget: CustomNavBarWidget( // Your custom widget goes here
+        //     items: _navBarsItems(),
+        //     selectedIndex: _controller.index,
+        //     onItemSelected: (index) {
+        //       setState(() {
+        //         _controller.index = index; // NOTE: THIS IS CRITICAL!! Don't miss it!
+        //       });
+        //     },
         //   ),
-        //   navBarHeight: size.height * 0.12,
-        //   popAllScreensOnTapOfSelectedTab: true,
-        //   popActionScreens: PopActionScreensType.all,
-        //   itemAnimationProperties: ItemAnimationProperties(
-        //     // Navigation Bar's items animation properties.
-        //     duration: Duration(milliseconds: 200),
-        //     curve: Curves.ease,
-        //   ),
-        //   screenTransitionAnimation: ScreenTransitionAnimation(
-        //     // Screen transition animation on change of selected tab.
-        //     animateTabTransition: true,
-        //     curve: Curves.ease,
-        //     duration: Duration(milliseconds: 200),
-        //   ),
-        //   navBarStyle: NavBarStyle.style16, // Choose the nav bar style with this property.
         // );
 
         Scaffold(
@@ -758,3 +747,61 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     );
   }
 }
+
+// class CutomBottomNavigationBar extends StatelessWidget {
+//   const BottomNavBar({Key? key, required this.selectedIndex, required this.items, required this.onItemSelected}) : super(key: key);
+//   final int selectedIndex;
+//   final List<Widget> items; // NOTE: You CAN declare your own model here instead of `PersistentBottomNavBarItem`.
+//   final ValueChanged<int> onItemSelected;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.white,
+//       child: Container(
+//         width: double.infinity,
+//         height: 60.0,
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           children: items.map((item) {
+//             int index = items.indexOf(item);
+//             return Flexible(
+//               child: GestureDetector(
+//                 onTap: () {
+//                   this.onItemSelected(index);
+//                 },
+//                 child: _buildItem(
+//                     item, selectedIndex == index),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   _buildItem({required List<Widget> children,required bool isSelected,required BuildContext context}) {
+//     return
+//   }
+//
+//
+//   Widget bottomItems({required Size size,required String icon,required String title,required bool textShow,required Color color,required bool isSvg,required Function() onTap,required BuildContext context}) {
+//     var size = MediaQuery.of(context).size;
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         IconButton(
+//             onPressed: onTap,
+//             icon:
+//             // isSvg ?
+//             SvgPicture.asset(
+//               icon,
+//               height: 25,
+//               color: color,
+//             )
+//         ),
+//         textShow ? Text(title, style: TextStyle(color: color, fontSize: size.height * .015, fontWeight: FontWeight.w600)) : const SizedBox(),
+//       ],
+//     );
+//   }
+// }

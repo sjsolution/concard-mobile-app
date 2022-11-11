@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 class CardController {
   ServicesClass services = ServicesClass();
 
-  Future<AddCardModel?> addCard(
+  Future<AddCardModel?> addCard({
     String? userName,
     String? jobTitle,
     String? companyName,
@@ -27,7 +27,7 @@ class CardController {
     String? address,
     String? location,
     String? meetingDatetime,
-  ) async {
+  }) async {
     try {
       var formData = FormData.fromMap({
         'username': userName,
