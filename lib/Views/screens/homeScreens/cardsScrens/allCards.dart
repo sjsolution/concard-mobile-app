@@ -75,11 +75,11 @@ class _AllCardsState extends State<AllCards> {
               width: size.width * 0.8,
               child: TextFormField(
                 onChanged: (value) {
-                  cardList?.cardListType?.cards?.clear();
-                  Globals.cardListModal!.cardListType!.cards!.forEach((element) {
+                  cardList?.cardListData?.cards?.clear();
+                  Globals.cardListModal!.cardListData!.cards!.forEach((element) {
                     if (element.companyName!.toLowerCase().contains(value)) {
                       print("available");
-                      cardList?.cardListType?.cards?.add(element);
+                      cardList?.cardListData?.cards?.add(element);
                     } else {
                       print("not available");
                     }
@@ -175,7 +175,7 @@ class _AllCardsState extends State<AllCards> {
         SizedBox(
           height: size.height * 0.01,
         ),
-        Globals.cardListModal!.cardListType != null
+        Globals.cardListModal!.cardListData != null
             ? GestureDetector(
                 onLongPress: () {
                   setState(() {
@@ -188,16 +188,16 @@ class _AllCardsState extends State<AllCards> {
                   child: ListView.builder(
                     padding: const EdgeInsets.all(0),
                     scrollDirection: Axis.vertical,
-                    itemCount: Globals.cardListModal!.cardListType!.cards!.length,
+                    itemCount: Globals.cardListModal!.cardListData!.cards!.length,
                     itemBuilder: (context, index) {
-                      return Globals.cardListModal!.cardListType!.cards != null
+                      return Globals.cardListModal!.cardListData!.cards != null
                           ? InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => ContactProfileViewScreen(
-                                              id: Globals.cardListModal!.cardListType!.cards![index].id.toString(),
+                                              id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
                                             )));
                               },
                               child: Column(
@@ -273,7 +273,7 @@ class _AllCardsState extends State<AllCards> {
                                                                       typeNumber: 4,
                                                                       size: size.height * 0.01,
                                                                       data:
-                                                                          '${Globals.cardListModal!.cardListType!.cards![index].user!.id.toString() ?? "0"}',
+                                                                          '${Globals.cardListModal!.cardListData!.cards![index].user!.id.toString() ?? "0"}',
                                                                       errorCorrectLevel: QrErrorCorrectLevel.M,
                                                                       roundEdges: true,
                                                                     ),
@@ -290,7 +290,7 @@ class _AllCardsState extends State<AllCards> {
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(
-                                                                      "${Globals.cardListModal!.cardListType!.cards![index].username.toString() ?? ''}",
+                                                                      "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
                                                                       style: TextStyle(
                                                                         fontSize: size.height * 0.007,
                                                                         color: signupclor_dark,
@@ -298,7 +298,7 @@ class _AllCardsState extends State<AllCards> {
                                                                       ),
                                                                     ),
                                                                     Text(
-                                                                      "${Globals.cardListModal!.cardListType!.cards![index].jobTitle.toString() ?? ''}",
+                                                                      "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
                                                                       style: TextStyle(
                                                                         fontSize: size.height * 0.007,
                                                                         color: signupclor_dark,
@@ -322,7 +322,7 @@ class _AllCardsState extends State<AllCards> {
                                                                           SizedBox(
                                                                             width: size.width * 0.15,
                                                                             child: Text(
-                                                                              "${Globals.cardListModal!.cardListType!.cards![index].address.toString()}",
+                                                                              "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
                                                                               style: TextStyle(
                                                                                 fontSize: size.height * 0.006,
                                                                                 color: signupclor_dark,
@@ -348,7 +348,7 @@ class _AllCardsState extends State<AllCards> {
                                                                         SizedBox(
                                                                           width: size.width * 0.15,
                                                                           child: Text(
-                                                                            Globals.cardListModal!.cardListType!.cards![index].mobileNo ?? '',
+                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
                                                                             style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
@@ -376,7 +376,7 @@ class _AllCardsState extends State<AllCards> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                                Globals.cardListModal!.cardListType!.cards![index].email.toString() ??
+                                                                                Globals.cardListModal!.cardListData!.cards![index].email.toString() ??
                                                                                     '',
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.004,
@@ -406,7 +406,7 @@ class _AllCardsState extends State<AllCards> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                                "${Globals.cardListModal!.cardListType!.cards![index].website}",
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].website}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.006,
                                                                                   color: signupclor_dark,
@@ -436,7 +436,7 @@ class _AllCardsState extends State<AllCards> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                Globals.cardListModal!.cardListType!.cards![index].companyName.toString(),
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString(),
                                                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                               ),
                                               SizedBox(
@@ -460,7 +460,7 @@ class _AllCardsState extends State<AllCards> {
                                       Spacer(),
                                       InkWell(
                                           onTap: () {
-                                            _optionsModalBottomSheet(context, Globals.cardListModal!.cardListType!.cards![index]);
+                                            _optionsModalBottomSheet(context, Globals.cardListModal!.cardListData!.cards![index]);
                                             setState(() {
                                               isMore = true;
                                             });

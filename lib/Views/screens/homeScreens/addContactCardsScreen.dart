@@ -26,8 +26,8 @@ class AddContactCardsScreen extends StatefulWidget {
 class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   @override
   void initState() {
-    AddMyCard();
-    // TODO: implement initState
+    // AddMyCard();
+    // // TODO: implement initState
     super.initState();
   }
 
@@ -39,11 +39,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
 
   DateTime selectedDate = DateTime.now();
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        await showDatePicker(context: context, initialDate: selectedDate, firstDate: DateTime(2015, 8), lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -53,11 +50,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
 
   DateTime meetingDatetime = DateTime.now();
   Future<void> selectedMeetinDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: meetingDatetime,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+    final DateTime? picked =
+        await showDatePicker(context: context, initialDate: meetingDatetime, firstDate: DateTime(2015, 8), lastDate: DateTime(2101));
     if (picked != null && picked != meetingDatetime) {
       setState(() {
         meetingDatetime = picked;
@@ -70,8 +64,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   var compNameControl = TextEditingController();
   var websiteControll = TextEditingController();
   var postionNameControl = TextEditingController();
-  List<TextEditingController> mobileNumberControl = [];
-  List<TextEditingController> emailsControl = [];
+  List<TextEditingController> mobileNumberController = [];
+  List<TextEditingController> emailsController = [];
   var cityControl = TextEditingController();
   var provinceControl = TextEditingController();
   var countryControl = TextEditingController();
@@ -79,6 +73,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   var addressControl = TextEditingController();
   var locationControllor = TextEditingController();
   var meetingDateTimeControllor = TextEditingController();
+  List listOfEmails = [];
+  List listOfMobiles = [];
 
   void clearAllController() {
     userNameControl.clear();
@@ -86,8 +82,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
     compNameControl.clear();
     websiteControll.clear();
     postionNameControl.clear();
-    mobileNumberControl.clear();
-    emailsControl.clear();
+    mobileNumberController.clear();
+    emailsController.clear();
     cityControl.clear();
     provinceControl.clear();
     countryControl.clear();
@@ -98,20 +94,17 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   }
 
   AddMyCard() async {
-    Globals.addCardModal = await CardController().addCard(
-        '', '', '', '', '', mobileControllers, emailControllers, '', '', '', '', '', '', '', '', '', '');
+    // Globals.addCardModal =
+    //     await CardController().addCard('', '', '', '', '', mobileControllers, emailControllers, '', '', '', '', '', '', '', '', '', '');
     // print('aadd card' + Globals.addCardModal.toString());
     setState(() {});
   }
 
-  List<String> emailControllers = [];
-  List<String> mobileControllers = [];
-Map<String,dynamic> cardsData={
-};
+  // Map<String, dynamic> cardsData = {};
   var formKey = GlobalKey<FormState>();
   int email = 1;
   int numberField = 1;
-  int addAnotherPage = 1;
+  // int addAnotherPage = 1;
   String? item = 'Work';
   final items = [
     'Work',
@@ -119,12 +112,9 @@ Map<String,dynamic> cardsData={
     'Personal',
   ];
 
-  List abc = [];
-
   // int? index;
   @override
   Widget build(BuildContext context) {
-    
     var size = MediaQuery.of(context).size;
     return Consumer<AppProvider>(builder: (context, appPro, _) {
       return Scaffold(
@@ -132,20 +122,13 @@ Map<String,dynamic> cardsData={
         children: [
           Column(
             children: [
-                
               Container(
                 height: size.height * 0.15,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [signupclor_light, signupclor_dark]),
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.04,
-                      right: size.width * 0.04,
-                      top: size.height * 0.04),
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.04),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -167,58 +150,60 @@ Map<String,dynamic> cardsData={
                           ),
                           Text(
                             'Edit Card',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018,
-                                fontFamily: "MBold",
-                                color: bckgrnd),
+                            style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBold", color: bckgrnd),
                           ),
                         ],
                       ),
                       InkWell(
                         onTap: () async {
-                          cardsData.addEntries({'phone_numbers':mobileControllers}.entries);
-                          if (formKey.currentState!.validate()) {
-                            emailsControl.forEach((element) {
-                              emailControllers.add(element.text);
-                            });
-                            mobileNumberControl.forEach((element) {
-                              mobileControllers.add(element.text);
-                            });
-                            Globals.addCardModal = await CardController()
-                                .addCard(
-                                    userNameControl.text.trim(),
-                                    jobTitleControl.text.trim(),
-                                    compNameControl.text.trim(),
-                                    websiteControll.text.trim(),
-                                    postionNameControl.text.trim(),
-                                    mobileControllers,
-                                    emailControllers,
-                                    cityControl.text.trim(),
-                                    provinceControl.text.trim(),
-                                    countryControl.text.trim(),
-                                    selectedDate.day.toString(),
-                                    selectedDate.month.toString(),
-                                    selectedDate.year.toString(),
-                                    postalCodeControl.text.trim(),
-                                    addressControl.text.trim(),
-                                    locationControllor.text.trim(),
-                                    meetingDatetime.toString());
-                            clearAllController();
-
-                            selectedDayController.clear();
-                            selectedMonthController.clear();
-                            selectedYearController.clear();
-                            meetingDatetimeController.clear();
-
-                            if (Globals.addCardModal == 200) {
-                              Globals.showToastMethod(
-                                  msg: 'Record Added Successfully');
-                            } else {
-                              Globals.showToastMethod(
-                                  msg: 'There is something wromg');
-                            }
-                          }
-                          Navigator.pop(context);
+                          // for (int i = 1; i <= mobileNumberController.length; i++) {
+                          //   // listOfMobiles[i] = mobileNumberController[i].text;
+                          //   listOfMobiles.add(mobileNumberController[i].text);
+                          // }
+                          // for (int i = 1; i <= emailsController.length; i++) {
+                          //   listOfEmails[i] = emailsController[i].text;
+                          // }
+                          // print(listOfMobiles);
+                          // print(listOfEmails);
+                          // cardsData.addEntries({'phone_numbers': mobileControllers}.entries);
+                          // if (formKey.currentState!.validate()) {
+                          //   emailsControl.forEach((element) {
+                          //     emailControllers.add(element.text);
+                          //   });
+                          //   mobileNumberControl.forEach((element) {
+                          //     mobileControllers.add(element.text);
+                          //   });
+                          //   Globals.addCardModal = await CardController().addCard(
+                          //       userNameControl.text.trim(),
+                          //       jobTitleControl.text.trim(),
+                          //       compNameControl.text.trim(),
+                          //       websiteControll.text.trim(),
+                          //       postionNameControl.text.trim(),
+                          //       mobileControllers,
+                          //       emailControllers,
+                          //       cityControl.text.trim(),
+                          //       provinceControl.text.trim(),
+                          //       countryControl.text.trim(),
+                          //       selectedDate.day.toString(),
+                          //       selectedDate.month.toString(),
+                          //       selectedDate.year.toString(),
+                          //       postalCodeControl.text.trim(),
+                          //       addressControl.text.trim(),
+                          //       locationControllor.text.trim(),
+                          //       meetingDatetime.toString());
+                          //   clearAllController();
+                          //
+                          //   selectedDayController.clear();
+                          //   selectedMonthController.clear();
+                          //   selectedYearController.clear();
+                          //   meetingDatetimeController.clear();
+                          //
+                          //   if (Globals.addCardModal == 200) {
+                          //     Globals.showToastMethod(msg: 'Record Added Successfully');
+                          //   } else {
+                          //     Globals.showToastMethod(msg: 'There is something wrong');
+                          //   }
+                          // }
                         },
                         child: Icon(
                           Icons.check,
@@ -231,13 +216,11 @@ Map<String,dynamic> cardsData={
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(
-                      left: size.width * 0.04, top: size.height * 0.001),
+                  margin: EdgeInsets.only(left: size.width * 0.04, top: size.height * 0.001),
                   alignment: Alignment.topLeft,
                   child: Text(
                     'Card Info',
-                    style: TextStyle(
-                        fontSize: size.height * 0.018, fontFamily: 'MBold'),
+                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                   )),
             ],
           ),
@@ -252,10 +235,7 @@ Map<String,dynamic> cardsData={
                     topRight: Radius.circular(15),
                   )),
               child: ListView(
-                padding: EdgeInsets.only(
-                    top: size.height * 0.1,
-                    right: size.width * 0.02,
-                    left: size.width * 0.02),
+                padding: EdgeInsets.only(top: size.height * 0.1, right: size.width * 0.02, left: size.width * 0.02),
                 children: [
                   Form(
                     key: formKey,
@@ -263,36 +243,27 @@ Map<String,dynamic> cardsData={
                         padding: EdgeInsets.all(0),
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: addAnotherPage,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       alignment: Alignment.center,
                                       height: size.height * 0.05,
                                       width: size.width * 0.4,
                                       decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                              colors: [btnclr, btnclr]),
-                                          border: Border.all(
-                                              color: signupclor_dark),
+                                          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [btnclr, btnclr]),
+                                          border: Border.all(color: signupclor_dark),
                                           color: bckgrnd,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
+                                          borderRadius: BorderRadius.circular(30)),
                                       child: (Text(
                                         'Scan',
-                                        style: TextStyle(
-                                            color: signupclor_dark,
-                                            fontSize: size.height * 0.018,
-                                            fontFamily: "MBold"),
+                                        style: TextStyle(color: signupclor_dark, fontSize: size.height * 0.018, fontFamily: "MBold"),
                                       )),
                                     ),
                                     Container(
@@ -300,21 +271,13 @@ Map<String,dynamic> cardsData={
                                       height: size.height * 0.05,
                                       width: size.width * 0.4,
                                       decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                              colors: [btnclr, btnclr]),
-                                          border: Border.all(
-                                              color: signupclor_dark),
+                                          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [btnclr, btnclr]),
+                                          border: Border.all(color: signupclor_dark),
                                           color: bckgrnd,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
+                                          borderRadius: BorderRadius.circular(30)),
                                       child: (Text(
                                         'Upload',
-                                        style: TextStyle(
-                                            color: signupclor_dark,
-                                            fontSize: size.height * 0.018,
-                                            fontFamily: "MBold"),
+                                        style: TextStyle(color: signupclor_dark, fontSize: size.height * 0.018, fontFamily: "MBold"),
                                       )),
                                     ),
                                   ],
@@ -322,22 +285,11 @@ Map<String,dynamic> cardsData={
                                 SizedBox(
                                   height: size.height * 0.03,
                                 ),
-                    //             ElevatedButton(
-                    // onPressed: (){
-                    //     List bcd = ['1','2','3'];
-                    //     List def = ['1','2','3'];
-                    //     List ghi = ['1','2','3'];
-                    //     abc = bcd.toList() + def.toList() + ghi.toList();
-                    //     print(abc);
-                    // },
-                    // child: Text("abc") ),
                                 Container(
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       'Personal',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.018,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                     )),
                                 SizedBox(
                                   height: size.height * 0.03,
@@ -360,7 +312,7 @@ Map<String,dynamic> cardsData={
                                 CustomCardInputField(
                                   validator: (String? value) {
                                     if (value!.isEmpty) {
-                                      return "Enter Your Job itle";
+                                      return "Enter Your Job Title";
                                     }
                                     return null;
                                   },
@@ -396,43 +348,19 @@ Map<String,dynamic> cardsData={
                                       selectedMonthController.clear();
                                       selectedYearController.clear();
                                     });
-                                    //    DateTimePicker(
-                                    //   initialValue: '',
-                                    //   firstDate: DateTime(2000),
-                                    //   lastDate: DateTime(2100),
-                                    //   dateLabelText: 'Date',
-                                    //   onChanged: (val) => print(val),
-                                    //   validator: (val) {
-                                    //     print(val);
-                                    //     return null;
-                                    //   },
-                                    //   onSaved: (val) => print(val),
-                                    // );
-                                    // setState(() {
-
-                                    // });
                                   },
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       Container(
                                           height: size.height * 0.05,
                                           width: size.width * 0.25,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: Colors.white),
+                                              borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.grey), color: Colors.white),
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Container(
                                                   height: size.height * 0.02,
@@ -440,14 +368,8 @@ Map<String,dynamic> cardsData={
                                                 ),
                                                 Center(
                                                   child: Text(
-                                                    selectedDate.day != null
-                                                        ? '${selectedDate.day}'
-                                                        : 'Day',
-                                                    style: TextStyle(
-                                                        fontFamily: "MBold",
-                                                        fontSize:
-                                                            size.height * 0.018,
-                                                        color: infocolor),
+                                                    selectedDate.day != null ? '${selectedDate.day}' : 'Day',
+                                                    style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.018, color: infocolor),
                                                   ),
                                                 ),
                                                 Image.asset(downarrow_icon)
@@ -458,19 +380,11 @@ Map<String,dynamic> cardsData={
                                           height: size.height * 0.05,
                                           width: size.width * 0.3,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: Colors.white),
+                                              borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.grey), color: Colors.white),
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Container(
                                                   height: size.height * 0.02,
@@ -478,14 +392,8 @@ Map<String,dynamic> cardsData={
                                                 ),
                                                 Center(
                                                   child: Text(
-                                                    selectedDate.month != null
-                                                        ? '${selectedDate.month}'
-                                                        : 'Month',
-                                                    style: TextStyle(
-                                                        fontFamily: "MBold",
-                                                        fontSize:
-                                                            size.height * 0.018,
-                                                        color: infocolor),
+                                                    selectedDate.month != null ? '${selectedDate.month}' : 'Month',
+                                                    style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.018, color: infocolor),
                                                   ),
                                                 ),
                                                 Image.asset(downarrow_icon)
@@ -496,29 +404,15 @@ Map<String,dynamic> cardsData={
                                           height: size.height * 0.05,
                                           width: size.width * 0.25,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: Colors.white),
+                                              borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.grey), color: Colors.white),
                                           child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * 0.04,
-                                                right: size.width * 0.04),
+                                            padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  selectedDate.year != null
-                                                      ? '${selectedDate.year}'
-                                                      : 'Year',
-                                                  style: TextStyle(
-                                                      fontFamily: "MBold",
-                                                      fontSize:
-                                                          size.height * 0.018,
-                                                      color: infocolor),
+                                                  selectedDate.year != null ? '${selectedDate.year}' : 'Year',
+                                                  style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.018, color: infocolor),
                                                 ),
                                                 Image.asset(downarrow_icon)
                                               ],
@@ -531,38 +425,28 @@ Map<String,dynamic> cardsData={
                                   height: size.height * 0.03,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                         alignment: Alignment.topLeft,
                                         child: Text(
                                           'Tel',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.018,
-                                              fontFamily: 'MBold'),
+                                          style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                         )),
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          numberField ++;
+                                          numberField++;
                                         });
                                       },
                                       child: Container(
                                         height: size.height * 0.035,
                                         width: size.width * 0.2,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: gradientgreen),
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
+                                        decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                         child: Center(
                                           child: Text(
                                             'Add +',
-                                            style: TextStyle(
-                                                fontFamily: 'MBold',
-                                                fontSize: size.height * 0.018,
-                                                color: txtcolr),
+                                            style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
                                           ),
                                         ),
                                       ),
@@ -584,36 +468,27 @@ Map<String,dynamic> cardsData={
                                             height: size.height * 0.02,
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
                                                 height: size.height * 0.06,
                                                 width: size.width * 0.3,
                                                 decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: Colors.grey),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
+                                                  border: Border.all(color: Colors.grey),
+                                                  borderRadius: BorderRadius.circular(20),
+                                                  color: Colors.white,
                                                 ),
                                                 child: Center(
                                                   child: DropdownButton(
-                                                      underline:
-                                                          SizedBox.shrink(),
+                                                      underline: SizedBox.shrink(),
                                                       isDense: true,
                                                       hint: Text('Select'),
                                                       value: item,
-                                                      icon: Image.asset(
-                                                          downarrow_icon),
-                                                      items: items
-                                                          .map((String? items) {
-                                                        return DropdownMenuItem(
-                                                            value: items,
-                                                            child:
-                                                                Text(items!));
+                                                      icon: Image.asset(downarrow_icon),
+                                                      items: items.map((String? items) {
+                                                        return DropdownMenuItem(value: items, child: Text(items!));
                                                       }).toList(),
-                                                      onChanged:
-                                                          (String? newValue) {
+                                                      onChanged: (String? newValue) {
                                                         setState(() {
                                                           item = newValue;
                                                         });
@@ -649,35 +524,21 @@ Map<String,dynamic> cardsData={
                                               Container(
                                                 width: size.width * 0.6,
                                                 child: TextFormField(
-                                                //   controller:mobileNumberControl[mobileIndex],
+                                                  controller: mobileNumberController[numberField],
                                                   validator: (String? value) {
-                                                    if (value!.length < 9 ||
-                                                        value.length > 9) {
-                                                      return "Number is not validate";
+                                                    if (value!.length < 9 || value.length > 9) {
+                                                      return "Number is not valid";
                                                     }
                                                     return null;
                                                   },
                                                   decoration: InputDecoration(
                                                       hintText: 'Number',
-                                                      contentPadding:
-                                                          const EdgeInsets.only(
-                                                              top: 0.0,
-                                                              left: 22.0,
-                                                              bottom: 2.0),
-                                                      hintStyle: TextStyle(
-                                                          fontSize:
-                                                              size.height *
-                                                                  0.018,
-                                                          color: infocolor,
-                                                          fontFamily:
-                                                              "Msemibold"),
+                                                      contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                                      hintStyle: TextStyle(fontSize: size.height * 0.018, color: infocolor, fontFamily: "Msemibold"),
                                                       fillColor: Colors.white,
                                                       filled: true,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(25),
+                                                      border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(25),
                                                       )),
                                                 ),
                                               ),
@@ -687,119 +548,24 @@ Map<String,dynamic> cardsData={
                                       );
                                     }),
 
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-
-                                //     Container(
-                                //       width: size.width * 0.6,
-                                //       child: TextFormField(
-                                //         controller: appPro.workPhoneControl,
-                                //         validator: (String? value) {
-                                //           if (value!.length < 9 || value.length > 9) {
-                                //             return "Number is not validate";
-                                //           }
-                                //           return null;
-                                //         },
-                                //         decoration: InputDecoration(
-                                //             hintText: 'Number',
-                                //             contentPadding: EdgeInsets.only(
-                                //                 top: 0.0, left: 22.0, bottom: 2.0),
-                                //             hintStyle: TextStyle(
-                                //                 fontSize: size.height * 0.018,
-                                //                 color: infocolor,
-                                //                 fontFamily: "Msemibold"),
-                                //             fillColor: Colors.white,
-                                //             filled: true,
-                                //             border: OutlineInputBorder(
-                                //               borderRadius: BorderRadius.circular(30),
-                                //             )),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
                                 SizedBox(
                                   height: size.height * 0.03,
                                 ),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Container(
-                                //         height: size.height * 0.06,
-                                //         width: size.width * 0.3,
-                                //         decoration: BoxDecoration(
-                                //             borderRadius: BorderRadius.circular(25),
-                                //             border: Border.all(color: Colors.grey),
-                                //             color: Colors.white),
-                                //         child: Padding(
-                                //           padding: EdgeInsets.only(
-                                //               left: size.width * 0.04,
-                                //               right: size.width * 0.04),
-                                //           child: Row(
-                                //             mainAxisAlignment:
-                                //                 MainAxisAlignment.spaceBetween,
-                                //             children: [
-                                //               Text(
-                                //                 'Mobile',
-                                //                 style: TextStyle(
-                                //                     fontFamily: "Msemibold",
-                                //                     fontSize: size.height * 0.018,
-                                //                     color: infocolor),
-                                //               ),
-                                //               Image.asset(downarrow_icon)
-                                //             ],
-                                //           ),
-                                //         )),
-                                //     Container(
-                                //       width: size.width * 0.6,
-                                //       child: TextFormField(
-                                //         controller: appPro.mobileNumberControl,
-                                //         validator: (String? value) {
-                                //           if (value!.length < 9 || value.length > 9) {
-                                //             return "Number is not validate";
-                                //           }
-                                //           return null;
-                                //         },
-                                //         decoration: InputDecoration(
-                                //             hintText: 'Number',
-                                //             contentPadding: const EdgeInsets.only(
-                                //                 top: 0.0, left: 22.0, bottom: 2.0),
-                                //             hintStyle: TextStyle(
-                                //                 fontSize: size.height * 0.018,
-                                //                 color: infocolor,
-                                //                 fontFamily: "Msemibold"),
-                                //             fillColor: Colors.white,
-                                //             filled: true,
-                                //             border: OutlineInputBorder(
-                                //               borderRadius: BorderRadius.circular(25),
-                                //             )),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
                                 SizedBox(
                                   height: size.height * 0.03,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          'Email',
-                                          style: TextStyle(
-                                              fontSize: size.height * 0.02,
-                                              fontFamily: 'MBold'),
-                                        )),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        'Email',
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                                      ),
+                                    ),
                                     InkWell(
                                       onTap: () {
-                                        //  for(int i=0; i<emailList.length; i+1){
-                                        //  emailList.add(
-                                        //    appPro.emailControl.text[i]
-                                        //  );
-                                        //  }
-                                        //     print(emailList.length);
                                         setState(() {
                                           email++;
                                           // print(email);
@@ -808,18 +574,11 @@ Map<String,dynamic> cardsData={
                                       child: Container(
                                         height: size.height * 0.035,
                                         width: size.width * 0.2,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: gradientgreen),
-                                            borderRadius:
-                                                BorderRadius.circular(15)),
+                                        decoration: BoxDecoration(border: Border.all(color: gradientgreen), borderRadius: BorderRadius.circular(15)),
                                         child: Center(
                                           child: Text(
                                             'Add +',
-                                            style: TextStyle(
-                                                fontFamily: 'MBold',
-                                                fontSize: size.height * 0.018,
-                                                color: txtcolr),
+                                            style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.018, color: txtcolr),
                                           ),
                                         ),
                                       ),
@@ -836,7 +595,7 @@ Map<String,dynamic> cardsData={
                                       physics: NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.vertical,
                                       itemCount: email,
-                                      itemBuilder: (context, index) {
+                                      itemBuilder: (context, emailIndex) {
                                         // appPro.emailControl.add(TextEditingController());
                                         return Column(
                                           children: [
@@ -844,7 +603,7 @@ Map<String,dynamic> cardsData={
                                               height: size.height * 0.02,
                                             ),
                                             TextFormField(
-                                            //   controller: emailsControl![index],
+                                              controller: emailsController[email],
                                               validator: (String? value) {
                                                 if (value!.isEmpty) {
                                                   return "Email is not valid";
@@ -853,21 +612,12 @@ Map<String,dynamic> cardsData={
                                               },
                                               decoration: InputDecoration(
                                                   hintText: 'Email',
-                                                  contentPadding:
-                                                      const EdgeInsets.only(
-                                                          top: 0.0,
-                                                          left: 22.0,
-                                                          bottom: 2.0),
-                                                  hintStyle: TextStyle(
-                                                      fontSize:
-                                                          size.width * 0.04,
-                                                      color: infocolor),
+                                                  contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                                  hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                                   fillColor: Colors.white,
                                                   filled: true,
                                                   border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25),
+                                                    borderRadius: BorderRadius.circular(25),
                                                   )),
                                             ),
                                           ],
@@ -881,9 +631,7 @@ Map<String,dynamic> cardsData={
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       'Company',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.02,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                     )),
                                 SizedBox(
                                   height: size.height * 0.03,
@@ -900,16 +648,12 @@ Map<String,dynamic> cardsData={
                                     },
                                     decoration: InputDecoration(
                                         hintText: 'Company Name',
-                                        contentPadding: const EdgeInsets.only(
-                                            top: 0.0, left: 22.0, bottom: 2.0),
-                                        hintStyle: TextStyle(
-                                            fontSize: size.width * 0.04,
-                                            color: infocolor),
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                         fillColor: Colors.white,
                                         filled: true,
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
+                                          borderRadius: BorderRadius.circular(25),
                                         )),
                                   ),
                                 ),
@@ -928,16 +672,12 @@ Map<String,dynamic> cardsData={
                                     },
                                     decoration: InputDecoration(
                                         hintText: 'Website',
-                                        contentPadding: const EdgeInsets.only(
-                                            top: 0.0, left: 22.0, bottom: 2.0),
-                                        hintStyle: TextStyle(
-                                            fontSize: size.width * 0.04,
-                                            color: infocolor),
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                         fillColor: Colors.white,
                                         filled: true,
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
+                                          borderRadius: BorderRadius.circular(25),
                                         )),
                                   ),
                                 ),
@@ -956,16 +696,12 @@ Map<String,dynamic> cardsData={
                                     },
                                     decoration: InputDecoration(
                                         hintText: 'Field',
-                                        contentPadding: const EdgeInsets.only(
-                                            top: 0.0, left: 22.0, bottom: 2.0),
-                                        hintStyle: TextStyle(
-                                            fontSize: size.width * 0.04,
-                                            color: infocolor),
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                         fillColor: Colors.white,
                                         filled: true,
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
+                                          borderRadius: BorderRadius.circular(25),
                                         )),
                                   ),
                                 ),
@@ -976,9 +712,7 @@ Map<String,dynamic> cardsData={
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       'Address',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.02,
-                                          fontFamily: 'MBold'),
+                                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                     )),
                                 SizedBox(
                                   height: size.height * 0.03,
@@ -1170,8 +904,7 @@ Map<String,dynamic> cardsData={
                                   height: size.height * 0.03,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   // crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     // Container(
@@ -1214,11 +947,7 @@ Map<String,dynamic> cardsData={
                                           },
                                           decoration: InputDecoration(
                                               hintText: 'Postal Code',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                      top: 0.0,
-                                                      left: 15.0,
-                                                      bottom: 2.0),
+                                              contentPadding: const EdgeInsets.only(top: 0.0, left: 15.0, bottom: 2.0),
                                               hintStyle: TextStyle(
                                                 fontSize: size.height * 0.02,
                                                 color: infocolor,
@@ -1227,8 +956,7 @@ Map<String,dynamic> cardsData={
                                               fillColor: Colors.white,
                                               filled: true,
                                               border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
+                                                borderRadius: BorderRadius.circular(25),
                                               )),
                                         ),
                                       ),
@@ -1248,11 +976,7 @@ Map<String,dynamic> cardsData={
                                         },
                                         decoration: InputDecoration(
                                             hintText: 'Address',
-                                            contentPadding:
-                                                const EdgeInsets.only(
-                                                    top: 0.0,
-                                                    left: 22.0,
-                                                    bottom: 2.0),
+                                            contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
                                             hintStyle: TextStyle(
                                               fontSize: size.height * 0.02,
                                               color: infocolor,
@@ -1261,8 +985,7 @@ Map<String,dynamic> cardsData={
                                             fillColor: Colors.white,
                                             filled: true,
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
+                                              borderRadius: BorderRadius.circular(25),
                                             )),
                                       ),
                                     ),
@@ -1273,19 +996,16 @@ Map<String,dynamic> cardsData={
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    setState(() {
-                                      addAnotherPage++;
-                                    });
+                                    // setState(() {
+                                    //   addAnotherPage++;
+                                    // });
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
                                         '+ Add Another',
-                                        style: TextStyle(
-                                            fontSize: size.height * 0.02,
-                                            color: cgreen,
-                                            fontFamily: 'Stf'),
+                                        style: TextStyle(fontSize: size.height * 0.02, color: cgreen, fontFamily: 'Stf'),
                                       ),
                                       const SizedBox(
                                         width: 10,
@@ -1310,13 +1030,12 @@ Map<String,dynamic> cardsData={
                         }),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(left: size.width*0.02),
+                    padding: EdgeInsets.only(left: size.width * 0.02),
                     child: Container(
                         alignment: Alignment.topLeft,
                         child: Text(
                           'Time & Location',
-                          style: TextStyle(
-                              fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                          style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                         )),
                   ),
                   SizedBox(
@@ -1339,19 +1058,12 @@ Map<String,dynamic> cardsData={
                               controller: meetingDateTimeControllor,
                               decoration: InputDecoration(
                                   hintText: meetingDatetime != null
-                                      ? DateFormat('EEEE').format(DateTime.parse(
-                                              meetingDatetime.toString())) +
+                                      ? DateFormat('EEEE').format(DateTime.parse(meetingDatetime.toString())) +
                                           ", " +
-                                          DateFormat.yMMMd()
-                                              .format(DateTime.parse(
-                                                  meetingDatetime.toString()))
-                                              .toString()
+                                          DateFormat.yMMMd().format(DateTime.parse(meetingDatetime.toString())).toString()
                                       : 'Date & Time',
-                                  contentPadding: const EdgeInsets.only(
-                                      top: 0.0, left: 22.0, bottom: 2.0),
-                                  hintStyle: TextStyle(
-                                      fontSize: size.width * 0.04,
-                                      color: Colors.black),
+                                  contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                  hintStyle: TextStyle(fontSize: size.width * 0.04, color: Colors.black),
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(
@@ -1381,17 +1093,14 @@ Map<String,dynamic> cardsData={
                             controller: locationControllor,
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return "Enter Your Loacation";
+                                return "Enter Your Location";
                               }
                               return null;
                             },
                             decoration: InputDecoration(
                                 hintText: 'Location',
-                                contentPadding: const EdgeInsets.only(
-                                    top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(
-                                    fontSize: size.width * 0.04,
-                                    color: infocolor),
+                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
                                 fillColor: Colors.white,
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -1411,13 +1120,12 @@ Map<String,dynamic> cardsData={
                     height: size.height * 0.03,
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(left: size.width*0.02),
+                    padding: EdgeInsets.only(left: size.width * 0.02),
                     child: Container(
                         alignment: Alignment.topLeft,
                         child: Text(
                           'Group',
-                          style: TextStyle(
-                              fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                          style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                         )),
                   ),
                   SizedBox(
@@ -1425,14 +1133,10 @@ Map<String,dynamic> cardsData={
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => GroupsCardsScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => GroupsCardsScreen()));
                     },
                     child: Padding(
-                    padding:  EdgeInsets.only(left: size.width*0.02),
-
+                      padding: EdgeInsets.only(left: size.width * 0.02),
                       child: Row(
                         children: [
                           SvgPicture.asset(
@@ -1444,8 +1148,7 @@ Map<String,dynamic> cardsData={
                           ),
                           Text(
                             'Ungrouped',
-                            style: TextStyle(
-                                fontSize: size.height * 0.018, fontFamily: "Stf"),
+                            style: TextStyle(fontSize: size.height * 0.018, fontFamily: "Stf"),
                           ),
                         ],
                       ),
@@ -1455,10 +1158,7 @@ Map<String,dynamic> cardsData={
                 ],
               )),
           Container(
-            margin: EdgeInsets.only(
-                top: size.height * 0.2,
-                left: size.width * 0.04,
-                right: size.width * 0.04),
+            margin: EdgeInsets.only(top: size.height * 0.2, left: size.width * 0.04, right: size.width * 0.04),
             height: size.height * 0.2,
             width: size.width,
             child: Card(
