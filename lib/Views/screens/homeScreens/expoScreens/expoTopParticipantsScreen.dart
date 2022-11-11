@@ -98,7 +98,7 @@ class _ExpoTopParticipantsScreenState extends State<ExpoTopParticipantsScreen> {
                     left: size.width * 0.04,
                     right: size.width * 0.04,
                     top: size.height * 0.02),
-                child:Globals.expoDetailModel!.data!.participants!=null? Column(
+                child:Globals.expoDetailModel!.expoDetaildata!.participants!=null? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -113,7 +113,7 @@ class _ExpoTopParticipantsScreenState extends State<ExpoTopParticipantsScreen> {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
-                  Globals.expoDetailModel!.data!.participants!.isNotEmpty?  Container(
+                  Globals.expoDetailModel!.expoDetaildata!.participants!.isNotEmpty?  Container(
                         height: size.height * 0.25,
                         width: size.width,
                         decoration: BoxDecoration(
@@ -130,7 +130,7 @@ class _ExpoTopParticipantsScreenState extends State<ExpoTopParticipantsScreen> {
                               childAspectRatio: 4/ 4,
                               // mainAxisExtent: 150,
                             ),
-                            itemCount: Globals.expoDetailModel!.data!.participants!.length,
+                            itemCount: Globals.expoDetailModel!.expoDetaildata!.participants!.length,
                             itemBuilder: (BuildContext ctx, index) {
                               return Padding(
                                 padding:  EdgeInsets.only(left: size.width*0.03,right: size.width*0.03,top: size.height*0.01),
@@ -139,17 +139,17 @@ class _ExpoTopParticipantsScreenState extends State<ExpoTopParticipantsScreen> {
                                   children: [
                                     CircleAvatar(
                                       radius: size.height * 0.02,
-                                     backgroundImage: NetworkImage(Globals.expoDetailModel!.data!.participants![index].image.toString()),
+                                     backgroundImage: NetworkImage(Globals.expoDetailModel!.expoDetaildata!.participants![index].image.toString()),
                                       backgroundColor: infocolor.withOpacity(0.3),
                                     ),
                                     Text(
-                                      Globals.expoDetailModel!.data!.participants![index].title.toString(),
+                                      Globals.expoDetailModel!.expoDetaildata!.participants![index].title.toString(),
                                       style: TextStyle(
                                           fontSize: size.height * 0.013,
                                           fontFamily: "Msemibold"),
                                     ),
                                     Text(
-                                      Globals.expoDetailModel!.data!.participants![index].position.toString(),
+                                      Globals.expoDetailModel!.expoDetaildata!.participants![index].position.toString(),
                                       style: TextStyle(
                                           fontSize: size.height * 0.01,
                                           fontFamily: "Stf",

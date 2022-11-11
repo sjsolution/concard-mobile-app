@@ -114,10 +114,15 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                           ),
                           Row(
                             children: [
-                              Image.asset(
-                                notify_icon,
-                                height: 30,
-                              ),
+                             Stack(
+                                    children: [
+                                      SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                    ],
+                                  ),
                             ],
                           )
                         ],
@@ -159,7 +164,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                     CircleAvatar(
                                       radius: size.height * 0.05,
                                       backgroundImage: NetworkImage(Globals
-                                          .expoDetailModel!.data!.image
+                                          .expoDetailModel!.expoDetaildata!.image
                                           .toString()),
                                       backgroundColor: Colors.white,
                                     ),
@@ -170,7 +175,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                       children: [
                                         Text(
                                           Globals
-                                              .expoDetailModel!.data!.badgeName
+                                              .expoDetailModel!.expoDetaildata!.badgeName
                                               .toString(),
                                           style: TextStyle(
                                               fontSize: size.height * 0.017,
@@ -180,10 +185,10 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           height: size.height * 0.01,
                                         ),
                                         Text(
-                                          Globals.expoDetailModel!.data!
+                                          Globals.expoDetailModel!.expoDetaildata!
                                                       .location !=
                                                   null
-                                              ? Globals.expoDetailModel!.data!
+                                              ? Globals.expoDetailModel!.expoDetaildata!
                                                   .location
                                                   .toString()
                                               : '',
@@ -278,7 +283,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                           SizedBox(
                             height: size.height * 0.02,
                           ),
-                          Globals.expoDetailModel!.data!.categories != null
+                          Globals.expoDetailModel!.expoDetaildata!.categories != null
                               ? Container(
                             // height: size.height,
                             width: size.width,
@@ -291,7 +296,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                               child: Wrap(
                               children: 
                                 List.generate(
-                              Globals.expoDetailModel?.data?.categories?.length == null ? 0:Globals.expoDetailModel!.data!.categories!.length ,(index){
+                              Globals.expoDetailModel?.expoDetaildata?.categories?.length == null ? 0:Globals.expoDetailModel!.expoDetaildata!.categories!.length ,(index){
                                                   return Padding(
                                                     padding: const EdgeInsets.all(3),
                                                     child: Container(
@@ -308,7 +313,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                                   0.02,top: size.height*0.01,bottom: size.width*0.01),
                                                           child: Text(
                                                             // 'Laptop,Mac,Apple,Iphone,Airpods,Android',
-                                                 Globals.expoDetailModel!.data!.categories![index].title
+                                                 Globals.expoDetailModel!.expoDetaildata!.categories![index].title
                                                                 .toString(),
                                                             style: TextStyle(
                                                                 fontSize:
@@ -369,22 +374,22 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           width: size.width * 0.02,
                                         ),
                                         Text(
-                                          Globals.expoDetailModel!.data!
-                                                      .dateTime !=
+                                          Globals.expoDetailModel!.expoDetaildata!.startDateTime
+                                                     !=
                                                   null
                                               ? DateFormat('EEEE').format(
                                                       DateTime.parse(Globals
                                                           .expoDetailModel!
-                                                          .data!
-                                                          .dateTime
+                                                          .expoDetaildata!
+                                                          .startDateTime
                                                           .toString())) +
                                                   ", " +
                                                   DateFormat.yMMMd()
                                                       .format(DateTime.parse(
                                                           Globals
                                                               .expoDetailModel!
-                                                              .data!
-                                                              .dateTime
+                                                              .expoDetaildata!
+                                                              .startDateTime
                                                               .toString()))
                                                       .toString()
                                               : '',
@@ -407,14 +412,14 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                           width: size.width * 0.02,
                                         ),
                                         Text(
-                                          Globals.expoDetailModel!.data!
-                                                      .dateTime !=
+                                          Globals.expoDetailModel!.expoDetaildata!
+                                                      .startDateTime!=
                                                   null
                                               ? DateFormat('KK:mm a')
                                                   .format(DateTime.parse(Globals
                                                       .expoDetailModel!
-                                                      .data!
-                                                      .dateTime
+                                                      .expoDetaildata!
+                                                      .startDateTime
                                                       .toString()))
                                                   .toString()
                                               : '',
@@ -458,7 +463,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    Globals.expoDetailModel!.data!.description
+                                    Globals.expoDetailModel!.expoDetaildata!.description
                                         .toString(),
                                     style: TextStyle(
                                         fontSize: size.height * 0.015,
@@ -503,7 +508,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                           SizedBox(
                             height: size.height * 0.02,
                           ),
-                          Globals.expoDetailModel!.data!.participants != null
+                          Globals.expoDetailModel!.expoDetaildata!.participants != null
                               ? Container(
                                   height: size.height * 0.1,
                                   width: size.width,
@@ -511,12 +516,12 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                     color: bckgrnd,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Globals.expoDetailModel!.data!
+                                  child: Globals.expoDetailModel!.expoDetaildata!
                                           .participants!.isNotEmpty
                                       ? ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: Globals.expoDetailModel!
-                                              .data!.participants!.length,
+                                              .expoDetaildata!.participants!.length,
                                           itemBuilder:
                                               (context, participantsIndex) {
                                             return Padding(
@@ -533,7 +538,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                             size.height * 0.02,
                                                         backgroundImage: NetworkImage(Globals
                                                                 .expoDetailModel!
-                                                                .data!
+                                                                .expoDetaildata!
                                                                 .participants![
                                                                     participantsIndex]
                                                                 .image
@@ -548,7 +553,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                       Text(
                                                         Globals
                                                             .expoDetailModel!
-                                                            .data!
+                                                            .expoDetaildata!
                                                             .participants![
                                                                 participantsIndex]
                                                             .title
@@ -563,7 +568,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                                       Text(
                                                         Globals
                                                             .expoDetailModel!
-                                                            .data!
+                                                            .expoDetaildata!
                                                             .participants![
                                                                 participantsIndex]
                                                             .position

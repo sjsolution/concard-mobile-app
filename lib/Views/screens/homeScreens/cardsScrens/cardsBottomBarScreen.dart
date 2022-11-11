@@ -125,19 +125,19 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                           isScrollable: true,
                                           tabs: [
                                             Text(
-                                              'All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',
+                                              'All Cards (${Globals.cardListModal!.cardListType!.allCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',
+                                              'Reached Concards (${Globals.cardListModal!.cardListType!.reachedCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',
+                                              'Favourites (${Globals.cardListModal!.cardListType!.favouriteCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',
+                                              'Saved Concards (${Globals.cardListModal!.cardListType!.savedCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                           ]),

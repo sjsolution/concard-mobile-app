@@ -33,9 +33,10 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
   // List<>? badgeList = [];
   getListOfExpoBadge() async {
     Globals.expoBadgeListModal= await ExpoController().getExpoBadgeList();
+    print('Expo Home'+ Globals.expoBadgeListModal.toString());
+
     setState(() {});
 
-    print('Expo Home'+ Globals.expoBadgeListModal.toString());
 
 //     for(int i=0; i< Globals.expoBadgeListModal!.data!.length; i++ ){
 
@@ -95,10 +96,15 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   width: size.width * 0.03,
                                 ),
                                 InkWell(
-                                    child: Image.asset(
-                                  notify_icon,
-                                  height: 30,
-                                )),
+                                    child: Stack(
+                                    children: [
+                                      SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                    ],
+                                  ),),
                                 SizedBox(
                                   width: size.width * 0.03,
                                 ),
@@ -375,14 +381,14 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                               child: ListView.builder(
                                   padding: const EdgeInsets.all(0),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: Globals.expoBadgeListModal!.data!.top!.length,
+                                  itemCount: Globals.expoBadgeListModal!.expoListData!.top!.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (_) => ExpoDetailsScreen(id: Globals.expoBadgeListModal!.data!.top![index].id.toString())));
+                                                builder: (_) => ExpoDetailsScreen(id: Globals.expoBadgeListModal!.expoListData!.top![index].id.toString())));
                                       },
                                       child: SizedBox(
                                         width: size.width * 0.32,
@@ -394,7 +400,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                             children: [
                                               // SizedBox(height: 20,),
                                               Image.network(
-                                                    Globals.expoBadgeListModal!.data!.top![index].image.toString(),
+                                                    Globals.expoBadgeListModal!.expoListData!.top![index].image.toString(),
                                                     height: size.height * 0.05,
                                                   ) ??
                                                   SvgPicture.asset(
@@ -405,12 +411,12 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                 height: size.height * 0.03,
                                               ),
                                               Text(
-                                                Globals.expoBadgeListModal!.data!.top![index].badgeName.toString(),
+                                                Globals.expoBadgeListModal!.expoListData!.top![index].badgeName.toString(),
                                                 style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Msemibold"),
                                               ),
                                               Text(
-                                                Globals.expoBadgeListModal!.data!.top![index].location != null
-                                                    ? Globals.expoBadgeListModal!.data!.top![index].location.toString()
+                                                Globals.expoBadgeListModal!.expoListData!.top![index].location != null
+                                                    ? Globals.expoBadgeListModal!.expoListData!.top![index].location.toString()
                                                     : '',
                                                 style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Stf", color: infocolor),
                                               ),
@@ -457,7 +463,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                               child: ListView.builder(
                                   padding: const EdgeInsets.all(0),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: Globals.expoBadgeListModal!.data!.nearBy!.length,
+                                  itemCount: Globals.expoBadgeListModal!.expoListData!.nearBy!.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
@@ -465,7 +471,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (_) =>
-                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.data!.nearBy![index].id.toString())));
+                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.expoListData!.nearBy![index].id.toString())));
                                       },
                                       child: SizedBox(
                                         width: size.width * 0.32,
@@ -476,7 +482,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 Image.network(
-                                                      Globals.expoBadgeListModal!.data!.nearBy![index].image.toString(),
+                                                      Globals.expoBadgeListModal!.expoListData!.nearBy![index].image.toString(),
                                                       height: size.height * 0.05,
                                                     ) ??
                                                     SvgPicture.asset(
@@ -487,12 +493,12 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                   height: size.height * 0.03,
                                                 ),
                                                 Text(
-                                                  Globals.expoBadgeListModal!.data!.nearBy![index].badgeName.toString(),
+                                                  Globals.expoBadgeListModal!.expoListData!.nearBy![index].badgeName.toString(),
                                                   style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Msemibold"),
                                                 ),
                                                 Text(
-                                                  Globals.expoBadgeListModal!.data!.nearBy![index].location != null
-                                                      ? Globals.expoBadgeListModal!.data!.nearBy![index].location.toString()
+                                                  Globals.expoBadgeListModal!.expoListData!.nearBy![index].location != null
+                                                      ? Globals.expoBadgeListModal!.expoListData!.nearBy![index].location.toString()
                                                       : '',
                                                   style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Stf", color: infocolor),
                                                 ),
@@ -538,7 +544,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                               child: ListView.builder(
                                   padding: const EdgeInsets.all(0),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: Globals.expoBadgeListModal!.data!.ongoing!.length,
+                                  itemCount: Globals.expoBadgeListModal!.expoListData!.ongoing!.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
@@ -546,7 +552,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (_) =>
-                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.data!.ongoing![index].id.toString())));
+                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.expoListData!.ongoing![index].id.toString())));
                                       },
                                       child: SizedBox(
                                         width: size.width * 0.32,
@@ -557,7 +563,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                             mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
                                               Image.network(
-                                                    Globals.expoBadgeListModal!.data!.ongoing![index].image.toString(),
+                                                    Globals.expoBadgeListModal!.expoListData!.ongoing![index].image.toString(),
                                                     height: size.height * 0.05,
                                                   ) ??
                                                   SvgPicture.asset(
@@ -568,12 +574,12 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                 height: size.height * 0.03,
                                               ),
                                               Text(
-                                                Globals.expoBadgeListModal!.data!.ongoing![index].badgeName.toString(),
+                                                Globals.expoBadgeListModal!.expoListData!.ongoing![index].badgeName.toString(),
                                                 style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Msemibold"),
                                               ),
                                               Text(
-                                                Globals.expoBadgeListModal!.data!.ongoing![index].location != null
-                                                    ? Globals.expoBadgeListModal!.data!.ongoing![index].location.toString()
+                                                Globals.expoBadgeListModal!.expoListData!.ongoing![index].location != null
+                                                    ? Globals.expoBadgeListModal!.expoListData!.ongoing![index].location.toString()
                                                     : '',
                                                 style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Stf", color: infocolor),
                                               ),
@@ -620,7 +626,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                               child: ListView.builder(
                                   padding: const EdgeInsets.all(0),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: Globals.expoBadgeListModal!.data!.upcoming!.length,
+                                  itemCount: Globals.expoBadgeListModal!.expoListData!.upcoming!.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
@@ -628,7 +634,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (_) =>
-                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.data!.upcoming![index].id.toString())));
+                                                    ExpoDetailsScreen(id: Globals.expoBadgeListModal!.expoListData!.upcoming![index].id.toString())));
                                       },
                                       child: SizedBox(
                                         width: size.width * 0.32,
@@ -639,7 +645,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                               mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 Image.network(
-                                                      Globals.expoBadgeListModal!.data!.upcoming![index].image.toString(),
+                                                      Globals.expoBadgeListModal!.expoListData!.upcoming![index].image.toString(),
                                                       height: size.height * 0.05,
                                                     ) ??
                                                     SvgPicture.asset(
@@ -650,12 +656,12 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                   height: size.height * 0.03,
                                                 ),
                                                 Text(
-                                                  Globals.expoBadgeListModal!.data!.upcoming![index].badgeName.toString(),
+                                                  Globals.expoBadgeListModal!.expoListData!.upcoming![index].badgeName.toString(),
                                                   style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Msemibold"),
                                                 ),
                                                 Text(
-                                                  Globals.expoBadgeListModal!.data!.upcoming![index].location != null
-                                                      ? Globals.expoBadgeListModal!.data!.upcoming![index].location.toString()
+                                                  Globals.expoBadgeListModal!.expoListData!.upcoming![index].location != null
+                                                      ? Globals.expoBadgeListModal!.expoListData!.upcoming![index].location.toString()
                                                       : '',
                                                   style: TextStyle(fontSize: size.height * 0.012, fontFamily: "Stf", color: infocolor),
                                                 ),
