@@ -35,6 +35,7 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
     Globals.expoFilterListModal=null;
     Globals.expoFilterListModal =
         await ExpoController().expoBadgeFilter(expoType);
+        print('List type.......'+Globals.expoFilterListModal.toString());
     // print('12344.............' + Globals.expoFilterListModal.toString());
     setState(() {});
   }
@@ -100,10 +101,15 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                           ),
                           Row(
                             children: [
-                              Image.asset(
-                                notify_icon,
-                                height: 30,
-                              ),
+                              Stack(
+                                    children: [
+                                      SvgPicture.asset(bellIcon),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: SvgPicture.asset(notifyDot),
+                                      ),
+                                    ],
+                                  ),
                             ],
                           )
                         ],
@@ -246,13 +252,13 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                         ? Container(
                             child: GestureDetector(
                              
-                              child: Globals.expoFilterListModal!.data!.list!
+                              child: Globals.expoFilterListModal!.expoListType!.listData!
                                       .isNotEmpty
                                   ? ListView.builder(
                                       padding: const EdgeInsets.all(0),
                                       scrollDirection: Axis.vertical,
                                       itemCount: Globals.expoFilterListModal!
-                                          .data!.list!.length,
+                                          .expoListType!.listData!.length,
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                            onTap: () {
@@ -260,7 +266,7 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            ExpoDetailsScreen(id: Globals.expoFilterListModal!.data!.list![index].id.toString(),)));
+                                            ExpoDetailsScreen(id: Globals.expoFilterListModal!.expoListType!.listData![index].id.toString(),)));
                               },
                                           child: Container(
                                             margin: EdgeInsets.only(
@@ -271,8 +277,8 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                                                   radius: size.height * 0.025,
                                                  backgroundImage: NetworkImage( Globals
                                                                   .expoFilterListModal!
-                                                                  .data!
-                                                                  .list![index].image.toString()),
+                                                                  .expoListType!
+                                                                  .listData![index].image.toString()),
                                                   backgroundColor: Colors.white,
                                                 ),
                                                 SizedBox(
@@ -285,8 +291,8 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                                                     Text(
                                                       Globals
                                                           .expoFilterListModal!
-                                                          .data!
-                                                          .list![index]
+                                                          .expoListType!
+                                                          .listData![index]
                                                           .badgeName
                                                           .toString(),
                                                       style: TextStyle(
@@ -298,14 +304,14 @@ class _ExpoSeeAllScreenState extends State<ExpoSeeAllScreen> {
                                                     Text(
                                                       Globals
                                                                   .expoFilterListModal!
-                                                                  .data!
-                                                                  .list![index]
+                                                                  .expoListType!
+                                                                  .listData![index]
                                                                   .location !=
                                                               null
                                                           ? Globals
                                                               .expoFilterListModal!
-                                                              .data!
-                                                              .list![index]
+                                                              .expoListType!
+                                                              .listData![index]
                                                               .location!
                                                           : '',
                                                       style: TextStyle(

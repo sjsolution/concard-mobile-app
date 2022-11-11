@@ -138,7 +138,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         SizedBox(
           height: size.height * 0.01,
         ),
-        Globals.cardListModal!.cardListData != null
+        Globals.cardListModal!.cardListType != null
             ? GestureDetector(
                 onLongPress: () {
                   setState(() {
@@ -151,16 +151,16 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                     child: ListView.builder(
                       padding: const EdgeInsets.all(0),
                       scrollDirection: Axis.vertical,
-                      itemCount: Globals.cardListModal!.cardListData!.cards!.length,
+                      itemCount: Globals.cardListModal!.cardListType!.cards!.length,
                       itemBuilder: (context, index) {
-                        return Globals.cardListModal!.cardListData!.cards != null && Globals.cardListModal!.cardListData!.cards != ''
+                        return Globals.cardListModal!.cardListType!.cards != null && Globals.cardListModal!.cardListType!.cards != ''
                             ? InkWell(
                                 onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => ContactProfileViewScreen(
-                                                id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
+                                                id: Globals.cardListModal!.cardListType!.cards![index].id.toString(),
                                               )));
                                 },
                                 child: Column(
@@ -236,7 +236,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                         typeNumber: 4,
                                                                         size: size.height * 0.01,
                                                                         data:
-                                                                            '${Globals.cardListModal!.cardListData!.cards![index].userId.toString() ?? "0"}',
+                                                                            '${Globals.cardListModal!.cardListType!.cards![index].userId.toString() ?? "0"}',
                                                                         errorCorrectLevel: QrErrorCorrectLevel.M,
                                                                         roundEdges: true,
                                                                       ),
@@ -253,7 +253,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
                                                                       Text(
-                                                                        "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
+                                                                        "${Globals.cardListModal!.cardListType!.cards![index].username.toString() ?? ''}",
                                                                         style: TextStyle(
                                                                           fontSize: size.height * 0.007,
                                                                           color: signupclor_dark,
@@ -261,7 +261,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                         ),
                                                                       ),
                                                                       Text(
-                                                                        "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
+                                                                        "${Globals.cardListModal!.cardListType!.cards![index].jobTitle.toString() ?? ''}",
                                                                         style: TextStyle(
                                                                           fontSize: size.height * 0.007,
                                                                           color: signupclor_dark,
@@ -285,7 +285,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                                "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
+                                                                                "${Globals.cardListModal!.cardListType!.cards![index].address.toString()}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.006,
                                                                                   color: signupclor_dark,
@@ -311,7 +311,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                           SizedBox(
                                                                             width: size.width * 0.15,
                                                                             child: Text(
-                                                                              Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
+                                                                              Globals.cardListModal!.cardListType!.cards![index].mobileNo ?? '',
                                                                               style: TextStyle(
                                                                                 fontSize: size.height * 0.006,
                                                                                 color: signupclor_dark,
@@ -339,7 +339,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                               SizedBox(
                                                                                 width: size.width * 0.15,
                                                                                 child: Text(
-                                                                                  Globals.cardListModal!.cardListData!.cards![index].email
+                                                                                  Globals.cardListModal!.cardListType!.cards![index].email
                                                                                           .toString() ??
                                                                                       '',
                                                                                   style: TextStyle(
@@ -370,7 +370,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                                                               SizedBox(
                                                                                 width: size.width * 0.15,
                                                                                 child: Text(
-                                                                                  "${Globals.cardListModal!.cardListData!.cards![index].website}",
+                                                                                  "${Globals.cardListModal!.cardListType!.cards![index].website}",
                                                                                   style: TextStyle(
                                                                                     fontSize: size.height * 0.006,
                                                                                     color: signupclor_dark,
@@ -400,7 +400,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  Globals.cardListModal!.cardListData!.cards![index].companyName.toString(),
+                                                  Globals.cardListModal!.cardListType!.cards![index].companyName.toString(),
                                                   style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                                 ),
                                                 SizedBox(
