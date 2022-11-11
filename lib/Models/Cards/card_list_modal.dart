@@ -99,30 +99,31 @@
 //     this.user,
 //   });
 
-//   Cards.fromJson(Map<String, dynamic> json)
-//       : id = json['id'] as int?,
-//         userId = json['user_id'] as String?,
-//         isFavourite = json['is_favourite'] as bool?,
-//         companyName = json['company_name'] as String?,
-//         website = json['website'] as String?,
-//         field = json['field'] as String?,
-//         workPhone = json['work_phone'] as String?,
-//         mobileNo = json['mobile_no'] as String?,
-//         email = json['email'] as String?,
-//         city = json['city'] as String?,
-//         province = json['province'] as String?,
-//         country = json['country'] as String?,
-//         postalCode = json['postal_code'] as String?,
-//         address = json['address'] as String?,
-//         birthDate = json['birth_date'],
-//         username = json['username'],
-//         meetingDateTime = json['meeting_date_time'],
-//         jobTitle = json['job_title'] as String?,
-//         location = json['location'],
-//         createdAt = json['created_at'] as String?,
-//         updatedAt = json['updated_at'] as String?,
-//         pivot = (json['pivot'] as Map<String, dynamic>?) != null ? Pivot.fromJson(json['pivot'] as Map<String, dynamic>) : null,
-//         user = (json['user'] as Map<String, dynamic>?) != null ? User.fromJson(json['user'] as Map<String, dynamic>) : null;
+  Cards.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        userId = json['user_id'].toString(),
+        isFavourite = json['is_favourite'] as bool?,
+        companyName = json['company_name'].toString(),
+        website = json['website'].toString(),
+        field = json['field'].toString(),
+        workPhone = json['work_phone'].toString(),
+        mobileNo = json['mobile_no'].toString(),
+        email = json['email'].toString(),
+        city = json['city'].toString(),
+        province = json['province'].toString(),
+        country = json['country'].toString(),
+        postalCode = json['postal_code'].toString(),
+        address = json['address'].toString(),
+        birthDate = json['birth_date'].toString(),
+        username = json['username'].toString(),
+        meetingDateTime = json['meeting_date_time'].toString(),
+        jobTitle = json['job_title'].toString(),
+        location = json['location'],
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        pivot = (json['pivot'] as Map<String, dynamic>?) != null ? Pivot.fromJson(json['pivot'] as Map<String, dynamic>) : null,
+        user = (json['user'] as Map<String, dynamic>?) != null ? User.fromJson(json['user'] as Map<String, dynamic>) : null;
+
 
 //   Map<String, dynamic> toJson() => {
 //         'id': id,
@@ -159,9 +160,10 @@
 //     this.cardId,
 //   });
 
-//   Pivot.fromJson(Map<String, dynamic> json)
-//       : userId = json['user_id'] as String?,
-//         cardId = json['card_id'] as String?;
+
+  Pivot.fromJson(Map<String, dynamic> json)
+      : userId = json['user_id'].toString(),
+        cardId = json['card_id'].toString();
 
 //   Map<String, dynamic> toJson() => {'user_id': userId, 'card_id': cardId};
 // }
@@ -221,32 +223,34 @@
 //     this.profileImage,
 //   });
 
-//   User.fromJson(Map<String, dynamic> json)
-//       : id = json['id'] as int?,
-//         firstName = json['first_name'] as String?,
-//         lastName = json['last_name'] as String?,
-//         mobileNumber = json['mobile_number'] as String?,
-//         email = json['email'] as String?,
-//         userType = json['user_type'] as String?,
-//         emailVerifiedAt = json['email_verified_at'],
-//         jobTitle = json['job_title'] as String?,
-//         website = json['website'] as String?,
-//         companyName = json['company_name'] as String?,
-//         companyField = json['company_field'] as String?,
-//         about = json['about'] as String?,
-//         workTel = json['work_tel'] as String?,
-//         mobileTel = json['mobile_tel'],
-//         city = json['city'] as String?,
-//         state = json['state'] as String?,
-//         country = json['country'] as String?,
-//         postalCode = json['postal_code'] as String?,
-//         address = json['address'] as String?,
-//         createdAt = json['created_at'] as String?,
-//         updatedAt = json['updated_at'] as String?,
-//         image = json['image'] as String?,
-//         card = json['card'] as String?,
-//         logo = json['logo'] as String?,
-//         profileImage = json['profileImage'] as String?;
+
+  User.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        firstName = json['first_name'].toString(),
+        lastName = json['last_name'].toString(),
+        mobileNumber = json['mobile_number'].toString(),
+        email = json['email'] as String?,
+        userType = json['user_type'].toString(),
+        emailVerifiedAt = json['email_verified_at'],
+        jobTitle = json['job_title'] as String?,
+        website = json['website'] as String?,
+        companyName = json['company_name'] as String?,
+        companyField = json['company_field'] as String?,
+        about = json['about'] as String?,
+        workTel = json['work_tel'].toString(),
+        mobileTel = json['mobile_tel'].toString(),
+        city = json['city'] as String?,
+        state = json['state'] as String?,
+        country = json['country'] as String?,
+        postalCode = json['postal_code'].toString(),
+        address = json['address'] as String?,
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        image = json['image'] as String?,
+        card = json['card'] as String?,
+        logo = json['logo'] as String?,
+        profileImage = json['profileImage'] as String?;
+
 
 //   Map<String, dynamic> toJson() => {
 //         'id': id,

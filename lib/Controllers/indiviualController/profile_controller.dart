@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import 'package:concard/Constants/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
 
 class ProfileController {
   ServicesClass services = ServicesClass();
@@ -28,14 +27,11 @@ class ProfileController {
         }),
       );
       if (response.statusCode == 200) {
-        // var uri = json.decode(response.data);
         IndividualProfileModel? profModel = IndividualProfileModel.fromJson(response.data);
-        print("returning data");
-        print("this is responce" + profModel.toString());
-        Provider.of<AppProvider>(context, listen: false).individualProfileModel = profModel;
+        Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = profModel;
         return profModel;
       } else {
-        print("there is a problem here");
+        print("There is a problem here");
         return null;
       }
     } catch (e) {

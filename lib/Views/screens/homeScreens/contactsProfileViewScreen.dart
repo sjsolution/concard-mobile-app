@@ -1,6 +1,7 @@
 import 'package:concard/Controllers/CardsController/card_controller.dart';
 import 'package:concard/Controllers/RatingsController/add_rating_controller.dart';
 import 'package:concard/Controllers/notes_controller/notes_controller.dart';
+import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
 import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Views/screens/homeScreens/inviteContact.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
 import '../../widgets/shimmer_widgets.dart';
 import 'individualPremium/individualPremiumScreen.dart';
+import 'package:concard/Views/widgets/loader_widget.dart';
 
 class ContactProfileViewScreen extends StatefulWidget {
   ContactProfileViewScreen({
@@ -307,8 +309,8 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                 style: TextStyle(fontSize: size.height * 0.009, fontFamily: "Msemibold", color: bckgrnd),
                               ),
                               InkWell(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=>InviteContactToBecameConcardMember()));
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => InviteContactToBecameConcardMember()));
                                 },
                                 child: Container(
                                   height: size.height * 0.03,
@@ -320,7 +322,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                   child: Center(
                                     child: Text(
                                       'invite',
-                                      style: TextStyle(fontFamily: "MBold", fontSize: size.height * 0.015, color: bckgrnd),
+                                      style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.015, color: bckgrnd),
                                     ),
                                   ),
                                 ),
@@ -424,6 +426,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {},
+                                                    // => Navigator.push(context, MaterialPageRoute(builder: (context) => EditMyCardScreen())),
                                                     child: Row(
                                                       children: [
                                                         Text(
@@ -946,7 +949,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
               ],
             )
           : Center(
-              child: CircularProgressIndicator(),
+              child: Loader(size: size),
             ),
     );
   }
