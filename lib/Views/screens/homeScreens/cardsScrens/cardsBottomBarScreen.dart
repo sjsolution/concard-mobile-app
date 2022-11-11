@@ -22,6 +22,9 @@ import '../../../../Constants/colors.dart';
 import '../../../widgets/customButton.dart';
 
 class CardsBottomBarScreen extends StatefulWidget {
+   CardsBottomBarScreen({Key? key,this.initialIndex}) : super(key: key);
+int? initialIndex=0;
+
   @override
   State<CardsBottomBarScreen> createState() => _CardsBottomBarScreenState();
 }
@@ -36,7 +39,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
+    // super.initState();
     getCardList();
   }
 
@@ -45,13 +48,12 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
     // print('My Card List........\n' + Globals.cardListModal.toString());
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 4,
-      initialIndex: 0,
+      initialIndex:int.parse(widget.initialIndex.toString()) ,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Stack(
@@ -119,25 +121,23 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                           labelColor: primaryblue,
                                           unselectedLabelColor: Colors.grey,
                                           indicatorColor: btnclr,
-
                                           // labelStyle: ,
-
                                           isScrollable: true,
                                           tabs: [
                                             Text(
-                                              'All Cards (${Globals.cardListModal!.cardListType!.allCardsCounts.toString()})',
+                                              'All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Reached Concards (${Globals.cardListModal!.cardListType!.reachedCardsCounts.toString()})',
+                                              'Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Favourites (${Globals.cardListModal!.cardListType!.favouriteCardsCounts.toString()})',
+                                              'Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                             Text(
-                                              'Saved Concards (${Globals.cardListModal!.cardListType!.savedCardsCounts.toString()})',
+                                              'Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',
                                               style: TextStyle(),
                                             ),
                                           ]),

@@ -34,7 +34,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Globals.cardListModal!.cardListType!=null?  Column(
+    return Globals.cardListModal!.cardListData!=null?  Column(
         children: [
           Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +130,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                     SizedBox(
                       height: size.height * 0.01,
                     ),
-                    Globals.cardListModal!.cardListType != null
+                    Globals.cardListModal!.cardListData != null
                         ? GestureDetector(
                           onLongPress: (){
     
@@ -146,16 +146,16 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                               child: ListView.builder(
                                 padding: const EdgeInsets.all(0),
                                 scrollDirection: Axis.vertical,
-                                itemCount: Globals.cardListModal!.cardListType!.cards!.length,
+                                itemCount: Globals.cardListModal!.cardListData!.cards!.length,
                                 itemBuilder: (context, index) {
-                                  return Globals.cardListModal!.cardListType!.cards != null
+                                  return Globals.cardListModal!.cardListData!.cards != null
                                       ? InkWell(
                                          onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (_) =>
-                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListType!.cards![index].id.toString(),)));
+                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),)));
                             },
                                         child: Column(
                                           children: [
@@ -256,7 +256,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                         .height *
                                                                                     0.01,
                                                                                 data:
-                                                                                    '${Globals.cardListModal!.cardListType!.cards![index].userId.toString() ?? "0"}',
+                                                                                    '${Globals.cardListModal!.cardListData!.cards![index].userId.toString() ?? "0"}',
                                                                                 errorCorrectLevel:
                                                                                     QrErrorCorrectLevel
                                                                                         .M,
@@ -286,7 +286,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                     .start,
                                                                             children: [
                                                                               Text(
-                                                                                "${Globals.cardListModal!.cardListType!.cards![index].username.toString() ?? ''}",
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].username.toString() ?? ''}",
                                                                                 style:
                                                                                     TextStyle(
                                                                                   fontSize:
@@ -299,7 +299,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                 ),
                                                                               ),
                                                                               Text(
-                                                                                "${Globals.cardListModal!.cardListType!.cards![index].jobTitle.toString() ?? ''}",
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString() ?? ''}",
                                                                                 style:
                                                                                     TextStyle(
                                                                                   fontSize:
@@ -333,7 +333,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                         SizedBox(
                                                                                           width: size.width * 0.15,
                                                                                           child: Text(
-                                                                                            "${Globals.cardListModal!.cardListType!.cards![index].address.toString()}",
+                                                                                            "${Globals.cardListModal!.cardListData!.cards![index].address.toString()}",
                                                                                             style: TextStyle(
                                                                                               fontSize: size.height * 0.006,
                                                                                               color: signupclor_dark,
@@ -366,7 +366,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                         0.15,
                                                                                     child:
                                                                                         Text(
-                                                                                      Globals.cardListModal!.cardListType!.cards![index].mobileNo ??
+                                                                                      Globals.cardListModal!.cardListData!.cards![index].mobileNo ??
                                                                                           '',
                                                                                       style:
                                                                                           TextStyle(
@@ -407,7 +407,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                             size.width * 0.15,
                                                                                         child:
                                                                                             Text(
-                                                                                          Globals.cardListModal!.cardListType!.cards![index].email.toString() ?? '',
+                                                                                          Globals.cardListModal!.cardListData!.cards![index].email.toString() ?? '',
                                                                                           style: TextStyle(
                                                                                             fontSize: size.height * 0.004,
                                                                                             color: signupclor_dark,
@@ -443,7 +443,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                             size.width * 0.15,
                                                                                         child:
                                                                                             Text(
-                                                                                          "${Globals.cardListModal!.cardListType!.cards![index].website}",
+                                                                                          "${Globals.cardListModal!.cardListData!.cards![index].website}",
                                                                                           style: TextStyle(
                                                                                             fontSize: size.height * 0.006,
                                                                                             color: signupclor_dark,
@@ -475,9 +475,8 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                           CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          Globals.cardListModal!
-                                                              .cardListType!.cards![index].companyName
-                                                              .toString(),
+                                                         Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   size.height * 0.015,
@@ -487,7 +486,8 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                           height: size.height * 0.02,
                                                         ),
                                                         Text(
-                                                          'Lorem ipsum dolor sit amet',
+                                                         Globals.cardListModal!.cardListData!.cards![index].jobTitle!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].jobTitle.toString():'',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   size.height * 0.01,
@@ -498,7 +498,8 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          'Concsectetuer adipiscing elit, sed fiam',
+                                                         Globals.cardListModal!.cardListData!.cards![index].companyName!=null?
+                                                Globals.cardListModal!.cardListData!.cards![index].companyName.toString():'',
                                                           style: TextStyle(
                                                               fontSize:
                                                                   size.height * 0.01,
@@ -517,7 +518,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                 InkWell(
                                                     onTap: () {
                                                       _optionsModalBottomSheet(
-                                                          context,Globals.cardListModal!.cardListType!.cards![index]);
+                                                          context,Globals.cardListModal!.cardListData!.cards![index]);
                                                       setState(() {
                                                         isMore = true;
                                       
