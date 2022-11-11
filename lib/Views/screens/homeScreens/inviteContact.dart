@@ -22,12 +22,15 @@ class InviteContactToBecameConcardMember extends StatelessWidget {
                   colors: [signupclor_light, signupclor_dark]),
             ),
             child: Padding(
-              padding: EdgeInsets.only(left: size.width*0.04,right: size.width*0.04,top: size.height*0.04),
+              padding: EdgeInsets.only(
+                  left: size.width * 0.04,
+                  right: size.width * 0.04,
+                  top: size.height * 0.03),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: Icon(
@@ -36,36 +39,39 @@ class InviteContactToBecameConcardMember extends StatelessWidget {
                       color: bckgrnd,
                     ),
                   ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        srchIcon,
-                        color: bckgrnd,
-                      ),
-                      Stack(
-                        children: [
-                          SvgPicture.asset(bellIcon),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 10,
+                  Container(
+                    width: size.width * 0.32,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset(
+                          srchIcon,
+                          color: bckgrnd,
+                        ),
+                        Stack(
+                          children: [
+                            SvgPicture.asset(bellIcon),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: 10,
+                              ),
+                              child: SvgPicture.asset(notifyDot),
                             ),
-                            child: SvgPicture.asset(notifyDot),
-                          ),
-                        ],
-                      ),
-                      CircleAvatar(
-                        radius: size.height*0.03,
-                        backgroundImage: NetworkImage(''),
-                      )
-                    ],
+                          ],
+                        ),
+                        CircleAvatar(
+                          radius: size.height * 0.03,
+                          backgroundImage: NetworkImage(''),
+                        )
+                      ],
+                    ),
                   ),
-                
                 ],
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: size.height*0.13),
+            margin: EdgeInsets.only(top: size.height * 0.13),
             // height: size.height*0.8,
             width: size.width,
             decoration: BoxDecoration(
@@ -75,116 +81,185 @@ class InviteContactToBecameConcardMember extends StatelessWidget {
                   topRight: Radius.circular(15),
                 )),
             child: Padding(
-              padding: EdgeInsets.only(left: size.width*0.04,right: size.width*0.04,top: size.height*0.02),
+              padding: EdgeInsets.only(
+                  left: size.width * 0.04,
+                  right: size.width * 0.04,
+                  top: size.height * 0.02),
               child: Column(
-
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: size.height * 0.04,
+                  ),
                   Text(
-                    'Import Contact and Information',
+                    "Let's Invite XXX to become a Concard Member",
+                    style: TextStyle(
+                        fontFamily: 'Msemibold', fontSize: size.height * 0.018),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.08,
+                  ),
+                  Text(
+                    "Invite Via",
                     style: TextStyle(
                         fontFamily: 'MBold', fontSize: size.height * 0.018),
                   ),
-                  SizedBox(height: size.height*0.02,),
-                  Text(
-                    'You can import contacts from other systems to Concard',
-                    style: TextStyle(
-                        fontFamily: 'Stf',
-                        fontSize: size.height * 0.015,
-                        color: signupclor_dark),
-                  ),
-                  SizedBox(height: size.height*0.02,),
                   Container(
-                    height: size.height*0.3,
-                    width: size.width*0.9,
+                    height: size.height * 0.3,
+                    width: size.width * 0.9,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
+                        borderRadius: BorderRadius.circular(15)),
                     child: Padding(
-                      padding: EdgeInsets.only(left: size.width*0.04,right: size.width*0.04,top: size.height*0.04),
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.04,
+                          right: size.width * 0.04,
+                          top: size.height * 0.04),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          Column(
                             children: [
-                              Container(
-                                width: size.width*0.1,
-                                child: SvgPicture.asset(linkedinone_icon)),
-                              SizedBox(width: size.width*0.04,),
-                              Text(
-                                'Import from LinkedIn',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold'
-                                ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SvgPicture.asset(inviteViaSms),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Invite via SMS',
+                                        style: TextStyle(
+                                            fontSize: size.height * 0.018,
+                                            fontFamily: "Stf"),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: size.height * 0.02,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SvgPicture.asset(inviteViaEmail),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Invite via Email',
+                                        style: TextStyle(
+                                            fontSize: size.height * 0.018,
+                                            fontFamily: "Stf"),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: size.height * 0.02,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SvgPicture.asset(inviteViaLink),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Invite via Invitation link',
+                                        style: TextStyle(
+                                            fontSize: size.height * 0.018,
+                                            fontFamily: "Stf"),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: size.height * 0.02,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SvgPicture.asset(inviteViaShare),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 0.03,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Share with other apps',
+                                        style: TextStyle(
+                                            fontSize: size.height * 0.018,
+                                            fontFamily: "Stf"),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: size.height * 0.02,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(height: size.height*0.02,),
-                          Row(
-                            children: [
-                              Container(
-                                 width: size.width*0.1,
-                                child: SvgPicture.asset(googletwo_icon,height: size.height*0.025,)),
-                              SizedBox(width: size.width*0.04,),
-                              Text(
-                                'Import from Google contacts',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold'
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: size.height*0.02,),
-                          Row(
-                            children: [
-                              Container(
-                                 width: size.width*0.1,
-                                child: SvgPicture.asset(outlook_icon)),
-                              SizedBox(width: size.width*0.04,),
-                              Text(
-                                'Import from Outlook contacts',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold'
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: size.height*0.02,),
-                          Row(
-                            children: [
-                              Container(
-                                 width: size.width*0.1,
-                                child: SvgPicture.asset(icloud_icon)),
-                              SizedBox(width: size.width*0.04,),
-                              Text(
-                                'Import from ICloud contacts',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold'
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: size.height*0.02,),
-                          Row(
-                            children: [
-                              Container(
-                                 width: size.width*0.1,
-                                child: SvgPicture.asset(excelsheet_icon,height: size.height*0.03)),
-                              SizedBox(width: size.width*0.04,),
-                              Text(
-                                'Import from  Excel sheet',
-                                style: TextStyle(
-                                    fontSize: size.height * 0.02,
-                                    fontFamily: 'Msemibold'
-                                ),
-                              ),
-                            ],
-                          )
-
                         ],
                       ),
                     ),

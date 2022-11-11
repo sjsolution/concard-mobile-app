@@ -89,25 +89,40 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
               Column(
                 children: [
                   Container(
-                    height: size.height * 0.34,
+                    height: size.height * 0.15,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.08),
+                      padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.06),
                       child: Container(
                         alignment: Alignment.topLeft,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // InkWell(
-                            //   onTap: () => Navigator.pop(context),
-                            //   child: Icon(
-                            //     Icons.arrow_back_ios,
-                            //     size: 20,
-                            //     color: bckgrnd,
-                            //   ),
-                            // ),
+                            InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                size: 20,
+                                color: bckgrnd,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                  Image.asset(edit_icon),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Text(
+                            'Edit my Card',
+                            style: TextStyle(
+                                fontSize: size.height * 0.018,
+                                fontFamily: "MBold",
+                                color: bckgrnd),
+                          ),
+                                ],
+                            ),
                             InkWell(
                               onTap: () async {
                                 // if(formKey.currentState!.validate()){
@@ -136,8 +151,8 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 }
                                 app.setLoadingFalse();
                                 Navigator.pop(context);
-                                setState(() {});
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => const CompanyProfileScreen()));
+                                
+                                
                               },
                               child: SizedBox(
                                 height: size.height * 0.06,
@@ -158,7 +173,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                 ],
               ),
               Container(
-                  margin: EdgeInsets.only(top: size.height * 0.3),
+                  margin: EdgeInsets.only(top: size.height * 0.15),
                   // height: size.height*0.8,
                   width: size.width,
                   decoration: BoxDecoration(
@@ -171,19 +186,11 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                     padding: const EdgeInsets.all(0),
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: size.height * 0.03, left: size.width * 0.04, right: size.width * 0.04),
+                        padding: EdgeInsets.only(top: size.height * 0.01, left: size.width * 0.04, right: size.width * 0.04),
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    'Edit Card',
-                                    style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
-                                  )),
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
+                            
                               Container(
                                   alignment: Alignment.topLeft,
                                   child: Text(
@@ -300,20 +307,68 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: size.height * 0.02,
+                                height: size.height*0.02,
                               ),
+                                Container(
+                        height: size.height*0.05,
+                        width: size.width*0.9,
+                        decoration: BoxDecoration(
+                          color: bckgrnd,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: size.width*0.04,right: size.width*0.01),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Insert Card',style: TextStyle(
+                                fontSize: size.height*0.02,
+                                fontFamily: "Msemibold",
+                                color: infocolor
+                              ),),
                               Container(
-                                  // height: size.height * 0.05,
-                                  width: size.width * 0.9,
-                                  decoration: BoxDecoration(
+                                alignment: Alignment.center,
+                                height: size.height*0.04,
+                                width: size.width*0.2,
+                                decoration:BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                         signupclor_light,
+                                          signupclor_dark
+                                        ]
+                                    ),
+                                    border: Border.all(color: signupclor_dark),
                                     color: bckgrnd,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Colors.grey),
-                                  ),
-                                  child: cardUploadView(size: size, app: app)),
+                                    borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Text('Upload',style: TextStyle(
+                                  fontFamily: "Mbold",
+                                  fontSize: size.height*0.02,
+                                  color: bckgrnd
+                                ),),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                               SizedBox(
                                 height: size.height * 0.03,
                               ),
+                              // Container(
+                              //     // height: size.height * 0.05,
+                              //     width: size.width * 0.9,
+                              //     decoration: BoxDecoration(
+                              //       color: bckgrnd,
+                              //       borderRadius: BorderRadius.circular(20),
+                              //       border: Border.all(color: Colors.grey),
+                              //     ),
+                              //     child: cardUploadView(size: size, app: app)),
+                              // SizedBox(
+                              //   height: size.height * 0.03,
+                              // ),
                               Padding(
                                 padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01),
                                 child: Row(
@@ -625,6 +680,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   ],
                                 ),
                               ),
+                            
                               SizedBox(
                                 height: size.height * 0.03,
                               ),
@@ -635,7 +691,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   Container(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        'Company',
+                                        'Personal',
                                         style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
                                       )),
                                   SizedBox(
@@ -644,11 +700,11 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   CustomCardInputField(
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
-                                        return "Enter company name";
+                                        return "Enter your name";
                                       }
                                       return null;
                                     },
-                                    hinttxt: 'Company Name',
+                                    hinttxt: 'Name',
                                     textInputType: TextInputType.text,
                                     controller: companyNameControl,
                                     icon: null,
@@ -712,7 +768,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   'Work',
                                                   style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.018, color: infocolor),
                                                 ),
-                                                // Image.asset(downarrow_icon)
+                                                Image.asset(downarrow_icon)
                                               ],
                                             ),
                                           )),
@@ -760,7 +816,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                                   'Mobile',
                                                   style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.02, color: infocolor),
                                                 ),
-                                                // Image.asset(downarrow_icon)
+                                                Image.asset(downarrow_icon)
                                               ],
                                             ),
                                           )),
@@ -1197,176 +1253,177 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                       ),
                     ],
                   )),
-              Stack(
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      getImageType(
-                        context,
-                        () async {
-                          Navigator.pop(context);
-                          uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
-                          if (uploadProfile != null) {
-                            await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
-                          }
-                          if (mounted) {
-                            setState(() {});
-                          }
-                        },
-                        () async {
-                          Navigator.pop(context);
-                          uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
-                          if (uploadProfile != null) {
-                            await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
-                          }
-                          if (mounted) {
-                            setState(() {});
-                          }
-                        },
-                        false,
-                        () {},
-                      );
-                    },
-                    child: uploadProfile == null && data.profileImage == null
-                        ? Container(
-                            height: size.height * 0.10,
-                            width: size.width * 0.2,
-                            decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
-                            margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
-                            child: Image.network(
-                              "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                            )
-                            // SvgPicture.asset(con_icon),
-                            )
-                        : uploadProfile != null
-                            ? Container(
-                                height: size.height * 0.10,
-                                width: size.width * 0.2,
-                                decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
-                                margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
-                                child: Image.file(uploadProfile!, fit: BoxFit.cover))
-                            : Container(
-                                height: size.height * 0.10,
-                                width: size.width * 0.2,
-                                decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
-                                margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
-                                child: Image.network(
-                                  data.profileImage ??
-                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                                )
-                                // SvgPicture.asset(con_icon),
-                                ),
-                  ),
-                  uploadProfile == null
-                      ? Container(margin: EdgeInsets.only(top: size.height * 0.21, left: size.width * 0.17), child: Image.asset(compcamera_icon))
-                      : const SizedBox(),
-                ],
-              ),
+              // Stack(
+              //   children: [
+              //     InkWell(
+              //       onTap: () async {
+              //         getImageType(
+              //           context,
+              //           () async {
+              //             Navigator.pop(context);
+              //             uploadProfile = await ImagePickerMethods().getImage(ImageSource.gallery);
+              //             if (uploadProfile != null) {
+              //               await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
+              //             }
+              //             if (mounted) {
+              //               setState(() {});
+              //             }
+              //           },
+              //           () async {
+              //             Navigator.pop(context);
+              //             uploadProfile = await ImagePickerMethods().getImage(ImageSource.camera);
+              //             if (uploadProfile != null) {
+              //               await ProfileController().uplaodImage(image: uploadProfile!.path, imageType: "3");
+              //             }
+              //             if (mounted) {
+              //               setState(() {});
+              //             }
+              //           },
+              //           false,
+              //           () {},
+              //         );
+              //       },
+              //       child: uploadProfile == null && data.profileImage == null
+              //           ? Container(
+              //               height: size.height * 0.10,
+              //               width: size.width * 0.2,
+              //               decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+              //               margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
+              //               child: Image.network(
+              //                 "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+              //               )
+              //               // SvgPicture.asset(con_icon),
+              //               )
+              //           : uploadProfile != null
+              //               ? Container(
+              //                   height: size.height * 0.10,
+              //                   width: size.width * 0.2,
+              //                   decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+              //                   margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
+              //                   child: Image.file(uploadProfile!, fit: BoxFit.cover))
+              //               : Container(
+              //                   height: size.height * 0.10,
+              //                   width: size.width * 0.2,
+              //                   decoration: const BoxDecoration(color: Colors.transparent, shape: BoxShape.circle),
+              //                   margin: EdgeInsets.only(top: size.height * 0.15, left: size.width * 0.04),
+              //                   child: Image.network(
+              //                     data.profileImage ??
+              //                         "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+              //                   )
+              //                   // SvgPicture.asset(con_icon),
+              //                   ),
+              //     ),
+              //     uploadProfile == null
+              //         ? Container(margin: EdgeInsets.only(top: size.height * 0.21, left: size.width * 0.17), child: Image.asset(compcamera_icon))
+              //         : const SizedBox(),
+              //   ],
+              // ),
+            
             ],
           ));
     });
   }
 
-  Widget cardUploadView({Size? size, AppProvider? app}) {
-    return Column(
-      children: [
-        uploadCard == null && data.card == null
-            ? Padding(
-                padding: EdgeInsets.only(left: size!.width * 0.04, right: size.width * 0.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Insert Card',
-                      style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Msemibold", color: uploadCard != null ? Colors.green : infocolor),
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        cardUploadFunction();
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.05,
-                        width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            gradient:
-                                LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
-                            border: Border.all(color: signupclor_dark),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Text(
-                          'Upload',
-                          style: TextStyle(fontFamily: "Mbold", fontSize: size.height * 0.02, color: bckgrnd),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : uploadCard != null
-                ? cardUpload(size: size, image: FileImage(uploadCard!))
-                : cardUpload(
-                    size: size,
-                    image: NetworkImage(
-                      data.card ?? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                    ))
-      ],
-    );
-  }
+  // Widget cardUploadView({Size? size, AppProvider? app}) {
+  //   return Column(
+  //     children: [
+  //       uploadCard == null && data.card == null
+  //           ? Padding(
+  //               padding: EdgeInsets.only(left: size!.width * 0.04, right: size.width * 0.0),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   Text(
+  //                     'Insert Card',
+  //                     style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Msemibold", color: uploadCard != null ? Colors.green : infocolor),
+  //                   ),
+  //                   InkWell(
+  //                     onTap: () async {
+  //                       cardUploadFunction();
+  //                     },
+  //                     child: Container(
+  //                       alignment: Alignment.center,
+  //                       height: size.height * 0.05,
+  //                       width: size.width * 0.2,
+  //                       decoration: BoxDecoration(
+  //                           gradient:
+  //                               LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [signupclor_light, signupclor_dark]),
+  //                           border: Border.all(color: signupclor_dark),
+  //                           color: bckgrnd,
+  //                           borderRadius: BorderRadius.circular(30)),
+  //                       child: Text(
+  //                         'Upload',
+  //                         style: TextStyle(fontFamily: "Mbold", fontSize: size.height * 0.02, color: bckgrnd),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             )
+  //           : uploadCard != null
+  //               ? cardUpload(size: size, image: FileImage(uploadCard!))
+  //               : cardUpload(
+  //                   size: size,
+  //                   image: NetworkImage(
+  //                     data.card ?? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+  //                   ))
+  //     ],
+  //   );
+  // }
 
-  Widget cardUpload({Size? size, ImageProvider? image}) {
-    return Container(
-        margin: const EdgeInsets.only(top: 0),
-        alignment: Alignment.topRight,
-        height: size!.height * 0.3,
-        width: size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(image: image!, fit: BoxFit.cover),
-        ),
-        child: Padding(
-            padding: const EdgeInsets.only(right: 8.0, top: 12.0),
-            child: InkWell(
-              onTap: () {
-                cardUploadFunction();
-              },
-              child: const CircleAvatar(
-                backgroundColor: Colors.black,
-                child: Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            )));
-  }
+  // Widget cardUpload({Size? size, ImageProvider? image}) {
+  //   return Container(
+  //       margin: const EdgeInsets.only(top: 0),
+  //       alignment: Alignment.topRight,
+  //       height: size!.height * 0.3,
+  //       width: size.width,
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: BorderRadius.circular(20),
+  //         image: DecorationImage(image: image!, fit: BoxFit.cover),
+  //       ),
+  //       child: Padding(
+  //           padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+  //           child: InkWell(
+  //             onTap: () {
+  //               cardUploadFunction();
+  //             },
+  //             child: const CircleAvatar(
+  //               backgroundColor: Colors.black,
+  //               child: Icon(
+  //                 Icons.edit,
+  //                 color: Colors.white,
+  //                 size: 20,
+  //               ),
+  //             ),
+  //           )));
+  // }
 
-  void cardUploadFunction() {
-    getImageType(
-      context,
-      () async {
-        Navigator.pop(context);
-        uploadCard = await ImagePickerMethods().getImage(ImageSource.gallery);
-        if (uploadCard != null) {
-          await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
-        }
-        if (mounted) {
-          setState(() {});
-        }
-      },
-      () async {
-        Navigator.pop(context);
-        uploadCard = await ImagePickerMethods().getImage(ImageSource.camera);
-        if (uploadCard != null) {
-          await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
-        }
-        if (mounted) {
-          setState(() {});
-        }
-      },
-      false,
-      () {},
-    );
-  }
+  // void cardUploadFunction() {
+  //   getImageType(
+  //     context,
+  //     () async {
+  //       Navigator.pop(context);
+  //       uploadCard = await ImagePickerMethods().getImage(ImageSource.gallery);
+  //       if (uploadCard != null) {
+  //         await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
+  //       }
+  //       if (mounted) {
+  //         setState(() {});
+  //       }
+  //     },
+  //     () async {
+  //       Navigator.pop(context);
+  //       uploadCard = await ImagePickerMethods().getImage(ImageSource.camera);
+  //       if (uploadCard != null) {
+  //         await ProfileController().uplaodImage(image: uploadCard!.path, imageType: "1");
+  //       }
+  //       if (mounted) {
+  //         setState(() {});
+  //       }
+  //     },
+  //     false,
+  //     () {},
+  //   );
+  // }
 }

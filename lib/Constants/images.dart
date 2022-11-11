@@ -194,3 +194,10 @@ var drawer_my_account = 'asset/icons/my_profile.svg';
 var pp_shuffle = 'asset/icons/shuffle.svg';
 var calender = 'asset/icons/calender.svg';
 var pp_share = 'asset/icons/forward.svg';
+
+// Invite contact screen Icons
+
+var inviteViaSms= 'asset/icons/msgInvite.svg';
+var inviteViaEmail= 'asset/icons/emailInvite.svg';
+var inviteViaLink= 'asset/icons/linkInvite.svg';
+var inviteViaShare= 'asset/icons/shareInvite.svg';
