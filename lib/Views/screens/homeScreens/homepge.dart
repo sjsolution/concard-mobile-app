@@ -84,8 +84,8 @@ class _HomepageState extends State<Homepage> {
 
   fetchStoriesList() async {
     Provider.of<StoryProvider>(context, listen: false).getStories();
-    print("here is id: " + Globals.id.toString());
-    individualProfileModel = await ProfileController().getIndividualProfileData(id: Globals.id.toString(), context: context);
+    print("here is id: " + Globals.userId.toString());
+    individualProfileModel = await ProfileController().getIndividualProfileData(id:Globals.userId.toString(), context: context);
     print("here is individual profile response" + appPro!.individualProfileModel.toString());
     // appPro!.setIndividualProfileModelProfileObj = individualProfileModel;
     // Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
@@ -228,8 +228,8 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.data?.user?.profileImage != null
-                                          ? appPro!.individualProfileModel!.data!.user!.profileImage.toString()
+                                      appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage !=null
+                                          ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
                                   ),
@@ -282,8 +282,8 @@ class _HomepageState extends State<Homepage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                          appPro?.individualProfileModel?.data?.user?.profileImage != null
-                                              ? appPro!.individualProfileModel!.data!.user!.profileImage.toString()
+                                          appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage != null
+                                              ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         ),
                                         radius: 28,
@@ -1014,9 +1014,9 @@ class _HomepageState extends State<Homepage> {
                                 CircleAvatar(
                                   radius: size.height * 0.03,
                                   backgroundImage: NetworkImage(
-                                    appPro?.individualProfileModel?.data?.user?.profileImage == null
+                                    appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage == null
                                         ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                        : appPro!.individualProfileModel!.data!.user!.profileImage.toString(),
+                                        : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString(),
                                   ),
                                 ),
                                 SizedBox(

@@ -62,7 +62,7 @@ class ExpoController {
 
   Future<ExpoFilterListModal?> expoBadgeFilter(String? filter) async {
     try {
-      var formData = FormData.fromMap({'filter_by': filter});
+      var formData = FormData.fromMap({'filter_by': filter,});
       var response = await services.postResponse(
           url: '/expos/filter', formData: formData);
       debugPrint(response.toString());

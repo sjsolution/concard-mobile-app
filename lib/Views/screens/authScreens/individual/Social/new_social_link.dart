@@ -58,7 +58,7 @@ class CreateNewSocialLink extends StatelessWidget {
                                         radius: size.height * 0.025,
                                         backgroundImage: NetworkImage(
                                           app.individualProfileModel != null
-                                              ? app.individualProfileModel!.data!.user!.image ??
+                                              ? app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.image ??
                                                   "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         )),
@@ -67,11 +67,11 @@ class CreateNewSocialLink extends StatelessWidget {
                                         Column(
                                           children: [
                                             Text(
-                                              '${app.individualProfileModel!.data!.user!.firstName} ${app.individualProfileModel!.data!.user!.lastName}',
+                                              '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName} ${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName}',
                                               style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                                             ),
                                             Text(
-                                              '${app.individualProfileModel!.data!.user!.email}',
+                                              '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.email}',
                                               style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                             ),
                                           ],

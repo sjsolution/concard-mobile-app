@@ -61,7 +61,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    data = app.individualProfileModel!.data!.user;
+    data = app.individualProfileModel!.indiviusalUserData!.indiviudaluser;
     emailControl.text = data.email != null ? data.email! : '';
     telMobileControl.text = data.mobileNumber != null ? data.mobileNumber! : '';
     companyNameControl.text = data.companyName != null ? data.companyName! : "";
@@ -328,7 +328,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             uploadPhoto = await ImagePickerMethods().getImage(ImageSource.gallery);
 
                                             if (uploadPhoto != null) {
-                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "0");
+                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "3");
                                             }
                                             if (mounted) {
                                               setState(() {});
@@ -338,7 +338,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                             Navigator.pop(context);
                                             uploadPhoto = await ImagePickerMethods().getImage(ImageSource.camera);
                                             if (uploadPhoto != null) {
-                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "0");
+                                              await ProfileController().uplaodImage(image: uploadPhoto!.path, imageType: "3");
                                             }
                                             if (mounted) {
                                               setState(() {});
