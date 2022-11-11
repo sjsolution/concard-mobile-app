@@ -30,8 +30,7 @@ class SocialLinksController {
               // 'icon': await MultipartFile.fromFile(icon!),
               'title': title,
             });
-      var response =
-          await services.postResponse(url: '/social/store', formData: formData);
+      var response = await services.postResponse(url: '/social/store', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
           debugPrint(response.toString());
@@ -45,8 +44,7 @@ class SocialLinksController {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
@@ -58,13 +56,11 @@ class SocialLinksController {
   Future<SocialLinksModel?> getSocialLink() async {
     try {
       var formData = FormData.fromMap({});
-      var response =
-          await services.postResponse(url: '/socials/list', formData: formData);
+      var response = await services.postResponse(url: '/socials/list', formData: formData);
       if (response != null) {
         if (response['data'] != null) {
           debugPrint(response.toString());
-          SocialLinksModel? socialLinksModel =
-              SocialLinksModel.fromJson(response);
+          SocialLinksModel? socialLinksModel = SocialLinksModel.fromJson(response);
           return socialLinksModel;
         } else {
           //status false
@@ -72,12 +68,11 @@ class SocialLinksController {
           return null;
         }
       } else {
-        Globals.showToastMethod(
-            msg: "There is something went worng. Please try again later");
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;
       }
     } catch (e) {
-      debugPrint("login exception:" + e.toString());
+      debugPrint("Social Link Exception:" + e.toString());
       return null;
     }
   }

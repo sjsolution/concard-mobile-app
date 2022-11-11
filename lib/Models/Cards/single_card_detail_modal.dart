@@ -10,15 +10,11 @@ class SingleCardDetailModal {
   });
 
   SingleCardDetailModal.fromJson(Map<String, dynamic> json)
-    : code = json['code'] as int?,
-      message = json['message'] as String?,
-      singleCardData = (json['data'] as Map<String,dynamic>?) != null ? SingleCardData.fromJson(json['data'] as Map<String,dynamic>) : null;
+      : code = json['code'] as int?,
+        message = json['message'] as String?,
+        singleCardData = (json['data'] as Map<String, dynamic>?) != null ? SingleCardData.fromJson(json['data'] as Map<String, dynamic>) : null;
 
-  Map<String, dynamic> toJson() => {
-    'code' : code,
-    'message' : message,
-    'data' : singleCardData?.toJson()
-  };
+  Map<String, dynamic> toJson() => {'code': code, 'message': message, 'data': singleCardData?.toJson()};
 }
 
 class SingleCardData {
@@ -79,61 +75,61 @@ class SingleCardData {
   });
 
   SingleCardData.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      companyName = json['company_name'] as String?,
-      website = json['website'] as String?,
-      field = json['field'] as String?,
-      workPhone = json['work_phone'] as String?,
-      mobileNo = json['mobile_no'] as String?,
-      email = json['email'] as String?,
-      city = json['city'] as String?,
-      province = json['province'] as String?,
-      country = json['country'] as String?,
-      postalCode = json['postal_code'] as String?,
-      address = json['address'] as String?,
-      birthDate = json['birth_date'] as String?,
-      username = json['username'],
-      meetingDateTime = json['meeting_date_time'],
-      jobTitle = json['job_title'] as String?,
-      location = json['location'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      socialLinks = (json['social_links'] as List?)?.map((dynamic e) => SocialLinks.fromJson(e as Map<String,dynamic>)).toList(),
-      productSevices = (json['product_sevices'] as List?)?.map((dynamic e) => ProductSevices.fromJson(e as Map<String,dynamic>)).toList(),
-      notes = (json['notes'] as Map<String,dynamic>?) != null ? Notes.fromJson(json['notes'] as Map<String,dynamic>) : null,
-      isFavourite = json['is_favourite'] as bool?,
-      isSaved = json['is_saved'] as bool?,
-      singleCardUser = (json['user'] as Map<String,dynamic>?) != null ? SingleCardUser.fromJson(json['user'] as Map<String,dynamic>) : null;
+      : id = json['id'] as int?,
+        userId = json['user_id'].toString(),
+        companyName = json['company_name'].toString(),
+        website = json['website'].toString(),
+        field = json['field'].toString(),
+        workPhone = json['work_phone'].toString(),
+        mobileNo = json['mobile_no'].toString(),
+        email = json['email'].toString(),
+        city = json['city'].toString(),
+        province = json['province'].toString(),
+        country = json['country'].toString(),
+        postalCode = json['postal_code'].toString(),
+        address = json['address'] as String?,
+        birthDate = json['birth_date'].toString(),
+        username = json['username'],
+        meetingDateTime = json['meeting_date_time'],
+        jobTitle = json['job_title'] as String?,
+        location = json['location'] as String?,
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        socialLinks = (json['social_links'] as List?)?.map((dynamic e) => SocialLinks.fromJson(e as Map<String, dynamic>)).toList(),
+        productSevices = (json['product_sevices'] as List?)?.map((dynamic e) => ProductSevices.fromJson(e as Map<String, dynamic>)).toList(),
+        notes = (json['notes'] as Map<String, dynamic>?) != null ? Notes.fromJson(json['notes'] as Map<String, dynamic>) : null,
+        isFavourite = json['is_favourite'] as bool?,
+        isSaved = json['is_saved'] as bool?,
+        singleCardUser = (json['user'] as Map<String, dynamic>?) != null ? SingleCardUser.fromJson(json['user'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
-    'id' : id,
-    'user_id' : userId,
-    'company_name' : companyName,
-    'website' : website,
-    'field' : field,
-    'work_phone' : workPhone,
-    'mobile_no' : mobileNo,
-    'email' : email,
-    'city' : city,
-    'province' : province,
-    'country' : country,
-    'postal_code' : postalCode,
-    'address' : address,
-    'birth_date' : birthDate,
-    'username' : username,
-    'meeting_date_time' : meetingDateTime,
-    'job_title' : jobTitle,
-    'location' : location,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'social_links' : socialLinks?.map((e) => e.toJson()).toList(),
-    'product_sevices' : productSevices?.map((e) => e.toJson()).toList(),
-    'notes' : notes?.toJson(),
-    'is_favourite' : isFavourite,
-    'is_saved' : isSaved,
-    'user' : singleCardUser?.toJson()
-  };
+        'id': id,
+        'user_id': userId,
+        'company_name': companyName,
+        'website': website,
+        'field': field,
+        'work_phone': workPhone,
+        'mobile_no': mobileNo,
+        'email': email,
+        'city': city,
+        'province': province,
+        'country': country,
+        'postal_code': postalCode,
+        'address': address,
+        'birth_date': birthDate,
+        'username': username,
+        'meeting_date_time': meetingDateTime,
+        'job_title': jobTitle,
+        'location': location,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
+        'social_links': socialLinks?.map((e) => e.toJson()).toList(),
+        'product_sevices': productSevices?.map((e) => e.toJson()).toList(),
+        'notes': notes?.toJson(),
+        'is_favourite': isFavourite,
+        'is_saved': isSaved,
+        'user': singleCardUser?.toJson()
+      };
 }
 
 class SocialLinks {
@@ -156,23 +152,16 @@ class SocialLinks {
   });
 
   SocialLinks.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      title = json['title'] as String?,
-      url = json['url'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      image = json['image'] as String?;
+      : id = json['id'] as int?,
+        userId = json['user_id'].toString(),
+        title = json['title'].toString(),
+        url = json['url'].toString(),
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        image = json['image'].toString();
 
-  Map<String, dynamic> toJson() => {
-    'id' : id,
-    'user_id' : userId,
-    'title' : title,
-    'url' : url,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'image' : image
-  };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'user_id': userId, 'title': title, 'url': url, 'created_at': createdAt, 'updated_at': updatedAt, 'image': image};
 }
 
 class ProductSevices {
@@ -193,21 +182,14 @@ class ProductSevices {
   });
 
   ProductSevices.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      name = json['name'] as String?,
-      status = json['status'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?;
+      : id = json['id'] as int?,
+        userId = json['user_id'].toString(),
+        name = json['name'].toString(),
+        status = json['status'].toString(),
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString();
 
-  Map<String, dynamic> toJson() => {
-    'id' : id,
-    'user_id' : userId,
-    'name' : name,
-    'status' : status,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt
-  };
+  Map<String, dynamic> toJson() => {'id': id, 'user_id': userId, 'name': name, 'status': status, 'created_at': createdAt, 'updated_at': updatedAt};
 }
 
 class Notes {
@@ -230,23 +212,16 @@ class Notes {
   });
 
   Notes.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      parentId = json['parent_id'] as String?,
-      parentType = json['parent_type'] as String?,
-      userId = json['user_id'] as String?,
-      text = json['text'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?;
+      : id = json['id'] as int?,
+        parentId = json['parent_id'].toString(),
+        parentType = json['parent_type'].toString(),
+        userId = json['user_id'].toString(),
+        text = json['text'].toString(),
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString();
 
-  Map<String, dynamic> toJson() => {
-    'id' : id,
-    'parent_id' : parentId,
-    'parent_type' : parentType,
-    'user_id' : userId,
-    'text' : text,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt
-  };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'parent_id': parentId, 'parent_type': parentType, 'user_id': userId, 'text': text, 'created_at': createdAt, 'updated_at': updatedAt};
 }
 
 class SingleCardUser {
@@ -307,59 +282,59 @@ class SingleCardUser {
   });
 
   SingleCardUser.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      firstName = json['first_name'] as String?,
-      lastName = json['last_name'] as String?,
-      mobileNumber = json['mobile_number'] as String?,
-      email = json['email'] as String?,
-      userType = json['user_type'] as String?,
-      emailVerifiedAt = json['email_verified_at'],
-      jobTitle = json['job_title'] as String?,
-      website = json['website'] as String?,
-      companyName = json['company_name'] as String?,
-      companyField = json['company_field'] as String?,
-      about = json['about'] as String?,
-      workTel = json['work_tel'] as String?,
-      mobileTel = json['mobile_tel'],
-      city = json['city'] as String?,
-      state = json['state'] as String?,
-      country = json['country'] as String?,
-      postalCode = json['postal_code'] as String?,
-      address = json['address'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      image = json['image'] as String?,
-      card = json['card'] as String?,
-      logo = json['logo'] as String?,
-      profileImage = json['profileImage'] as String?,
-      userRating = json['user_rating'] as double?;
+      : id = json['id'] as int?,
+        firstName = json['first_name'].toString(),
+        lastName = json['last_name'].toString(),
+        mobileNumber = json['mobile_number'].toString(),
+        email = json['email'].toString(),
+        userType = json['user_type'].toString(),
+        emailVerifiedAt = json['email_verified_at'],
+        jobTitle = json['job_title'].toString(),
+        website = json['website'].toString(),
+        companyName = json['company_name'].toString(),
+        companyField = json['company_field'].toString(),
+        about = json['about'].toString(),
+        workTel = json['work_tel'].toString(),
+        mobileTel = json['mobile_tel'].toString(),
+        city = json['city'].toString(),
+        state = json['state'].toString(),
+        country = json['country'].toString(),
+        postalCode = json['postal_code'].toString(),
+        address = json['address'].toString(),
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        image = json['image'].toString(),
+        card = json['card'].toString(),
+        logo = json['logo'].toString(),
+        profileImage = json['profileImage'].toString(),
+        userRating = json['user_rating'] as double?;
 
   Map<String, dynamic> toJson() => {
-    'id' : id,
-    'first_name' : firstName,
-    'last_name' : lastName,
-    'mobile_number' : mobileNumber,
-    'email' : email,
-    'user_type' : userType,
-    'email_verified_at' : emailVerifiedAt,
-    'job_title' : jobTitle,
-    'website' : website,
-    'company_name' : companyName,
-    'company_field' : companyField,
-    'about' : about,
-    'work_tel' : workTel,
-    'mobile_tel' : mobileTel,
-    'city' : city,
-    'state' : state,
-    'country' : country,
-    'postal_code' : postalCode,
-    'address' : address,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'image' : image,
-    'card' : card,
-    'logo' : logo,
-    'profileImage' : profileImage,
-    'user_rating' : userRating
-  };
+        'id': id,
+        'first_name': firstName,
+        'last_name': lastName,
+        'mobile_number': mobileNumber,
+        'email': email,
+        'user_type': userType,
+        'email_verified_at': emailVerifiedAt,
+        'job_title': jobTitle,
+        'website': website,
+        'company_name': companyName,
+        'company_field': companyField,
+        'about': about,
+        'work_tel': workTel,
+        'mobile_tel': mobileTel,
+        'city': city,
+        'state': state,
+        'country': country,
+        'postal_code': postalCode,
+        'address': address,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
+        'image': image,
+        'card': card,
+        'logo': logo,
+        'profileImage': profileImage,
+        'user_rating': userRating
+      };
 }

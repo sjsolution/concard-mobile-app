@@ -124,9 +124,13 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int? _isFollowing;
+  String? _isFollowing;
 
   get isFollowing => _isFollowing;
+
+  set isFollowingUser(String id) {
+    _isFollowing = id;
+  }
 
   sendFollowRequest({String? id}) async {
     _isFollowing = await FollowController().sendFollowRequest(id: id.toString());
@@ -150,16 +154,13 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  IndividualProfileModel? individualProfileModel;
-  // IndividualProfileModel? individualProfileModel => _individualProfileModel;
+  IndividualProfileModel? _individualProfileModel;
+  IndividualProfileModel? get individualProfileModel => _individualProfileModel;
 
-  // set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
-  //   print("this is obj: " + obj.toString());
-  //   _individualProfileModel = obj;
-  //   print("this is obj2: " + obj.toString());
-  //   print("individual Profile is set" + _individualProfileModel.toString());
-  //   notifyListeners();
-  // }
+  set setIndividualProfileModelProfileObj(IndividualProfileModel? obj) {
+    _individualProfileModel = obj;
+    notifyListeners();
+  }
 
   PostsListModal? _postModel;
   PostsListModal? get postModel => _postModel;

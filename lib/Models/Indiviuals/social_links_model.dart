@@ -10,15 +10,11 @@ class SocialLinksModel {
   });
 
   SocialLinksModel.fromJson(Map<String, dynamic> json)
-    : code = json['code'] as int?,
-      message = json['message'] as String?,
-      linksDataList = (json['data'] as List?)?.map((dynamic e) => LinksDataList.fromJson(e as Map<String,dynamic>)).toList();
+      : code = json['code'] as int?,
+        message = json['message'] as String?,
+        linksDataList = (json['data'] as List?)?.map((dynamic e) => LinksDataList.fromJson(e as Map<String, dynamic>)).toList();
 
-  Map<String, dynamic> toJson() => {
-    'code' : code,
-    'message' : message,
-    'data' : linksDataList?.map((e) => e.toJson()).toList()
-  };
+  Map<String, dynamic> toJson() => {'code': code, 'message': message, 'data': linksDataList?.map((e) => e.toJson()).toList()};
 }
 
 class LinksDataList {
@@ -41,21 +37,14 @@ class LinksDataList {
   });
 
   LinksDataList.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      title = json['title'] as String?,
-      url = json['url'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      image = json['image'] as String?;
+      : id = json['id'] as int?,
+        userId = json['user_id'].toString(),
+        title = json['title'].toString(),
+        url = json['url'].toString(),
+        createdAt = json['created_at'].toString(),
+        updatedAt = json['updated_at'].toString(),
+        image = json['image'].toString();
 
-  Map<String, dynamic> toJson() => {
-    'id' : id,
-    'user_id' : userId,
-    'title' : title,
-    'url' : url,
-    'created_at' : createdAt,
-    'updated_at' : updatedAt,
-    'image' : image
-  };
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'user_id': userId, 'title': title, 'url': url, 'created_at': createdAt, 'updated_at': updatedAt, 'image': image};
 }

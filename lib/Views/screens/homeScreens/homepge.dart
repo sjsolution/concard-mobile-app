@@ -27,6 +27,7 @@ import '../../../Models/Indiviuals/profile_model.dart';
 import '../text_status_add.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:concard/Controllers/indiviualController/profile_controller.dart';
+import 'package:concard/Controllers/indiviualController/follow_controller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _HomepageState extends State<Homepage> {
 
   // }
 
-  IndividualProfileModel? individualProfileModel;
+  // IndividualProfileModel? individualProfileModel;
 
 //   getStoriesList() async {
 //     // Globals.followingListModal =
@@ -84,9 +85,7 @@ class _HomepageState extends State<Homepage> {
 
   fetchStoriesList() async {
     Provider.of<StoryProvider>(context, listen: false).getStories();
-    print("here is id: " + Globals.userId.toString());
-    individualProfileModel = await ProfileController().getIndividualProfileData(id:Globals.userId.toString(), context: context);
-    print("here is individual profile response" + appPro!.individualProfileModel.toString());
+    appPro!.setIndividualProfileModelProfileObj = await ProfileController().getIndividualProfileData(id: Globals.userId.toString(), context: context);
     // appPro!.setIndividualProfileModelProfileObj = individualProfileModel;
     // Provider.of<AppProvider>(context, listen: false).setIndividualProfileModelProfileObj = individualProfileModel;
 
@@ -228,7 +227,7 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage !=null
+                                      appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage != null
                                           ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
@@ -433,7 +432,9 @@ class _HomepageState extends State<Homepage> {
                                                       Globals.userId == posts[index].userId
                                                           ? SizedBox()
                                                           : InkWell(
-                                                              onTap: () {
+                                                              onTap: () async {
+                                                                // print("here is following value " + posts[index].isFollowed.toString());
+                                                                appPro!.isFollowingUser = posts[index].isFollowed.toString();
                                                                 appPro!.sendFollowRequest(id: posts[index].userId.toString());
                                                                 if (appPro!.isFollowing == "0") {
                                                                   posts[index].isFollowed = "1";
@@ -453,9 +454,10 @@ class _HomepageState extends State<Homepage> {
                                                                   child: Row(
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                     children: [
-                                                                      MSemiBoldText(text: posts[index].isFollowed == 1 ? 'Added' : 'Add', size: size),
+                                                                      MSemiBoldText(
+                                                                          text: posts[index].isFollowed == '1' ? 'Added' : 'Add', size: size),
                                                                       Icon(
-                                                                        posts[index].isFollowed == 1 ? Icons.check : Icons.add,
+                                                                        posts[index].isFollowed == '1' ? Icons.check : Icons.add,
                                                                         size: size.height * 0.02,
                                                                         color: signupclor_dark,
                                                                       )
