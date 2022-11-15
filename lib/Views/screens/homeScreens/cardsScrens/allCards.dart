@@ -127,6 +127,7 @@ class _AllCardsState extends State<AllCards> {
             ),
           ],
         ),
+      
         SizedBox(
           height: size.height * 0.02,
         ),

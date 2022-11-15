@@ -60,7 +60,7 @@ class SocialLinksScreen extends StatelessWidget {
                                     radius: size.height * 0.025,
                                     backgroundImage: NetworkImage(
                                       app.individualProfileModel != null
-                                          ? app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.image ??
+                                          ? app.individualProfileModel!.individualUserData!.individualUser!.image ??
                                               "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     )),
@@ -69,11 +69,11 @@ class SocialLinksScreen extends StatelessWidget {
                                     Column(
                                       children: [
                                         Text(
-                                          '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName} ${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName}',
+                                          '${app.individualProfileModel!.individualUserData!.individualUser!.firstName} ${app.individualProfileModel!.individualUserData!.individualUser!.lastName}',
                                           style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                                         ),
                                         Text(
-                                          '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.email}',
+                                          '${app.individualProfileModel!.individualUserData!.individualUser!.email}',
                                           style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                         ),
                                       ],

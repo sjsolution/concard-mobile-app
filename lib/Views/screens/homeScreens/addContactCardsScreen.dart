@@ -73,8 +73,11 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   var addressControl = TextEditingController();
   var locationControllor = TextEditingController();
   var meetingDateTimeControllor = TextEditingController();
-  List listOfEmails = [];
-  List listOfMobiles = [];
+  List<int> listOfEmails = [];
+  List<int> listOfMobiles = [];
+  List<String> emailToSend=[];
+  List<String> mobileNumberToSend=[];
+  List<String> mTypesToSend=[];
 
   void clearAllController() {
     userNameControl.clear();
@@ -94,9 +97,9 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
   }
 
   AddMyCard() async {
-    // Globals.addCardModal =
-    //     await CardController().addCard('', '', '', '', '', mobileControllers, emailControllers, '', '', '', '', '', '', '', '', '', '');
-    // print('aadd card' + Globals.addCardModal.toString());
+    Globals.addCardModal =
+        await CardController().addCard(userName: '',jobTitle: '',companyName: '',day: '',month: '',year: '',mobileNumbers: [],emails: [],city: '',province: '',country: '',address: '',positionName: '',postalCode: '',meetingDatetime: '',location: '',website: '');
+    print('aadd card' + Globals.addCardModal.toString());
     setState(() {});
   }
 
@@ -156,12 +159,27 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                       ),
                       InkWell(
                         onTap: () async {
-                          // for (int i = 1; i <= mobileNumberController.length; i++) {
+                            mobileNumberToSend.clear();
+                            emailToSend.clear();
+                            
+
+                          for(int i=0; i < numberField; i++){
+                            mobileNumberToSend.add( mTypesToSend[i]+':'+mobileNumberController[i].text);
+                          }
+                           for(int i=0; i < email; i++){
+
+                            emailToSend.add(emailsController[i].text);
+                          }
+                            print(emailToSend.toString());
+                            print(mobileNumberToSend.toString());
+
+
+                          // for (int i = 0; i < 16; i++) {
                           //   // listOfMobiles[i] = mobileNumberController[i].text;
-                          //   listOfMobiles.add(mobileNumberController[i].text);
+                          //   mobileNumberToSend.add(mobileNumberController[i].text.trim());
                           // }
-                          // for (int i = 1; i <= emailsController.length; i++) {
-                          //   listOfEmails[i] = emailsController[i].text;
+                          // for (int i = 0; i < emailsController.length; i++) {
+                          //   emailToSend.add(emailsController[i].text.trim());
                           // }
                           // print(listOfMobiles);
                           // print(listOfEmails);
@@ -173,44 +191,62 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                           //   mobileNumberControl.forEach((element) {
                           //     mobileControllers.add(element.text);
                           //   });
-                          //   Globals.addCardModal = await CardController().addCard(
-                          //       userNameControl.text.trim(),
-                          //       jobTitleControl.text.trim(),
-                          //       compNameControl.text.trim(),
-                          //       websiteControll.text.trim(),
-                          //       postionNameControl.text.trim(),
-                          //       mobileControllers,
-                          //       emailControllers,
-                          //       cityControl.text.trim(),
-                          //       provinceControl.text.trim(),
-                          //       countryControl.text.trim(),
-                          //       selectedDate.day.toString(),
-                          //       selectedDate.month.toString(),
-                          //       selectedDate.year.toString(),
-                          //       postalCodeControl.text.trim(),
-                          //       addressControl.text.trim(),
-                          //       locationControllor.text.trim(),
-                          //       meetingDatetime.toString());
-                          //   clearAllController();
-                          //
-                          //   selectedDayController.clear();
-                          //   selectedMonthController.clear();
-                          //   selectedYearController.clear();
-                          //   meetingDatetimeController.clear();
-                          //
-                          //   if (Globals.addCardModal == 200) {
-                          //     Globals.showToastMethod(msg: 'Record Added Successfully');
-                          //   } else {
-                          //     Globals.showToastMethod(msg: 'There is something wrong');
-                          //   }
-                          // }
-                        },
+                            Globals.addCardModal = await CardController().addCard(
+                              userName: 
+                                userNameControl.text.trim(),
+                                jobTitle: 
+                                jobTitleControl.text.trim(),
+                                companyName: 
+                                compNameControl.text.trim(),
+                                website: 
+                                websiteControll.text.trim(),
+                                positionName: 
+                                postionNameControl.text.trim(),
+                                mobileNumbers: 
+                               mobileNumberToSend,
+                                emails: 
+                                emailToSend,
+                                city: 
+                                cityControl.text.trim(),
+                                province: 
+                                provinceControl.text.trim(),
+                                country: 
+                                countryControl.text.trim(),
+                                day: 
+                                selectedDate.day.toString(),
+                                month: 
+                                selectedDate.month.toString(),
+                                year: 
+                                selectedDate.year.toString(),
+                                postalCode: 
+                                postalCodeControl.text.trim(),
+                                address: 
+                                addressControl.text.trim(),
+                                location: 
+                                locationControllor.text.trim(),
+                                meetingDatetime: 
+                                meetingDatetime.toString());
+                            clearAllController();
+                          
+                            selectedDayController.clear();
+                            selectedMonthController.clear();
+                            selectedYearController.clear();
+                            meetingDatetimeController.clear();
+                          
+                            if (Globals.addCardModal!.code == 200) {
+                              Globals.showToastMethod(msg: 'Record Added Successfully');
+                              Navigator.pop(context);
+                            } else {
+                              Globals.showToastMethod(msg: 'There is something wrong');
+                            }
+                          },
                         child: Icon(
                           Icons.check,
                           size: 25,
                           color: bckgrnd,
                         ),
                       )
+                   
                     ],
                   ),
                 ),
@@ -462,6 +498,10 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: numberField,
                                     itemBuilder: (context, mobileIndex) {
+                                      mobileNumberController.add(TextEditingController());
+                                      for(int  i = 0; i < item!.length; i++){
+                                        mTypesToSend.add(item!);
+                                      }
                                       return Column(
                                         children: [
                                           SizedBox(
@@ -483,14 +523,15 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                                       underline: SizedBox.shrink(),
                                                       isDense: true,
                                                       hint: Text('Select'),
-                                                      value: item,
+                                                      value: mTypesToSend[mobileIndex],
                                                       icon: Image.asset(downarrow_icon),
                                                       items: items.map((String? items) {
                                                         return DropdownMenuItem(value: items, child: Text(items!));
                                                       }).toList(),
-                                                      onChanged: (String? newValue) {
+                                                      onChanged: ( newValue) {
+                                                          mTypesToSend[mobileIndex] = newValue.toString();
+
                                                         setState(() {
-                                                          item = newValue;
                                                         });
                                                       }),
                                                 ),
@@ -524,7 +565,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                               Container(
                                                 width: size.width * 0.6,
                                                 child: TextFormField(
-                                                  controller: mobileNumberController[numberField],
+                                                  controller: mobileNumberController[mobileIndex],
                                                   validator: (String? value) {
                                                     if (value!.length < 9 || value.length > 9) {
                                                       return "Number is not valid";
@@ -567,7 +608,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          email++;
+                                          email ++;
                                           // print(email);
                                         });
                                       },
@@ -596,14 +637,14 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                       scrollDirection: Axis.vertical,
                                       itemCount: email,
                                       itemBuilder: (context, emailIndex) {
-                                        // appPro.emailControl.add(TextEditingController());
+                                        emailsController.add(TextEditingController());
                                         return Column(
                                           children: [
                                             SizedBox(
                                               height: size.height * 0.02,
                                             ),
                                             TextFormField(
-                                              controller: emailsController[email],
+                                              controller:emailsController[emailIndex],
                                               validator: (String? value) {
                                                 if (value!.isEmpty) {
                                                   return "Email is not valid";
@@ -619,6 +660,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                                   border: OutlineInputBorder(
                                                     borderRadius: BorderRadius.circular(25),
                                                   )),
+                                                  
                                             ),
                                           ],
                                         );

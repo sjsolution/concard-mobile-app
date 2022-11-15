@@ -61,7 +61,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    data = app.individualProfileModel!.indiviusalUserData!.indiviudaluser;
+    data = app.individualProfileModel!.individualUserData!.individualUser;
     emailControl.text = data.email != null ? data.email! : '';
     telMobileControl.text = data.mobileNumber != null ? data.mobileNumber! : '';
     companyNameControl.text = data.companyName != null ? data.companyName! : "";
@@ -1192,39 +1192,40 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   SizedBox(
                                     height: size.height * 0.03,
                                   ),
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(
-                                        'About',
-                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
-                                      )),
-                                  SizedBox(
-                                    height: size.height * 0.03,
-                                  ),
-                                  TextFormField(
-                                    controller: aboutControl,
-                                    validator: (String? value) {
-                                      if (value!.isEmpty) {
-                                        return "Enter about";
-                                      }
-                                      return null;
-                                    },
-                                    maxLines: 8,
-                                    minLines: 6,
-                                    // textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                        hintText: 'About......',
-                                        contentPadding: EdgeInsets.only(top: 10.0, left: 22.0, bottom: 2.0),
-                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
-                                        )),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.03,
-                                  ),
+                                  // Container(
+                                  //     alignment: Alignment.topLeft,
+                                  //     child: Text(
+                                  //       'About',
+                                  //       style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                                  //     )),
+                                  // SizedBox(
+                                  //   height: size.height * 0.03,
+                                  // ),
+                                  // TextFormField(
+                                  //   controller: aboutControl,
+                                  //   validator: (String? value) {
+                                  //     if (value!.isEmpty) {
+                                  //       return "Enter about";
+                                  //     }
+                                  //     return null;
+                                  //   },
+                                  //   maxLines: 8,
+                                  //   minLines: 6,
+                                  //   // textAlign: TextAlign.center,
+                                  //   decoration: InputDecoration(
+                                  //       hintText: 'About......',
+                                  //       contentPadding: EdgeInsets.only(top: 10.0, left: 22.0, bottom: 2.0),
+                                  //       hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                  //       fillColor: Colors.white,
+                                  //       filled: true,
+                                  //       border: OutlineInputBorder(
+                                  //         borderRadius: BorderRadius.circular(25),
+                                  //       )),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: size.height * 0.03,
+                                  // ),
+                                
                                 ]),
                               ),
                               Row(

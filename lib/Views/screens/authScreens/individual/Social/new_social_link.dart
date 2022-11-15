@@ -49,62 +49,111 @@ class CreateNewSocialLink extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(onTap: () => Navigator.pop(context), child: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white)),
-                              Container(
-                                margin: EdgeInsets.only(left: size.width * 0.08),
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                        radius: size.height * 0.025,
-                                        backgroundImage: NetworkImage(
-                                          app.individualProfileModel != null
-                                              ? app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.image ??
-                                                  "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                              : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
-                                        )),
-                                    Row(
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName} ${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName}',
-                                              style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
-                                            ),
-                                            Text(
-                                              '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.email}',
-                                              style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.01,
-                                        ),
-                                        Image.asset(safesheld_icon),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              InkWell(onTap: () => Navigator.pop(context), child: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white,)),
+                              // Container(
+                              //   margin: EdgeInsets.only(left: size.width * 0.08),
+                              //   child: Column(
+                              //     children: [
+                              //       CircleAvatar(
+                              //           radius: size.height * 0.025,
+                              //           backgroundImage: NetworkImage(
+                              //             app.individualProfileModel != null
+                              //                 ? app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage??
+                              //                     "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                              //                 : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                              //           )),
+                              //       Row(
+                              //         children: [
+                              //           Column(
+                              //             children: [
+                              //               Text(
+                              //                 '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName} ${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName}',
+                              //                 style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
+                              //               ),
+                              //               Text(
+                              //                 '${app.individualProfileModel!.indiviusalUserData!.indiviudaluser!.email}',
+                              //                 style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //           SizedBox(
+                              //             width: size.width * 0.01,
+                              //           ),
+                              //           Image.asset(safesheld_icon),
+                              //         ],
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Row(
                                 children: [
-                                  GestureDetector(
+                                  Column(
+                                    children: [
+                                        CircleAvatar(
+                                            radius: size.height * 0.025,
+                                            backgroundImage: NetworkImage(
+                                              app.individualProfileModel != null
+                                                  ? app.individualProfileModel!.individualUserData!.individualUser!.profileImage??
+                                                      "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                                  : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                            )),
+                                               Row(
+                                                 children: [
+                                                   Column(
+                                                     children: [
+                                                       Text(
+                                                          '${app.individualProfileModel!.individualUserData!.individualUser!.firstName} ${app.individualProfileModel!.individualUserData!.individualUser!.lastName}',
+                                                          style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
+                                                        ),
+                                                         Text(
+                                                      '${app.individualProfileModel!.individualUserData!.individualUser!.email}',
+                                                      style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
+                                                    ),
+                                                     ],
+                                                   ),
+                                        SvgPicture.asset(safesheld_icon),
+
+                                                 ],
+                                               ),
+                                               
+                                    ],
+                                  ),
+                                  
+                                ],
+                              ),
+                             
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                        GestureDetector(
                                       onTap: () {
                                         Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
                                       },
-                                      child: Image.asset(
-                                        notify_icon,
-                                      )),
-                                  SizedBox(
-                                    width: size.width * 0.02,
+                                      child: Stack(
+                                        children: [
+                                          SvgPicture.asset(bellIcon),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: SvgPicture.asset(notifyDot),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    
+                                      SizedBox(
+                                        width: size.width * 0.02,
+                                      ),
+                                      GestureDetector(
+                                          onTap: () {
+                                            _settingModalBottomSheet(context);
+                                          },
+                                          child: Icon(
+                                            Icons.more_vert,
+                                            color: bckgrnd,
+                                          )),
+                                    ],
                                   ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        _settingModalBottomSheet(context);
-                                      },
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        color: bckgrnd,
-                                      )),
                                 ],
                               ),
                             ],

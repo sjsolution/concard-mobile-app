@@ -1,5 +1,6 @@
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/cardsScrens/allCards.dart';
@@ -10,6 +11,8 @@ import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart
 import 'package:concard/Views/screens/homeScreens/followingCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/importCardsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
 import 'package:concard/Views/widgets/customContainer.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Constants/colors.dart';
 import '../../../widgets/customButton.dart';
@@ -51,7 +55,8 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return DefaultTabController(
+    return Consumer<AppProvider>(builder: (context,appPro,_){
+      return DefaultTabController(
       length: 4,
       initialIndex:int.parse(widget.initialIndex.toString()) ,
       child: Scaffold(
@@ -85,10 +90,45 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                           style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBold", color: bckgrnd),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                        width: 5,
-                      )
+                      Row(
+                        children: [
+                          GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          SvgPicture.asset(bellIcon),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: SvgPicture.asset(notifyDot),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    
+                                      SizedBox(
+                                  width: size.width * 0.04,
+                                ),
+                                 GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PersonalProfileViewScreen()));
+                                  },
+                                  child: CircleAvatar(
+                                    radius: size.height * 0.02,
+                                    backgroundImage: NetworkImage(
+                                      // individualProfileModel!.profileData!.profileImage.toString(),
+                                      appPro?.individualProfileModel?.individualUserData!.individualUser?.profileImage != null
+                                          ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                          : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                    ),
+                                  ),
+                                ),
+                               
+
+                        ],
+                      ),
+                              
                     ],
                   ),
                 ),
@@ -198,6 +238,8 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
         ),
       ),
     );
+  
+    });
   }
 
   void showManageDialog(BuildContext context) {

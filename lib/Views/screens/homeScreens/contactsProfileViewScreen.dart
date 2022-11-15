@@ -909,6 +909,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                       child: ListView.builder(
                                           padding: EdgeInsets.all(0),
                                           scrollDirection: Axis.horizontal,
+                                          itemCount: Globals.singleCardDetailModal!.singleCardData!.companyMembers!.length,
                                           itemBuilder: (context, index) {
                                             return Container(
                                               margin: EdgeInsets.only(left: size.width * 0.04),
@@ -917,16 +918,18 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                                   CircleAvatar(
                                                     radius: size.height * 0.03,
                                                     backgroundImage: NetworkImage(
+                                                      Globals.singleCardDetailModal!.singleCardData!.companyMembers![index].profileImage.toString()??
                                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                     ),
                                                   ),
                                                   Text(
-                                                    'Tomy jones',
+                                                    "${Globals.singleCardDetailModal!.singleCardData!.companyMembers![index].firstName.toString()}" + "${Globals.singleCardDetailModal!.singleCardData!.companyMembers![index].lastName.toString()}",
                                                     style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'MBold'),
                                                   ),
                                                   Text(
-                                                    'Lorem ipsum',
-                                                    style: TextStyle(fontSize: size.height * 0.011, fontFamily: 'Msemibold', color: infocolor),
+                                                    Globals.singleCardDetailModal!.singleCardData!.companyMembers![index].companyName!=null?
+                                                    Globals.singleCardDetailModal!.singleCardData!.companyMembers![index].companyName.toString():'',
+                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: 'Msemibold', color: infocolor),
                                                   ),
                                                 ],
                                               ),
