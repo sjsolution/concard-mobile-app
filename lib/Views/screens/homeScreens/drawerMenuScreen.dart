@@ -802,6 +802,7 @@ class _DrawerMenuScreenState extends State<DrawerMenuScreen> {
                             ),
                           ),
                         ));
+              
               },
               child: Padding(
                 padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.03),

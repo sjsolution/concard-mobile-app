@@ -404,7 +404,7 @@ class _TeamDetailViewClassState extends State<TeamDetailViewClass> {
                                         builder: (BuildContext context) =>
                                             ViewCardsScreen(
                                                 teamId: widget.teamData!.id
-                                                    .toString())));
+                                                    .toString(),groupId: '',)));
                               },
                               child: Container(
                                 height: size.height * 0.04,
@@ -447,6 +447,8 @@ class _TeamDetailViewClassState extends State<TeamDetailViewClass> {
                                           MaterialPageRoute(
                                               builder: (BuildContext context) =>
                                                   ContactProfileViewScreen(
+                                                    email: '',
+                                                    phoneNumber: '',
                                                     id: teamSharedCards![index]
                                                         .id
                                                         .toString(),

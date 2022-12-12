@@ -33,23 +33,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
   // List<>? badgeList = [];
   getListOfExpoBadge() async {
     Globals.expoBadgeListModal= await ExpoController().getExpoBadgeList();
-    print('Expo Home'+ Globals.expoBadgeListModal.toString());
-
+    // print('Expo Home'+ Globals.expoBadgeListModal.toString());
     setState(() {});
-
-
-//     for(int i=0; i< Globals.expoBadgeListModal!.data!.length; i++ ){
-
-// User user =User(
-//   firstName: Globals.expoBadgeListModal!.data![i].user!.firstName,
-//   lastName: Globals.expoBadgeListModal!.data![i].user!.lastName,
-//   jobTitle: Globals.expoBadgeListModal!.data![i].user!.jobTitle,
-//   companyName: Globals.expoBadgeListModal!.data![i].user!.companyName,
-//   id: Globals.expoBadgeListModal!.data![i].user!.id,
-//   image: Globals.expoBadgeListModal!.data![i].user!.image
-// );
-// badgeList!.add(user);
-//     }
   }
 
   @override
@@ -115,7 +100,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   child: CircleAvatar(
                                       radius: size.height * 0.02,
                                       backgroundImage: NetworkImage(
-                                        appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString() ??
+                                        appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString() ??
                                             "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                       )),
                                 ),
@@ -206,7 +191,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                         image: AssetImage(concard_icon),
                                                         elementColor: signupclor_dark,
                                                         size: size.height * 0.1,
-                                                        data: appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.id.toString(),
+                                                        data: appPro.individualProfileModel!.individualUserData!.individualUser!.id.toString(),
                                                         errorCorrectLevel: QrErrorCorrectLevel.M,
                                                         roundEdges: true,
                                                       ),
@@ -240,8 +225,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                         CircleAvatar(
                                                             radius: size.height * 0.04,
                                                             backgroundImage: NetworkImage(
-                                                              appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage != null
-                                                                  ? appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString() ??
+                                                              appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage != null
+                                                                  ? appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString() ??
                                                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                                                   : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                             )),
@@ -249,21 +234,21 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          "${appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.firstName} ${appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.lastName} ",
+                                                          "${appPro.individualProfileModel!.individualUserData!.individualUser!.firstName} ${appPro.individualProfileModel!.individualUserData!.individualUser!.lastName} ",
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                                         ),
                                                         SizedBox(
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.jobTitle ?? '',
+                                                          appPro.individualProfileModel!.individualUserData!.individualUser!.jobTitle ?? '',
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf", color: bckgrnd),
                                                         ),
                                                         SizedBox(
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          appPro.individualProfileModel!.indiviusalUserData!.indiviudaluser!.companyName ?? '',
+                                                          appPro.individualProfileModel!.individualUserData!.individualUser!.companyName ?? '',
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                                         )
                                                       ],

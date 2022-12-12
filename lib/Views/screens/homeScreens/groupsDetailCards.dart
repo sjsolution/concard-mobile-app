@@ -1,20 +1,42 @@
 import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
+import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
+import 'package:concard/Models/Cards/specific_card_model.dart';
+import 'package:concard/Models/Groups/group_card_list.dart';
+import 'package:concard/Views/screens/homeScreens/TeamsScreens/show_cards_screen.dart';
 import 'package:concard/Views/screens/homeScreens/addCardsToGroupScreen.dart';
 import 'package:concard/Views/widgets/customButton.dart';
 import 'package:concard/Views/widgets/customContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+
 
 class GroupsDetailCardsScreen extends StatefulWidget {
-  GroupsDetailCardsScreen({Key? key}) : super(key: key);
-
+  GroupsDetailCardsScreen({Key? key,required this.groupName,required this.groupId}) : super(key: key);
+String? groupName;
+int? groupId;
   @override
   State<GroupsDetailCardsScreen> createState() =>
       _GroupsDetailCardsScreenState();
 }
 
 class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // addCardsToGroup();
+    super.initState();
+  }
+  List<CustomCardsModel>? groupCardsAdded;
+
+  // addCardsToGroup()async{
+  //   Globals.groupsCardsList= await GroupsController().groupsCardsList(int.parse(widget.groupId.toString()), ''); 
+  //   setState(() {
+      
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -85,7 +107,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Groups 1',
+                        widget.groupName.toString(),
                         style: TextStyle(
                           fontSize: size.height * 0.018,
                           fontFamily: "MBold",
@@ -121,7 +143,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                     children: [
                       Container(
                      height: size.height * 0.09,
-                          width: size.width * 0.85,
+                          width: size.width * 0.8,
                         child: TextFormField(
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -155,7 +177,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                   ), 
                   InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder:(_) =>AddCardsToGroupScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder:(_) =>ViewCardsScreen(teamId: '',groupId: widget.groupId.toString(),)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,6 +211,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                   SizedBox(
                     height: size.height*0.02,
                   ),
+                  groupCardsAdded!=null?
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -199,38 +222,240 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                         ),
                         child: ListView.builder(
                           padding: EdgeInsets.all(0),
-                          itemCount: 4,
+                          itemCount: groupCardsAdded!.length,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context,index){
-                              return  Container(
+                              return groupCardsAdded!=null? Container(
+                                width: size.width*0.3,
+                                height: size.height*0.2,
                                 margin: EdgeInsets.only(top: size.height*0.03),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      child: ClipRRect(
-                                        child: Image.asset(mycard_icon,fit: BoxFit.cover,),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      height: size.height*0.08,
-                                      width: size.width*0.3,
-                                    ),
+                                    Column(
+                                            children: [
+                                              Container(
+                                                height: size.height * 0.1,
+                                                child: Stack(
+                                                  children: [
+                                                    ClipRRect(
+                                                        borderRadius: BorderRadius.circular(20),
+                                                        child: Image.asset(
+                                                          deccard,
+                                                          height: size.height * 0.08,
+                                                          fit: BoxFit.cover,
+                                                        )),
+                                                    Padding(
+                                                        padding: EdgeInsets.only(
+                                                            right: size.width * 0.01, left: size.width * 0.02, top: size.height * 0.015),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Column(
+                                                                  children: [
+                                                                    SvgPicture.asset(
+                                                                      con_icon,
+                                                                      height: size.height * 0.02,
+                                                                    ),
+                                                                    const SizedBox(height: 5 //size.height * 0.015,
+                                                                        ),
+                                                                    Text(
+                                                                      "CONCARD",
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.003,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Mbold",
+                                                                        letterSpacing: 2,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: size.height * 0.004,
+                                                                    ),
+                                                                    PrettyQr(
+                                                                      typeNumber: 4,
+                                                                      size: size.height * 0.01,
+                                                                      data:
+                                                                          '${groupCardsAdded![index].id.toString()}',
+                                                                      errorCorrectLevel: QrErrorCorrectLevel.M,
+                                                                      roundEdges: true,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(width: size.width * 0.01),
+                                                                Container(
+                                                                  height: size.height * 0.06,
+                                                                  width: 1,
+                                                                  color: cgreen,
+                                                                ),
+                                                                SizedBox(width: size.width * 0.02),
+                                                                Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      "${groupCardsAdded![index].username.toString() ?? ''}",
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.007,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Mbold",
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      "${groupCardsAdded![index].jobTitle.toString() ?? ''}",
+                                                                      style: TextStyle(
+                                                                        fontSize: size.height * 0.007,
+                                                                        color: signupclor_dark,
+                                                                        fontFamily: "Stf",
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 1 //size.height * 0.01,
+                                                                        ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Column(children: [
+                                                                          SvgPicture.asset(
+                                                                            location_icon,
+                                                                            height: size.height * 0.006,
+                                                                          ),
+                                                                        ]),
+                                                                        const SizedBox(
+                                                                          width: 1, //size.width * 0.015,
+                                                                        ),
+                                                                        Column(children: [
+                                                                          SizedBox(
+                                                                            width: size.width * 0.15,
+                                                                            child: Text(
+                                                                              "${groupCardsAdded![index].address.toString()}",
+                                                                              style: TextStyle(
+                                                                                fontSize: size.height * 0.006,
+                                                                                color: signupclor_dark,
+                                                                                fontFamily: "Mbold",
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ]),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: size.height * 0.001,
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        SvgPicture.asset(
+                                                                          phonecall_icon,
+                                                                          height: size.height * 0.006,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: size.width * 0.01,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: size.width * 0.15,
+                                                                          child: Text(
+                                                                          groupCardsAdded![index].numbers!.isNotEmpty?   groupCardsAdded![index].numbers![0].phoneNumber.toString() : '',
+                                                                            style: TextStyle(
+                                                                              fontSize: size.height * 0.006,
+                                                                              color: signupclor_dark,
+                                                                              fontFamily: "Mbold",
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: size.height * 0.001,
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Image.asset(
+                                                                          email_icon,
+                                                                          height: size.height * 0.005,
+                                                                          color: signupclor_dark,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: size.width * 0.01,
+                                                                        ),
+                                                                        Column(
+                                                                          children: [
+                                                                            SizedBox(
+                                                                              width: size.width * 0.15,
+                                                                              child: Text(
+                                                                              groupCardsAdded![index].emails![0].email!=null?  groupCardsAdded![index].emails![0].email.toString():
+                                                                                    '',
+                                                                                style: TextStyle(
+                                                                                  fontSize: size.height * 0.004,
+                                                                                  color: signupclor_dark,
+                                                                                  fontFamily: "Mbold",
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: size.height * 0.001,
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        SvgPicture.asset(
+                                                                          internet_icon,
+                                                                          height: size.height * 0.005,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width: size.width * 0.01,
+                                                                        ),
+                                                                        Column(
+                                                                          children: [
+                                                                            SizedBox(
+                                                                              width: size.width * 0.15,
+                                                                              child: Text(
+
+                                                                                "${groupCardsAdded![index].website}",
+                                                                                style: TextStyle(
+                                                                                  fontSize: size.height * 0.006,
+                                                                                  color: signupclor_dark,
+                                                                                  fontFamily: "Mbold",
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          
                                     SizedBox(width: size.width*0.04,),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Company Name',style: TextStyle(
+                                        Text(
+                                          groupCardsAdded![index].companyName!=null?
+                                         groupCardsAdded![index].companyName.toString():'',style: TextStyle(
                                             fontSize: size.height*0.015,
                                             fontFamily:"MBold"
                                         ),),
                                         SizedBox(height: size.height*0.02,),
-                                        Text('Lorem ipsum dolor sit amet',style: TextStyle(
+                                        Text(  groupCardsAdded![index].jobTitle!=null?
+                                          groupCardsAdded![index].jobTitle.toString():"",style: TextStyle(
                                             fontSize: size.height*0.012,
                                             fontFamily: "Msemibold",
                                             color: infocolor
                                         ),),
                                         SizedBox(height: size.height*0.01,),
-                                        Text('Concsectetuer adipiscing elit, sed fiam',style: TextStyle(
+                                        Text(  groupCardsAdded![index].username!=null?
+                                          groupCardsAdded![index].username.toString():''
+                                        ,style: TextStyle(
                                             fontSize: size.height*0.012,
                                             fontFamily: "Msemibold",
                                             color: infocolor
@@ -245,11 +470,11 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                       child: Icon(Icons.more_vert,color: signupclor_dark,))
                                   ],
                                 ),
-                              );
+                              ):Center(child: Text('No Record Found'));
                             }
                         ),
                       ),
-                    ),
+                    ):Center(child: Text(' No cards Added ')),
                 ],
               ),
             ),
@@ -258,9 +483,29 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
       ),
     );
   }
+
+  //   Widget cardWidget(context, GroupCardsList? groupCardsList ){
+  //   var size = MediaQuery.of(context).size;
+  //   return Container(
+  //     height: size.height * 0.29,
+  //     // margin:const EdgeInsets.all(0.4),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(20),
+  //       color: Colors.transparent,
+  //     ),
+  //     child:groupCardsList!.groupCardsListData!=null? ListView.builder(
+  //       itemCount: groupCardsList.groupCardsListData!.length,
+  //       itemBuilder: (context,index){
+  //       return  
+  //     }):Text(''),
+  //     // child:
+  //   );
+  // }
+
+
     void _manageModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
-
+TextEditingController reNameController= TextEditingController();
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -309,11 +554,140 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                              SizedBox(
                                width: size.width*0.07
                              ),
-                             Text('Rename Group',
-                             style: TextStyle(
-                               fontFamily: "Stf",
-                               fontSize: size.height*0.015,
-                             ),)
+                             InkWell(
+                              onTap: (){
+                                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => Container(
+                          margin: EdgeInsets.only(bottom: size.height * 0.1),
+                          child: Dialog(
+                            alignment: AlignmentDirectional.bottomCenter,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                            //this right here
+                            child: Container(
+                              height: size.height * 0.3,
+                              width: size.width * 0.9,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.02),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Rename Group',
+                                            style: TextStyle(color: Colors.black, fontSize: size.height * 0.018, fontFamily: 'MBold'),
+                                          ),
+                                          Container(
+                                            height: size.height * 0.01,
+                                            width: size.width * 0.02,
+                                          ),
+                                          
+                                          // Spacer(),
+                                          InkWell(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Icon(
+                                                Icons.close,
+                                                size: 20,
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: size.height * 0.06,
+                                    ),
+                                    Container(
+                         height: size.height * 0.09,
+                            // width: size.width * 0.8,
+                          child: TextFormField(
+                            controller: reNameController,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(color: Colors.white),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(color: Colors.white),
+                              ),
+                              fillColor: Colors.white,
+                              filled:true,
+                              hintText: 'Group name', contentPadding:
+                            EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                              hintStyle: TextStyle(
+                                  fontSize: size.width * 0.04, color: infocolor),
+                            ),
+                          ),
+                        ),
+                
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                     Container(
+                        height: size.height*0.04,
+                        width: size.width*0.25,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color:primaryblue )
+                        ),
+                        child: Center(
+                          child: Text('Cancel',style: TextStyle(
+                          fontFamily: 'Msemibold',
+                          fontSize: size.height*0.018,
+                          color: primaryblue
+                      ),),
+                        ),
+                      ),
+                    InkWell(
+                      onTap: ()async{
+                     var result=   await GroupsController().updateGroup(reNameController.text, int.parse(widget.groupId.toString()));
+                        if(result['code']==200){
+                          Globals.showToastMethod(msg: "Record Updated Successfully");
+                        }else{
+                          Globals.showToastMethod(msg: 'There is something went wrong');
+                        }
+                        setSte((){
+                          setState(() {
+                            
+                          });
+                        });
+                      },
+                      child: Container(
+                          height: size.height*0.04,
+                          width: size.width*0.25,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color:primaryblue )
+                          ),
+                          child: Center(
+                            child: Text('save',style: TextStyle(
+                            fontFamily: 'Msemibold',
+                            fontSize: size.height*0.018,
+                            color: primaryblue
+                        ),),
+                          ),
+                        ),
+                    ),
+                    
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ));
+              
+                              },
+                               child: Text('Rename Group',
+                               style: TextStyle(
+                                 fontFamily: "Stf",
+                                 fontSize: size.height*0.015,
+                               ),),
+                             )
                            ],
                          ),
                           SizedBox(

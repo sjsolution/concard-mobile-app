@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-                <data android:scheme="https" android:host="salloumdesign.com" />
+                <data android:scheme="https" android:host="sjsolutionz.com" />
             </intent-filter>
 
             <!-- App Links -->
@@ -50,7 +50,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with https://YOUR_HOST -->
-                <data android:scheme="https" android:host="salloumdesign.com" />
+                <data android:scheme="https" android:host="sjsolutionz.com" />
                 <data android:scheme="https" />
             </intent-filter>
         </activity>

@@ -227,12 +227,13 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage != null
-                                          ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
+                                      appPro?.individualProfileModel?.individualUserData?.individualUser?.profileImage != null
+                                          ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
                                   ),
                                 ),
+                               
                                 SizedBox(
                                   width: size.height * 0.01,
                                 ),
@@ -281,8 +282,8 @@ class _HomepageState extends State<Homepage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                          appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage != null
-                                              ? appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString()
+                                          appPro?.individualProfileModel?.individualUserData!.individualUser?.profileImage != null
+                                              ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         ),
                                         radius: 28,
@@ -1016,9 +1017,9 @@ class _HomepageState extends State<Homepage> {
                                 CircleAvatar(
                                   radius: size.height * 0.03,
                                   backgroundImage: NetworkImage(
-                                    appPro?.individualProfileModel?.indiviusalUserData?.indiviudaluser?.profileImage == null
+                                    appPro?.individualProfileModel?.individualUserData?.individualUser?.profileImage == null
                                         ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                        : appPro!.individualProfileModel!.indiviusalUserData!.indiviudaluser!.profileImage.toString(),
+                                        : appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString(),
                                   ),
                                 ),
                                 SizedBox(

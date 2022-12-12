@@ -1,7 +1,9 @@
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/contactDonthaveConcardAccount.dart';
 import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
 import 'package:concard/Views/screens/homeScreens/followingCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Constants/colors.dart';
 import '../../../widgets/customButton.dart';
@@ -19,7 +22,8 @@ import '../../../widgets/customButton.dart';
 class AllCards extends StatefulWidget {
   AllCards({
     Key? key,
-  }) : super(key: key);
+  required this.isRadio}): super(key: key);
+  bool? isRadio = false;
 
   @override
   State<AllCards> createState() => _AllCardsState();
@@ -29,7 +33,6 @@ class _AllCardsState extends State<AllCards> {
   String? isSelect;
   bool? isMore = false;
   bool? isSelctedt = false;
-  bool? isRadio = false;
 
   @override
   void initState() {
@@ -38,15 +41,20 @@ class _AllCardsState extends State<AllCards> {
     getCardList('0', '0');
   }
 
+
   getCardList(String? filterBy, String? sortType) async {
     Globals.cardListModal = await CardController().cardList(filterBy, sortType);
-    print('My Card List........\n' + Globals.cardListModal.toString());
-    setState(() {});
+    // print('My Card List........\n' + Globals.cardListModal.toString());
+
+    setState(() {
+      
+    });
+    
   }
 
   String? searchValue;
   CardListModal? cardList;
-
+ var result;
   // onSearchTextChanged(String text) async {
   //   _searchResult.clear();
   //   if (text.isEmpty) {
@@ -64,7 +72,9 @@ class _AllCardsState extends State<AllCards> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Column(
+    return Consumer<AppProvider>(
+      builder: (context, appPro,_){
+        return  Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,6 +137,7 @@ class _AllCardsState extends State<AllCards> {
             ),
           ],
         ),
+      
         SizedBox(
           height: size.height * 0.02,
         ),
@@ -183,7 +194,7 @@ class _AllCardsState extends State<AllCards> {
                   });
                 },
                 child: Container(
-                  height: size.height * 0.8,
+                  height: size.height * 0.7,
                   width: size.width,
                   child: ListView.builder(
                     padding: const EdgeInsets.all(0),
@@ -192,13 +203,28 @@ class _AllCardsState extends State<AllCards> {
                     itemBuilder: (context, index) {
                       return Globals.cardListModal!.cardListData!.cards != null
                           ? InkWell(
-                              onTap: () {
-                                Navigator.push(
+                              onTap: ()async {
+                           result =  await CardController().UserExist([appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString()], [appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString()]);
+                                if(result['success']==true){
+                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => ContactProfileViewScreen(
                                               id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
+                                                 email: appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString(),
+                                              phoneNumber: appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString(),
                                             )));
+                                }else{
+                                   
+                                              Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => ContactDontHaveConcardAccountViewScreen(
+                                              id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
+                                           
+                                            ))); 
+                                }
+                                
                               },
                               child: Column(
                                 children: [
@@ -208,7 +234,7 @@ class _AllCardsState extends State<AllCards> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Visibility(
-                                            visible: isRadio!,
+                                            visible: widget.isRadio!,
                                             child: Column(
                                               children: [
                                                 Container(
@@ -273,7 +299,7 @@ class _AllCardsState extends State<AllCards> {
                                                                       typeNumber: 4,
                                                                       size: size.height * 0.01,
                                                                       data:
-                                                                          '${Globals.cardListModal!.cardListData!.cards![index].user!.id.toString() ?? "0"}',
+                                                                          '${Globals.cardListModal!.cardListData!.cards![index].user!.id.toString()}',
                                                                       errorCorrectLevel: QrErrorCorrectLevel.M,
                                                                       roundEdges: true,
                                                                     ),
@@ -348,7 +374,7 @@ class _AllCardsState extends State<AllCards> {
                                                                         SizedBox(
                                                                           width: size.width * 0.15,
                                                                           child: Text(
-                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
+                                                                          Globals.cardListModal!.cardListData!.cards![index].numbers!.isNotEmpty?   Globals.cardListModal!.cardListData!.cards![index].numbers![0].phoneNumber.toString() : '',
                                                                             style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
@@ -376,7 +402,7 @@ class _AllCardsState extends State<AllCards> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                                Globals.cardListModal!.cardListData!.cards![index].email.toString() ??
+                                                                              Globals.cardListModal!.cardListData!.cards![index].emails![0].email!=null?  Globals.cardListModal!.cardListData!.cards![index].emails![0].email.toString():
                                                                                     '',
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.004,
@@ -407,7 +433,7 @@ class _AllCardsState extends State<AllCards> {
                                                                               width: size.width * 0.15,
                                                                               child: Text(
 
-                                                                                "${Globals.cardListModal!.cardListData!.cards![index].username}",
+                                                                                "${Globals.cardListModal!.cardListData!.cards![index].website}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.006,
                                                                                   color: signupclor_dark,
@@ -430,6 +456,7 @@ class _AllCardsState extends State<AllCards> {
                                               ),
                                             ],
                                           ),
+                                          
                                           SizedBox(
                                             width: size.width * 0.05,
                                           ),
@@ -490,6 +517,8 @@ class _AllCardsState extends State<AllCards> {
             : const ShimmerLoadWidget(),
       ],
     );
+  
+      });
   }
 
   void _optionsModalBottomSheet(context, Cards? cards) {
@@ -747,6 +776,7 @@ class _AllCardsState extends State<AllCards> {
                                       });
                                     });
                                   }),
+                             
                               Text(
                                 'by Date',
                                 style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
@@ -1194,4 +1224,5 @@ class _AllCardsState extends State<AllCards> {
       // ),
     );
   }
+
 }

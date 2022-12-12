@@ -1,5 +1,6 @@
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
 import 'package:concard/Controllers/indiviualController/team_controllers.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Models/Cards/get_cards_for_team_specifically.dart';
@@ -13,8 +14,9 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import '../../../../Constants/colors.dart';
 
 class ViewCardsScreen extends StatefulWidget {
-  ViewCardsScreen({Key? key, required this.teamId}) : super(key: key);
+  ViewCardsScreen({Key? key, required this.teamId, required this.groupId}) : super(key: key);
   final String? teamId;
+  final String? groupId;
   @override
   State<ViewCardsScreen> createState() => _ViewCardsScreenState();
 }
@@ -336,7 +338,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "${cardsList[index]!.companyName}",
+                                            "${cardsList[index]!.username}",
                                             style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
                                           ),
                                           SizedBox(
@@ -362,6 +364,9 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     onTap: () async {
                                       await TeamController().addCardToTeam(cardsList[index]!.id.toString(), widget.teamId);
                                       cardsList.removeAt(index);
+                                      await GroupsController().addCardToGroup(widget.groupId.toString(),cardsList[index]!.id.toString());
+                                      cardsList.removeAt(index);
+
                                       setState(() {});
                                     },
                                     child: Container(

@@ -1,9 +1,12 @@
 import 'package:concard/Constants/images.dart';
+import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
+import 'package:concard/Views/screens/homeScreens/addnewGroup.dart';
 import 'package:concard/Views/screens/homeScreens/groupsDetailCards.dart';
 import 'package:concard/Views/widgets/customNextButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
 
 import '../../../Constants/colors.dart';
 
@@ -14,20 +17,29 @@ class GroupsCardsScreen extends StatefulWidget {
   State<GroupsCardsScreen> createState() => _GroupsCardsScreenState();
 }
 
-class _GroupsCardsScreenState extends State<GroupsCardsScreen> {
-List<String>? itemList=[
- 
 
-];
-void addItemToList(){
-  setState(() {
-    itemList!.add(textFieldController.text);
-  });
+class _GroupsCardsScreenState extends State<GroupsCardsScreen> {
+  @override
+  void initState() {
+    // AddMyCard();
+    // // TODO: implement initState
+    getGroupsList('1','');
+    super.initState();
+  }
+
+getGroupsList(String sortBy ,String searchGroup)async{
+Globals.groupListModal = await GroupsController().GroupsList(sortBy,searchGroup);
+setState(() {
+  
+});
+// print( 'My group list'+Globals.groupListModal.toString());
 }
+  String? searchValue;
+
 bool?isName=false;
 bool?isDate=false;
 
-TextEditingController textFieldController= TextEditingController();
+TextEditingController searchGroupController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
@@ -80,6 +92,7 @@ TextEditingController textFieldController= TextEditingController();
               ),
             ),
           ),
+      
           Container(
             margin: EdgeInsets.only(top: size.height*0.13),
             // height: size.height*0.8,
@@ -107,146 +120,8 @@ TextEditingController textFieldController= TextEditingController();
                         ),),
                        InkWell(
                          onTap: (){
-                             showDialog(
-                  context: context,
-                  builder: (BuildContext context) =>  Container(
-                    margin:EdgeInsets.only(bottom: size.height * 0.1),
-                    child: Dialog(
-                alignment: AlignmentDirectional.bottomCenter,
-                shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                //this right here
-                child: Container(
-                  decoration:BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                      color: btnclr,
-                  ),
-                
-                    height: size.height * 0.25,
-                    width: size.width*0.9,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.04,
-                          right: size.width * 0.04,
-                          top: size.height * 0.02),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                              
-                                Text(
-                                  'Create New Group',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: size.height * 0.018,
-                                      fontFamily: 'MBold',
-                                      
-                                      ),
-                                ),
-                                // Spacer(),
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Icon(
-                                      Icons.close,
-                                      size: 20,
-                                    ))
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
-                         Container(
-                           height: size.height*0.1,
-                           width: size.width*0.8,
-                           child: TextFormField(  
-                             controller: textFieldController,                  
-                             decoration: InputDecoration(
-                               hintText: 'Group Name',
-                               contentPadding: EdgeInsets.only(top: 0,left: 22,right: 10,bottom:10),
-                               hintStyle: TextStyle(
-                                 fontFamily: "MBold",
-                                 color: infocolor,
-                                 fontSize: size.height*0.015
-                               ),
-                               fillColor: bckgrnd,
-                               filled: true,
-                               enabledBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(20),
-                                 borderSide:BorderSide(color: bckgrnd),
-                                 
-                               ),
-                               focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(20),
-                                 borderSide:BorderSide(color: bckgrnd),
-                                 
-                               ),
-                             ),
-                           ),
-                         ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             InkWell(
-                               onTap:(){
-                                 Navigator.pop(context);
-                               },
-                               child: Container(
-                                 height: size.height*0.05,
-                                 width: size.width*0.3,
-                                 decoration: BoxDecoration(
-                                   border: Border.all(color: signupclor_dark),
-                                   borderRadius: BorderRadius.circular(20),
-                                   color: btnclr
-                                 ),
-                                 child: Center(
-                                   child: Text('Cancel',
-                                   style: TextStyle(
-                                     fontSize:size.height*0.018,
-                                     fontFamily: "MBOld",
-                                     color: signupclor_dark
-                                   ),
-                                   )),
-                               ),
-                             ),
-                             InkWell(
-                               onTap: (){
-                                
-                               addItemToList();
-                               Navigator.pop(context);
-                              textFieldController.clear();
-                               },
-                               child: Container(
-                                 height: size.height*0.05,
-                                 width: size.width*0.3,
-                                 decoration: BoxDecoration(
-                                   border: Border.all(color: signupclor_dark),
-                                   borderRadius: BorderRadius.circular(20),
-                                   color: btnclr
-                                 ),
-                                 child: Center(
-                                   child: Text('Ok',
-                                   style: TextStyle(
-                                     fontSize:size.height*0.018,
-                                     fontFamily: "MBOld",
-                                     color: signupclor_dark
-                                   ),
-                                   )),
-                               ),
-                             ),
-                           ],
-                         )
-                        ],
-                      ),
-                    ),
-                ),
-              ),
-                  ));
+                             Navigator.push(context, MaterialPageRoute(builder: (_)=>AddNewGroupScreen()));
+                         
                          },
                          child: Container(
                           alignment: Alignment.center,
@@ -288,11 +163,25 @@ TextEditingController textFieldController= TextEditingController();
                   SizedBox(height: size.height*0.02,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                        height: size.height * 0.09,
-                          width: size.width * 0.85,
+                          width: size.width * 0.8,
                         child: TextFormField(
+                          // onChanged: (value)async{
+                          //   if(value.isEmpty){
+                          //     searchValue=null;
+                          //     setState(() {
+                                
+                          //     });
+                          //   }else{
+                          //     searchValue=value;
+                          //     setState(() {
+                                
+                          //     });
+                          //   }
+                          // },
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -312,12 +201,16 @@ TextEditingController textFieldController= TextEditingController();
                           ),
                         ),
                       ),
+                      
                       GestureDetector(
 
                           onTap: (){
                            _sortbygModalBottomSheet(context);
                           },
-                          child: SvgPicture.asset(sort_icon,height: 20,)),
+                          child: Padding(
+                            padding:  EdgeInsets.only(bottom: size.height*0.03),
+                            child: SvgPicture.asset(sort_icon,height: 20,),
+                          )),
                     ],
                   ), 
                     SizedBox(
@@ -329,24 +222,26 @@ TextEditingController textFieldController= TextEditingController();
                   SizedBox(
                     height: size.height*0.02,
                   ),
-                itemList!.isNotEmpty? Expanded(
+                Globals.groupListModal!=null? Expanded(
                     flex: 1,
                     child: ListView.builder(
                       padding: EdgeInsets.all(0),
-                      itemCount: itemList!.length,
+                      itemCount: Globals.groupListModal!.groupListData!.length,
                       itemBuilder: (context,index){
-                        return Column(
+                        return Globals.groupListModal!.groupListData!=null?Column(
                           children: [
                            
                             InkWell(
                               onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>GroupsDetailCardsScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>GroupsDetailCardsScreen(groupName: Globals.groupListModal!.groupListData![index].name.toString(),
+                        groupId:Globals.groupListModal!.groupListData![index].id ,
+                        )));
 
                               },
                               child: Row(
                                 children: [
                                   
-                                  Text(itemList![index],style: TextStyle(
+                                  Text(Globals.groupListModal!.groupListData![index].name.toString(),style: TextStyle(
                                     fontSize: size.height*0.015,
                                     fontFamily: "MBold",
                                     color:Colors.black
@@ -366,7 +261,7 @@ TextEditingController textFieldController= TextEditingController();
                     height: size.height*0.015,
                                     ),
                           ],
-                        );
+                        ):Text('No groups found');
                       }),
                   ):
                                      
@@ -390,7 +285,7 @@ TextEditingController textFieldController= TextEditingController();
   }
    void _sortbygModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
-
+    var sortType='1';
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -432,21 +327,19 @@ TextEditingController textFieldController= TextEditingController();
                                   ),
                          Row(
                            children: [
-                             Checkbox(
-                                    checkColor: Colors.white,
-                                    overlayColor: MaterialStateProperty.all(infocolor),
-                                    fillColor: MaterialStateProperty.all(txtcolr),
-                                    value: isName,
-                                    shape: CircleBorder(),
-                                    onChanged: (bool? value) {
+                              Radio(
+                                  activeColor: primarygreen,
+                                  value: '1',
+                                  groupValue: sortType,
+                                  onChanged: (dynamic value) {
+                                    setSte(() {
                                       setState(() {
-                                        setSte(() {
-                                          isName = value!;
-                                          isDate=false;
-                                        });
+                                        sortType = value;
+                                        print(value);
                                       });
-                                    },
-                                  ),
+                                    });
+                                  }),
+                                 
                                   SizedBox(
                                   width: size.width*0.04,
                                   ),
@@ -462,21 +355,19 @@ TextEditingController textFieldController= TextEditingController();
                          ),
                          Row(
                            children: [
-                             Checkbox(
-                                    checkColor: Colors.white,
-                                    overlayColor: MaterialStateProperty.all(infocolor),
-                                    fillColor: MaterialStateProperty.all(txtcolr),
-                                    value: isDate,
-                                    shape: CircleBorder(),
-                                    onChanged: (bool? value) {
+                              Radio(
+                                  activeColor: primarygreen,
+                                  value: '2',
+                                  groupValue: sortType,
+                                  onChanged: (dynamic value) {
+                                    setSte(() {
                                       setState(() {
-                                        setSte(() {
-                                          isDate = value!;
-                                          isName=false;
-                                        });
+                                        sortType = value;
+                                        print(value);
                                       });
-                                    },
-                                  ),
+                                    });
+                                  }),
+                                 
                                   SizedBox(
                                   width: size.width*0.04,
                                   ),
@@ -490,7 +381,15 @@ TextEditingController textFieldController= TextEditingController();
                            SizedBox(
                                   height: size.height*0.03,
                                   ),
-                         CustomNextButton(text: "Apply", image: '', color1: signupclor_light, color2: signupclor_dark, onTap: (){})
+                         CustomNextButton(text: "Apply", image: '', color1: signupclor_light, color2: signupclor_dark, onTap: ()async{
+                           getGroupsList('0', '' );
+                            Navigator.pop(context);
+                            setSte((){
+                              setState(() {
+                                
+                              });
+                            });
+                         })
                         ],
                       ),
                     ),

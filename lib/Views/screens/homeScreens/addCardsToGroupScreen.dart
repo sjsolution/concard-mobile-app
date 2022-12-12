@@ -1,12 +1,25 @@
 import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
+import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/allCards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/favouritescards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/reachedCards.dart';
+import 'package:concard/Views/screens/homeScreens/cardsScrens/savedCards.dart';
 import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
+import 'package:concard/Views/screens/homeScreens/notifications/notificationsScreen.dart';
+import 'package:concard/Views/screens/homeScreens/personalProfileViewScreen.dart';
+import 'package:concard/Views/widgets/shimmer_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:concard/Constants/globals.dart' as Globals;
+
 
 class AddCardsToGroupScreen extends StatefulWidget {
-  AddCardsToGroupScreen({Key? key}) : super(key: key);
-
+  AddCardsToGroupScreen({Key? key,required this.groupId,this.initialIndex}) : super(key: key);
+int? groupId;
+int? initialIndex;
   @override
   State<AddCardsToGroupScreen> createState() => _AddCardsToGroupScreenState();
 }
@@ -17,315 +30,200 @@ class _AddCardsToGroupScreenState extends State<AddCardsToGroupScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Consumer<AppProvider>(builder: (context,appPro,_){
+      return DefaultTabController(
+      length: 4,
+      initialIndex:int.parse(widget.initialIndex.toString()) ,
+      child: Scaffold(
         body: SingleChildScrollView(
-      child: Stack(
-        children: [
-          Container(
-            height: size.height * 0.15,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topCenter,
-                  colors: [signupclor_light, signupclor_dark]),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.04,
-                  top: size.height * 0.04),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: size.height * 0.02,
-                        color: bckgrnd,
-                      )),
-                  Container(
-                    child: Text(
-                      'Add Cards',
-                      style: TextStyle(
-                          fontSize: size.height * 0.018,
-                          fontFamily: "MBold",
-                          color: bckgrnd),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(notify_icon),
-                      SizedBox(width: size.width * 0.03),
-                      CircleAvatar(
-                        radius: size.height * 0.025,
-                        backgroundImage: NetworkImage(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREbaKw2V0KnOGHLPIg70pC1vakownhs8kl8A&usqp=CAU'),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: size.height * 0.13),
-            height: size.height * 1.0,
-            width: size.width,
-            decoration: BoxDecoration(
-                color: btnclr,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                )),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.04,
-                  top: size.height * 0.02),
-              child: Column(
-                children: [
-                  Row(
+          child: Stack(
+            children: [
+              Container(
+                height: size.height * 0.15,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.04, right: size.width * 0.04, top: size.height * 0.04),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>FollowingCardsScreen()));
+                          Navigator.pop(context);
                         },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: size.height * 0.02,
+                          color: bckgrnd,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
                         child: Text(
-                          'Reached Concards (22) ',
-                          style: TextStyle(
-                              fontSize: size.height * 0.018,
-                              fontFamily: "Msemibold",
-                              color: signupclor_dark),
+                          'Cards',
+                          style: TextStyle(fontSize: size.height * 0.018, fontFamily: "MBold", color: bckgrnd),
                         ),
                       ),
-                      SizedBox(
-                        width: size.width * 0.01,
-                      ),
-                      Text(
-                        '|',
-                        style: TextStyle(
-                          fontSize: size.height * 0.018,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.01,
-                      ),
-                      Text(
-                        'All cards (23)',
-                        style: TextStyle(
-                            fontSize: size.height * 0.018,
-                            color: infocolor,
-                            fontFamily: "Msemibold"),
-                      ),
-                      Spacer(),
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.15,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  gradientgreen,
-                                  primarygreen,
-                                ]),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Add',
-                              style: TextStyle(
-                                  color: bckgrnd,
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: 'Msemibold'),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: size.height * 0.09,
-                        width: size.width * 0.85,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            prefixIcon: Icon(Icons.search,size: size.height*0.05,color: signupclor_dark,),
-                            fillColor: Colors.white,
-                            filled: true,
-                            hintText: 'Search cards',
-                            contentPadding: EdgeInsets.only(
-                                top: 0.0, left: 22.0, bottom: 2.0),
-                            hintStyle: TextStyle(
-                                fontSize: size.width * 0.04, color: infocolor),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                          onTap: () {},
-                          child: SvgPicture.asset(
-                            sort_icon,
-                            height: 20,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.check,
-                        size: size.height * 0.02,
-                        color: signupclor_light,
-                      ),
-                      SizedBox(
-                        width: size.width * 0.02,
-                      ),
-                      Text(
-                        '(1) Card Selected',
-                        style: TextStyle(
-                            fontSize: size.height * 0.018, fontFamily: "MBOld"),
-                      ),
-                      Spacer(),
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  signupclor_light,
-                                  signupclor_dark,
-                                ]),
-                            color: bckgrnd,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Select all',
-                              style: TextStyle(
-                                  color: bckgrnd,
-                                  fontSize: size.height * 0.015,
-                                  fontFamily: 'Msemibold'),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>ContactProfileViewScreen()));
-                    },
-                    child: Container(
-                      height: size.height * 0.8,
-                      width: size.width,
-                      child: ListView.builder(
-                        padding: EdgeInsets.all(0),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.only(top: size.height * 0.02),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Radio(
-                                  value: index.toString(),
-                                  groupValue: isSelect,
-                                  onChanged: (dynamic newValue) =>
-                                      setState(() => isSelect = newValue),
-                                  activeColor: signupclor_light,
-                                  // selected: false,
-                                ),
-                                Container(
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      mycard_icon,
-                                      fit: BoxFit.cover,
+                      Row(
+                        children: [
+                          GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NotificationsScreen()));
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          SvgPicture.asset(bellIcon),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 10),
+                                            child: SvgPicture.asset(notifyDot),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(5),
+                                    
+                                      SizedBox(
+                                  width: size.width * 0.04,
+                                ),
+                                 GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PersonalProfileViewScreen()));
+                                  },
+                                  child: CircleAvatar(
+                                    radius: size.height * 0.02,
+                                    backgroundImage: NetworkImage(
+                                      // individualProfileModel!.profileData!.profileImage.toString(),
+                                      appPro.individualProfileModel?.individualUserData!.individualUser?.profileImage != null
+                                          ? appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                          : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
+                                    ),
                                   ),
-                                  height: size.height * 0.08,
-                                  width: size.width * 0.25,
                                 ),
-                                SizedBox(
-                                  width: size.width * 0.03,
+                               
+
+                        ],
+                      ),
+                              
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: size.height * 0.13),
+                // height: size.height * 1.0,
+                width: size.width,
+                decoration: BoxDecoration(
+                  color: btnclr,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                ),
+                child: Globals.cardListModal != null
+                    ? Padding(
+                        padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02, top: size.height * 0.02),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: size.width * 0.65,
+                                  child: Column(
+                                    children: [
+                                      TabBar(
+                                          labelColor: primaryblue,
+                                          unselectedLabelColor: Colors.grey,
+                                          indicatorColor: btnclr,
+                                          // labelStyle: ,
+                                          isScrollable: true,
+                                          tabs: [
+                                            Text(
+                                              'All Cards (${Globals.cardListModal!.cardListData!.allCardsCounts.toString()})',
+                                              style: TextStyle(),
+                                            ),
+                                            Text(
+                                              'Reached Concards (${Globals.cardListModal!.cardListData!.reachedCardsCounts.toString()})',
+                                              style: TextStyle(),
+                                            ),
+                                            Text(
+                                              'Favourites (${Globals.cardListModal!.cardListData!.favouriteCardsCounts.toString()})',
+                                              style: TextStyle(),
+                                            ),
+                                            Text(
+                                              'Saved Concards (${Globals.cardListModal!.cardListData!.savedCardsCounts.toString()})',
+                                              style: TextStyle(),
+                                            ),
+                                          ]),
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Company Name',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.015,
-                                          fontFamily: "MBold"),
+                                const Spacer(),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: size.height * 0.035,
+                                  width: size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        gradientgreen,
+                                        primarygreen,
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: size.height * 0.02,
+                                    color: bckgrnd,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () async{
+                                   
+                                    await GroupsController().addCardToGroup(widget.groupId.toString(), Globals.cardListModal!.cardListData!.cards![0].id.toString());
+                                   Navigator.pop(context);
+                                    setState(() {
+                                      
+                                    });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Add',
+                                        style: TextStyle(color: bckgrnd, fontSize: size.height * 0.015, fontFamily: 'Msemibold'),
+                                      ),
                                     ),
-                                    Text(
-                                      'Lorem ipsum dolor sit amet',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.012,
-                                          fontFamily: "Msemibold",
-                                          color: infocolor),
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.01,
-                                    ),
-                                    Text(
-                                      'Concsectetuer adipiscing elit, sed fiam',
-                                      style: TextStyle(
-                                          fontSize: size.height * 0.012,
-                                          fontFamily: "Msemibold",
-                                          color: infocolor),
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                
                               ],
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
+                            Container(
+                              height: size.height,
+                              child: TabBarView(
+                                children: [
+                                  AllCards(isRadio: true,),
+                                  ReachedCardsScreen(),
+                                  FavouritesScreen(),
+                                  SavedCards(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ShimmerLoadWidget(),
+
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
-    ));
+    );
+  
+    });
+  
   }
 }

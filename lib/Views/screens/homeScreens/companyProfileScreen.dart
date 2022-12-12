@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:concard/Constants/globals.dart';
 import 'package:concard/Constants/images.dart';
+import 'package:concard/Controllers/OthersController/general_method.dart';
 import 'package:concard/Controllers/OthersController/image_picker_controller.dart';
 import 'package:concard/Controllers/compnayControllers/postController.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
@@ -248,6 +249,29 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       SizedBox(
                         height: size.height * 0.03,
                       ),
+                       GestureDetector(
+                        onTap: ()async {
+                          // _settingModalBottomSheet(context);
+                          await GeneralMethodsDart().shareDataMethod(Globals.teamDetailModel!.teamInviteLink, "Click on link and join Company.");
+                          
+                        },
+                        child: Container(
+                          height: size.height * 0.05,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient:
+                                  LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [gradientgreen, primarygreen])),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02),
+                            child: Center(child: Text('Invite a user to join company', style: TextStyle(fontSize: size.height * 0.02, fontFamily: "Msemibold", color: bckgrnd))),
+                          ),
+                        ),
+                      ),
+                    
+                        SizedBox(
+                        height: size.height * 0.03,
+                      ),
                       GestureDetector(
                         onTap: () {
                           _settingModalBottomSheet(context);
@@ -279,6 +303,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                       ),
+                    
                       SizedBox(
                         height: size.height * 0.03,
                       ),
@@ -303,7 +328,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => EditMyCardScreen()));
+                                      
                                       },
                                       child: Row(
                                         children: [
