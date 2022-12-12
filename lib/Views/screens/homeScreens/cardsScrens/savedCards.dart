@@ -1,5 +1,6 @@
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addContactCardsScreen.dart';
 import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Constants/colors.dart';
 import '../../../widgets/customButton.dart';
@@ -54,7 +56,8 @@ class _SavedCardsState extends State<SavedCards> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Column(
+    return Consumer<AppProvider>(builder: (context,appPro,_){
+      return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,6 +169,8 @@ class _SavedCardsState extends State<SavedCards> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => ContactProfileViewScreen(
+                                            email:appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString(), 
+                                            phoneNumber:  appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString(),
                                               id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
                                             )));
                               },
@@ -317,7 +322,7 @@ class _SavedCardsState extends State<SavedCards> {
                                                                         SizedBox(
                                                                           width: size.width * 0.15,
                                                                           child: Text(
-                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo ?? '',
+                                                                            Globals.cardListModal!.cardListData!.cards![index].mobileNo.toString() ?? '',
                                                                             style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
@@ -458,6 +463,8 @@ class _SavedCardsState extends State<SavedCards> {
             : const ShimmerLoadWidget(),
       ],
     );
+ 
+    });
   }
 
   void _optionsModalBottomSheet(context, Cards? cards) {

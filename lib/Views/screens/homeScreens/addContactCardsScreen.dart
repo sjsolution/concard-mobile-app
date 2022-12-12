@@ -98,7 +98,7 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
 
   AddMyCard() async {
     Globals.addCardModal =
-        await CardController().addCard(userName: '',jobTitle: '',companyName: '',day: '',month: '',year: '',mobileNumbers: [],emails: [],city: '',province: '',country: '',address: '',positionName: '',postalCode: '',meetingDatetime: '',location: '',website: '');
+        await CardController().addCard(userName: '',jobTitle: '',companyName: '',day: '',month: '',year: '',mobileNumbers: mobileNumberToSend,emails:emailToSend ,city: '',province: '',country: '',address: '',positionName: '',postalCode: '',meetingDatetime: '',location: '',website: '');
     print('aadd card' + Globals.addCardModal.toString());
     setState(() {});
   }
@@ -225,7 +225,8 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                                 location: 
                                 locationControllor.text.trim(),
                                 meetingDatetime: 
-                                meetingDatetime.toString());
+                                meetingDatetime.toString()
+                              );
                             clearAllController();
                           
                             selectedDayController.clear();

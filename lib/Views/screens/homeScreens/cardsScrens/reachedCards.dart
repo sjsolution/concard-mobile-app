@@ -1065,11 +1065,13 @@
 import 'package:concard/Constants/Colors.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/CardsController/card_controller.dart';
+import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Views/screens/homeScreens/contactsProfileViewScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Models/Cards/card_list_modal.dart';
 import '../../../widgets/shimmer_widgets.dart';
@@ -1098,7 +1100,8 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Globals.cardListModal!.cardListData!=null?  Column(
+    return Consumer<AppProvider>(builder: (context,appPro,_){
+      return Globals.cardListModal!.cardListData!=null?  Column(
         children: [
           Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1219,7 +1222,10 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (_) =>
-                                           ContactProfileViewScreen(id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),)));
+                                           ContactProfileViewScreen(
+                                            email:appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString(), 
+                                            phoneNumber:  appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString(),
+                                            id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),)));
                             },
                                         child: Column(
                                           children: [
@@ -1430,7 +1436,7 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                                                                                         0.15,
                                                                                     child:
                                                                                         Text(
-                                                                                      Globals.cardListModal!.cardListData!.cards![index].mobileNo ??
+                                                                                      Globals.cardListModal!.cardListData!.cards![index].mobileNo.toString() ??
                                                                                           '',
                                                                                       style:
                                                                                           TextStyle(
@@ -1610,6 +1616,8 @@ class _ReachedCardsScreenState extends State<ReachedCardsScreen> {
                         : const ShimmerLoadWidget(),
         ],
       ):ShimmerLoadWidget();
+  
+    });
   }
    void _optionsModalBottomSheet(context, Cards? cards) {
     var size = MediaQuery.of(context).size;

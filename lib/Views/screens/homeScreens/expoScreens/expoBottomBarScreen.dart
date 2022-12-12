@@ -33,23 +33,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
   // List<>? badgeList = [];
   getListOfExpoBadge() async {
     Globals.expoBadgeListModal= await ExpoController().getExpoBadgeList();
-    print('Expo Home'+ Globals.expoBadgeListModal.toString());
-
+    // print('Expo Home'+ Globals.expoBadgeListModal.toString());
     setState(() {});
-
-
-//     for(int i=0; i< Globals.expoBadgeListModal!.data!.length; i++ ){
-
-// User user =User(
-//   firstName: Globals.expoBadgeListModal!.data![i].user!.firstName,
-//   lastName: Globals.expoBadgeListModal!.data![i].user!.lastName,
-//   jobTitle: Globals.expoBadgeListModal!.data![i].user!.jobTitle,
-//   companyName: Globals.expoBadgeListModal!.data![i].user!.companyName,
-//   id: Globals.expoBadgeListModal!.data![i].user!.id,
-//   image: Globals.expoBadgeListModal!.data![i].user!.image
-// );
-// badgeList!.add(user);
-//     }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:concard/Models/Cards/add_card_modal.dart';
 import 'package:concard/Models/Cards/card_list_modal.dart';
 import 'package:concard/Models/Cards/single_card_detail_modal.dart';
@@ -75,8 +77,8 @@ class CardController {
       if (response != null) {
         CardListModal? cardListModal = CardListModal.fromJson(response);
         Globals.cardListModal = cardListModal;
-        print('Card List' + cardListModal.toString());
-        print('Global var' + Globals.cardListModal.toString());
+        print('Card List' + cardListModal.toJson().toString());
+        print('Global var' + Globals.cardListModal!.toJson().toString());
 
         return cardListModal;
       } else {
@@ -126,6 +128,65 @@ class CardController {
         print('' + Globals.singleCardDetailModal.toString());
 
         return singleCardDetailModal;
+      } else {
+        Globals.showToastMethod(msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      // debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+   
+  // User Exist
+  Future UserExist(List<String>? emails,List<String>? phoneNumbers) async {
+    try {
+  //           var mainObj ={};
+  // var  dataTosend=[];
+  //  mainObj["emails"] = "razarai63@gmail.com";
+  //  mainObj["phone"] = "03037900571";
+  
+  // for(int j=0;j<3; j++){
+    
+  //   var emialObj ={};
+     
+  //   emialObj["emails"] = "$j razarai63@gmail.com";
+  //   dataTosend.add(emialObj);   
+    
+  // }
+  
+  // mainObj["emails"] = emails;
+  
+  // print(jsonEncode(mainObj));
+
+
+  //  for(int j=0;j<phoneNumbers.length; j++){
+    
+  //   var phoneObj ={};
+     
+  //   phoneObj["phone"] = "$j 03037900571";
+  //   dataTosend.add(phoneObj);   
+    
+  // }
+  
+  // mainObj["phone"] = phoneNumbers;
+  
+  // print(jsonEncode('phone : '+mainObj.toString()));
+      var formData = FormData.fromMap({
+        'emails':emails,
+        'phone_numbers':phoneNumbers
+      });
+      var response = await services.postResponse(url: '/user/exist',formData: formData,);
+      debugPrint(response.toString());
+      if (response != null) {
+        // SingleCardDetailModal? singleCardDetailModal = SingleCardDetailModal.fromJson(response);
+        // Globals.singleCardDetailModal = singleCardDetailModal;
+        // print('' + singleCardDetailModal.toString());
+        // print('' + Globals.singleCardDetailModal.toString());
+  
+
+        return response;
+        
       } else {
         Globals.showToastMethod(msg: "There is something went worng. Please try again later");
         return null;

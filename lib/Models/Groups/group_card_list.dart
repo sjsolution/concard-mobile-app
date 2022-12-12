@@ -1,62 +1,31 @@
-class CardListModal {
+class GroupCardsList {
   final int? code;
   final String? message;
-  final CardListData? cardListData;
+  final List<GroupCardsListData>? groupCardsListData;
 
-  CardListModal({
+  GroupCardsList({
     this.code,
     this.message,
-    this.cardListData,
+    this.groupCardsListData,
   });
 
-  CardListModal.fromJson(Map<String, dynamic> json)
+  GroupCardsList.fromJson(Map<String, dynamic> json)
     : code = json['code'] as int?,
       message = json['message'] as String?,
-      cardListData = (json['data'] as Map<String,dynamic>?) != null ? CardListData.fromJson(json['data'] as Map<String,dynamic>) : null;
+      groupCardsListData = (json['data'] as List?)?.map((dynamic e) => GroupCardsListData.fromJson(e as Map<String,dynamic>)).toList();
 
   Map<String, dynamic> toJson() => {
     'code' : code,
     'message' : message,
-    'data' : cardListData?.toJson()
+    'data' : groupCardsListData?.map((e) => e.toJson()).toList()
   };
 }
 
-class CardListData {
-  final int? allCardsCounts;
-  final int? reachedCardsCounts;
-  final int? savedCardsCounts;
-  final int? favouriteCardsCounts;
-  final List<Cards>? cards;
-
-  CardListData({
-    this.allCardsCounts,
-    this.reachedCardsCounts,
-    this.savedCardsCounts,
-    this.favouriteCardsCounts,
-    this.cards,
-  });
-
-  CardListData.fromJson(Map<String, dynamic> json)
-    : allCardsCounts = json['all_cards_counts'] as int?,
-      reachedCardsCounts = json['reached_cards_counts'] as int?,
-      savedCardsCounts = json['saved_cards_counts'] as int?,
-      favouriteCardsCounts = json['favourite_cards_counts'] as int?,
-      cards = (json['cards'] as List?)?.map((dynamic e) => Cards.fromJson(e as Map<String,dynamic>)).toList();
-
-  Map<String, dynamic> toJson() => {
-    'all_cards_counts' : allCardsCounts,
-    'reached_cards_counts' : reachedCardsCounts,
-    'saved_cards_counts' : savedCardsCounts,
-    'favourite_cards_counts' : favouriteCardsCounts,
-    'cards' : cards?.map((e) => e.toJson()).toList()
-  };
-}
-
-class Cards {
-   int? id;
+class GroupCardsListData {
+  final int? id;
   final int? userId;
   final String? companyName;
-  final dynamic website;
+  final String? website;
   final dynamic field;
   final dynamic workPhone;
   final dynamic mobileNo;
@@ -80,7 +49,7 @@ class Cards {
   final List<Emails>? emails;
   final List<Numbers>? numbers;
 
-  Cards({
+  GroupCardsListData({
     this.id,
     this.userId,
     this.companyName,
@@ -109,11 +78,11 @@ class Cards {
     this.numbers,
   });
 
-  Cards.fromJson(Map<String, dynamic> json)
+  GroupCardsListData.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
       userId = json['user_id'] as int?,
       companyName = json['company_name'] as String?,
-      website = json['website'],
+      website = json['website'] as String?,
       field = json['field'],
       workPhone = json['work_phone'],
       mobileNo = json['mobile_no'],

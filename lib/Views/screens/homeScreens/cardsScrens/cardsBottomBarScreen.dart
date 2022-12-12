@@ -211,7 +211,8 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
+                                
                               ],
                             ),
                             SizedBox(
@@ -221,7 +222,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                               height: size.height,
                               child: TabBarView(
                                 children: [
-                                  AllCards(),
+                                  AllCards(isRadio: false),
                                   ReachedCardsScreen(),
                                   FavouritesScreen(),
                                   SavedCards(),
@@ -232,6 +233,7 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                         ),
                       )
                     : ShimmerLoadWidget(),
+
               ),
             ],
           ),
@@ -240,6 +242,8 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
     );
   
     });
+  
+  
   }
 
   void showManageDialog(BuildContext context) {
