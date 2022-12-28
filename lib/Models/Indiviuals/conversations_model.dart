@@ -46,10 +46,10 @@ class Conversations {
 
   Conversations.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      moderatorId = json['moderator_id'] as String?,
-      participantId = json['participant_id'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
+      moderatorId = json['moderator_id'] .toString(),
+      participantId = json['participant_id'] .toString(),
+      createdAt = json['created_at'] .toString(),
+      updatedAt = json['updated_at'] .toString(),
       recipient = (json['recipient'] as Map<String,dynamic>?) != null ? Recipient.fromJson(json['recipient'] as Map<String,dynamic>) : null,
       message = (json['message'] as Map<String,dynamic>?) != null ? Message.fromJson(json['message'] as Map<String,dynamic>) : null,
       unreadCounts = json['unread_counts'] as int?,
@@ -95,15 +95,15 @@ class Recipient {
 
   Recipient.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      firstName = json['first_name'] as String?,
-      lastName = json['last_name'] as String?,
-      mobileNumber = json['mobile_number'] as String?,
-      email = json['email'] as String?,
-      userType = json['user_type'] as String?,
+      firstName = json['first_name'].toString(),
+      lastName = json['last_name'].toString(),
+      mobileNumber = json['mobile_number'].toString(),
+      email = json['email'].toString(),
+      userType = json['user_type'].toString(),
       emailVerifiedAt = json['email_verified_at'],
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?,
-      image = json['image'] as String?;
+      createdAt = json['created_at'].toString(),
+      updatedAt = json['updated_at'].toString(),
+      image = json['image'].toString();
 
   Map<String, dynamic> toJson() => {
     'id' : id,
@@ -153,11 +153,11 @@ class Messages {
 
   Messages.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      conversationId = json['conversation_id'] as String?,
-      text = json['text'] as String?,
-      createdAt = json['created_at'] as String?,
-      updatedAt = json['updated_at'] as String?;
+      userId = json['user_id'].toString(),
+      conversationId = json['conversation_id'].toString(),
+      text = json['text'].toString(),
+      createdAt = json['created_at'].toString(),
+      updatedAt = json['updated_at'].toString();
 
   Map<String, dynamic> toJson() => {
     'id' : id,

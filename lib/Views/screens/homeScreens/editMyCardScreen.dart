@@ -61,7 +61,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
 
   setEditValue() async {
     var app = Provider.of<AppProvider>(context, listen: false);
-    data = app.individualProfileModel!.individualUserData!.individualUser;
+    data = app.individualProfileModel!.individualProfileDetailData!.singleProfileUser;
     emailControl.text = data.email != null ? data.email! : '';
     telMobileControl.text = data.mobileNumber != null ? data.mobileNumber! : '';
     companyNameControl.text = data.companyName != null ? data.companyName! : "";

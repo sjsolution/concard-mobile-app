@@ -30,8 +30,7 @@ class ContactProfileViewScreen extends StatefulWidget {
   String? email;
   String? phoneNumber;
   @override
-  State<ContactProfileViewScreen> createState() =>
-      _ContactProfileViewScreenState();
+  State<ContactProfileViewScreen> createState() =>_ContactProfileViewScreenState();
 }
 
 class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
@@ -546,6 +545,7 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
                                               ),
                                             ),
                                           ),
+                                        
                                           Row(
                                             children: [
                                               Container(
@@ -2013,4 +2013,5 @@ class _ContactProfileViewScreenState extends State<ContactProfileViewScreen> {
       ),
     );
   }
+
 }

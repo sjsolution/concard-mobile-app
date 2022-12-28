@@ -13,7 +13,7 @@ class ProfileController {
   LocalStorageClass localStorageClass = LocalStorageClass();
   AppProvider? appProvider;
 
-  Future<IndividualProfileModel?> getIndividualProfileData({required String id, required BuildContext context}) async {
+  Future<IndividualProfileModel?> getIndividualProfileData({required String? id, required BuildContext context}) async {
     Dio dio = Dio();
     var formData = FormData.fromMap({'id': id});
     try {

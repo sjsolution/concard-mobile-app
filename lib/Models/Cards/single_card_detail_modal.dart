@@ -174,7 +174,7 @@ class CompanyMembers {
   final String? card;
   final String? logo;
   final String? profileImage;
-  final double? userRating;
+  final String? userRating;
   final ProfileAbout? profileAbout;
 
   CompanyMembers({
@@ -233,7 +233,7 @@ class CompanyMembers {
       card = json['card'] as String?,
       logo = json['logo'] as String?,
       profileImage = json['profileImage'] as String?,
-      userRating = json['user_rating'] as double?,
+      userRating = json['user_rating'].toString(),
       profileAbout = (json['profile_about'] as Map<String,dynamic>?) != null ? ProfileAbout.fromJson(json['profile_about'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {

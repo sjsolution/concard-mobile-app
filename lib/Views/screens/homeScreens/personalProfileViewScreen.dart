@@ -178,8 +178,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             CircleAvatar(
                               radius: size.height * 0.035,
                               backgroundImage: NetworkImage(
-                                appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage != null
-                                    ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage != null
+                                    ? appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString()
                                     : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                               ),
                             ),
@@ -187,7 +187,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               height: 10,
                             ),
                             Text(
-                              '${appPro!.individualProfileModel!.individualUserData!.individualUser?.firstName ?? ''} ${appPro!.individualProfileModel!.individualUserData!.individualUser?.lastName ?? ''}',
+                              '${appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.firstName ?? ''} ${appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.lastName ?? ''}',
                               style: TextStyle(fontFamily: 'MBold', fontSize: size.height * 0.02, color: bckgrnd),
                             ),
                             const SizedBox(
@@ -197,7 +197,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               children: [
                                 Text(
                                   // appPro!.individualProfileModel!.data!.user!.email ?? '',
-                                  appPro!.individualProfileModel!.individualUserData!.individualUser?.companyName ?? '',
+                                  appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.companyName.toString() ?? '',
                                   style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                 ),
                                 const SizedBox(
@@ -669,14 +669,14 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) => RatingReviewScreen(
-                                          userId: appPro!.individualProfileModel!.individualUserData!.individualUser!.id.toString(),
+                                          userId: appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.id.toString(),
                                         )));
                           },
                           child: Row(
                             children: [
                               Text(
                                 'Rating & Reviews',
-                                style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
+                                style: TextStyle(fontSize: size.height * 0.018, color: Color.fromARGB(255, 148, 95, 95), fontFamily: 'Msemibold'),
                               ),
                               const Icon(
                                 Icons.arrow_drop_down,
@@ -690,7 +690,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Container(
                               child: RatingBar.builder(
                                 itemSize: size.height * 0.02,
-                                initialRating: appPro!.individualProfileModel!.individualUserData!.individualUser!.userRating!,
+                                initialRating: double.parse(appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.userRating.toString()),
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
@@ -709,7 +709,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               width: size.width * 0.01,
                             ),
                             Text(
-                              '${appPro!.individualProfileModel!.individualUserData!.individualUser!.userRating!.toString()}',
+                              '${appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.userRating!.toString()}',
                               style: TextStyle(fontSize: size.height * 0.018, color: Colors.black, fontFamily: 'Msemibold'),
                             )
                           ],
@@ -772,7 +772,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          appPro!.individualProfileModel!.individualUserData!.reachedCardsCounts.toString(),
+                                          appPro!.individualProfileModel!.individualProfileDetailData!.reachedCardsCounts.toString(),
                                           style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                         ),
                                         SvgPicture.asset(
@@ -816,7 +816,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          appPro!.individualProfileModel!.individualUserData!.savedCardsCounts.toString(),
+                                          appPro!.individualProfileModel!.individualProfileDetailData!.savedCardsCounts.toString(),
                                           style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                         ),
                                         SvgPicture.asset(
@@ -861,7 +861,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          appPro!.individualProfileModel!.individualUserData!.favouriteCardsCounts.toString(),
+                                          appPro!.individualProfileModel!.individualProfileDetailData!.favouriteCardsCounts.toString(),
                                           style: TextStyle(fontFamily: "Msemibold", color: bckgrnd, fontSize: size.height * 0.03),
                                         ),
                                         SvgPicture.asset(
@@ -1091,9 +1091,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         GestureDetector(
                           onTap: () => _showEditAboutPopUp(
                               context,
-                              appPro?.individualProfileModel?.individualUserData!.individualUser!.individualProfileAbout!.id == null
+                              appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser!.profileAbout!.id == null
                                   ? ''
-                                  : appPro!.individualProfileModel!.individualUserData!.individualUser!.individualProfileAbout!.id.toString()),
+                                  : appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileAbout!.id.toString()),
                           child: Container(
                             height: size.height * 0.04,
                             width: size.width * 0.2,
@@ -1128,9 +1128,9 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             Wrap(
                               children: [
                                 Text(
-                                  appPro?.individualProfileModel?.individualUserData!.individualUser!.individualProfileAbout?.text == null
+                                  appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser!.profileAbout?.text == null
                                       ? ''
-                                      : appPro!.individualProfileModel!.individualUserData!.individualUser!.individualProfileAbout!.text.toString(),
+                                      : appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileAbout!.text.toString(),
                                   style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Msemibold"),
                                 ),
                               ],
@@ -1262,7 +1262,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       child: ListView.builder(
                           padding: const EdgeInsets.all(0),
                           scrollDirection: Axis.horizontal,
-                          itemCount: appPro!.individualProfileModel!.individualUserData!.companyMembers!.length,
+                          itemCount: appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers!.length,
                           itemBuilder: (context, companyMemeberIndex) {
                             return Container(
                               margin: EdgeInsets.only(left: size.width * 0.03),
@@ -1271,16 +1271,16 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                    CircleAvatar(
                                     radius: 30,
                                   backgroundImage: NetworkImage(
-                                    appPro!.individualProfileModel!.individualUserData!.companyMembers![companyMemeberIndex].profileImage.toString()??"https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                    appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers![companyMemeberIndex].profileImage.toString()??"https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                   ),
                                   ),
                                   Text(
-                                    '${appPro!.individualProfileModel!.individualUserData!.companyMembers![companyMemeberIndex].firstName.toString()}' + '${appPro!.individualProfileModel!.individualUserData!.companyMembers![companyMemeberIndex].lastName.toString()}',
+                                    '${appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers![companyMemeberIndex].firstName.toString()}' + '${appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers![companyMemeberIndex].lastName.toString()}',
                                     style: TextStyle(fontSize: size.height * 0.018, fontFamily: 'MBold'),
                                   ),
                                   Text(
-                                    appPro!.individualProfileModel!.individualUserData!.companyMembers![companyMemeberIndex].companyName!=null?
-                                    appPro!.individualProfileModel!.individualUserData!.companyMembers![companyMemeberIndex].firstName.toString():'',
+                                    appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers![companyMemeberIndex].companyName!=null?
+                                    appPro!.individualProfileModel!.individualProfileDetailData!.companyMembers![companyMemeberIndex].firstName.toString():'',
                                     style: TextStyle(fontSize: size.height * 0.014, fontFamily: 'Msemibold'),
                                   ),
                                 ],
@@ -1494,7 +1494,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               PrettyQr(
                                 typeNumber: 4,
                                 size: size.height * 0.08,
-                                data: '${individualProfileModel!.individualUserData!.individualUser!.id ?? "0"}',
+                                data: '${individualProfileModel!.individualProfileDetailData!.singleProfileUser!.id}',
                                 errorCorrectLevel: QrErrorCorrectLevel.M,
                                 roundEdges: true,
                               ),
@@ -1511,7 +1511,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${individualProfileModel.individualUserData!.individualUser!.firstName ?? ''} ${individualProfileModel.individualUserData!.individualUser!.lastName ?? ''}",
+                                "${individualProfileModel.individualProfileDetailData!.singleProfileUser!.firstName!=null? individualProfileModel.individualProfileDetailData!.singleProfileUser!.firstName.toString(): ''} ${individualProfileModel.individualProfileDetailData!.singleProfileUser!.lastName!=null? individualProfileModel.individualProfileDetailData!.singleProfileUser!.lastName.toString(): ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.020,
                                   color: signupclor_dark,
@@ -1519,7 +1519,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 ),
                               ),
                               Text(
-                                "${individualProfileModel.individualUserData!.individualUser!.jobTitle ?? ''}",
+                                "${individualProfileModel.individualProfileDetailData!.singleProfileUser!.jobTitle!=null? individualProfileModel.individualProfileDetailData!.singleProfileUser!.jobTitle : ''}",
                                 style: TextStyle(
                                   fontSize: size.height * 0.015,
                                   color: signupclor_dark,
@@ -1540,7 +1540,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * .35,
                                     child: Column(children: [
                                       Text(
-                                        "${individualProfileModel.individualUserData!.individualUser!.address}",
+                                        individualProfileModel.individualProfileDetailData!.singleProfileUser!.address!=null?
+                                        individualProfileModel.individualProfileDetailData!.singleProfileUser!.address.toString():"",
                                         style: TextStyle(
                                           fontSize: size.height * 0.015,
                                           color: signupclor_dark,
@@ -1561,7 +1562,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     width: size.width * 0.02,
                                   ),
                                   Text(
-                                    individualProfileModel.individualUserData!.individualUser!.mobileNumber ?? '',
+                                   individualProfileModel.individualProfileDetailData!.singleProfileUser!.mobileNumber!=null? individualProfileModel.individualProfileDetailData!.singleProfileUser!.mobileNumber.toString():'' ,
                                     style: TextStyle(
                                       fontSize: size.height * 0.015,
                                       color: signupclor_dark,
@@ -1587,7 +1588,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          individualProfileModel.individualUserData!.individualUser!.email ?? '',
+                                          individualProfileModel.individualProfileDetailData!.singleProfileUser!.email.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: size.height * 0.012,
                                             color: signupclor_dark,
@@ -1613,7 +1614,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "${individualProfileModel.individualUserData!.individualUser!.website}",
+                                          "${individualProfileModel.individualProfileDetailData!.singleProfileUser!.website}",
                                           style: TextStyle(
                                             fontSize: size.height * 0.015,
                                             color: signupclor_dark,
@@ -2411,7 +2412,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             onTap: () async {
                               AboutProvider().changeAbout(aboutId: aboutId, AboutText: _aboutController.text.trim());
                               Navigator.pop(context);
-                              appPro!.individualProfileModel!.individualUserData!.individualUser!.individualProfileAbout!.text = _aboutController.text;
+                              appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileAbout!.text = _aboutController.text;
                             },
                             child: Container(
                               height: size.height * 0.05,

@@ -1,8 +1,8 @@
 import 'package:concard/Constants/Colors.dart';
-import 'package:concard/Constants/images.dart';
-import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
+
+import '../../../Controllers/GropsController/addGroup_controller.dart';
 
 
 
@@ -71,53 +71,55 @@ class _AddNewGroupScreenState extends State<AddNewGroupScreen> {
             topRight: Radius.circular(15)),
 
         ),
-        child: Form(
-          key: formKey,
-          child: Padding(
-            padding:  EdgeInsets.only(top: size.height*0.02,left: size.width*0.04,right: size.width*0.04),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Add new Group',style: TextStyle(
-                      fontFamily: 'Mbold',
-                      fontSize: size.height*0.02
-                    ),),
-                    InkWell(
-                      onTap: ()async{
-                        var 
-                      result =  await GroupsController().addGroup(groupNameController.text);
-                        if (result['code']== 200) {
-                              Globals.showToastMethod(msg: 'Record Added Successfully');
-                              Navigator.pop(context);
-                            } else {
-                              Globals.showToastMethod(msg: 'There is something wrong');
-                            }
-                            setState(() {
-                              
-                            });
-                      },
-                      child: Container(
-                        height: size.height*0.04,
-                        width: size.width*0.25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color:Color(0xff48E3CF) )
-                        ),
-                        child: Center(
-                          child: Text('save',style: TextStyle(
-                          fontFamily: 'Msemibold',
-                          fontSize: size.height*0.018,
-                          color: Color(0xff48E3CF)
-                      ),),
-                        ),
+        child: Padding(
+          padding:  EdgeInsets.only(top: size.height*0.02,left: size.width*0.04,right: size.width*0.04),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Add new Group',style: TextStyle(
+                    fontFamily: 'Mbold',
+                    fontSize: size.height*0.02
+                  ),),
+                  InkWell(
+                    onTap: ()async{
+                      print('my text'+groupNameController.text);
+                      var 
+                    result =  await GroupsController().addGroup(groupNameController.text);
+                      if (result['code']== 200) {
+                            Globals.showToastMethod(msg: 'Record Added Successfully');
+                            // await GroupsController().GroupsList('','');
+                            Navigator.pop(context);
+                          } else {
+                            Globals.showToastMethod(msg: 'There is something wrong');
+                          }
+                          setState(() {
+                            result;
+                          });
+                    },
+                    child: Container(
+                      height: size.height*0.04,
+                      width: size.width*0.25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color:Color(0xff48E3CF) )
                       ),
-                    
+                      child: Center(
+                        child: Text('save',style: TextStyle(
+                        fontFamily: 'Msemibold',
+                        fontSize: size.height*0.018,
+                        color: Color(0xff48E3CF)
+                    ),),
+                      ),
                     ),
-                ],),
-                SizedBox(height: size.height*0.02,),
-                Container(
+                  
+                  ),
+              ],),
+              SizedBox(height: size.height*0.02,),
+              Form(
+                   key: formKey,
+                child: Container(
                          height: size.height * 0.09,
                             // width: size.width * 0.8,
                           child: TextFormField(
@@ -140,13 +142,13 @@ class _AddNewGroupScreenState extends State<AddNewGroupScreen> {
                             ),
                           ),
                         ),
-                
-                SizedBox(height: size.height*0.01,),
-                        Divider(
-                          thickness: 1,
-                        )
-              ],
-            ),
+              ),
+              
+              SizedBox(height: size.height*0.01,),
+                      Divider(
+                        thickness: 1,
+                      )
+            ],
           ),
         ),
       )

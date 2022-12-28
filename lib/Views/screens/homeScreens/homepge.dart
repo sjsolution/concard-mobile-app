@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:concard/Views/screens/homeScreens/company_ex_employee_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:comment_tree/comment_tree.dart';
 import 'package:provider/provider.dart';
@@ -227,8 +228,8 @@ class _HomepageState extends State<Homepage> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.individualUserData?.individualUser?.profileImage != null
-                                          ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                      appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser!.profileImage != null
+                                          ? appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
                                   ),
@@ -282,8 +283,8 @@ class _HomepageState extends State<Homepage> {
                                     children: [
                                       CircleAvatar(
                                         backgroundImage: NetworkImage(
-                                          appPro?.individualProfileModel?.individualUserData!.individualUser?.profileImage != null
-                                              ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                          appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser?.profileImage != null
+                                              ? appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString()
                                               : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                         ),
                                         radius: 28,
@@ -391,90 +392,95 @@ class _HomepageState extends State<Homepage> {
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.only(left: size.width * 0.02, top: size.height * 0.02, right: size.width * 0.02),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: NetworkImage('${posts[index].user!.logo.toString()}'),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '${posts[index].user!.firstName.toString()} ${posts[index].user!.lastName.toString()}',
-                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
-                                                  ),
-                                                  SizedBox(
-                                                    height: size.height * 0.003,
-                                                  ),
-                                                  Text(
-                                                    '${posts[index].user!.email}',
-                                                    style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
-                                                  ),
-                                                ],
-                                              ),
-                                              const Spacer(),
-                                              Row(
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      MSemiBoldText(
-                                                          text: DateTimeManueplate()
-                                                              .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
-                                                          size: size),
-                                                      SizedBox(
-                                                        height: size.height * 0.01,
-                                                      ),
-                                                      Globals.userId == posts[index].userId
-                                                          ? SizedBox()
-                                                          : InkWell(
-                                                              onTap: () async {
-                                                                // print("here is following value " + posts[index].isFollowed.toString());
-                                                                appPro!.isFollowingUser = posts[index].isFollowed.toString();
-                                                                appPro!.sendFollowRequest(id: posts[index].userId.toString());
-                                                                if (appPro!.isFollowing == "0") {
-                                                                  posts[index].isFollowed = "1";
-                                                                } else if (posts[index].isFollowed == "1") {
-                                                                  posts[index].isFollowed = "0";
-                                                                }
-                                                                setState(() {});
-                                                              },
-                                                              child: Container(
-                                                                height: size.height * 0.03,
-                                                                width: size.width * 0.23,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(30),
-                                                                    border: Border.all(color: signupclor_dark)),
-                                                                child: Padding(
-                                                                  padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                    children: [
-                                                                      MSemiBoldText(
-                                                                          text: posts[index].isFollowed == '1' ? 'Added' : 'Add', size: size),
-                                                                      Icon(
-                                                                        posts[index].isFollowed == '1' ? Icons.check : Icons.add,
-                                                                        size: size.height * 0.02,
-                                                                        color: signupclor_dark,
-                                                                      )
-                                                                    ],
+                                          child: InkWell(
+                                            onTap: (){
+                                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CompanyExEmployeeScreen(individualUser:appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser ,)));
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: NetworkImage('${posts[index].user!.logo.toString()}'),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10, 
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${posts[index].user!.firstName.toString()} ${posts[index].user!.lastName.toString()}',
+                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold"),
+                                                    ),
+                                                    SizedBox(
+                                                      height: size.height * 0.003,
+                                                    ),
+                                                    Text(
+                                                      '${posts[index].user!.email}',
+                                                      style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf"),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const Spacer(),
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                                      children: [
+                                                        MSemiBoldText(
+                                                            text: DateTimeManueplate()
+                                                                .giveDifferenceInTime(DateTime.parse(posts[index].createdAt!.toString()))!,
+                                                            size: size),
+                                                        SizedBox(
+                                                          height: size.height * 0.01,
+                                                        ),
+                                                        Globals.userId == posts[index].userId
+                                                            ? SizedBox()
+                                                            : InkWell(
+                                                                onTap: () async {
+                                                                  // print("here is following value " + posts[index].isFollowed.toString());
+                                                                  appPro!.isFollowingUser = posts[index].isFollowed.toString();
+                                                                  appPro!.sendFollowRequest(id: posts[index].userId.toString());
+                                                                  if (appPro!.isFollowing == "0") {
+                                                                    posts[index].isFollowed = "1";
+                                                                  } else if (posts[index].isFollowed == "1") {
+                                                                    posts[index].isFollowed = "0";
+                                                                  }
+                                                                  setState(() {});
+                                                                },
+                                                                child: Container(
+                                                                  height: size.height * 0.03,
+                                                                  width: size.width * 0.23,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(30),
+                                                                      border: Border.all(color: signupclor_dark)),
+                                                                  child: Padding(
+                                                                    padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.01),
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                      children: [
+                                                                        MSemiBoldText(
+                                                                            text: posts[index].isFollowed == '1' ? 'Added' : 'Add', size: size),
+                                                                        Icon(
+                                                                          posts[index].isFollowed == '1' ? Icons.check : Icons.add,
+                                                                          size: size.height * 0.02,
+                                                                          color: signupclor_dark,
+                                                                        )
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              )
-                                            ],
+                                                              )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -1017,9 +1023,9 @@ class _HomepageState extends State<Homepage> {
                                 CircleAvatar(
                                   radius: size.height * 0.03,
                                   backgroundImage: NetworkImage(
-                                    appPro?.individualProfileModel?.individualUserData?.individualUser?.profileImage == null
-                                        ? "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
-                                        : appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString(),
+                                    appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser!.profileImage == null
+                                        ? "https://www.finetoshine.com/wp-individualProfileDetailData!.singleProfileUser!irl-Wallpapers-New-Photos-Images-Pictures.jpg"
+                                        : appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString(),
                                   ),
                                 ),
                                 SizedBox(

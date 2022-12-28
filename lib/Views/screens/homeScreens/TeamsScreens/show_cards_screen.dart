@@ -364,7 +364,7 @@ class _ViewCardsScreenState extends State<ViewCardsScreen> {
                                     onTap: () async {
                                       await TeamController().addCardToTeam(cardsList[index]!.id.toString(), widget.teamId);
                                       cardsList.removeAt(index);
-                                      await GroupsController().addCardToGroup(widget.groupId.toString(),cardsList[index]!.id.toString());
+                                      await GroupsController().addCardToGroup(widget.groupId.toString(), cardsList[index]!.id.toString());
                                       cardsList.removeAt(index);
 
                                       setState(() {});

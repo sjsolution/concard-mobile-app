@@ -100,7 +100,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                   child: CircleAvatar(
                                       radius: size.height * 0.02,
                                       backgroundImage: NetworkImage(
-                                        appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString() ??
+                                        appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString() ??
                                             "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                       )),
                                 ),
@@ -191,7 +191,7 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                         image: AssetImage(concard_icon),
                                                         elementColor: signupclor_dark,
                                                         size: size.height * 0.1,
-                                                        data: appPro.individualProfileModel!.individualUserData!.individualUser!.id.toString(),
+                                                        data: appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.id.toString(),
                                                         errorCorrectLevel: QrErrorCorrectLevel.M,
                                                         roundEdges: true,
                                                       ),
@@ -225,8 +225,8 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                         CircleAvatar(
                                                             radius: size.height * 0.04,
                                                             backgroundImage: NetworkImage(
-                                                              appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage != null
-                                                                  ? appPro.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString() ??
+                                                              appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage != null
+                                                                  ? appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString() ??
                                                                       "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg"
                                                                   : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                                             )),
@@ -234,21 +234,21 @@ class _ExpoBottomBarScreenState extends State<ExpoBottomBarScreen> {
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          "${appPro.individualProfileModel!.individualUserData!.individualUser!.firstName} ${appPro.individualProfileModel!.individualUserData!.individualUser!.lastName} ",
+                                                          "${appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.firstName} ${appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.lastName} ",
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                                         ),
                                                         SizedBox(
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          appPro.individualProfileModel!.individualUserData!.individualUser!.jobTitle ?? '',
+                                                          appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.jobTitle.toString() ?? '',
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "Stf", color: bckgrnd),
                                                         ),
                                                         SizedBox(
                                                           height: size.height * 0.01,
                                                         ),
                                                         Text(
-                                                          appPro.individualProfileModel!.individualUserData!.individualUser!.companyName ?? '',
+                                                          appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.companyName.toString() ?? '',
                                                           style: TextStyle(fontSize: size.height * 0.015, fontFamily: "MBold", color: bckgrnd),
                                                         )
                                                       ],

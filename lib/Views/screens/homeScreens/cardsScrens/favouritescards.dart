@@ -163,8 +163,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => ContactProfileViewScreen(
-                                               email: appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString(),
-                                              phoneNumber: appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString(),
+                                               email: appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.email.toString(),
+                                              phoneNumber: appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.mobileNumber.toString(),
                                                 id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
                                               )));
                                 },

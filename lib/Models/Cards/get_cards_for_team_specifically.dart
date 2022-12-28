@@ -14,5 +14,3 @@ class GetCardsForTeam {
     'cards' : cardsList?.map((e) => e.toJson()).toList()
   };
 }
-
-

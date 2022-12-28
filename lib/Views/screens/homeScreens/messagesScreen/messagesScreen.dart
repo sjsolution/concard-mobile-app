@@ -290,7 +290,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (_) => InboxScreen(
-                                recipientId: conversationsList
+                                recipientId: 
+                                conversationsList
                                     .conversations![index].recipient!.id
                                     .toString(),
                               )))

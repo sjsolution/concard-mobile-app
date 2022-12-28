@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
+import 'package:concard/Models/Groups/group_list_modal.dart';
 import 'package:concard/Views/screens/homeScreens/addnewGroup.dart';
 import 'package:concard/Views/screens/homeScreens/groupsDetailCards.dart';
 import 'package:concard/Views/widgets/customNextButton.dart';
@@ -19,22 +22,34 @@ class GroupsCardsScreen extends StatefulWidget {
 
 
 class _GroupsCardsScreenState extends State<GroupsCardsScreen> {
+
+
+Timer? apiTimer;
   @override
   void initState() {
     // AddMyCard();
-    // // TODO: implement initState
-    getGroupsList('1','');
+    // // TODO: implement initStat
     super.initState();
+    Timer.periodic(Duration(seconds: 1),(timer)async{
+      setState(() {
+    getGroupsList('','');
+        
+      });
+    });
+
   }
 
+ 
+List<GroupListData>? groupsData;
+  String? searchValue;
+
 getGroupsList(String sortBy ,String searchGroup)async{
-Globals.groupListModal = await GroupsController().GroupsList(sortBy,searchGroup);
+Globals.groupListModal = await GroupsController().GroupsList(sortBy,searchGroup.trim());
 setState(() {
-  
+  groupsData = Globals.groupListModal!.groupListData;
 });
 // print( 'My group list'+Globals.groupListModal.toString());
 }
-  String? searchValue;
 
 bool?isName=false;
 bool?isDate=false;
@@ -169,19 +184,22 @@ TextEditingController searchGroupController = TextEditingController();
                        height: size.height * 0.09,
                           width: size.width * 0.8,
                         child: TextFormField(
-                          // onChanged: (value)async{
-                          //   if(value.isEmpty){
-                          //     searchValue=null;
-                          //     setState(() {
+                          onChanged: (value)async{
+                            if(value.isEmpty){
+                              searchValue=null;
+                                getGroupsList('', value);
+
+                              setState(() {
+                              });
+                            }else{
+                              searchValue=value;
+                                getGroupsList('', value);
+
+                              setState(() {
                                 
-                          //     });
-                          //   }else{
-                          //     searchValue=value;
-                          //     setState(() {
-                                
-                          //     });
-                          //   }
-                          // },
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -222,26 +240,26 @@ TextEditingController searchGroupController = TextEditingController();
                   SizedBox(
                     height: size.height*0.02,
                   ),
-                Globals.groupListModal!=null? Expanded(
+                groupsData!=null? Expanded(
                     flex: 1,
                     child: ListView.builder(
                       padding: EdgeInsets.all(0),
-                      itemCount: Globals.groupListModal!.groupListData!.length,
+                      itemCount: groupsData!.length,
                       itemBuilder: (context,index){
-                        return Globals.groupListModal!.groupListData!=null?Column(
+                        return groupsData!=null?Column(
                           children: [
                            
                             InkWell(
                               onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>GroupsDetailCardsScreen(groupName: Globals.groupListModal!.groupListData![index].name.toString(),
-                        groupId:Globals.groupListModal!.groupListData![index].id ,
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>GroupsDetailCardsScreen(groupName: groupsData![index].name.toString(),
+                        groupId:groupsData![index].id ,
                         )));
 
                               },
                               child: Row(
                                 children: [
                                   
-                                  Text(Globals.groupListModal!.groupListData![index].name.toString(),style: TextStyle(
+                                  Text(groupsData![index].name.toString(),style: TextStyle(
                                     fontSize: size.height*0.015,
                                     fontFamily: "MBold",
                                     color:Colors.black
@@ -285,7 +303,7 @@ TextEditingController searchGroupController = TextEditingController();
   }
    void _sortbygModalBottomSheet(context) {
     var size = MediaQuery.of(context).size;
-    var sortType='1';
+    var sortType='';
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -329,7 +347,7 @@ TextEditingController searchGroupController = TextEditingController();
                            children: [
                               Radio(
                                   activeColor: primarygreen,
-                                  value: '1',
+                                  value: '2',
                                   groupValue: sortType,
                                   onChanged: (dynamic value) {
                                     setSte(() {
@@ -357,7 +375,7 @@ TextEditingController searchGroupController = TextEditingController();
                            children: [
                               Radio(
                                   activeColor: primarygreen,
-                                  value: '2',
+                                  value: '1',
                                   groupValue: sortType,
                                   onChanged: (dynamic value) {
                                     setSte(() {
@@ -382,7 +400,7 @@ TextEditingController searchGroupController = TextEditingController();
                                   height: size.height*0.03,
                                   ),
                          CustomNextButton(text: "Apply", image: '', color1: signupclor_light, color2: signupclor_dark, onTap: ()async{
-                           getGroupsList('0', '' );
+                           getGroupsList(sortType, '' );
                             Navigator.pop(context);
                             setSte((){
                               setState(() {
@@ -399,5 +417,7 @@ TextEditingController searchGroupController = TextEditingController();
             },
           );
         });
+       
   }
+  
 }

@@ -188,7 +188,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
                                                   child: RatingBar.builder(
                                                     itemSize:
                                                         size.height * 0.02,
-                                                    initialRating: double.parse(Globals.ratingListModal!.ratingListdata![index].rate.toString()),
+                                                    initialRating: double.parse(Globals.ratingListModal!.ratingListdata![index].rate!=null? Globals.ratingListModal!.ratingListdata![index].rate.toString():'0'),
                                                     minRating: 0,
                                                     direction: Axis.horizontal,
                                                     allowHalfRating: true,

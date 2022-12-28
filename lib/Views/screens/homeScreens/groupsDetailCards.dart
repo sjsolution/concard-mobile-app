@@ -2,11 +2,13 @@ import 'package:concard/Constants/colors.dart';
 import 'package:concard/Constants/images.dart';
 import 'package:concard/Controllers/GropsController/addGroup_controller.dart';
 import 'package:concard/Models/Cards/specific_card_model.dart';
+import 'package:concard/Models/Groups/added_group_cards_list.dart';
 import 'package:concard/Models/Groups/group_card_list.dart';
 import 'package:concard/Views/screens/homeScreens/TeamsScreens/show_cards_screen.dart';
 import 'package:concard/Views/screens/homeScreens/addCardsToGroupScreen.dart';
 import 'package:concard/Views/widgets/customButton.dart';
 import 'package:concard/Views/widgets/customContainer.dart';
+import 'package:concard/Views/widgets/custom_alert_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
@@ -27,16 +29,18 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
   void initState() {
     // TODO: implement initState
     // addCardsToGroup();
+    addedGroupCardsToGroup('');
     super.initState();
   }
-  List<CustomCardsModel>? groupCardsAdded;
+List<AddedGroupCardsListData>? addedCardsData;
+String? searchValue;
+  addedGroupCardsToGroup(String? searchCard )async{
+   Globals.addedCardsToGroupListModal= await GroupsController().addedGroupCardsList(widget.groupId.toString(),searchCard.toString());   
+    setState(() {
+      addedCardsData = Globals.addedCardsToGroupListModal!.addedGroupCardsListData;
+    });
+  }
 
-  // addCardsToGroup()async{
-  //   Globals.groupsCardsList= await GroupsController().groupsCardsList(int.parse(widget.groupId.toString()), ''); 
-  //   setState(() {
-      
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -116,7 +120,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                       ),
                       InkWell(
                         onTap: (){
-                          _manageModalBottomSheet(context);
+                          _manageModalBottomSheet(context,widget.groupId);
                         },
                         child: Container(
                                     height: size.height*0.04,
@@ -145,6 +149,19 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                      height: size.height * 0.09,
                           width: size.width * 0.8,
                         child: TextFormField(
+                          onChanged: (value)async{
+                            if(value.isNotEmpty){
+                              searchValue=null;
+                             addedGroupCardsToGroup(value);
+                             setState((){});
+                            }else{
+                              searchValue=value;
+                              addedGroupCardsToGroup(value);
+                              setState(() {
+                                
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -177,8 +194,8 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                   ), 
                   InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder:(_) =>ViewCardsScreen(teamId: '',groupId: widget.groupId.toString(),)));
-                    },
+                      Navigator.push(context, MaterialPageRoute(builder:(_) =>ViewCardsScreen(teamId: '', groupId: widget.groupId.toString())));
+                      print(Globals.groupsCardsList);                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -211,7 +228,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                   SizedBox(
                     height: size.height*0.02,
                   ),
-                  groupCardsAdded!=null?
+                  addedCardsData!=null?
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -222,12 +239,10 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                         ),
                         child: ListView.builder(
                           padding: EdgeInsets.all(0),
-                          itemCount: groupCardsAdded!.length,
+                          itemCount: addedCardsData!.length,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context,index){
-                              return groupCardsAdded!=null? Container(
-                                width: size.width*0.3,
-                                height: size.height*0.2,
+                              return addedCardsData!.isNotEmpty? Container(
                                 margin: EdgeInsets.only(top: size.height*0.03),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,7 +292,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                       typeNumber: 4,
                                                                       size: size.height * 0.01,
                                                                       data:
-                                                                          '${groupCardsAdded![index].id.toString()}',
+                                                                          '${addedCardsData![index].user!.id.toString()}',
                                                                       errorCorrectLevel: QrErrorCorrectLevel.M,
                                                                       roundEdges: true,
                                                                     ),
@@ -294,7 +309,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(
-                                                                      "${groupCardsAdded![index].username.toString() ?? ''}",
+                                                                      "${addedCardsData![index].username.toString() ?? ''}",
                                                                       style: TextStyle(
                                                                         fontSize: size.height * 0.007,
                                                                         color: signupclor_dark,
@@ -302,7 +317,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                       ),
                                                                     ),
                                                                     Text(
-                                                                      "${groupCardsAdded![index].jobTitle.toString() ?? ''}",
+                                                                      "${addedCardsData![index].jobTitle.toString() ?? ''}",
                                                                       style: TextStyle(
                                                                         fontSize: size.height * 0.007,
                                                                         color: signupclor_dark,
@@ -326,7 +341,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                           SizedBox(
                                                                             width: size.width * 0.15,
                                                                             child: Text(
-                                                                              "${groupCardsAdded![index].address.toString()}",
+                                                                              "${addedCardsData![index].address.toString()}",
                                                                               style: TextStyle(
                                                                                 fontSize: size.height * 0.006,
                                                                                 color: signupclor_dark,
@@ -352,7 +367,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                         SizedBox(
                                                                           width: size.width * 0.15,
                                                                           child: Text(
-                                                                          groupCardsAdded![index].numbers!.isNotEmpty?   groupCardsAdded![index].numbers![0].phoneNumber.toString() : '',
+                                                                          addedCardsData![index].numbers!.isNotEmpty?   addedCardsData![index].numbers![0].phoneNumber.toString() : '',
                                                                             style: TextStyle(
                                                                               fontSize: size.height * 0.006,
                                                                               color: signupclor_dark,
@@ -380,7 +395,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                             SizedBox(
                                                                               width: size.width * 0.15,
                                                                               child: Text(
-                                                                              groupCardsAdded![index].emails![0].email!=null?  groupCardsAdded![index].emails![0].email.toString():
+                                                                              addedCardsData![index].emails![0].email!=null?  addedCardsData![index].emails![0].email.toString():
                                                                                     '',
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.004,
@@ -411,7 +426,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                                                               width: size.width * 0.15,
                                                                               child: Text(
 
-                                                                                "${groupCardsAdded![index].website}",
+                                                                                "${addedCardsData![index].website}",
                                                                                 style: TextStyle(
                                                                                   fontSize: size.height * 0.006,
                                                                                   color: signupclor_dark,
@@ -440,21 +455,21 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          groupCardsAdded![index].companyName!=null?
-                                         groupCardsAdded![index].companyName.toString():'',style: TextStyle(
+                                          addedCardsData![index].companyName!=null?
+                                          addedCardsData![index].companyName.toString():'',style: TextStyle(
                                             fontSize: size.height*0.015,
                                             fontFamily:"MBold"
                                         ),),
                                         SizedBox(height: size.height*0.02,),
-                                        Text(  groupCardsAdded![index].jobTitle!=null?
-                                          groupCardsAdded![index].jobTitle.toString():"",style: TextStyle(
+                                        Text(  addedCardsData![index].jobTitle!=null?
+                                          addedCardsData![index].jobTitle.toString():"",style: TextStyle(
                                             fontSize: size.height*0.012,
                                             fontFamily: "Msemibold",
                                             color: infocolor
                                         ),),
                                         SizedBox(height: size.height*0.01,),
-                                        Text(  groupCardsAdded![index].username!=null?
-                                          groupCardsAdded![index].username.toString():''
+                                        Text(  addedCardsData![index].username!=null?
+                                          addedCardsData![index].username.toString():''
                                         ,style: TextStyle(
                                             fontSize: size.height*0.012,
                                             fontFamily: "Msemibold",
@@ -465,7 +480,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
                                     Spacer(),
                                     InkWell(
                                       onTap: (){
-                                        _moreModalBottomSheet(context);
+                                        _moreModalBottomSheet(context,AddedGroupCardsListData(),index);
                                       },
                                       child: Icon(Icons.more_vert,color: signupclor_dark,))
                                   ],
@@ -503,7 +518,7 @@ class _GroupsDetailCardsScreenState extends State<GroupsDetailCardsScreen> {
   // }
 
 
-    void _manageModalBottomSheet(context) {
+    void _manageModalBottomSheet(context,int? groupId){
     var size = MediaQuery.of(context).size;
 TextEditingController reNameController= TextEditingController();
     showModalBottomSheet(
@@ -557,8 +572,9 @@ TextEditingController reNameController= TextEditingController();
                              InkWell(
                               onTap: (){
                                   showDialog(
+                                    
                     context: context,
-                    builder: (BuildContext context) => Container(
+                    builder: (BuildContext context,) => Container(
                           margin: EdgeInsets.only(bottom: size.height * 0.1),
                           child: Dialog(
                             alignment: AlignmentDirectional.bottomCenter,
@@ -739,11 +755,46 @@ TextEditingController reNameController= TextEditingController();
                              SizedBox(
                                width: size.width*0.07
                              ),
-                             Text('Delete',
-                             style: TextStyle(
-                               fontFamily: "Stf",
-                               fontSize: size.height*0.015,
-                             ),)
+                             InkWell(
+                              onTap: ()async{
+                                  customeAlertDialogue(
+                                  context:context ,title:'Delete Group From List',content: 'Are you sure you want to delete this Group',btn1text: 'Delete?',btn2Text: 'Cancel', onTap1Btn: () async {
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                // setState(() {
+                                                //   context
+                                                //       .read<AppProvider>()
+                                                //       .setLoadingTrue();
+                                                // });
+                                                // loaderWidget(context, size);
+                                                await GroupsController()
+                                                    .deleteGroupFromList(
+                                                        widget.groupId!
+                                                            .toString());
+                                                // Navigator.pop(context);
+                                                setState(() {
+                                                Globals.groupListModal!.groupListData
+                                                      !.removeAt(groupId!);
+                                                  // context
+                                                  //     .read<AppProvider>()
+                                                  //     .setLoadingFalse();
+                                                });
+                                                
+                                              },   onTap2Btn: () async {
+                                                Navigator.pop(context);
+                                              }, );
+                                // await GroupsController().deleteGroupFromList(widget.groupId.toString());
+                                // setState(() {
+                                  
+                                // });
+
+                              },
+                               child: Text('Delete',
+                               style: TextStyle(
+                                 fontFamily: "Stf",
+                                 fontSize: size.height*0.015,
+                               ),),
+                             )
                            ],
                          ),
                         ],
@@ -757,7 +808,7 @@ TextEditingController reNameController= TextEditingController();
         });
   }
 
-   void _moreModalBottomSheet(context) {
+   void _moreModalBottomSheet(context, AddedGroupCardsListData? addedGroupCardsListData,int? index,) {
     var size = MediaQuery.of(context).size;
 
     showModalBottomSheet(
@@ -786,7 +837,7 @@ TextEditingController reNameController= TextEditingController();
                             Container(
                               width:size.width*0.07
                             ),
-                            Text('John XXX',
+                            Text(Globals.addedCardsToGroupListModal!.addedGroupCardsListData![0].username!=null? Globals.addedCardsToGroupListModal!.addedGroupCardsListData![0].username.toString():'',
                             style: TextStyle(
                               fontSize: size.height*0.018,
                               fontFamily: "MBold",
@@ -844,18 +895,49 @@ TextEditingController reNameController= TextEditingController();
                              ),)
                                ],
                              ),
-                             Column(
-                               children: [
-                                  SvgPicture.asset(recyclebin_icon),
-                             SizedBox(
-                               height: size.height*0.02
-                             ),
-                             Text('Delete',
-                             style: TextStyle(
-                               fontFamily: "Stf",
-                               fontSize: size.height*0.015,
-                             ),)
-                               ],
+                             InkWell(
+                              onTap: ()async{
+                                customeAlertDialogue(
+                                  context:context ,title:'Delete Card From Group',content: 'Are you sure you want to delete this card',btn1text: 'Delete?',btn2Text: 'Cancel', onTap1Btn: () async {
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                // setState(() {
+                                                //   context
+                                                //       .read<AppProvider>()
+                                                //       .setLoadingTrue();
+                                                // });
+                                                // loaderWidget(context, size);
+                                                await GroupsController()
+                                                    .deleteCardFromGroupList(
+                                                       Globals.addedCardsToGroupListModal!.addedGroupCardsListData![0].id.toString(),
+                                                        widget.groupId!
+                                                            .toString());
+                                                // Navigator.pop(context);
+                                                setState(() {
+                                                  Globals.addedCardsToGroupListModal!.addedGroupCardsListData
+                                                      !.removeAt(index!);
+                                                  // context
+                                                  //     .read<AppProvider>()
+                                                  //     .setLoadingFalse();
+                                                });
+                                                
+                                              },   onTap2Btn: () async {
+                                                Navigator.pop(context);
+                                              }, );
+                              },
+                               child: Column(
+                                 children: [
+                                    SvgPicture.asset(recyclebin_icon),
+                               SizedBox(
+                                 height: size.height*0.02
+                               ),
+                               Text('Delete',
+                               style: TextStyle(
+                                 fontFamily: "Stf",
+                                 fontSize: size.height*0.015,
+                               ),)
+                                 ],
+                               ),
                              )
                            ],
                          ),

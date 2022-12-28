@@ -1,53 +1,53 @@
 class AddCardToGroupModal {
   final int? code;
   final String? message;
-  final AddCardsToGroupData? addCradsToGroupData;
+  final AddCardToGropuData? addCardToGroupData;
 
   AddCardToGroupModal({
     this.code,
     this.message,
-    this.addCradsToGroupData,
+    this.addCardToGroupData,
   });
 
   AddCardToGroupModal.fromJson(Map<String, dynamic> json)
     : code = json['code'] as int?,
       message = json['message'] as String?,
-      addCradsToGroupData = (json['data'] as Map<String,dynamic>?) != null ? AddCardsToGroupData.fromJson(json['data'] as Map<String,dynamic>) : null;
+      addCardToGroupData = (json['data'] as Map<String,dynamic>?) != null ? AddCardToGropuData.fromJson(json['data'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'code' : code,
     'message' : message,
-    'data' : addCradsToGroupData?.toJson()
+    'data' : addCardToGroupData?.toJson()
   };
 }
 
-class AddCardsToGroupData {
-  final String? groupId;
-  final String? cardId;
-  final String? updatedAt;
-  final String? createdAt;
+class AddCardToGropuData {
   final int? id;
+  final int? groupId;
+  final int? cardId;
+  final String? createdAt;
+  final String? updatedAt;
 
-  AddCardsToGroupData({
+  AddCardToGropuData({
+    this.id,
     this.groupId,
     this.cardId,
-    this.updatedAt,
     this.createdAt,
-    this.id,
+    this.updatedAt,
   });
 
-  AddCardsToGroupData.fromJson(Map<String, dynamic> json)
-    : groupId = json['group_id'] as String?,
-      cardId = json['card_id'] as String?,
-      updatedAt = json['updated_at'] as String?,
+  AddCardToGropuData.fromJson(Map<String, dynamic> json)
+    : id = json['id'] as int?,
+      groupId = json['group_id'] as int?,
+      cardId = json['card_id'] as int?,
       createdAt = json['created_at'] as String?,
-      id = json['id'] as int?;
+      updatedAt = json['updated_at'] as String?;
 
   Map<String, dynamic> toJson() => {
+    'id' : id,
     'group_id' : groupId,
     'card_id' : cardId,
-    'updated_at' : updatedAt,
     'created_at' : createdAt,
-    'id' : id
+    'updated_at' : updatedAt
   };
 }
