@@ -1,27 +1,27 @@
 class AddGroupModal {
   final int? code;
   final String? message;
-  final Data? data;
+  final AddCardToGroupData? addCardsToGroupData;
 
   AddGroupModal({
     this.code,
     this.message,
-    this.data,
+    this.addCardsToGroupData,
   });
 
   AddGroupModal.fromJson(Map<String, dynamic> json)
     : code = json['code'] as int?,
       message = json['message'] as String?,
-      data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null;
+      addCardsToGroupData = (json['data'] as Map<String,dynamic>?) != null ? AddCardToGroupData.fromJson(json['data'] as Map<String,dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
     'code' : code,
     'message' : message,
-    'data' : data?.toJson()
+    'data' : addCardsToGroupData?.toJson()
   };
 }
 
-class Data {
+class AddCardToGroupData {
   final int? userId;
   final String? name;
   final String? updatedAt;
@@ -29,7 +29,7 @@ class Data {
   final int? id;
   final int? cardCounts;
 
-  Data({
+  AddCardToGroupData({
     this.userId,
     this.name,
     this.updatedAt,
@@ -38,7 +38,7 @@ class Data {
     this.cardCounts,
   });
 
-  Data.fromJson(Map<String, dynamic> json)
+  AddCardToGroupData.fromJson(Map<String, dynamic> json)
     : userId = json['user_id'] as int?,
       name = json['name'] as String?,
       updatedAt = json['updated_at'] as String?,

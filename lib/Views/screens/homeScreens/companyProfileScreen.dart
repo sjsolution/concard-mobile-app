@@ -1019,6 +1019,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
           ),
         ),
       );
+    
     });
   }
 

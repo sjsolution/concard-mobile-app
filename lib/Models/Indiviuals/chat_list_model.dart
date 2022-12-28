@@ -32,8 +32,8 @@ class Messages {
 
   Messages.fromJson(Map<String, dynamic> json)
     : id = json['id'] as int?,
-      userId = json['user_id'] as String?,
-      conversationId = json['conversation_id'] as String?,
+      userId = json['user_id'].toString(),
+      conversationId = json['conversation_id'].toString(),
       text = json['text'] as String?,
       createdAt = json['created_at'] as String?,
       updatedAt = json['updated_at'] as String?;

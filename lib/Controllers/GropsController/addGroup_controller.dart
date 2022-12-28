@@ -1,5 +1,6 @@
 import 'package:concard/Models/Cards/single_card_detail_modal.dart';
 import 'package:concard/Models/Groups/add_card_to_group_modal.dart';
+import 'package:concard/Models/Groups/added_group_cards_list.dart';
 import 'package:concard/Models/Groups/group_card_list.dart';
 import 'package:concard/Models/Groups/group_list_modal.dart';
 import 'package:concard/Services/network.dart';
@@ -162,7 +163,7 @@ Future<AddCardToGroupModal?> addCardToGroup(
         'card_id':cardId
       });
       var response =
-          await services.postResponse(url: '/group/card-list', formData: formData);
+          await services.postResponse(url: '/group/add-card-to-group', formData: formData);
       if (response != null) {
         print('Group Cards List' +response .toString());
          AddCardToGroupModal? addCardToGroupModal = AddCardToGroupModal.fromJson(response);
@@ -170,6 +171,92 @@ Future<AddCardToGroupModal?> addCardToGroup(
         print('Groups Cards List' + addCardToGroupModal.toString());
         print('Group Cards List ' + Globals.groupsCardsList.toString());
         return addCardToGroupModal;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+
+  //AddedGroupCardsList
+Future<AddedCardsToGroupListModal?> addedGroupCardsList(
+      String groupId,
+      String search,
+  ) async {
+    try {
+      var formData = FormData.fromMap({
+        'group_id':groupId,
+        'search':search
+      });
+      var response =
+          await services.postResponse(url: '/group/card-list', formData: formData);
+      if (response != null) {
+        print('Group Cards List' +response .toString());
+         AddedCardsToGroupListModal? addedCardsToGroupListModal = AddedCardsToGroupListModal.fromJson(response);
+        Globals.addedCardsToGroupListModal = addedCardsToGroupListModal;
+        print('Groups Cards List' + addedCardsToGroupListModal.toString());
+        print('Group Cards List ' + Globals.addedCardsToGroupListModal.toString());
+        return addedCardsToGroupListModal;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+
+// Delete Card From Groups
+Future deleteCardFromGroupList(
+      String cardId,
+      String groupId,
+
+  ) async {
+    try {
+      var formData = FormData.fromMap({
+        'card_id':cardId,
+        'group_id':groupId,
+
+      });
+      var response =
+          await services.postResponse(url: '/group/remove-card-from-group', formData: formData);
+      if (response != null) {
+        Globals.showToastMethod(msg: response['message']);
+
+        return response;
+      } else {
+        Globals.showToastMethod(
+            msg: "There is something went worng. Please try again later");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("post list exception:" + e.toString());
+      return null;
+    }
+  }
+// Delete group from list
+
+Future deleteGroupFromList(
+      String groupId,
+
+  ) async {
+    try {
+      var formData = FormData.fromMap({
+        'group_id':groupId,
+
+      });
+      var response =
+          await services.postResponse(url: '/group/remove', formData: formData);
+      if (response != null) {
+        Globals.showToastMethod(msg: response['message']);
+
+        return response;
       } else {
         Globals.showToastMethod(
             msg: "There is something went worng. Please try again later");

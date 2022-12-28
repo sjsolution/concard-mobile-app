@@ -81,8 +81,8 @@ class _MyPostCommentScreenState extends State<MyPostCommentScreen> {
                                 repliesApiList = commentsList[index].replies;
                                 for (var comment in commentsList) {
                                   parentComments.add(Comment(
-                                      avatar: comment.user!.image,
-                                      userName: comment.user!.firstName,
+                                      avatar: comment.individualUser!.image,
+                                      userName: comment.individualUser!.firstName,
                                       content: comment.text));
                                   parentCommentsId.add(comment.id.toString());
                                   isCommentLikeList.add(
@@ -90,8 +90,8 @@ class _MyPostCommentScreenState extends State<MyPostCommentScreen> {
                                 }
                                 for (var subComment in repliesApiList) {
                                   childReplies.add(Comment(
-                                      avatar: subComment.user!.image,
-                                      userName: subComment.user!.firstName,
+                                      avatar: subComment.individualUser!.image,
+                                      userName: subComment.individualUser!.firstName,
                                       content: subComment.text));
                                   childRepliesId.add(subComment.id.toString());
                                 }

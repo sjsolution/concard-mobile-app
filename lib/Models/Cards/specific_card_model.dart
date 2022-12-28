@@ -1,5 +1,4 @@
 import 'package:concard/Models/Cards/card_list_modal.dart';
-import 'package:concard/Models/Cards/specific_user_model.dart';
 
 class CustomCardsModel {
    int? id;

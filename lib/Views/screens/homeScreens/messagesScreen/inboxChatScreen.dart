@@ -1,20 +1,17 @@
-import 'dart:developer';
-
 import 'package:concard/Constants/colors.dart';
 import 'package:concard/Controllers/OthersController/url_launcher_class.dart';
 import 'package:concard/Controllers/indiviualController/chat_controller.dart';
 import 'package:concard/Models/Indiviuals/chat_list_model.dart';
-import 'package:concard/Models/Indiviuals/conversations_model.dart';
 import 'package:concard/Views/screens/homeScreens/cardsScrens/allCardsScreen.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:concard/Constants/globals.dart' as Globals;
 import 'package:intl/intl.dart';
-import 'package:concard/Controllers/indiviualController/chat_controller.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../../Constants/images.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class InboxScreen extends StatefulWidget {
   InboxScreen({Key? key, required this.recipientId}) : super(key: key);
@@ -25,9 +22,10 @@ class InboxScreen extends StatefulWidget {
 }
 
 class _InboxScreenState extends State<InboxScreen> {
+  
   var messageController = TextEditingController();
   bool isSend = false;
-
+// final channel= new WebSocketChannel.connect(Uri.parse('wss://sjsolutionz.com/concard/api/conversation/send-message'));
   onChange() async {
     if (messageController.text.isEmpty) {
       setState(() {
@@ -39,13 +37,20 @@ class _InboxScreenState extends State<InboxScreen> {
       });
     }
   }
+ final IO.Socket _socket = IO.io('http://10.0.2.2:5000',
+ IO.OptionBuilder().setTransports(["websocket"]).build() );
+ _connectSocket(){
+  _socket.onConnect((data) => print('Conntection established'));
+  _socket.onConnectError((data) => print('Connect Error: $data'));
+  _socket.onDisconnect((data) => print('Socket.IO connection close'));
 
+ }
   @override
   void initState() {
-    // TODO: implement initState
     messageController.addListener(() {
       onChange();
     });
+    _connectSocket();
     super.initState();
   }
 
@@ -119,7 +124,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             InkWell(
                               onTap: () async {
                                 await URLLauncherClass()
-                                    .launchUrlMethod("+92123456789",'tel');
+                                    .launchUrlMethod("+92123456789", 'tel');
                               },
                               child: SizedBox(
                                 height: size.height * 0.04,
@@ -170,8 +175,8 @@ class _InboxScreenState extends State<InboxScreen> {
                   children: [
                     Expanded(
                         child: FutureBuilder<ChatListModel?>(
-                            future: ChatController().getChatList(
-                                widget.recipientId.toString()),
+                            future: ChatController()
+                                .getChatList(widget.recipientId.toString()),
                             builder: (context, snapshot) {
                               ChatListModel? chatsList = snapshot.data;
                               if (snapshot.hasData) {
@@ -179,7 +184,7 @@ class _InboxScreenState extends State<InboxScreen> {
                                   padding: const EdgeInsets.all(0),
                                   itemCount: chatsList!.messages!.length,
                                   itemBuilder: (context, index) {
-                                    log(Globals.userId.toString());
+                                    // log(Globals.userId.toString());
                                     return Globals.userId ==
                                             chatsList.messages![index].userId
                                         ? Row(
@@ -508,13 +513,10 @@ class _InboxScreenState extends State<InboxScreen> {
                                   onTap: () async {
                                     print(messageController.text.trim());
 
-                                    var result = await ChatController()
-                                        .sendMessage(Globals.userId,
-                                            messageController.text.trim());
+                                    // var result = await ChatController()
+                                    //     .sendMessage(Globals.userId,
+                                    //         messageController.text.trim());
                                     messageController.clear();
-                                    if (result) {
-                                      setState(() {});
-                                    }
                                   },
                                   child: Icon(
                                     Icons.send,

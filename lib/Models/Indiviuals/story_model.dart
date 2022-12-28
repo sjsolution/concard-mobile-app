@@ -52,7 +52,7 @@ class Data {
     this.stories,
   });
 
-  int? id;
+  String? id;
   String? firstName;
   String? lastName;
   String? mobileNumber;
@@ -80,31 +80,31 @@ class Data {
   List<Story>? stories;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        mobileNumber: json["mobile_number"],
-        email: json["email"],
-        userType: json["user_type"],
-        emailVerifiedAt: json["email_verified_at"],
-        jobTitle: json["job_title"],
-        website: json["website"],
-        companyName: json["company_name"],
-        companyField: json["company_field"],
-        about: json["about"],
-        workTel: json["work_tel"],
-        mobileTel: json["mobile_tel"],
-        city: json["city"],
-        state: json["state"],
-        country: json["country"],
-        postalCode: json["postal_code"],
-        address: json["address"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        image: json["image"],
-        card: json["card"],
-        logo: json["logo"],
-        profileImage: json["profileImage"],
+        id: json["id"].toString(),
+        firstName: json["first_name"].toString(),
+        lastName: json["last_name"].toString(),
+        mobileNumber: json["mobile_number"].toString(),
+        email: json["email"].toString(),
+        userType: json["user_type"].toString(),
+        emailVerifiedAt: json["email_verified_at"].toString(),
+        jobTitle: json["job_title"].toString(),
+        website: json["website"].toString(),
+        companyName: json["company_name"].toString(),
+        companyField: json["company_field"].toString(),
+        about: json["about"].toString(),
+        workTel: json["work_tel"].toString(),
+        mobileTel: json["mobile_tel"].toString(),
+        city: json["city"].toString(),
+        state: json["state"].toString(),
+        country: json["country"].toString(),
+        postalCode: json["postal_code"].toString(),
+        address: json["address"].toString(),
+        createdAt: DateTime.parse(json["created_at"].toString()),
+        updatedAt: DateTime.parse(json["updated_at"].toString()),
+        image: json["image"].toString(),
+        card: json["card"].toString(),
+        logo: json["logo"].toString(),
+        profileImage: json["profileImage"].toString(),
         stories:
             List<Story>.from(json["stories"].map((x) => Story.fromJson(x))),
       );
@@ -152,7 +152,7 @@ class Story {
     this.image,
   });
 
-  int? id;
+  String? id;
   String? userId;
   String? text;
   dynamic file;
@@ -163,14 +163,14 @@ class Story {
   String? image;
 
   factory Story.fromJson(Map<String, dynamic> json) => Story(
-        id: json["id"],
-        userId: json["user_id"],
-        text: json["text"] == null ? null : json["text"],
-        file: json["file"],
-        type: json["type"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        id: json["id"].toString(),
+        userId: json["user_id"].toString(),
+        text: json["text"] == null ? null : json["text"].toString(),
+        file: json["file"].toString(),
+        type: json["type"].toString(),
+        status: json["status"].toString(),
+        createdAt: DateTime.parse(json["created_at"].toString()),
+        updatedAt: DateTime.parse(json["updated_at"].toString()),
         image: json["image"],
       );
 

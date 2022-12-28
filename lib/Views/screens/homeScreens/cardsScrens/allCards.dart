@@ -204,15 +204,15 @@ class _AllCardsState extends State<AllCards> {
                       return Globals.cardListModal!.cardListData!.cards != null
                           ? InkWell(
                               onTap: ()async {
-                           result =  await CardController().UserExist([appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString()], [appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString()]);
+                           result =  await CardController().UserExist([appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.email.toString()], [appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.mobileNumber.toString()]);
                                 if(result['success']==true){
                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => ContactProfileViewScreen(
                                               id: Globals.cardListModal!.cardListData!.cards![index].id.toString(),
-                                                 email: appPro.individualProfileModel!.individualUserData!.individualUser!.email.toString(),
-                                              phoneNumber: appPro.individualProfileModel!.individualUserData!.individualUser!.mobileNumber.toString(),
+                                                 email: appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.email.toString(),
+                                              phoneNumber: appPro.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.mobileNumber.toString(),
                                             )));
                                 }else{
                                    

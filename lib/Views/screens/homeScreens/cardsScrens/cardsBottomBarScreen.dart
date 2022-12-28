@@ -118,8 +118,8 @@ class _CardsBottomBarScreenState extends State<CardsBottomBarScreen> {
                                     radius: size.height * 0.02,
                                     backgroundImage: NetworkImage(
                                       // individualProfileModel!.profileData!.profileImage.toString(),
-                                      appPro?.individualProfileModel?.individualUserData!.individualUser?.profileImage != null
-                                          ? appPro!.individualProfileModel!.individualUserData!.individualUser!.profileImage.toString()
+                                      appPro?.individualProfileModel?.individualProfileDetailData!.singleProfileUser?.profileImage != null
+                                          ? appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.profileImage.toString()
                                           : "https://www.finetoshine.com/wp-content/uploads/2020/04/Beautiful-Girl-Wallpapers-New-Photos-Images-Pictures.jpg",
                                     ),
                                   ),

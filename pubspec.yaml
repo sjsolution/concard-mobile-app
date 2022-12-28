@@ -63,11 +63,14 @@ dependencies:
   video_player: ^2.4.7
   comment_tree:
     git:
-      url: https://github.com/Muzammil56/comment_tree
+      url: https://github.com/sjsolution/comment-section.git
   shared_preferences: ^2.0.15
   firebase_dynamic_links: ^5.0.3
   persistent_bottom_nav_bar: ^5.0.2
   country_state_city_pro: ^0.0.3
+  web_socket_channel: ^2.2.0
+  # socket_io_client: ^2.0.0
+  socket_io_client: ^2.0.0-beta.4-nullsafety.0
   # date_time_picker: ^2.1.0
   # flutter_calendar_widget: ^0.0.2
 
