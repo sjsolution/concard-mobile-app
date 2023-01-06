@@ -5,6 +5,7 @@ import 'package:concard/Views/screens/homeScreens/groupsCardScreen.dart';
 import 'package:concard/Views/widgets/caledar_widget.dart';
 import 'package:concard/Views/widgets/customCardInputField.dart';
 import 'package:concard/Views/widgets/fieldText.dart';
+import 'package:concard/google_map.dart';
 import 'package:country_state_city_pro/country_state_city_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -1128,35 +1129,40 @@ class _AddContactCardsScreenState extends State<AddContactCardsScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.7,
-                          child: TextFormField(
-                            controller: locationControllor,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return "Enter Your Location";
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                hintText: 'Location',
-                                contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
-                                hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
-                                fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                )),
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>MyMap()));
+                      },
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.7,
+                            child: TextFormField(
+                              controller: locationControllor,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return "Enter Your Location";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  hintText: 'Location',
+                                  contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                  hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  )),
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        Image.asset(
-                          locationarrow,
-                          color: gradientgreen,
-                        )
-                      ],
+                          const Spacer(),
+                          Image.asset(
+                            locationarrow,
+                            color: gradientgreen,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(

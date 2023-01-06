@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:concard/Controllers/ExpoController/expo_badge_controller.dart';
 import 'package:concard/Views/screens/homeScreens/expoScreens/expoTopParticipantsScreen.dart';
-import 'package:concard/Views/screens/homeScreens/expoScreens/expoSeeAllScreen.dart';
 import 'package:concard/Views/widgets/shimmer_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,28 +20,19 @@ class ExpoDetailsScreen extends StatefulWidget {
 }
 
 class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
+
+
+ static final LatLng _kMapCenter =
+      LatLng(31.5336, 74.2988);
+
+  static final CameraPosition _kInitialPosition =
+      CameraPosition(target: _kMapCenter, zoom: 11.0, tilt: 0, bearing: 0);
   DateTime? dateTime;
   String? datFormat;
-
-  final Completer<GoogleMapController>? _controller = Completer();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-  //  Future<void> _goToTheLake() async {
-  //   final GoogleMapController controller = await _controller!.future;
-  //   controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
-  // }
+ 
+ 
   @override
   void initState() {
-    // TODO: implement initState
     getExpoDetail();
     dateTime = DateTime.now();
     datFormat = DateFormat('EEE,MMM d' 'YYYY').format(dateTime!);
@@ -54,7 +43,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
     Globals.expoDetailModel = null;
     Globals.expoDetailModel =
         await ExpoController().getExpoBadgeDetail(widget.id);
-    print('Id.........' + widget.id.toString());
+    // print('Id.........' + widget.id.toString());
     setState(() {});
   }
 
@@ -244,8 +233,7 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                   left: size.width * 0.03,
                                   right: size.width * 0.03,
                                   top: size.height * 0.02),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Stack(
                                 children: [
                                   Text(
                                     'Expo location details',
@@ -253,16 +241,11 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
                                         fontSize: size.height * 0.015,
                                         fontFamily: "Stf"),
                                   ),
-                                  Container(
-                                    height: 0.23,
-                                    child: GoogleMap(
-                                      mapType: MapType.normal,
-                                      initialCameraPosition: _kGooglePlex,
-                                      onMapCreated:
-                                          (GoogleMapController controller) {
-                                        _controller!.complete(controller);
-                                      },
-                                    ),
+                                   Container(
+                                   height: size.height*0.2,
+                                    child:GoogleMap(
+        initialCameraPosition: _kInitialPosition,
+      ),
                                   ),
                                 ],
                               ),
@@ -630,4 +613,5 @@ class _ExpoDetailsScreenState extends State<ExpoDetailsScreen> {
       ),
     );
   }
+ 
 }

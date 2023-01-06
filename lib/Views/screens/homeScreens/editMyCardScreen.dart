@@ -110,7 +110,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                             ),
                             Row(
                               children: [
-                                  Image.asset(edit_icon),
+                                  SvgPicture.asset(edit_card_icon),
                           SizedBox(
                             width: size.width * 0.02,
                           ),
@@ -713,6 +713,7 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                     height: size.height * 0.01,
                                   ),
                                   CustomCardInputField(
+                                    
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
                                         return "Enter company website";
@@ -881,6 +882,87 @@ class _EditMyCardScreenState extends State<EditMyCardScreen> {
                                   SizedBox(
                                     height: size.height * 0.03,
                                   ),
+                                  Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        'Company',
+                                        style: TextStyle(fontSize: size.height * 0.02, fontFamily: 'MBold'),
+                                      )),
+                                       SizedBox(
+                                    height: size.height * 0.03,
+                                  ),
+                                   SizedBox(
+                                  width: size.width,
+                                  child: TextFormField(
+                                    controller: companyNameControl,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Company Name',
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25),
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.03,
+                                ),
+                                 SizedBox(
+                                  width: size.width,
+                                  child: TextFormField(
+                                    // controller: compNameControl,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Wbesite',
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25),
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.03,
+                                ),
+                                 SizedBox(
+                                  width: size.width,
+                                  child: TextFormField(
+                                    // controller: compNameControl,
+                                    validator: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return "Can't be empty";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Field',
+                                        contentPadding: const EdgeInsets.only(top: 0.0, left: 22.0, bottom: 2.0),
+                                        hintStyle: TextStyle(fontSize: size.width * 0.04, color: infocolor),
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25),
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.03,
+                                ),
                                   Container(
                                       alignment: Alignment.topLeft,
                                       child: Text(

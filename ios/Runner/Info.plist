@@ -24,13 +24,15 @@
 		<!-- deep link values is here	 -->
 		<key>FlutterDeepLinkingEnabled</key>
 		<true/>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
 		<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
 				<key>CFBundleTypeRole</key>
 				<string>Editor</string>
 				<key>CFBundleURLName</key>
-				<string>salloumdesign.com</string>
+				<string>sjsolutionz.com</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<string>https</string>
@@ -41,8 +43,8 @@
 		</array>
 		<key>FirebaseDynamicLinksCustomDomains</key>
         <array>
-          <string>https://salloumdesign.com</string>
-          <string>https://salloumdesign.com/link</string>
+          <string>https://sjsolutionz.com</string>
+          <string>https://sjsolutionz.com/link</string>
         </array>
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>

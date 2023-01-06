@@ -21,3 +21,4 @@ var str_clr = Color(0xffFF8D02);
 var gradientgreen = Color(0xff00D7B9);
 var graphgradient = Color(0xff827D89);
 var graphpurpule = Color(0xff9A61E6);
+var innerContainerColor = Color(0xff5B5656);
