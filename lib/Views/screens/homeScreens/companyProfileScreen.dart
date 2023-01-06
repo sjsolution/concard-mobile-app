@@ -250,9 +250,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         height: size.height * 0.03,
                       ),
                        GestureDetector(
-                        onTap: ()async {
+                        onTap: () {
                           // _settingModalBottomSheet(context);
-                          await GeneralMethodsDart().shareDataMethod(Globals.teamDetailModel!.teamInviteLink, "Click on link and join Company.");
                           
                         },
                         child: Container(

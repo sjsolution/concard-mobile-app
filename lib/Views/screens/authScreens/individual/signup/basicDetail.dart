@@ -309,6 +309,7 @@ class IndividualBasicDetail extends StatelessWidget {
                         ],
                       ),
                     ),
+                 
                   ),
                 ],
               ),

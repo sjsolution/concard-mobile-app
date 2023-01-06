@@ -1,3 +1,6 @@
+// qr-con_icon
+
+var qr_logo='asset/images/qr_con_logo.png';
 var splshimg = 'asset/images/splashimg.png';
 var concard_icon = 'asset/icons/concarid_icon.png';
 var google_icon = 'asset/icons/google.svg';
@@ -194,10 +197,11 @@ var drawer_my_account = 'asset/icons/my_profile.svg';
 var pp_shuffle = 'asset/icons/shuffle.svg';
 var calender = 'asset/icons/calender.svg';
 var pp_share = 'asset/icons/forward.svg';
-
+var edit_card_icon ="asset/icons/edit_card_icon.svg";
 // Invite contact screen Icons
 
 var inviteViaSms= 'asset/icons/msgInvite.svg';
 var inviteViaEmail= 'asset/icons/emailInvite.svg';
 var inviteViaLink= 'asset/icons/linkInvite.svg';
 var inviteViaShare= 'asset/icons/shareInvite.svg';
+

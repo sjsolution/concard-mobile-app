@@ -1,4 +1,3 @@
-import 'package:concard/Controllers/indiviualController/profile_controller.dart';
 import 'package:concard/Controllers/indiviualController/social_links_controller.dart';
 import 'package:concard/Controllers/providers/app_providers.dart';
 import 'package:concard/Controllers/providers/about_provider.dart';
@@ -6,27 +5,28 @@ import 'package:concard/Models/Indiviuals/profile_model.dart';
 import 'package:concard/Models/Indiviuals/social_links_model.dart';
 import 'package:concard/Views/screens/authScreens/individual/Social/new_social_link.dart';
 import 'package:concard/Views/screens/homeScreens/analyticsScreen.dart';
-import 'package:concard/Views/screens/homeScreens/companyProfileScreen.dart';
 import 'package:concard/Views/screens/homeScreens/drawerMenuScreen.dart';
 import 'package:concard/Views/screens/homeScreens/editMyCardScreen.dart';
 import 'package:concard/Views/screens/homeScreens/individualPremium/individualPremiumScreen.dart';
 import 'package:concard/Views/screens/homeScreens/ratingReviewScreen.dart';
-import 'package:concard/Views/screens/homeScreens/socialLinksScreen.dart';
 import 'package:concard/Views/screens/homeScreens/upgradePremiumIndividual/updgratToPremiumIndividual.dart';
+import 'package:concard/Views/screens/web_pages/web_profile_page.dart';
+import 'package:concard/google_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:provider/provider.dart';
 import 'package:concard/Views/widgets/add_product_and_services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Constants/colors.dart';
 import '../../../Constants/images.dart';
-import '../../../Controllers/compnayControllers/product_and_services_controller.dart';
+import '../../../Controllers/OthersController/general_method.dart';
+import '../../../Controllers/OthersController/url_launcher_class.dart';
+import 'app_settings/appSettingsScreen.dart';
 import 'calenderScreen.dart';
-import '';
 import 'cardsScrens/cardsBottomBarScreen.dart';
 import 'notifications/notificationsScreen.dart';
-import 'package:concard/Views/screens/homeScreens/bottomNavBar.dart';
 
 class PersonalProfileViewScreen extends StatefulWidget {
   const PersonalProfileViewScreen({Key? key}) : super(key: key);
@@ -50,15 +50,21 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
     appPro!.getProductAndServices();
     setState(() {});
   }
+void _sendEmail() async {
+  const email = 'mailto:example@example.com';
+  if (await canLaunch(email)) {
+    await launch(email);
+  } else {
+    throw 'Could not launch $email';
+  }
+}
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: DrawerMenuScreen(),
+      
       // bottomNavigationBar: BottomNavigationScreen(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -117,14 +123,13 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                       children: [
                         //drawer opening icon
                         InkWell(
-                          onTap: () => _scaffoldKey.currentState!.openDrawer(),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                           child: Container(
                             // alignment: Alignment.topLeft,
                             margin: EdgeInsets.only(top: size.height * 0.06, left: 10),
-                            child: Image.asset(
-                              more_icon,
-                              height: 15,
-                            ),
+                            child:Icon(Icons.arrow_back_ios,color: bckgrnd,size: size.height*0.025,)
                           ),
                         ),
                         //Premium Container
@@ -197,7 +202,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                               children: [
                                 Text(
                                   // appPro!.individualProfileModel!.data!.user!.email ?? '',
-                                  appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.companyName.toString() ?? '',
+                                  appPro!.individualProfileModel!.individualProfileDetailData!.singleProfileUser!.email.toString() ?? '',
                                   style: TextStyle(fontFamily: 'Stf', fontSize: size.height * 0.017, color: bckgrnd),
                                 ),
                                 const SizedBox(
@@ -387,7 +392,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                                     ),
                                                     InkWell(
                                                       onTap: () {
-                                                        Navigator.pop(context);
+                                                        Navigator.push(context, MaterialPageRoute(builder: (_)=>AppSettingsScreen()));
                                                       },
                                                       child: Container(
                                                         height: size.height * 0.05,
@@ -473,6 +478,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 ],
               ),
             ),
+           
             Container(
               margin: EdgeInsets.only(top: size.height * 0.23),
               // height: size.height*0.8,
@@ -593,8 +599,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                         SizedBox(
                                           width: size.width * 0.03,
                                         ),
-                                        Image.asset(
-                                          edit_icon,
+                                        SvgPicture.asset(
+                                          edit_card_icon,
                                           color: cgreen,
                                         ),
                                       ],
@@ -617,6 +623,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                         ),
                       ),
                     ),
+                    
                     SizedBox(
                       height: size.height * 0.08,
                     ),
@@ -676,7 +683,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                             children: [
                               Text(
                                 'Rating & Reviews',
-                                style: TextStyle(fontSize: size.height * 0.018, color: Color.fromARGB(255, 148, 95, 95), fontFamily: 'Msemibold'),
+                                style: TextStyle(fontSize: size.height * 0.018,  fontFamily: 'Msemibold'),
                               ),
                               const Icon(
                                 Icons.arrow_drop_down,
@@ -1217,6 +1224,7 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                                 );
                               }
                             })),
+                  
                     SizedBox(
                       height: size.height * 0.04,
                     ),
@@ -1681,7 +1689,8 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 height: size.height * 0.04,
               ),
               PrettyQr(
-                image: AssetImage(concard_icon),
+
+                image: AssetImage(qr_logo),
                 typeNumber: 4,
                 size: size.height * 0.1,
                 data: 'https://www.google.ru',
@@ -1690,141 +1699,163 @@ class _PersonalProfileViewScreenState extends State<PersonalProfileViewScreen> {
                 elementColor: signupclor_dark,
               ),
               SizedBox(height: size.height * 0.06),
-              Row(
-                children: [
-                  SvgPicture.asset(internet_icon),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    'www.company.com',
-                    style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
-                        child: Text(
-                          'Visit',
-                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: size.height * 0.02),
-              Row(
-                children: [
-                  SvgPicture.asset(location_icon),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Office 23, Floor 23, building 2, St 7,',
-                        style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
-                      ),
-                      Text(
-                        'Al salama, Jeddah, Saudia Arabia ',
-                        style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10, left: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                maparrw_icon,
-                                height: size.height * 0.015,
-                              ),
-                              Text(
-                                'Locate',
-                                style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
-                              ),
-                            ],
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>WebProfileViewToSaveContact()));
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(internet_icon),
+                    SizedBox(
+                      width: size.width * 0.02,
+                    ),
+                    Text(
+                      'www.company.com',
+                      style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.035,
+                          width: size.width * 0.2,
+                          decoration:
+                              BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            'Visit',
+                            style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: size.height * 0.02),
-              Row(
-                children: [
-                  SvgPicture.asset(usermail_icon),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    'User.123@company.com',
-                    style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
-                        child: Text(
-                          'Contact',
-                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
+              InkWell(
+                onTap:(){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>MyMap()));
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(location_icon),
+                    SizedBox(
+                      width: size.width * 0.02,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Office 23, Floor 23, building 2, St 7,',
+                          style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          'Al salama, Jeddah, Saudia Arabia ',
+                          style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.011),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.035,
+                          width: size.width * 0.2,
+                          decoration:
+                              BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10, left: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Image.asset(
+                                  maparrw_icon,
+                                  height: size.height * 0.015,
+                                ),
+                                Text(
+                                  'Locate',
+                                  style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.013),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: size.height * 0.02),
-              Row(
-                children: [
-                  SvgPicture.asset(phonecall_icon),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    '+966 55 889 0098',
-                    style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.018),
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: size.height * 0.035,
-                        width: size.width * 0.2,
-                        decoration:
-                            BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
-                        child: Text(
-                          'Call',
-                          style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
+              InkWell(
+                onTap:()async{
+                        _sendEmail();
+
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(usermail_icon),
+                    SizedBox(
+                      width: size.width * 0.02,
+                    ),
+                    Text(
+                      'User.123@company.com',
+                      style: TextStyle(fontFamily: "Msemibold", fontSize: size.height * 0.013),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.035,
+                          width: size.width * 0.2,
+                          decoration:
+                              BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            'Contact',
+                            style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: size.height * 0.02),
+              InkWell(
+                onTap:()async{
+                    await URLLauncherClass()
+                                    .launchUrlMethod("+92123456789", 'tel');
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(phonecall_icon),
+                    SizedBox(
+                      width: size.width * 0.02,
+                    ),
+                    Text(
+                      '+966 55 889 0098',
+                      style: TextStyle(fontFamily: "Stf", fontSize: size.height * 0.018),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.035,
+                          width: size.width * 0.2,
+                          decoration:
+                              BoxDecoration(border: Border.all(color: signupclor_dark), color: bckgrnd, borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            'Call',
+                            style: TextStyle(fontFamily: "Msemibold", color: signupclor_dark, fontSize: size.height * 0.018),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

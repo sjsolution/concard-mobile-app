@@ -2,5 +2,18 @@
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.5.4"
+  },
+  "android": {
+    "package": "com.YOUR_PROJECT_NAME",
+    "versionCode": 1.0,
+    "permissions": [
+      "ACCESS_COARSE_LOCATION",
+      "CAMERA"
+    ],
+    "config": {
+      "googleMaps": {
+        "apiKey": "IzaSyBMbdOjx7PkC6TP1RfDwWkGLLAna90Jk_k"
+      }
+    }
   }
 }

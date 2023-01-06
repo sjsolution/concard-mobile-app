@@ -44,7 +44,7 @@ getListNotifications()async{
         return Scaffold(
           body: Stack(
             children: [
-              appPro.individualProfileModel!=null? Container(
+               Container(
                 height: size.height * 0.15,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topCenter, colors: [signupclor_light, signupclor_dark]),
@@ -95,7 +95,7 @@ getListNotifications()async{
                     ],
                   ),
                 ),
-              ):loaderWidget(context, size),
+              ),
               Container(
                 margin: EdgeInsets.only(top: size.height * 0.13),
                 // height: size.height*0.95,
